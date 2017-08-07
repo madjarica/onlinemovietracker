@@ -13,174 +13,174 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tvshows")
 public class TvShow extends BaseEntity {
 
-	@Column(unique = true, nullable = false)
-	@NotNull
-	private String title;
-	
-	@Column
-	private String originalTitle;
-	
-	@Column
-	@DateTimeFormat
-	private Date pilotDate;
-	
-	@Column
-	@DateTimeFormat
-	private Date finaleDate;
-	
-	@Column
-	private String originalLanguage;
-	
-	@Column
-	private String homepage;
-	
-	@Column
-	private String facebookPage;
-	
-	@Column
-	private String twitterPage;
-	
-	@Column
-	private String instagramPage;
-	
-	@Column
-	private String imdbPage;
-	
-	@Column
-	private String trailerLink;
-	
-	@Column
-	private String posterLink;
-	
-	@Column(columnDefinition = "TEXT")
-	private String overwiev;
+    @Column(unique = true, nullable = false)
+    @NotNull
+    private String title;
 
-	@Column
-	@DateTimeFormat
-	private Date createdDate;
-	
-	@Column
-	@DateTimeFormat
-	private Date updatedDate;
+    @Column
+    private String originalTitle;
 
-	public String getTitle() {
-		return title;
-	}
+    @Column
+    @DateTimeFormat
+    private Date pilotDate;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    @Column
+    @DateTimeFormat
+    private Date finaleDate;
 
-	public String getOriginalTitle() {
-		return originalTitle;
-	}
+    @Column
+    private String originalLanguage;
 
-	public void setOriginalTitle(String originalTitle) {
-		this.originalTitle = originalTitle;
-	}
+    @Column
+    private String homepage;
 
-	public Date getPilotDate() {
-		return pilotDate;
-	}
+    @Column
+    private String facebookPage;
 
-	public void setPilotDate(Date pilotDate) {
-		this.pilotDate = pilotDate;
-	}
+    @Column
+    private String twitterPage;
 
-	public Date getFinaleDate() {
-		return finaleDate;
-	}
+    @Column
+    private String instagramPage;
 
-	public void setFinaleDate(Date finaleDate) {
-		this.finaleDate = finaleDate;
-	}
+    @Column
+    private String imdbPage;
 
-	public String getOriginalLanguage() {
-		return originalLanguage;
-	}
+    @Column
+    private String trailerLink;
 
-	public void setOriginalLanguage(String originalLanguage) {
-		this.originalLanguage = originalLanguage;
-	}
+    @Column
+    private String posterLink;
 
-	public String getHomepage() {
-		return homepage;
-	}
+    @Column(columnDefinition = "TEXT")
+    private String overview;
 
-	public void setHomepage(String homepage) {
-		this.homepage = homepage;
-	}
+    @Column
+    @DateTimeFormat
+    private Date createdDate;
 
-	public String getFacebookPage() {
-		return facebookPage;
-	}
+    @Column
+    @DateTimeFormat
+    private Date updatedDate;
 
-	public void setFacebookPage(String facebookPage) {
-		this.facebookPage = facebookPage;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getTwitterPage() {
-		return twitterPage;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setTwitterPage(String twitterPage) {
-		this.twitterPage = twitterPage;
-	}
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
 
-	public String getInstagramPage() {
-		return instagramPage;
-	}
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
 
-	public void setInstagramPage(String instagramPage) {
-		this.instagramPage = instagramPage;
-	}
+    public Date getPilotDate() {
+        return pilotDate;
+    }
 
-	public String getImdbPage() {
-		return imdbPage;
-	}
+    public void setPilotDate(Date pilotDate) {
+        this.pilotDate = pilotDate;
+    }
 
-	public void setImdbPage(String imdbPage) {
-		this.imdbPage = imdbPage;
-	}
+    public Date getFinaleDate() {
+        return finaleDate;
+    }
 
-	public String getTrailerLink() {
-		return trailerLink;
-	}
+    public void setFinaleDate(Date finaleDate) {
+        this.finaleDate = finaleDate;
+    }
 
-	public void setTrailerLink(String trailerLink) {
-		this.trailerLink = trailerLink;
-	}
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
 
-	public String getPosterLink() {
-		return posterLink;
-	}
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
 
-	public void setPosterLink(String posterLink) {
-		this.posterLink = posterLink;
-	}
+    public String getHomepage() {
+        return homepage;
+    }
 
-	public String getOverwiev() {
-		return overwiev;
-	}
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
 
-	public void setOverwiev(String overwiev) {
-		this.overwiev = overwiev;
-	}
+    public String getFacebookPage() {
+        return facebookPage;
+    }
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    public void setFacebookPage(String facebookPage) {
+        this.facebookPage = facebookPage;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public String getTwitterPage() {
+        return twitterPage;
+    }
 
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
+    public void setTwitterPage(String twitterPage) {
+        this.twitterPage = twitterPage;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public String getInstagramPage() {
+        return instagramPage;
+    }
+
+    public void setInstagramPage(String instagramPage) {
+        this.instagramPage = instagramPage;
+    }
+
+    public String getImdbPage() {
+        return imdbPage;
+    }
+
+    public void setImdbPage(String imdbPage) {
+        this.imdbPage = imdbPage;
+    }
+
+    public String getTrailerLink() {
+        return trailerLink;
+    }
+
+    public void setTrailerLink(String trailerLink) {
+        this.trailerLink = trailerLink;
+    }
+
+    public String getPosterLink() {
+        return posterLink;
+    }
+
+    public void setPosterLink(String posterLink) {
+        this.posterLink = posterLink;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverviewString(String overview) {
+        this.overview = overview;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
 }
