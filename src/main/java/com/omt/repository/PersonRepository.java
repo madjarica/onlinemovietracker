@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.omt.domain.TvShow;
+import com.omt.domain.Person;
 
 @Repository
-public interface TvShowRepository extends JpaRepository<TvShow, Long> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
 
-	public List<TvShow> findAll();
+	public List<Person> findAll();
 
-	public TvShow save(TvShow tvShow);
+	public Person save(Person person);
 
-	public TvShow findOne(Long id);
+	public Person findOne(Long id);
 
 	public void delete(Long id);
 

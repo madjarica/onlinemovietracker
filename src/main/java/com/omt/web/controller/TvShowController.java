@@ -1,4 +1,4 @@
-package com.omt.controller;
+package com.omt.web.controller;
 
 import java.util.List;
 
