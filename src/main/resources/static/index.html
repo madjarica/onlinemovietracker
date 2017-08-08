@@ -8,10 +8,10 @@
     <title>Online Movie Tracker</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/MDBootstrap/css/mdb.css">
-    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css">
-    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <!--<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css">-->
+    <!--<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css">-->
     <link rel="stylesheet" href="css/main.css">
 
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -29,25 +29,19 @@
 
     <!-- Home page -->
     <div>
-        <header>
-
-        </header>
-
-        <div class="">
-            <div id="view" ng-view></div>
-        </div>
+        <div ng-include="'includes/_top-navigation.html'"></div>
+        <div id="view" ng-view></div>
     </div>
     <!-- Footer -->
-    <div class="footer navbar-fixed-bottom">
+    <div ng-include="'includes/_footer.html'">
 
     </div>
 </div>
 
 <!-- Dependencies -->
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="bower_components/MDBootstrap/js/tether.min.js"></script>
-<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="bower_components/MDBootstrap/js/mdb.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
 <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
 <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>

@@ -11,6 +11,11 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
+            .when('/movie-details', {
+                templateUrl: '/views/movie-details.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
             .otherwise('/');
     }
 })();
