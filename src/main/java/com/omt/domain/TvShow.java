@@ -18,7 +18,7 @@ public class TvShow extends BaseEntity {
     private String title;
 
     @Column
-    private String originalTitle;
+    private String original_name;
 
     @Column
     @DateTimeFormat
@@ -71,12 +71,12 @@ public class TvShow extends BaseEntity {
         this.title = title;
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
+    public String getOriginal_name() {
+        return original_name;
     }
 
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
+    public void setOriginal_name(String original_name) {
+        this.original_name = original_name;
     }
 
     public Date getPilotDate() {

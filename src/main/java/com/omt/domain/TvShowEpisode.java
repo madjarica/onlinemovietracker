@@ -29,7 +29,7 @@ public class TvShowEpisode extends BaseEntity {
 	private int episode;
 	
 	@Column(columnDefinition = "TEXT")
-	private String overwiev;
+	private String overview;
 	
 	@Column
 	@DateTimeFormat
@@ -67,12 +67,12 @@ public class TvShowEpisode extends BaseEntity {
 		this.episode = episode;
 	}
 
-	public String getOverwiev() {
-		return overwiev;
+	public String getOverview() {
+		return overview;
 	}
 
-	public void setOverwiev(String overwiev) {
-		this.overwiev = overwiev;
+	public void setOverview(String overview) {
+		this.overview = overview;
 	}
 
 	public Date getReleasedDate() {
