@@ -13,6 +13,9 @@ import java.util.Date;
 @Inheritance
 public class Video extends BaseEntity {
 
+    @Column(insertable = false, updatable = false)
+    private String dtype;
+
     @Column(nullable = false)
     @NotNull
     @JsonProperty("name")
@@ -68,6 +71,14 @@ public class Video extends BaseEntity {
     @Column
     @DateTimeFormat
     private Date updatedDate;
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
+    }
 
     public String getTitle() {
         return title;
