@@ -29,12 +29,17 @@ public class UserNotification extends BaseEntity{
     private List<Comment> comments;
     private Watchlist watchlist;
     */
+    public UserNotification(String type, Date createdDate, boolean read) {
+		this.type = type;
+		this.createdDate = createdDate;
+		this.read = read;
+	}
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
+	public void setType(String type) {
         this.type = type;
     }
 

@@ -63,7 +63,28 @@ public class TvShow extends BaseEntity {
     @DateTimeFormat
     private Date updatedDate;
 
-    public String getTitle() {
+    public TvShow(String title, String original_name, Date pilotDate, Date finaleDate, String originalLanguage,
+			String homepage, String facebookPage, String twitterPage, String instagramPage, String imdbPage,
+			String trailerLink, String posterLink, String overview, Date createdDate, Date updatedDate) {
+
+		this.title = title;
+		this.original_name = original_name;
+		this.pilotDate = pilotDate;
+		this.finaleDate = finaleDate;
+		this.originalLanguage = originalLanguage;
+		this.homepage = homepage;
+		this.facebookPage = facebookPage;
+		this.twitterPage = twitterPage;
+		this.instagramPage = instagramPage;
+		this.imdbPage = imdbPage;
+		this.trailerLink = trailerLink;
+		this.posterLink = posterLink;
+		this.overview = overview;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+	}
+
+	public String getTitle() {
         return title;
     }
 

@@ -13,7 +13,12 @@ public class Keyword extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    public String getName() {
+    public Keyword(String name) {
+
+		this.name = name;
+	}
+
+	public String getName() {
         return name;
     }
 

@@ -34,11 +34,20 @@ public class AdminMessage extends BaseEntity{
     private Watchlist watchlist;
     */
 
+    public AdminMessage(String type, Date createdDate, String message, boolean read) {
+
+		this.type = type;
+		this.createdDate = createdDate;
+		this.message = message;
+		this.read = read;
+	}
+
+    
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
+	public void setType(String type) {
         this.type = type;
     }
 
