@@ -7,16 +7,11 @@
     function MainController($rootScope, $location, $http, $route, $windowe) {
 
         var self = this;
-        self.isActive = isActive;
 
         init();
 
         function init() {
 
-        }
-
-        function isActive(viewLocation) {
-            return viewLocation === $location.path();
         }
     }
 
