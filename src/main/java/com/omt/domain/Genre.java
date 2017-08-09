@@ -13,7 +13,12 @@ public class Genre extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String name;
 
-    public String getName() {
+    public Genre(String name) {
+
+		this.name = name;
+	}
+
+	public String getName() {
         return name;
     }
 
