@@ -1,5 +1,10 @@
 package com.omt.domain;
 
-public class Comment {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "comments")
+public class Comment extends BaseEntity{
 
 }

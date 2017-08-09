@@ -14,103 +14,105 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "tv_show_episodes")
 public class TvShowEpisode extends BaseEntity {
-	
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "tv_show_id", nullable = false)
-	private TvShow tvShow;
-	
-	@Column(nullable = false)
-	@NotNull
-	private int season;
-	
-	@Column(nullable = false)
-	@NotNull
-	private int episode;
-	
-	@Column(columnDefinition = "TEXT")
-	private String overview;
-	
-	@Column
-	@DateTimeFormat
-	private Date releasedDate;
-	
-	@Column
-	@DateTimeFormat
-	private Date createdDate;
-	
-	@Column
-	@DateTimeFormat
-	private Date updatedDate;
 
-	public TvShowEpisode(TvShow tvShow, int season, int episode, String overview, Date releasedDate, Date createdDate,
-			Date updatedDate) {
+    public TvShowEpisode() {
+    }
 
-		this.tvShow = tvShow;
-		this.season = season;
-		this.episode = episode;
-		this.overview = overview;
-		this.releasedDate = releasedDate;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-	}
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "tv_show_id", nullable = false)
+    private TvShow tvShow;
 
-	public TvShow getTvShow() {
-		return tvShow;
-	}
+    @Column(nullable = false)
+    @NotNull
+    private int season;
 
-	public void setTvShow(TvShow tvShow) {
-		this.tvShow = tvShow;
-	}
+    @Column(nullable = false)
+    @NotNull
+    private int episode;
 
-	public int getSeason() {
-		return season;
-	}
+    @Column(columnDefinition = "TEXT")
+    private String overview;
 
-	public void setSeason(int season) {
-		this.season = season;
-	}
+    @Column
+    @DateTimeFormat
+    private Date releasedDate;
 
-	public int getEpisode() {
-		return episode;
-	}
+    @Column
+    @DateTimeFormat
+    private Date createdDate;
 
-	public void setEpisode(int episode) {
-		this.episode = episode;
-	}
+    @Column
+    @DateTimeFormat
+    private Date updatedDate;
 
-	public String getOverview() {
-		return overview;
-	}
+    public TvShowEpisode(TvShow tvShow, int season, int episode, String overview, Date releasedDate, Date createdDate,
+                         Date updatedDate) {
 
-	public void setOverview(String overview) {
-		this.overview = overview;
-	}
+        this.tvShow = tvShow;
+        this.season = season;
+        this.episode = episode;
+        this.overview = overview;
+        this.releasedDate = releasedDate;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+    }
 
-	public Date getReleasedDate() {
-		return releasedDate;
-	}
+    public TvShow getTvShow() {
+        return tvShow;
+    }
 
-	public void setReleasedDate(Date releasedDate) {
-		this.releasedDate = releasedDate;
-	}
+    public void setTvShow(TvShow tvShow) {
+        this.tvShow = tvShow;
+    }
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    public int getSeason() {
+        return season;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setSeason(int season) {
+        this.season = season;
+    }
 
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
+    public int getEpisode() {
+        return episode;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-	
-	
+    public void setEpisode(int episode) {
+        this.episode = episode;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public Date getReleasedDate() {
+        return releasedDate;
+    }
+
+    public void setReleasedDate(Date releasedDate) {
+        this.releasedDate = releasedDate;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
 
 }
