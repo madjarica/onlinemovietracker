@@ -2,7 +2,11 @@ package com.omt.web.controller;
 
 import java.util.List;
 
+import com.omt.domain.Person;
 import com.omt.domain.QueryResultsTv;
+import com.omt.domain.TvShowEpisode;
+import com.omt.service.PersonService;
+import com.omt.service.TvShowEpisodeService;
 import com.omt.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,13 +25,17 @@ public class TvShowController {
 
     TvShowService tvShowService;
     VideoService videoService;
+    PersonService personService;
+    TvShowEpisodeService tvShowEpisodeService;
     RestTemplate restTemplate = new RestTemplate();
 
 
     @Autowired
-    public TvShowController(TvShowService tvShowService, VideoService videoService) {
+    public TvShowController(TvShowService tvShowService, VideoService videoService, PersonService personService, TvShowEpisodeService tvShowEpisodeService) {
         this.tvShowService = tvShowService;
         this.videoService = videoService;
+        this.personService = personService;
+        this.tvShowEpisodeService = tvShowEpisodeService;
     }
 
 
@@ -58,6 +66,17 @@ public class TvShowController {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
+        TvShow tvShow = tvShowService.findOne(id);
+        List<Person> personList = tvShow.getPersonList();
+        List<TvShowEpisode> tvShowEpisodes = tvShow.getTvShowEpisodes();
+        for(int i = 0; i < personList.size(); i++){
+            personService.delete(personList.get(i).getId());
+            System.out.println("brisem" + personList.get(i).getId());
+        }
+        for(int i = 0; i < tvShowEpisodes.size(); i++){
+            tvShowEpisodeService.delete(tvShowEpisodes.get(i).getId());
+            System.out.println("brisem" + personList.get(i).getId());
+        }
         tvShowService.delete(id);
     }
 
@@ -66,12 +85,6 @@ public class TvShowController {
 
         QueryResultsTv queryResultsTv = restTemplate.getForObject("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
                 QueryResultsTv.class, "550e1867817e4bf3266023c5274d8858", query);
-
-/*        ResponseEntity<List<TvShow>> tvShowsResponse = restTemplate.exchange("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<TvShow>>() {
-                }, "550e1867817e4bf3266023c5274d8858", query);*/
-
-/*        List<TvShow> tvShows = tvShowsResponse.getBody();*/
 
         String tvShowsString = restTemplate.getForObject("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
                 String.class, "550e1867817e4bf3266023c5274d8858", query);

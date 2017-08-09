@@ -66,6 +66,7 @@ public class Video extends BaseEntity{
     public String getTitle() {
         return title;
     }
+
     @JsonProperty("title")
     public void setTitle(String title) {
         this.title = title;
@@ -75,6 +76,7 @@ public class Video extends BaseEntity{
     public String getName() {
         return title;
     }
+
     @JsonProperty("name")
     public void setName(String title) {
         this.title = title;

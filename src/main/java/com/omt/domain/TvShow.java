@@ -19,12 +19,10 @@ public class TvShow extends Video {
     public TvShow() {
     }
 
-    @NotNull
     @OneToMany
     @JoinColumn(name = "tv_show_id", nullable = false)
     private List<TvShowEpisode> tvShowEpisodes;
 
-    @NotNull
     @ManyToMany
     @JoinTable(name="tv_show_person", joinColumns=@JoinColumn(name="tv_show_id"),
                inverseJoinColumns=@JoinColumn(name="person_id"))

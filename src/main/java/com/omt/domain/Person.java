@@ -12,110 +12,110 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "persons")
 public class Person extends BaseEntity {
 
-	public Person() {
-	}
+    public Person() {
+    }
 
-	@Column
-	private String role;
+    @Column
+    private String role;
 
-	@Column
-	private String name;
+    @Column
+    private String name;
 
-	@Column(columnDefinition = "TEXT")
-	private String biography;
+    @Column(columnDefinition = "TEXT")
+    private String biography;
 
-	@Column
-	private String picture;
+    @Column
+    private String picture;
 
-	@Column
-	@DateTimeFormat
-	private Date birthday;
+    @Column
+    @DateTimeFormat
+    private Date birthday;
 
-	@Column
-	private String placeOfBirth;
+    @Column
+    private String placeOfBirth;
 
-	@Column
-	@DateTimeFormat
-	private Date createdDate;
+    @Column
+    @DateTimeFormat
+    private Date createdDate;
 
-	@Column
-	@DateTimeFormat
-	private Date updatedDate;	
+    @Column
+    @DateTimeFormat
+    private Date updatedDate;
 
-	public Person(String role, String name, String biography, String picture, Date birthday, String placeOfBirth,
-			Date createdDate, Date updatedDate) {
+    public Person(String role, String name, String biography, String picture, Date birthday, String placeOfBirth,
+                  Date createdDate, Date updatedDate) {
 
-		this.role = role;
-		this.name = name;
-		this.biography = biography;
-		this.picture = picture;
-		this.birthday = birthday;
-		this.placeOfBirth = placeOfBirth;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-	}
+        this.role = role;
+        this.name = name;
+        this.biography = biography;
+        this.picture = picture;
+        this.birthday = birthday;
+        this.placeOfBirth = placeOfBirth;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getBiography() {
-		return biography;
-	}
+    public String getBiography() {
+        return biography;
+    }
 
-	public void setBiography(String biography) {
-		this.biography = biography;
-	}
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
 
-	public String getPicture() {
-		return picture;
-	}
+    public String getPicture() {
+        return picture;
+    }
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
-	public Date getBirthday() {
-		return birthday;
-	}
+    public Date getBirthday() {
+        return birthday;
+    }
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-	public String getPlaceOfBirth() {
-		return placeOfBirth;
-	}
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
 
-	public void setPlaceOfBirth(String placeOfBirth) {
-		this.placeOfBirth = placeOfBirth;
-	}
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 }

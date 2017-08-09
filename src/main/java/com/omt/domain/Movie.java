@@ -3,9 +3,7 @@ package com.omt.domain;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,6 +23,11 @@ public class Movie extends Video {
     @JsonProperty("release_date")
     private Date dateOfRelease;
 
+    @ManyToMany
+    @JoinTable(name="movie_person", joinColumns=@JoinColumn(name="movie_id"),
+            inverseJoinColumns=@JoinColumn(name="person_id"))
+    private List<Person> personList;
+
     @Column
     private boolean released;
 
@@ -42,5 +45,13 @@ public class Movie extends Video {
 
     public void setReleased(boolean released) {
         this.released = released;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
     }
 }
