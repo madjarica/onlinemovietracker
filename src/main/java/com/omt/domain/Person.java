@@ -12,6 +12,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "persons")
 public class Person extends BaseEntity {
 
+	public Person() {
+	}
+
 	@Column
 	private String role;
 
