@@ -2,6 +2,9 @@
 .margin-bottom-50 {
     margin-bottom: 50px;
 }
+.margin-bottom-100 {
+    margin-bottom: 100px;
+}
 
 i.glyphicon.ng-scope.glyphicon-star-empty, i.glyphicon.ng-scope.glyphicon-star {
     font-size: 22px;
