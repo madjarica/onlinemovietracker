@@ -422,3 +422,104 @@ img.ng-scope {
 .post .post-footer .comments-list .comment > .comments-list {
     margin-left: 50px;
 }
+
+/* Add Movie */
+
+.search-result {
+    margin: 10px 5px;
+}
+
+.search-result:first-child {
+    margin-top: 15px;
+}
+
+.search-add-movie-result {
+    cursor: pointer;
+    padding: 0 20px;
+    margin-right: 5px;
+}
+
+.search-add-movie-result:hover {
+    background-color: rgba(0,0,0, 0.2);
+}
+
+/* Add movie result poster image */
+.result-poster {
+    margin: 5px 5px 5px 2px;
+    width: 100%;
+}
+
+/* Genres */
+.form-control.ng-pristine.ng-untouched.ng-valid.ng-isolate-scope.ng-empty.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text,
+.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-empty.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-touched,
+.form-control.ng-valid.ng-isolate-scope.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-touched.ng-dirty.ng-not-empty,
+.form-control.ng-untouched.ng-valid.ng-isolate-scope.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-dirty.ng-not-empty,
+.form-control.ng-pristine.ng-untouched.ng-valid.ng-isolate-scope.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-not-empty,
+.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-not-empty.ng-touched {
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.form-control.ng-pristine.ng-untouched.ng-valid.ng-isolate-scope.ng-empty.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text::placeholder,
+.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-empty.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-touched::placeholder {
+
+}
+
+.input.ng-pristine.ng-valid.ng-empty.ng-touched,
+.input.ng-pristine.ng-valid.ng-empty {
+    padding: 0;
+    margin: 0;
+}
+
+input.ng-valid.ng-dirty.ng-empty.ng-touched,
+input.ng-valid.ng-dirty.ng-empty.ng-not-touched {
+    padding-left: 0;
+}
+
+input.ng-pristine.ng-untouched.ng-valid.ng-empty {
+    padding-bottom: 3px;
+}
+
+tags-input .tags .input::placeholder {
+    color: #9e9e9e;
+    height: 3rem;
+    font-size: 1rem;
+    line-height: 1.42857143;
+}
+
+span.small {
+    color: #9e9e9e;
+}
+
+tags-input .tags .tag-item {
+    color: #fff;
+    background-color: #2BBBAD;
+    border: 1px solid #2BBBAD;
+    border-radius: 0;
+    margin: 0 2px;
+    padding-top: 2px;
+    line-height: 20px;
+}
+
+tags-input .tags .tag-item.focused {
+    padding-top: 3px;
+}
+
+tags-input .tags .tag-item .remove-button {
+    color: #fff;
+}
+
+tags-input .tags {
+    border: none;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+tags-input .tags.focused {
+    border: none;
+    overflow: hidden;
+    box-shadow: none;
+}

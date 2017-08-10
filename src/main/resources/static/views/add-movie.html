@@ -1,64 +1,66 @@
-<section>
+<section ng-controller="MovieController as movieCtrl">
     <div class="container">
         <div class="row">
-            <h2 class="text-center">Add a movie</h2>
+            <h2 class="text-center">Add a Movie</h2>
             <hr>
             <form>
                 <div class="row">
                     <div class="col-xs-12 col-sm-8">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter Movie Title">
+                            <input ng-model="movieCtrl.movieObject.title" type="text" class="form-control" placeholder="Enter Movie Title">
                             <span class="input-group-btn">
-                            <button class="btn btn-default btn-sm waves-effect waves-light" type="button" style="margin-left: 5px; margin-right: 0;"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </span>
+                                <button ng-click="movieCtrl.getMovieByTitle(movieCtrl.movieObject.title)" data-toggle="modal" data-target="#get-movies-list-modal" class="btn btn-default btn-sm waves-effect waves-light" type="button" style="margin-left: 5px; margin-right: 0;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Original Title">
+                            <input type="text" ng-model="movieCtrl.movieObject.original_title" class="form-control" placeholder="Enter Original Title">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Genres">
+                            <tags-input class="form-control" ng-model="movieCtrl.movieObject.genres" display-property="name" min-length="0" placeholder="Add Genre"></tags-input>
+                            <span class="small">Add genres on enter key</span>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Release Date">
+                            <input type="text" ng-model="movieCtrl.movieObject.release_date" class="form-control" placeholder="Enter Release Date">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Language">
+                            <input type="text" ng-model="movieCtrl.movieObject.original_language" class="form-control" placeholder="Enter Language">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Runtime">
+                            <input type="text" ng-model="movieCtrl.movieObject.runtime" class="form-control" placeholder="Enter Runtime">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Homepage">
+                            <input type="text" ng-model="movieCtrl.movieObject.homepage" class="form-control" placeholder="Enter Homepage">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter IMDB Link">
+                            <input type="text" ng-model="movieCtrl.movieObject.imdb_id" class="form-control" placeholder="Enter IMDB Link">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter YouTube Trailer Link">
+                            <input type="text" ng-model="movieCtrl.movieObject.youtube" class="form-control" placeholder="Enter YouTube Trailer Link">
                         </div>
 
                         <div class="form-group">
-                            <textarea rows="11" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;"></textarea>
+                            <textarea rows="11" ng-model="movieCtrl.movieObject.overview" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;"></textarea>
                         </div>
 
                     </div>
+
                     <div class="col-xs-12 col-sm-4">
-                        <img class="poster-image" src="https://image.tmdb.org/t/p/w640/cUqEgoP6kj8ykfNjJx3Tl5zHCcN.jpg" alt="">
+                        <img class="poster-image" src="{{ movieCtrl.movieObject.poster }}" alt="">
                         <div class="form-group">
-                            <label for="">Add Poster</label>
+                            <label>Add Poster</label>
                             <input type="file">
                         </div>
-                        <img class="poster-image" src="https://image.tmdb.org/t/p/w1400_and_h450_bestv2/fudEG1VUWuOqleXv6NwCExK0VLy.jpg" alt="">
+                        <img class="poster-image" src="{{ movieCtrl.movieObject.backdrop }}" alt="">
                         <div class="form-group">
-                            <label for="">Add Backdrop</label>
+                            <label>Add Backdrop</label>
                             <input type="file">
                         </div>
                     </div>
@@ -71,4 +73,40 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="get-movies-list-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="model-header" style="padding: 5px 5px 10px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Search results</h4>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-12 search-result no-padding" ng-repeat="movie in movieCtrl.movieList">
+                        <div class="row search-add-movie-result" style="cursor: pointer; padding: 0 20px;" ng-click="movieCtrl.fillMovieData(movie.id)" data-dismiss="modal">
+                            <div class="col-xs-2" style="padding-left: 0;">
+                                <img class="img-responsive result-poster" src="https://image.tmdb.org/t/p/w154{{ movie.poster_path }}" alt="">
+                            </div>
+                            <div class="col-xs-10">
+                                <div class="row" style="margin-top: 5px; margin-bottom: 10px;">
+                                    <span class="pull-left"><b>{{ movie.title }}</b></span><span class="pull-right">Release Date: {{ movie.release_date }}</span>
+                                </div>
+                                <div class="row" style="text-align: justify;">
+                                    {{ movie.overview }}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
