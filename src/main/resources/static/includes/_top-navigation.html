@@ -15,8 +15,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ 'active': MainController.isActive('/') }"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
-                    <li ng-class="{ 'active': MainController.isActive('/movie-details') }"><a href="#/movie-details">Movie Details</a></li>
+                    <li ng-class="{ 'active': vm.isActive('/') }"><a href="#/">Home</a></li>
+                    <li ng-class="{ 'active': vm.isActive('/movie-details') }"><a href="#/movie-details">Movie Details</a></li>
+                    <li ng-class="{ 'active': vm.isActive('/tv-show-details') }"><a href="#/tv-show-details">Tv Show Details</a></li>
+                    <li ng-class="{ 'active': vm.isActive('/search') }"><a href="#/search">Search</a></li>
+                    <li ng-class="{ 'active': vm.isActive('/add-movie') }"><a href="#/add-movie">Add Movie</a></li>
+                    <li ng-class="{ 'active': vm.isActive('/add-tv-show') }"><a href="#/add-tv-show">Add TV Show</a></li>
                     <!--<li class="dropdown">-->
                     <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
                     <!--<ul class="dropdown-menu">-->
@@ -37,16 +41,15 @@
                     <li class="nav-item">
                         <a class="nav-link waves-effect waves-light">1 <i class="fa fa-envelope"></i></a>
                     </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#auth-modal">Register/Login</button>
+                    </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding-top: 12px; padding-bottom: 0;"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="img-responsive img-circle"></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self" style="padding-top: 12px; padding-bottom: 0;"><img src="https://www.gravatar.com/avatar/dce6b4d774900927f2356091ab5478fb" class="img-responsive img-circle"></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#" target="_self">Change Password</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
+                            <li><a href="#" target="_self">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -55,3 +58,59 @@
     </nav>
     <!--/.Navbar-->
 </header>
+
+<!-- Modal -->
+<div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#login" target="_self">Login</a></li>
+                    <li><a data-toggle="tab" href="#registration" target="_self">Registration</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="login" class="tab-pane fade in active">
+                        <br>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                            </div>
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <button class="btn btn-primary waves-effect waves-light btn-block">Login</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <div id="registration" class="tab-pane fade">
+                        <br>
+                        <form>
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="username" class="form-control" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+                            </div>
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <button class="btn btn-primary waves-effect waves-light btn-block">Register</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
