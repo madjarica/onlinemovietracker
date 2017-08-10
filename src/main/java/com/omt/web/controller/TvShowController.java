@@ -66,28 +66,9 @@ public class TvShowController {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        deletePersons(id);
+//        deletePersons(id);
         deleteEpisodes(id);
         tvShowService.delete(id);
-    }
-
-    @RequestMapping(path = "search/{query}", method = RequestMethod.GET)
-    public List<TvShow> searchOnline(@PathVariable("query") String query) {
-
-        QueryResultsTv queryResultsTv = restTemplate.getForObject("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
-                QueryResultsTv.class, "550e1867817e4bf3266023c5274d8858", query);
-
-        String tvShowsString = restTemplate.getForObject("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
-                String.class, "550e1867817e4bf3266023c5274d8858", query);
-        System.out.println(tvShowsString);
-        List<TvShow> tvShows = queryResultsTv.getTvShows();
-        return tvShows;
-    }
-
-    public void deletePersons(Long id){
-        TvShow tvShow = tvShowService.findOne(id);
-        tvShow.getPersonList().clear();
-        tvShowService.save(tvShow);
     }
 
     public void deleteEpisodes(Long id){
@@ -101,5 +82,24 @@ public class TvShowController {
         }
         tvShow.getTvShowEpisodes().clear();
         tvShowService.save(tvShow);
+    }
+
+    public void deletePersons(Long id){
+        TvShow tvShow = tvShowService.findOne(id);
+//        tvShow.getPersonList().clear();
+        tvShowService.save(tvShow);
+    }
+
+    @RequestMapping(path = "search/{query}", method = RequestMethod.GET)
+    public List<TvShow> searchOnline(@PathVariable("query") String query) {
+
+        QueryResultsTv queryResultsTv = restTemplate.getForObject("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
+                QueryResultsTv.class, "550e1867817e4bf3266023c5274d8858", query);
+
+        String tvShowsString = restTemplate.getForObject("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
+                String.class, "550e1867817e4bf3266023c5274d8858", query);
+        System.out.println(tvShowsString);
+        List<TvShow> tvShows = queryResultsTv.getTvShows();
+        return tvShows;
     }
 }

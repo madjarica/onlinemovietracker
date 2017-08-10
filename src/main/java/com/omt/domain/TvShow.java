@@ -28,10 +28,13 @@ public class TvShow extends Video {
     @JoinColumn(name = "tv_show_id", nullable = false)
     private List<TvShowEpisode> tvShowEpisodes;
 
-    @ManyToMany
-    @JoinTable(name="tv_show_person", joinColumns=@JoinColumn(name="tv_show_id"),
-               inverseJoinColumns=@JoinColumn(name="person_id"))
-    private List<Person> personList;
+//    @ManyToMany
+//    @JoinTable(name="tv_show_person", joinColumns=@JoinColumn(name="tv_show_id"),
+//               inverseJoinColumns=@JoinColumn(name="person_id"))
+//    private List<Person> personList;
+
+//    @OneToMany
+//    private List<Character> characterList;
 
     @Column
     @DateTimeFormat
@@ -43,13 +46,17 @@ public class TvShow extends Video {
     @JsonProperty("last_air_date")
     private Date finalAirDate;
 
-    public List<Person> getPersonList() {
-        return personList;
-    }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
-    }
+
+//    public List<Person> getPersonList() {
+//        return personList;
+//    }
+//
+//    public void setPersonList(List<Person> personList) {
+//        this.personList = personList;
+//    }
+
+
 
     public List<TvShowEpisode> getTvShowEpisodes() {
         return tvShowEpisodes;

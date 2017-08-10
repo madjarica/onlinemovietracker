@@ -54,28 +54,28 @@ public class PersonController {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        deleteTvShowReference(id);
-        deleteMovieReference(id);
+//        deleteTvShowReference(id);
+//        deleteMovieReference(id);
         personService.delete(id);
     }
 
-    public void deleteTvShowReference(Long id) {
-        List<TvShow> tvShows = tvShowService.findWithThisPerson(id);
-        if (!tvShows.isEmpty()) {
-            for (int i = 0; i < tvShows.size(); i++) {
-                tvShows.get(i).getPersonList().remove(personService.findOne(id));
-            }
-        }
-    }
-
-    public void deleteMovieReference(Long id) {
-        List<Movie> movies = movieService.findWithThisPerson(id);
-        if (!movies.isEmpty()) {
-            for (int i = 0; i < movies.size(); i++) {
-                movies.get(i).getPersonList().remove(personService.findOne(id));
-            }
-        }
-    }
+//    public void deleteTvShowReference(Long id) {
+//        List<TvShow> tvShows = tvShowService.findWithThisPerson(id);
+//        if (!tvShows.isEmpty()) {
+//            for (int i = 0; i < tvShows.size(); i++) {
+//                tvShows.get(i).getPersonList().remove(personService.findOne(id));
+//            }
+//        }
+//    }
+//
+//    public void deleteMovieReference(Long id) {
+//        List<Movie> movies = movieService.findWithThisPerson(id);
+//        if (!movies.isEmpty()) {
+//            for (int i = 0; i < movies.size(); i++) {
+//                movies.get(i).getPersonList().remove(personService.findOne(id));
+//            }
+//        }
+//    }
 
 
 }

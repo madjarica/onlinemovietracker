@@ -23,13 +23,16 @@ public class Movie extends Video {
     @JsonProperty("release_date")
     private Date dateOfRelease;
 
-    @ManyToMany
-    @JoinTable(name="movie_person", joinColumns=@JoinColumn(name="movie_id"),
-            inverseJoinColumns=@JoinColumn(name="person_id"))
-    private List<Person> personList;
+    @Column
+    @JsonProperty("id")
+    private Long TMDBMovieId;
 
     @Column
     private boolean released;
+
+    @Column
+    @JsonProperty("runtime")
+    public Long runtime;
 
     public Date getDateOfRelease() {
         return dateOfRelease;
@@ -43,15 +46,17 @@ public class Movie extends Video {
         return released;
     }
 
+
     public void setReleased(boolean released) {
         this.released = released;
     }
 
-    public List<Person> getPersonList() {
-        return personList;
+    public Long getTMDBMovieId() {
+        return TMDBMovieId;
     }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    public void setTMDBMovieId(Long TMDBMovieId) {
+        this.TMDBMovieId = TMDBMovieId;
     }
+
 }

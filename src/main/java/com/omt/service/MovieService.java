@@ -36,8 +36,8 @@ public class MovieService {
         movieRepository.delete(id);
     }
 
-    public List<Movie> findWithThisPerson(Long id) {
-        return movieRepository.findByPersonListId(id);
-    }
+//    public List<Movie> findWithThisPerson(Long id) {
+//        return movieRepository.findByPersonListId(id);
+//    }
 
 }

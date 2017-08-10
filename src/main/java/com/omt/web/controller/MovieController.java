@@ -1,8 +1,10 @@
 package com.omt.web.controller;
 
-import com.omt.domain.Movie;
-import com.omt.domain.QueryResultsMovie;
+import com.omt.domain.*;
+import com.omt.domain.Character;
+import com.omt.service.CharacterService;
 import com.omt.service.MovieService;
+import com.omt.service.PersonService;
 import com.omt.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +19,23 @@ public class MovieController {
 
     MovieService movieService;
     VideoService videoService;
+    PersonService personService;
+    CharacterService characterService;
     RestOperations restTemplate = new RestTemplate();
-    String API_CALL = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
+
+    String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
+    String API_GET_MOVIE = "https://api.themoviedb.org/3/movie/{id}?api_key={api_key}&language=en-US";
+    String API_GET_CREDITS = "https://api.themoviedb.org/3/movie/{id}/credits?api_key={api_key}";
+    String API_GET_PERSON = "https://api.themoviedb.org/3/person/{person_id}?api_key={api_key}&language=en-US";
     String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
 
     @Autowired
-    public MovieController(MovieService movieService, VideoService videoService) {
+    public MovieController(MovieService movieService, VideoService videoService, PersonService personService, CharacterService characterService) {
         this.movieService = movieService;
         this.videoService = videoService;
+        this.personService = personService;
+        this.characterService = characterService;
     }
 
 
@@ -56,23 +66,63 @@ public class MovieController {
 
     @RequestMapping(path="{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id){
-        deletePersons(id);
+//        deletePersons(id);
         movieService.delete(id);
+    }
+
+    @RequestMapping(path = "getMovie/{id}", method = RequestMethod.GET)
+    public Movie saveFromTMDB(@PathVariable("id") Long id){
+        Movie movie = restTemplate.getForObject(API_GET_MOVIE, Movie.class, id, API_KEY);
+        getCharacters(id);
+        movie.setTMDBMovieId(movie.getId());
+        movie.setId(null);
+        movie.setPosterPath("https://image.tmdb.org/t/p/w640" + movie.getPosterPath());
+        movie.setImdbPage("http://www.imdb.com/title/" + movie.getImdbPage());
+        movie.setBackdropPath( "http://image.tmdb.org/t/p/original" + movie.getBackdropPath());
+        List<Character> characterList = characterService.findByTmdbMediaId(movie.getTMDBMovieId());
+        for(Character character: characterList){
+            System.out.println(character.getId());
+        }
+        movie.setCharacterList(characterList);
+        return movieService.save(movie);
+    }
+
+
+    public void getCharacters(Long id){
+        Person person;
+        CreditsResults creditsResults = restTemplate.getForObject(API_GET_CREDITS, CreditsResults.class,  id, API_KEY);
+        List<Character> characterList = creditsResults.getCharacters();
+        for(Character character: characterList){
+            person = getPerson(character.getId());
+            character.setActorId(character.getId());
+            character.setTmdbMediaId(creditsResults.getTmdbMediaId());
+            character.setId(null);
+            character.setPerson(person);
+            characterService.save(character);
+        }
+    }
+
+    public Person getPerson(Long id){
+        Person person;
+        person = restTemplate.getForObject(API_GET_PERSON, Person.class, id, API_KEY);
+        person.setTmdbPersonId(person.getId());
+        person.setId(null);
+        return personService.save(person);
     }
 
     public void deletePersons(Long id){
         Movie movie = movieService.findOne(id);
-        movie.getPersonList().clear();
+//        movie.getPersonList().clear();
         movieService.save(movie);
     }
 
     @RequestMapping(path = "search/{query}", method = RequestMethod.GET)
     public List<Movie> searchOnline(@PathVariable("query") String query) {
 
-        QueryResultsMovie queryResults = restTemplate.getForObject(API_CALL,
+        QueryResultsMovie queryResults = restTemplate.getForObject(API_SEARCH,
                 QueryResultsMovie.class, API_KEY, query);
 
-        String moviesString = restTemplate.getForObject(API_CALL,
+        String moviesString = restTemplate.getForObject(API_SEARCH,
                 String.class, API_KEY, query);
         System.out.println(moviesString);
         List<Movie> movies = queryResults.getMovies();

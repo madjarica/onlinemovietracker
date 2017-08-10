@@ -6,8 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Inheritance
@@ -53,6 +55,13 @@ public class Video extends BaseEntity{
     @Column
     @JsonProperty("poster_path")
     private String posterPath;
+
+    @Column
+    @JsonProperty("backdrop_path")
+    private String backdropPath;
+
+    @OneToMany
+    private List<Character> characterList;
 
     @Column
     @DateTimeFormat
@@ -168,6 +177,22 @@ public class Video extends BaseEntity{
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public List<Character> getCharacterList() {
+        return characterList;
+    }
+
+    public void setCharacterList(List<Character> characterList) {
+        this.characterList = characterList;
     }
 
     public Date getCreatedDate() {

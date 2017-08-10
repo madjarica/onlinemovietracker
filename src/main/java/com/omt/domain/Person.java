@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -34,6 +35,9 @@ public class Person extends BaseEntity {
     @Column
     private String placeOfBirth;
 
+    @Column(unique = true)
+    private Long tmdbPersonId;
+
     @Column
     @DateTimeFormat
     private Date createdDate;
@@ -43,7 +47,7 @@ public class Person extends BaseEntity {
     private Date updatedDate;
 
     public Person(String role, String name, String biography, String picture, Date birthday, String placeOfBirth,
-                  Date createdDate, Date updatedDate) {
+                  Long tmdbPersonId, Date createdDate, Date updatedDate) {
 
         this.role = role;
         this.name = name;
@@ -51,6 +55,7 @@ public class Person extends BaseEntity {
         this.picture = picture;
         this.birthday = birthday;
         this.placeOfBirth = placeOfBirth;
+        this.tmdbPersonId = tmdbPersonId;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
@@ -117,5 +122,13 @@ public class Person extends BaseEntity {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public Long getTmdbPersonId() {
+        return tmdbPersonId;
+    }
+
+    public void setTmdbPersonId(Long tmdbPersonId) {
+        this.tmdbPersonId = tmdbPersonId;
     }
 }
