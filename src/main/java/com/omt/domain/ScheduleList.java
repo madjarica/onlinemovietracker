@@ -1,5 +1,5 @@
 package com.omt.domain;
 
-public class ScheduleList {
+public class ScheduleList extends BaseEntity{
 
 }
