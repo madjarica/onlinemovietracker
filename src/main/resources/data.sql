@@ -12,4 +12,4 @@ INSERT INTO `persons`(`name`, `biography`) VALUES ('babaab', 'gaegaegae');
 INSERT INTO `tv_show_person`(`tv_show_id`, `person_id`) VALUEs ('1', '2');
 INSERT INTO `tv_show_person`(`tv_show_id`, `person_id`) VALUEs ('1', '4');
 INSERT INTO `movie_person`(`movie_id`, `person_id`) VALUEs ('2', '2');
-INSERT INTO `movie_person`(`movie_id`, `person_id`) VALUEs ('2', '4');
+INSERT INTO `movie_person`(`movie_id`, `person_id`) VALUEs ('2', '3');

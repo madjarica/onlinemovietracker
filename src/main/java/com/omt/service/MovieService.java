@@ -35,4 +35,9 @@ public class MovieService {
         // TODO Auto-generated method stub
         movieRepository.delete(id);
     }
+
+    public List<Movie> findWithThisPerson(Long id) {
+        return movieRepository.findByPersonListId(id);
+    }
+
 }

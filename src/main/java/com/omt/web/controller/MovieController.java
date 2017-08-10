@@ -56,8 +56,16 @@ public class MovieController {
 
     @RequestMapping(path="{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id){
+        deletePersons(id);
         movieService.delete(id);
     }
+
+    public void deletePersons(Long id){
+        Movie movie = movieService.findOne(id);
+        movie.getPersonList().clear();
+        movieService.save(movie);
+    }
+
     @RequestMapping(path = "search/{query}", method = RequestMethod.GET)
     public List<Movie> searchOnline(@PathVariable("query") String query) {
 

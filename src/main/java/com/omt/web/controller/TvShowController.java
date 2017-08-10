@@ -66,17 +66,8 @@ public class TvShowController {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        TvShow tvShow = tvShowService.findOne(id);
-        List<Person> personList = tvShow.getPersonList();
-        List<TvShowEpisode> tvShowEpisodes = tvShow.getTvShowEpisodes();
-        for(int i = 0; i < personList.size(); i++){
-            personService.delete(personList.get(i).getId());
-            System.out.println("brisem" + personList.get(i).getId());
-        }
-        for(int i = 0; i < tvShowEpisodes.size(); i++){
-            tvShowEpisodeService.delete(tvShowEpisodes.get(i).getId());
-            System.out.println("brisem" + personList.get(i).getId());
-        }
+        deletePersons(id);
+        deleteEpisodes(id);
         tvShowService.delete(id);
     }
 
@@ -91,5 +82,24 @@ public class TvShowController {
         System.out.println(tvShowsString);
         List<TvShow> tvShows = queryResultsTv.getTvShows();
         return tvShows;
+    }
+
+    public void deletePersons(Long id){
+        TvShow tvShow = tvShowService.findOne(id);
+        tvShow.getPersonList().clear();
+        tvShowService.save(tvShow);
+    }
+
+    public void deleteEpisodes(Long id){
+        TvShow tvShow = tvShowService.findOne(id);
+        List<TvShowEpisode> episodes = tvShow.getTvShowEpisodes();
+        if(episodes != null) {
+            for (int i = 0; i < episodes.size(); i++) {
+                tvShowEpisodeService.delete(episodes.get(i).getId());
+                if(episodes.isEmpty()) break;
+            }
+        }
+        tvShow.getTvShowEpisodes().clear();
+        tvShowService.save(tvShow);
     }
 }
