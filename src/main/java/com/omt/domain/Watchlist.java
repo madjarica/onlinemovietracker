@@ -57,7 +57,7 @@ public class Watchlist extends BaseEntity {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private OmtUser user;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "watchlist_id")
