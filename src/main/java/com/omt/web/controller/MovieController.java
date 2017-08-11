@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +32,9 @@ public class MovieController {
     CharacterService characterService;
     GenreRepository genreRepository;
     RestOperations restTemplate = new RestTemplate();
+
+    String POSTER_PATH = "src/main/resources/static/img/posters/movies/poster";
+    String BACKDROP_PATH = "src/main/resources/static/img/backdrops/movies/backdrop";
 
     String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
     String API_GET_MOVIE = "https://api.themoviedb.org/3/movie/{id}?api_key={api_key}&language=en-US";
@@ -60,12 +70,21 @@ public class MovieController {
             if (movieService.findOne(movie.getId()) != null) throw new Exception("You can't do that");
             if (videoService.findOne(movie.getId()) != null) throw new Exception("You can't use that id");
         }
+
         return movieService.save(movie);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public Movie update(@RequestBody Movie movie)throws Exception{
         if(videoService.findOne(movie.getId()).getDtype().equals("TvShow")) throw new Exception("You can't use that id");
+
+        List<Genre> genresToBeAdded = new ArrayList<>();
+        for(Genre genre: movie.getGenres()){
+            genresToBeAdded.add(getGenres(genre.getName()));
+        }
+        movie.getGenres().clear();
+        movie.setGenres(genresToBeAdded);
+
         return movieService.save(movie);
     }
 
@@ -120,7 +139,38 @@ public class MovieController {
         movie.getGenres().clear();
         movie.setGenres(genresToBeAdded);
 
+        String ext = movie.getTmdbMovieId() + ".jpg";
+
+        try {
+            saveImage(movie.getPosterPath(), POSTER_PATH + ext);
+            movie.setPosterPath("/img/posters/movies/poster" + ext);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            saveImage(movie.getBackdropPath(), BACKDROP_PATH + ext);
+            movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         return movieService.save(movie);
+    }
+
+    public static void saveImage(String imageUrl, String destinationFile) throws IOException {
+        URL url = new URL(imageUrl);
+        InputStream is = url.openStream();
+        OutputStream os = new FileOutputStream(destinationFile);
+        byte[] b = new byte[2048];
+        int length;
+
+        while ((length = is.read(b)) != -1) {
+            os.write(b, 0, length);
+        }
+
+        is.close();
     }
 
     public Genre getGenres(String name){

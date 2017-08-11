@@ -53,12 +53,12 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-4">
-                        <img class="poster-image" src="{{ movieCtrl.movieObject.poster_path }}" alt="">
+                        <img class="poster-image" src="{{ $location.$$absUrl + movieCtrl.movieObject.poster_path }}" alt="">
                         <div class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
-                        <img class="poster-image" src="{{ movieCtrl.movieObject.backdrop_path }}" alt="">
+                        <img class="poster-image" ng-if="" src="{{ $location.$$absUrl + movieCtrl.movieObject.backdrop_path }}" alt="">
                         <div class="form-group">
                             <label>Add Backdrop</label>
                             <input type="file">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-default waves-effect waves-light pull-right">Add Movie</button>
+                        <button class="btn btn-default waves-effect waves-light pull-right" ng-click="movieCtrl.saveMovie(movieCtrl.movieObject)">Add Movie</button>
                     </div>
                 </div>
             </form>

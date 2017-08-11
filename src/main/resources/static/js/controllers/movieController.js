@@ -7,10 +7,10 @@
     function MovieController($location, $http, $route, MovieService) {
 
         var vm = this;
-
         // Get Movies
         vm.getMovieByTitle = getMovieByTitle;
         vm.fillMovieData = fillMovieData;
+        vm.saveMovie = saveMovie;
         vm.movieObject = {};
         vm.movieList = [];
 
@@ -29,6 +29,13 @@
             }).then(MovieService.getMovieTrailer(id).then(function (videos) {
                     vm.movieObject.youtube = vm.movieObject.trailerLink;
             }));
+        }
+        function saveMovie(movie) {
+            console.log(vm.movieObject.genres);
+            MovieService.saveMovie(movie).then(function (resposnse) {
+                vm.movieObject = resposnse;
+            })
+            
         }
 
     }
