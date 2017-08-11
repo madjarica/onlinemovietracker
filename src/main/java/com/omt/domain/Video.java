@@ -3,10 +3,7 @@ package com.omt.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +59,12 @@ public class Video extends BaseEntity{
 
     @OneToMany
     private List<Character> characterList;
+
+    @ManyToMany
+    @JsonProperty(value = "genres")
+    @JoinTable(name="video_genre", joinColumns=@JoinColumn(name="video_id"),
+               inverseJoinColumns=@JoinColumn(name="genre_id"))
+    private List<Genre> genres;
 
     @Column
     @DateTimeFormat
@@ -193,6 +196,14 @@ public class Video extends BaseEntity{
 
     public void setCharacterList(List<Character> characterList) {
         this.characterList = characterList;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public Date getCreatedDate() {

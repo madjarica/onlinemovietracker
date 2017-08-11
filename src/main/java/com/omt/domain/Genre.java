@@ -9,14 +9,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "genres")
 public class Genre extends BaseEntity{
 
+    public Genre() {
+    }
+
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;
-
-    public Genre(String name) {
-
-		this.name = name;
-	}
 
 	public String getName() {
         return name;

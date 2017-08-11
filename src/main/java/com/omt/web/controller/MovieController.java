@@ -2,6 +2,7 @@ package com.omt.web.controller;
 
 import com.omt.domain.*;
 import com.omt.domain.Character;
+import com.omt.repository.GenreRepository;
 import com.omt.service.CharacterService;
 import com.omt.service.MovieService;
 import com.omt.service.PersonService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,21 +23,24 @@ public class MovieController {
     VideoService videoService;
     PersonService personService;
     CharacterService characterService;
+    GenreRepository genreRepository;
     RestOperations restTemplate = new RestTemplate();
 
     String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
     String API_GET_MOVIE = "https://api.themoviedb.org/3/movie/{id}?api_key={api_key}&language=en-US";
     String API_GET_CREDITS = "https://api.themoviedb.org/3/movie/{id}/credits?api_key={api_key}";
     String API_GET_PERSON = "https://api.themoviedb.org/3/person/{person_id}?api_key={api_key}&language=en-US";
+    String API_GET_VIDEO = "https://api.themoviedb.org/3/movie/{id}/videos?api_key={api_key}";
     String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
 
     @Autowired
-    public MovieController(MovieService movieService, VideoService videoService, PersonService personService, CharacterService characterService) {
+    public MovieController(MovieService movieService, VideoService videoService, PersonService personService, CharacterService characterService, GenreRepository genreRepository) {
         this.movieService = movieService;
         this.videoService = videoService;
         this.personService = personService;
         this.characterService = characterService;
+        this.genreRepository = genreRepository;
     }
 
 
@@ -67,53 +72,101 @@ public class MovieController {
     @RequestMapping(path="{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id){
 //        deletePersons(id);
+        deleteGenres(id);
         movieService.delete(id);
+    }
+
+    private void deleteGenres(Long id) {
+        Movie movie = movieService.findOne(id);
+        movie.getGenres().clear();
+        movieService.save(movie);
     }
 
     @RequestMapping(path = "getMovie/{id}", method = RequestMethod.GET)
     public Movie saveFromTMDB(@PathVariable("id") Long id){
+
+        Movie checkIfAlreadyExists = movieService.findByTmdbMovieId(id);
+        if(checkIfAlreadyExists != null){
+            return checkIfAlreadyExists;
+        }
+
         Movie movie = restTemplate.getForObject(API_GET_MOVIE, Movie.class, id, API_KEY);
         getCharacters(id);
-        movie.setTMDBMovieId(movie.getId());
+
+        movie.setTmdbMovieId(movie.getId());
         movie.setId(null);
         movie.setPosterPath("https://image.tmdb.org/t/p/w640" + movie.getPosterPath());
         movie.setImdbPage("http://www.imdb.com/title/" + movie.getImdbPage());
         movie.setBackdropPath( "http://image.tmdb.org/t/p/original" + movie.getBackdropPath());
-        List<Character> characterList = characterService.findByTmdbMediaId(movie.getTMDBMovieId());
-        for(Character character: characterList){
-            System.out.println(character.getId());
-        }
+
+        List<Character> characterList = characterService.findByTmdbMediaId(movie.getTmdbMovieId());
         movie.setCharacterList(characterList);
+
+        TrailerResults trailerResults = restTemplate.getForObject(API_GET_VIDEO, TrailerResults.class, id, API_KEY);
+        String youtube =  trailerResults.getTrailers().get(0).getTrailerLink();
+
+        if(youtube == null){
+            movie.setTrailerLink(null);
+
+        }
+        else{
+            movie.setTrailerLink("https://www.youtube.com/watch?v=" + youtube);
+        }
+
+        List<Genre> genresToBeAdded = new ArrayList<>();
+        for(Genre genre: movie.getGenres()){
+            genresToBeAdded.add(getGenres(genre.getName()));
+        }
+        movie.getGenres().clear();
+        movie.setGenres(genresToBeAdded);
+
         return movieService.save(movie);
     }
 
+    public Genre getGenres(String name){
+        Genre genre = genreRepository.findByName(name);
+        if( genreRepository.findByName(name) != null){
+            return genre;
+        }else{
+            genre = new Genre();
+            genre.setName(name);
+            return genreRepository.save(genre);
+        }
+    }
 
     public void getCharacters(Long id){
         Person person;
+        int size;
         CreditsResults creditsResults = restTemplate.getForObject(API_GET_CREDITS, CreditsResults.class,  id, API_KEY);
         List<Character> characterList = creditsResults.getCharacters();
-        for(Character character: characterList){
-            person = getPerson(character.getId());
-            character.setActorId(character.getId());
-            character.setTmdbMediaId(creditsResults.getTmdbMediaId());
-            character.setId(null);
-            character.setPerson(person);
-            characterService.save(character);
+        if(characterList.size()<14){
+            size = characterList.size();
+        }
+        else{
+            size = 14;
+        }
+
+        for(int i = 0; i < size; i++){
+            person = getPerson(characterList.get(i).getId());
+            characterList.get(i).setActorId(characterList.get(i).getId());
+            characterList.get(i).setTmdbMediaId(creditsResults.getTmdbMediaId());
+            characterList.get(i).setId(null);
+            characterList.get(i).setPerson(person);
+            characterService.save(characterList.get(i));
         }
     }
 
     public Person getPerson(Long id){
-        Person person;
-        person = restTemplate.getForObject(API_GET_PERSON, Person.class, id, API_KEY);
-        person.setTmdbPersonId(person.getId());
-        person.setId(null);
-        return personService.save(person);
-    }
-
-    public void deletePersons(Long id){
-        Movie movie = movieService.findOne(id);
-//        movie.getPersonList().clear();
-        movieService.save(movie);
+        Person personCheck = personService.findByTmdbPersonId(id);
+        if(personCheck != null) {
+            return personCheck;
+        }else{
+            Person person;
+            person = restTemplate.getForObject(API_GET_PERSON, Person.class, id, API_KEY);
+            person.setTmdbPersonId(person.getId());
+            person.setId(null);
+            return personService.save(person);
+        }
     }
 
     @RequestMapping(path = "search/{query}", method = RequestMethod.GET)

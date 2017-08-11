@@ -1,10 +1,8 @@
 package com.omt.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,8 +22,7 @@ public class Movie extends Video {
     private Date dateOfRelease;
 
     @Column
-    @JsonProperty("id")
-    private Long TMDBMovieId;
+    private Long tmdbMovieId;
 
     @Column
     private boolean released;
@@ -51,12 +48,12 @@ public class Movie extends Video {
         this.released = released;
     }
 
-    public Long getTMDBMovieId() {
-        return TMDBMovieId;
+    public Long getTmdbMovieId() {
+        return tmdbMovieId;
     }
 
-    public void setTMDBMovieId(Long TMDBMovieId) {
-        this.TMDBMovieId = TMDBMovieId;
+    public void setTmdbMovieId(Long tmdbMovieId) {
+        this.tmdbMovieId = tmdbMovieId;
     }
 
 }

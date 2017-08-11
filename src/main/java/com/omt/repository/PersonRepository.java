@@ -18,4 +18,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
 	public void delete(Long id);
 
+	public Person findByTmdbPersonId(Long id);
+
 }

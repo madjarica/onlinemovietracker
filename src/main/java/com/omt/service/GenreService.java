@@ -36,4 +36,8 @@ public class GenreService {
         // TODO Auto-generated method stub
         genreRepository.delete(id);
     }
+
+    public Genre findByName(String name){
+        return genreRepository.findByName(name);
+    }
 }

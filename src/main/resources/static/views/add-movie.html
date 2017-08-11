@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="movieCtrl.movieObject.youtube" class="form-control" placeholder="Enter YouTube Trailer Link">
+                            <input type="text" ng-model="movieCtrl.movieObject.trailerLink" class="form-control" placeholder="Enter YouTube Trailer Link">
                         </div>
 
                         <div class="form-group">
@@ -53,12 +53,12 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-4">
-                        <img class="poster-image" src="{{ movieCtrl.movieObject.poster }}" alt="">
+                        <img class="poster-image" src="{{ movieCtrl.movieObject.poster_path }}" alt="">
                         <div class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
-                        <img class="poster-image" src="{{ movieCtrl.movieObject.backdrop }}" alt="">
+                        <img class="poster-image" src="{{ movieCtrl.movieObject.backdrop_path }}" alt="">
                         <div class="form-group">
                             <label>Add Backdrop</label>
                             <input type="file">

@@ -39,5 +39,9 @@ public class PersonService{
 		// TODO Auto-generated method stub
 		personRepository.delete(id);
 	}
+
+	public Person findByTmdbPersonId(Long id){
+		return personRepository.findByTmdbPersonId(id);
+	}
 	
 }
