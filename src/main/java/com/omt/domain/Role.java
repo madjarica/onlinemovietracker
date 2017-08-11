@@ -1,26 +1,39 @@
 package com.omt.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity {
 
-	@Column(unique = true, nullable = false)
-	@NotNull
-	private String type;
+	private String name;
 
-	public String getType() {
-		return type;
+	Role() {}
+
+	public Role(String name) {
+		this.name = name;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public String getName() {
+		return name;
 	}
-	
-	
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	//	@Enumerated(EnumType.STRING)
+//	private RoleType type;
+//
+//	public RoleType getType() {
+//		return type;
+//	}
+//
+//	public void setType(RoleType type) {
+//		this.type = type;
+//	}
+//
+//	public enum RoleType {
+//		ROLE_USER, ROLE_ADMIN, ROLE_CLIENT, ROLE_TRUSTED_CLIENT
+//	}
 }

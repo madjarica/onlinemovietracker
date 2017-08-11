@@ -1,15 +1,9 @@
 package com.omt.domain;
 
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.persistence.JoinColumn;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,30 +19,32 @@ public class User extends BaseEntity {
 	@NotNull
 	private String password;
 
+//	@ManyToMany
+//	@JoinTable(joinColumns = @JoinColumn(name = "user_id"),
+//	inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Role> roles;
+
 	@Column
 	private String passwordTemp;
 
 	@Column
 	private String codeForActivation;
 
-	@Column(nullable = false)
-	@NotNull
+	@Column
 	private boolean active;
 	
-	@Column(nullable = false)
-	@NotNull
+	@Column
 	private boolean status;
 	
 	@Column
 	@DateTimeFormat
 	private Date blockedUntil;
 	   
-	@Column(nullable = false)
-	@NotNull
+	@Column
 	private boolean subscription;
 	   
-	@Column(unique = true, nullable = false)
-	@NotNull
+	@Column
 	private String email;
 	   
 	@Column
@@ -58,20 +54,13 @@ public class User extends BaseEntity {
 	@Column
 	@DateTimeFormat
 	private Date updatedDate;
-	
-	@ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-	
-	
 
-	
-	
-	public User(String username, String password, String passwordTemp, String codeForActivation, boolean active,
-			boolean status, Date blockedUntil, boolean subscription, String email, Date createdDate, Date updatedDate) {
+	public User() {}
+
+	public User(String username, String password, List<Role> roles, String passwordTemp, String codeForActivation, boolean active, boolean status, Date blockedUntil, boolean subscription, String email, Date createdDate, Date updatedDate) {
 		this.username = username;
 		this.password = password;
+		this.roles = roles;
 		this.passwordTemp = passwordTemp;
 		this.codeForActivation = codeForActivation;
 		this.active = active;
@@ -81,6 +70,12 @@ public class User extends BaseEntity {
 		this.email = email;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
+	}
+
+	public User(String username, String password, List<Role> roles) {
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
 	}
 
 	public String getUsername() {
@@ -97,6 +92,14 @@ public class User extends BaseEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getPasswordTemp() {
@@ -170,7 +173,4 @@ public class User extends BaseEntity {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-	   
-	
-	
 }

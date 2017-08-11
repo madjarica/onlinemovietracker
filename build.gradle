@@ -20,10 +20,12 @@ repositories {
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web');
+	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('mysql:mysql-connector-java:5.1.39')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa');
-//    compile('org.springframework.boot:spring-boot-starter-security');
-    compile('org.springframework.boot:spring-boot-starter-mail');
-    testCompile('org.springframework.boot:spring-boot-starter-test');	  
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.security.oauth:spring-security-oauth2')
+    compile('org.springframework.boot:spring-boot-starter-mail')
+    compile('org.springframework.boot:spring-boot-devtools')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
