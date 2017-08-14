@@ -40,8 +40,8 @@ public class TvShowService {
         tvShowRepository.delete(id);
     }
 
-//    public List<TvShow> findWithThisPerson(Long id){
-//        return tvShowRepository.findByPersonListId(id);
-//    }
+    public TvShow findByTmdbTvShowId(Long id){
+        return tvShowRepository.findByTmdbTvShowId(id);
+    }
 
 }

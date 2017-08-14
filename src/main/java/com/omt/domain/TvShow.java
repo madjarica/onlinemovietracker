@@ -28,14 +28,6 @@ public class TvShow extends Video {
     @JoinColumn(name = "tv_show_id", nullable = false)
     private List<TvShowEpisode> tvShowEpisodes;
 
-//    @ManyToMany
-//    @JoinTable(name="tv_show_person", joinColumns=@JoinColumn(name="tv_show_id"),
-//               inverseJoinColumns=@JoinColumn(name="person_id"))
-//    private List<Person> personList;
-
-//    @OneToMany
-//    private List<Character> characterList;
-
     @Column
     @DateTimeFormat
     @JsonProperty("first_air_date")
@@ -46,16 +38,12 @@ public class TvShow extends Video {
     @JsonProperty("last_air_date")
     private Date finalAirDate;
 
+    @Column(unique = true)
+    private Long tmdbTvShowId;
 
-
-//    public List<Person> getPersonList() {
-//        return personList;
-//    }
-//
-//    public void setPersonList(List<Person> personList) {
-//        this.personList = personList;
-//    }
-
+    @Column
+    @JsonProperty("number_of_seasons")
+    private Integer numberOfSeasons;
 
 
     public List<TvShowEpisode> getTvShowEpisodes() {
@@ -80,5 +68,21 @@ public class TvShow extends Video {
 
     public void setFinalAirDate(Date finalAirDate) {
         this.finalAirDate = finalAirDate;
+    }
+
+    public Long getTmdbTvShowId() {
+        return tmdbTvShowId;
+    }
+
+    public void setTmdbTvShowId(Long tmdbTvShowId) {
+        this.tmdbTvShowId = tmdbTvShowId;
+    }
+
+    public Integer getNumberOfSeasons() {
+        return numberOfSeasons;
+    }
+
+    public void setNumberOfSeasons(Integer numberOfSeasons) {
+        this.numberOfSeasons = numberOfSeasons;
     }
 }

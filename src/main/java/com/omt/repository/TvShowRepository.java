@@ -20,6 +20,6 @@ public interface TvShowRepository extends JpaRepository<TvShow, Long> {
 
     public void delete(Long id);
 
-//    public List<TvShow> findByPersonListId(Long id);
+    public TvShow findByTmdbTvShowId(Long id);
 
 }

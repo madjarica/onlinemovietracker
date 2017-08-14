@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -20,17 +21,27 @@ public class TvShowEpisode extends BaseEntity {
 
     @Column(nullable = false)
     @NotNull
+    @JsonProperty("season_number")
     private int season;
 
     @Column(nullable = false)
     @NotNull
+    @JsonProperty("episode_number")
     private int episode;
+
+    @Column
+    @JsonProperty("name")
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String overview;
 
+    @Column(insertable= false, updatable = false)
+    private Long tv_show_id;
+
     @Column
     @DateTimeFormat
+    @JsonProperty("air_date")
     private Date releasedDate;
 
     @Column
@@ -66,6 +77,22 @@ public class TvShowEpisode extends BaseEntity {
 
     public void setEpisode(int episode) {
         this.episode = episode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getTv_show_id() {
+        return tv_show_id;
+    }
+
+    public void setTv_show_id(Long tv_show_id) {
+        this.tv_show_id = tv_show_id;
     }
 
     public String getOverview() {

@@ -1,7 +1,8 @@
-package com.omt.domain;
+package com.omt.JsonResults;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.omt.domain.TvShow;
 
 import java.util.List;
 

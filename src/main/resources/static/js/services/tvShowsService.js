@@ -10,7 +10,9 @@
             getTVShowByTitle: getTVShowByTitle,
             getTvShowyId: getTvShowyId,
             getTvShowTrailer: getTvShowTrailer,
-            getTvShowImdbId: getTvShowImdbId
+            getTvShowImdbId: getTvShowImdbId,
+            getTvShowByIdBackend : getTvShowByIdBackend,
+            saveTvShow : saveTvShow
         };
 
         return service;
@@ -99,6 +101,40 @@
             });
 
             return def.promise;
+        }
+
+        function getTvShowByIdBackend(id){
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "/tvshows/getTvShow/" + id
+            }
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+
+        }
+
+        function saveTvShow(tvShow){
+            var def = $q.defer();
+            console.log(tvShow);
+            var req = {
+                method: tvShow.id ? 'PUT': 'POST',
+                url: "/tvshows/",
+                data: tvShow
+            }
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+
         }
     }
 })();

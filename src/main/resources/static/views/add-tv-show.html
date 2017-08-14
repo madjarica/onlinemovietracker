@@ -14,7 +14,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="tvShowCtrl.tvShowObject.original_name" class="form-control" placeholder="Enter Original Title">
+                            <input type="text" ng-model="tvShowCtrl.tvShowObject.original_title" class="form-control" placeholder="Enter Original Title">
                         </div>
 
                         <div class="form-group">
@@ -48,12 +48,12 @@
 
                     </div>
                     <div class="col-xs-12 col-sm-4">
-                        <img class="poster-image" src="{{ tvShowCtrl.tvShowObject.poster }}" alt="">
+                        <img class="poster-image" src="{{ tvShowCtrl.tvShowObject.poster_path }}" alt="">
                         <div class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
-                        <img class="poster-image" src="{{ tvShowCtrl.tvShowObject.backdrop }}" alt="">
+                        <img class="poster-image" src="{{ tvShowCtrl.tvShowObject.backdrop_path }}" alt="">
                         <div class="form-group">
                             <label>Add Backdrop</label>
                             <input type="file">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-default waves-effect waves-light pull-right">Add TV Show</button>
+                        <button class="btn btn-default waves-effect waves-light pull-right"ng-click="tvShowCtrl.saveTvShow(tvShowCtrl.tvShowObject)">Add TV Show</button>
                     </div>
                 </div>
             </form>

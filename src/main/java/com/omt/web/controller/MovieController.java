@@ -1,5 +1,8 @@
 package com.omt.web.controller;
 
+import com.omt.JsonResults.CreditsResults;
+import com.omt.JsonResults.QueryResultsMovie;
+import com.omt.JsonResults.TrailerResults;
 import com.omt.domain.*;
 import com.omt.domain.Character;
 import com.omt.repository.GenreRepository;
@@ -17,8 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 

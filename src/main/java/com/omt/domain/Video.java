@@ -31,15 +31,6 @@ public class Video extends BaseEntity{
     private String homepage;
 
     @Column
-    private String facebookPage;
-
-    @Column
-    private String twitterPage;
-
-    @Column
-    private String instagramPage;
-
-    @Column
     @JsonProperty("imdb_id")
     private String imdbPage;
 
@@ -124,30 +115,6 @@ public class Video extends BaseEntity{
 
     public void setHomepage(String homepage) {
         this.homepage = homepage;
-    }
-
-    public String getFacebookPage() {
-        return facebookPage;
-    }
-
-    public void setFacebookPage(String facebookPage) {
-        this.facebookPage = facebookPage;
-    }
-
-    public String getTwitterPage() {
-        return twitterPage;
-    }
-
-    public void setTwitterPage(String twitterPage) {
-        this.twitterPage = twitterPage;
-    }
-
-    public String getInstagramPage() {
-        return instagramPage;
-    }
-
-    public void setInstagramPage(String instagramPage) {
-        this.instagramPage = instagramPage;
     }
 
     public String getImdbPage() {
