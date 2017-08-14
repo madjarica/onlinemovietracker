@@ -66,7 +66,9 @@ public class User extends BaseEntity {
 	
 	
 
-	
+	public User(){
+		
+	};
 	
 	public User(String username, String password, String passwordTemp, String codeForActivation, boolean active,
 			boolean status, Date blockedUntil, boolean subscription, String email, Date createdDate, Date updatedDate) {

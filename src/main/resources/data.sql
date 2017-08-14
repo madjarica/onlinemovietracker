@@ -33,3 +33,5 @@ INSERT INTO `characters`(`name`, `person_id`) VALUE ('monstrum1', '1');
 INSERT INTO `video_character_list`(`video_id`, `character_list_id`) VALUES ('1', '1');
 INSERT INTO `video_character_list`(`video_id`, `character_list_id`) VALUES ('2', '2');
 INSERT INTO `video_character_list`(`video_id`, `character_list_id`) VALUES ('2', '3');
+
+INSERT INTO `users`(`username`, `password`, `password_temp`, `code_for_activation`, `active`, `status`, `blocked_until`, `subscription`, `email`, `created_date`, `updated_date`) VALUES ("zoricab", "blabla", "", "", true, true, NOW() , true, "zorica@gmail.com", NOW(), NOW());
