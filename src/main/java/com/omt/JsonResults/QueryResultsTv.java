@@ -9,6 +9,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class QueryResultsTv {
     private List<TvShow> tvShows;
+    private String imdb_id;
 
     @JsonProperty("results")
     public List<TvShow> getTvShows() {
@@ -18,5 +19,13 @@ public class QueryResultsTv {
     @JsonProperty("results")
     public void setTvShows(List<TvShow> tvShowResults) {
         this.tvShows = tvShowResults;
+    }
+
+    public String getImdb_id() {
+        return imdb_id;
+    }
+
+    public void setImdb_id(String imdb_id) {
+        this.imdb_id = imdb_id;
     }
 }

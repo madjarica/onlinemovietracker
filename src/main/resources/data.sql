@@ -27,6 +27,7 @@ INSERT INTO `characters`(`name`, `person_id`) VALUE ('monstrum1', '1');
 
 INSERT INTO `video_character_list`(`video_id`, `character_list_id`) VALUES ('1', '1');
 INSERT INTO `video_character_list`(`video_id`, `character_list_id`) VALUES ('2', '2');
+<<<<<<< HEAD
 INSERT INTO `video_character_list`(`video_id`, `character_list_id`) VALUES ('2', '3');*/
 
 INSERT INTO `persons`(`role`) VALUES ('Actor');
