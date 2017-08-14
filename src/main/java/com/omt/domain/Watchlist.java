@@ -18,54 +18,159 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "watchlists")
-public class Watchlist extends BaseEntity {
+public class Watchlist extends BaseEntity{
 
 
-    @Column(nullable = false)
-    @NotNull
-    @DateTimeFormat
-    private Date watchDate;
+	@Column(nullable = false)
+	@NotNull
+	@DateTimeFormat
+	private Date watchDate;
+	
+	@Column(nullable = false)
+	@NotNull
+	private boolean visibleToOthers;
 
-    @Column(nullable = false)
-    @NotNull
-    private boolean visibleToOthers;
+	@Column
+	private boolean favorite;
 
-    @Column
-    private boolean favorite;
+	@Column
+	private String screenshot;
 
-    @Column
-    private String screenshot;
+	@Column
+	@DateTimeFormat
+	private Date createdDate;
 
-    @Column
-    @DateTimeFormat
-    private Date createdDate;
-
-    @Column
-    @DateTimeFormat
-    private Date updatedDate;
-
-    @ManyToMany
+	@Column
+	@DateTimeFormat
+	private Date updatedDate;
+	
+	@ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "watchlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private Set<Movie> movies;
-
-    @ManyToMany
+	
+	@ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "watchlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "tw_shows_id"))
+    inverseJoinColumns = @JoinColumn(name = "tw_shows_id"))
     private Set<TvShow> tvshows;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="watchlist_id")
+	private Set<Comment> comment;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="watchlist_id")
+	private Set<Rating> rating;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+	public Watchlist(Date watchDate, boolean visibleToOthers, boolean favorite, String screenshot, Date createdDate,
+			Date updatedDate, Set<Movie> movies, Set<TvShow> tvshows, User user, Set<Comment> comment,
+			Set<Rating> rating) {
+		super();
+		this.watchDate = watchDate;
+		this.visibleToOthers = visibleToOthers;
+		this.favorite = favorite;
+		this.screenshot = screenshot;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.movies = movies;
+		this.tvshows = tvshows;
+		this.user = user;
+		this.comment = comment;
+		this.rating = rating;
+	}
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "watchlist_id")
-    private Set<Comment> comment;
+	public Date getWatchDate() {
+		return watchDate;
+	}
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "bookmark_id")
-    private Set<Rating> rating;
+	public void setWatchDate(Date watchDate) {
+		this.watchDate = watchDate;
+	}
 
+	public boolean isVisibleToOthers() {
+		return visibleToOthers;
+	}
 
+	public void setVisibleToOthers(boolean visibleToOthers) {
+		this.visibleToOthers = visibleToOthers;
+	}
+
+	public boolean isFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
+	}
+
+	public String getScreenshot() {
+		return screenshot;
+	}
+
+	public void setScreenshot(String screenshot) {
+		this.screenshot = screenshot;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public Set<Movie> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(Set<Movie> movies) {
+		this.movies = movies;
+	}
+
+	public Set<TvShow> getTvshows() {
+		return tvshows;
+	}
+
+	public void setTvshows(Set<TvShow> tvshows) {
+		this.tvshows = tvshows;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Set<Comment> getComment() {
+		return comment;
+	}
+
+	public void setComment(Set<Comment> comment) {
+		this.comment = comment;
+	}
+
+	public Set<Rating> getRating() {
+		return rating;
+	}
+
+	public void setRating(Set<Rating> rating) {
+		this.rating = rating;
+	}
+	
 }
+
