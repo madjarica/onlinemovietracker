@@ -1,26 +1,19 @@
-<style>
-    .background-image {
-        background-image: url('https://image.tmdb.org/t/p/w1400_and_h450_bestv2/fudEG1VUWuOqleXv6NwCExK0VLy.jpg');
-        background-size:cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-    }
-</style>
-
-<section class="background-image">
+<section class="background-image" back-img="{{ vm.movieDetails.backdrop_path }}">
     <div class="row no-padding no-margin" style="background-color: rgba(0,0,0,.6);">
         <div class="container">
             <div class="col-xs-12 col-sm-4">
-                <img class="poster-image" src="https://image.tmdb.org/t/p/w640/cUqEgoP6kj8ykfNjJx3Tl5zHCcN.jpg" alt="">
+                <img class="poster-image" src="{{ vm.movieDetails.poster_path }}" alt="">
             </div>
             <div class="col-xs-12 col-sm-8">
                 <div class="row">
-                    <h4 class="white-text">Dunkirk <span class="grey-text small">(2017)</span></h4>
+                    <h4 class="white-text">{{ vm.movieDetails.name }} <span class="grey-text small">{{ vm.movieDetails.release_date | date:'yyyy' }}</span></h4>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Genres</h5>
-                    <p class="white-text">
-                        Action, Drama, History, Thriller, War
+                    <p class="white-text genres">
+                        <span ng-repeat="genre in vm.movieDetails.genres track by $index">
+                            {{ genre.name }}<span class="comma">, </span>
+                        </span>
                     </p>
                 </div>
                 <div class="row">
@@ -44,14 +37,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a href="http://www.imdb.com/title/tt5013056/" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
+                    <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
                     <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Mark as favorite!"><i class="fa fa-heart red" aria-hidden="true"></i></button>
                     <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
                     <p class="white-text">
-                        Miraculous evacuation of Allied soldiers from Belgium, Britain, Canada, and France, who were cut off and surrounded by the German army from the beaches and harbor of Dunkirk, France, between May 26 and June 04, 1940, during Battle of France in World War II.
+                        {{ vm.movieDetails.overview }}
                     </p>
                 </div>
                 <div class="row">
@@ -80,17 +73,17 @@
         <div class="tab-content">
             <div id="about" class="tab-pane fade in active">
                 <br>
-                <h5><small>Original Title: </small>Dunkirk</h5>
+                <h5><small>Original Title: </small>{{ vm.movieDetails.title }}</h5>
                 <h5><small>Released: </small>Yes</h5>
-                <h5><small>Date of Release: </small>July 21, 2017</h5>
-                <h5><small>Original Language: </small>English</h5>
-                <h5><small>Runtime: </small>1h 47m</h5>
-                <h5><small>Homepage: </small><a href="http://www.dunkirkmovie.com/">http://www.dunkirkmovie.com/</a></h5>
+                <h5><small>Date of Release: </small>{{ vm.movieDetails.release_date | date:'dd-MMM-yyyy' }}</h5>
+                <h5><small>Original Language: </small>{{ vm.movieDetails.original_language }}</h5>
+                <h5><small>Runtime: </small>{{ vm.movieDetails.runtime }}</h5>
+                <h5><small>Homepage: </small><a target="_blank" href="{{ vm.movieDetails.homepage }}">{{ vm.movieDetails.homepage }}</a></h5>
             </div>
             <div id="trailer" class="tab-pane fade">
                 <br>
                 <div class="videoWrapper">
-                    <iframe src="http://www.youtube.com/embed/T7O7BtBnsG4" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="{{ vm.movieDetails.trailerLink }}" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div id="gallery" class="tab-pane fade">

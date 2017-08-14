@@ -120,7 +120,7 @@ public class TvShowController {
         TrailerResults trailerResults = restTemplate.getForObject(API_GET_VIDEO, TrailerResults.class, id, API_KEY);
         if(!trailerResults.getTrailers().isEmpty()){
             String youtube =  trailerResults.getTrailers().get(0).getTrailerLink();
-            tvShow.setTrailerLink("https://www.youtube.com/watch?v=" + youtube);
+            tvShow.setTrailerLink("https://www.youtube.com/embed/" + youtube);
         }
         else{
             tvShow.setTrailerLink(null);

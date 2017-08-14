@@ -13,12 +13,12 @@
             })
             .when('/movie-details', {
                 templateUrl: '/views/movie-details.html',
-                controller: 'HomeController',
+                controller: 'MovieController',
                 controllerAs: 'vm'
             })
             .when('/tv-show-details', {
                 templateUrl: '/views/tv-show-details.html',
-                controller: 'HomeController',
+                controller: 'TvShowController',
                 controllerAs: 'vm'
             })
             .when('/search', {

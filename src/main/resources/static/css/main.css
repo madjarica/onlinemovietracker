@@ -523,3 +523,14 @@ tags-input .tags.focused {
     overflow: hidden;
     box-shadow: none;
 }
+
+
+/* Search results */
+.search-result-hover:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,.2);
+}
+
+.ng-binding.ng-scope:last-child span.comma {
+    display: none;
+}

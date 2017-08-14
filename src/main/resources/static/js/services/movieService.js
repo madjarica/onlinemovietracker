@@ -11,7 +11,9 @@
             getMovieById: getMovieById,
             getMovieTrailer: getMovieTrailer,
             getMovieByIdBackend:getMovieByIdBackend,
-            saveMovie:saveMovie
+            saveMovie:saveMovie,
+            getMovieDetails: getMovieDetails,
+            movieDetails: {}
         };
 
         return service;
@@ -80,12 +82,29 @@
 
             return def.promise;
         }
+
+        function getMovieDetails(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "/movies/" + id
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+
         function getMovieByIdBackend(id){
             var def = $q.defer();
             var req = {
                 method: 'GET',
                 url: "/movies/getMovie/" + id
-            }
+            };
             $http(req).success(function (response) {
                 def.resolve(response);
             }).error(function (error) {

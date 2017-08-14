@@ -11,11 +11,29 @@
             getTvShowyId: getTvShowyId,
             getTvShowTrailer: getTvShowTrailer,
             getTvShowImdbId: getTvShowImdbId,
+            getTvShowDetails: getTvShowDetails,
             getTvShowByIdBackend : getTvShowByIdBackend,
-            saveTvShow : saveTvShow
+            saveTvShow : saveTvShow,
+            tvShowDetails: {}
         };
 
         return service;
+
+        function getTvShowDetails(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "/tvshows/" + id
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
 
         function getTVShowByTitle (title) {
             var def = $q.defer();

@@ -130,7 +130,7 @@ public class MovieController {
 
         }
         else{
-            movie.setTrailerLink("https://www.youtube.com/watch?v=" + youtube);
+            movie.setTrailerLink("https://www.youtube.com/embed/" + youtube);
         }
 
         List<Genre> genresToBeAdded = new ArrayList<>();

@@ -1,26 +1,19 @@
-<style>
-    .background-image {
-        background-image: url('https://image.tmdb.org/t/p/w1400_and_h450_bestv2/jUPkQdETILcxIW2xSNEzAxUeHgR.jpg');
-        background-size:cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-    }
-</style>
-
-<section class="background-image">
+<section class="background-image" back-img="{{ vm.tvShowDetails.backdrop_path }}">
     <div class="row no-padding no-margin" style="background-color: rgba(0,0,0,.6);">
         <div class="container">
             <div class="col-xs-12 col-sm-4">
-                <img class="poster-image" src="https://image.tmdb.org/t/p/w640/u8zkSt4YT9G5FbTImUoqhLy0pMc.jpg" alt="">
+                <img class="poster-image" src="{{ vm.tvShowDetails.poster_path }}" alt="">
             </div>
             <div class="col-xs-12 col-sm-8">
                 <div class="row">
-                    <h4 class="white-text">Battlestar Galactica <span class="grey-text small">(2004)</span></h4>
+                    <h4 class="white-text">{{ vm.tvShowDetails.name }} <span class="grey-text small">{{ vm.tvShowDetails.first_air_date | date:'yyyy' }}</span></h4>
                 </div>
                 <div class="row">
-                    <h5 class="white-text">Genres</h5>
-                    <p class="white-text">
-                        Action, Adventure, Drama, Sci-Fi, Fantasy
+                    <h5 class="white-text genres">Genres</h5>
+                    <p class="white-text genres">
+                        <span ng-repeat="genre in vm.tvShowDetails.genres track by $index">
+                            {{ genre.name }}<span class="comma">, </span>
+                        </span>
                     </p>
                 </div>
                 <div class="row">
@@ -44,15 +37,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a href="http://www.imdb.com/title/tt0407362/" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
+                    <a href="{{ vm.tvShowDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
                     <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Mark as favorite!"><i class="fa fa-heart red" aria-hidden="true"></i></button>
                     <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
-                    <p class="white-text">
-                        When an old enemy, the Cylons, resurface and obliterate the 12 colonies, the crew of the aged Galactica protect a small civilian fleet - the last of humanity - as they journey toward the fabled 13th colony, Earth.
-                    </p>
+                        <p class="white-text">
+                            {{ vm.tvShowDetails.overview }}
+                        </p>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Featured Crew</h5>
@@ -81,10 +74,10 @@
         <div class="tab-content">
             <div id="about" class="tab-pane fade in active">
                 <br>
-                <h5><small>Original Title: </small>Battlestar Galactica</h5>
-                <h5><small>Pilot Date: </small>January 14, 2005</h5>
-                <h5><small>Original Language: </small>English</h5>
-                <h5><small>Homepage: </small><a href="http://www.syfy.com/battlestargalactica/">http://www.syfy.com/battlestargalactica/</a></h5>
+                <h5><small>Original Title: </small>{{ vm.tvShowDetails.title }}</h5>
+                <h5><small>Pilot Date: </small>{{ vm.tvShowDetails.first_air_date | date:'dd-MM-yyyy' }}</h5>
+                <h5><small>Original Language: </small>{{ vm.tvShowDetails.original_language }}</h5>
+                <h5><small>Homepage: </small><a target="_blank" href="{{ vm.tvShowDetails.homepage }}">{{ vm.tvShowDetails.homepage }}</a></h5>
             </div>
 
             <div id="episodes" class="tab-pane fade">
@@ -136,7 +129,7 @@
             <div id="trailer" class="tab-pane fade">
                 <br>
                 <div class="videoWrapper">
-                    <iframe src="http://www.youtube.com/embed/oGODQkSNF_Y" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="{{ vm.tvShowDetails.trailerLink }}" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
 
