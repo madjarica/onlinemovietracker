@@ -164,7 +164,7 @@ public class MovieController {
         URL url = new URL(imageUrl);
         InputStream is = url.openStream();
         OutputStream os = new FileOutputStream(destinationFile);
-        byte[] b = new byte[2048];
+        byte[] b = new byte[819200];
         int length;
 
         while ((length = is.read(b)) != -1) {
@@ -172,6 +172,7 @@ public class MovieController {
         }
 
         is.close();
+        os.close();
     }
 
     public Genre getGenres(String name){

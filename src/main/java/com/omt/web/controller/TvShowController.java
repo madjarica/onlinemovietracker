@@ -1,5 +1,6 @@
 package com.omt.web.controller;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class TvShowController {
     String API_GET_CREDITS = "https://api.themoviedb.org/3/tv/{id}/credits?api_key={api_key}";
     String API_GET_PERSON = "https://api.themoviedb.org/3/person/{person_id}?api_key={api_key}&language=en-US";
     String API_GET_VIDEO = "https://api.themoviedb.org/3/tv/{id}/videos?api_key={api_key}";
+    String API_GET_EXTERNAL = "https://api.themoviedb.org/3/tv/{tv_id}/external_ids?api_key={api_key}";
     String API_GET_EPISODES = "https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={api_key}";
     String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
@@ -110,9 +112,12 @@ public class TvShowController {
 
         tvShow.setTmdbTvShowId(tvShow.getId());
         tvShow.setId(null);
+
+        QueryResultsTv externalLinks = restTemplate.getForObject(API_GET_EXTERNAL, QueryResultsTv.class, id, API_KEY);
+        tvShow.setImdbPage("http://www.imdb.com/title/" + externalLinks.getImdb_id());
+
         tvShow.setPosterPath("https://image.tmdb.org/t/p/w640" + tvShow.getPosterPath());
-        tvShow.setImdbPage("http://www.imdb.com/title/" + tvShow.getImdbPage());
-        tvShow.setBackdropPath( "http://image.tmdb.org/t/p/original" + tvShow.getBackdropPath());
+        tvShow.setBackdropPath( "http://image.tmdb.org/t/p/w640" + tvShow.getBackdropPath());
 
         List<Character> characterList = characterService.findByTmdbMediaId(tvShow.getTmdbTvShowId());
         tvShow.setCharacterList(characterList);
