@@ -1,10 +1,11 @@
 package com.omt.repository;
 
-import com.omt.domain.Watchlist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.omt.domain.ScheduleList;
+
 @Repository
-public interface WatchlistRepository extends JpaRepository<Watchlist, Long>{
+public interface ScheduleListRepository extends JpaRepository<ScheduleList, Long> {
 
 }
