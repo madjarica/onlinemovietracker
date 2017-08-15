@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omt.domain.User;
 import com.omt.service.UserNotificationService;
-import com.omt.service.UserService;
+import com.omt.service.LoginUserService;
 
 
 @RestController
@@ -23,34 +23,33 @@ public class UserController {
 
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	 UserService userService;
+	 LoginUserService loginUserService;
 	 private UserNotificationService userNotificationService;
 
 	    @Autowired
-	    public UserController(UserService userService, UserNotificationService userNotificationService) {
-	  		this.userService = userService;
+	    public UserController(LoginUserService loginUserService, UserNotificationService userNotificationService) {
+	  		this.loginUserService = loginUserService;
 	 		this.userNotificationService = userNotificationService;
 	  	}
 
-
 	    @RequestMapping(method = RequestMethod.GET)
 	    public List<User> findAll() {
-	        return userService.findAll();
+	        return loginUserService.findAll();
 	    }
 
 	    @RequestMapping(path = "{id}", method = RequestMethod.GET)
 	    public User findOne(@PathVariable("id") Long id) {
-	        return userService.findOne(id);
+	        return loginUserService.findOne(id);
 	    }
 
 	    @RequestMapping(method = RequestMethod.POST)
 	    public User save(@RequestBody User user) {
-	        return userService.save(user);
+	        return loginUserService.save(user);
 	    }
 	    
 	    @RequestMapping(path = "/sentMail", method = RequestMethod.GET)
 	    public User findEmail(){
-	    User newUser = userService.findOne((long)1);
+	    User newUser = loginUserService.findOne((long)1);
         userNotificationService.sendNotification(newUser);
 		
 		return newUser;
@@ -62,7 +61,7 @@ public class UserController {
 	    		if(user != null) {
 	    			user.setActive(true);
 	    			user.setCodeForActivation(null);
-	    			userService.save(user);
+	    			loginUserService.save(user);
 	    			
 	    //			return "redirect:" + "http://localhost:8080/";
 	    		}
@@ -71,16 +70,16 @@ public class UserController {
 
 	    @RequestMapping(method = RequestMethod.PUT)
 	    public User update(@RequestBody User user) {
-	        return userService.save(user);
+	        return loginUserService.save(user);
 	    }
 
 	    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	    public void delete(@PathVariable("id") Long id) {
-	        userService.delete(id);
+	        loginUserService.delete(id);
 	    }
 	
 	    @RequestMapping(path = "code/{code}", method = RequestMethod.GET)
 	    	public User findByCodeForActivation(@PathVariable("code") String code) {
-	    		return userService.findByCodeForActivation(code);
+	    		return loginUserService.findByCodeForActivation(code);
 	     	}
 }

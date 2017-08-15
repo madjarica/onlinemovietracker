@@ -2,45 +2,46 @@ package com.omt.service;
 
 import java.util.List;
 
+import com.omt.domain.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.omt.domain.User;
-import com.omt.repository.UserRepository;
+import com.omt.repository.LoginUserRepository;
 
 @Service
 public class UserService {
 
-	UserRepository userRepository;
+	LoginUserRepository loginUserRepository;
 
 	
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(LoginUserRepository loginUserRepository) {
+        this.loginUserRepository = loginUserRepository;
     }
 
-    public List<User> findAll() {
+    public List<LoginUser> findAll() {
         // TODO Auto-generated method stub
-        return userRepository.findAll();
+        return loginUserRepository.findAll();
     }
 
-    public User save(User user) {
+    public LoginUser save(LoginUser user) {
         // TODO Auto-generated method stub
-        return userRepository.save(user);
+        return loginUserRepository.save(user);
     }
 
-    public User findOne(Long id) {
+    public LoginUser findOne(Long id) {
         // TODO Auto-generated method stub
-        return userRepository.findOne(id);
+        return loginUserRepository.findOne(id);
     }
 
     public void delete(Long id) {
         // TODO Auto-generated method stub
-        userRepository.delete(id);
+        loginUserRepository.delete(id);
     }
     
-    public User findByCodeForActivation(String code) {
-    	 		return userRepository.findByCodeForActivation(code);
+    public LoginUser findByCodeForActivation(String code) {
+    	 		return loginUserRepository.findByCodeForActivation(code);
     }
+    public LoginUser findByUsername(String username) { return loginUserRepository.findByUsername(username); }
 	
 }
