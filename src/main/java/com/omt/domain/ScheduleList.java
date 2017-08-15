@@ -30,14 +30,13 @@ public class ScheduleList extends BaseEntity {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private LoginUser loginUser;
 
-	public ScheduleList(Date sheduledDateTime, Date createdDate, Date updatedDate, User user) {
-		super();
+	public ScheduleList(Date sheduledDateTime, Date createdDate, Date updatedDate, LoginUser loginUser) {
 		this.sheduledDateTime = sheduledDateTime;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
-		this.user = user;
+		this.loginUser = loginUser;
 	}
 
 	public Date getSheduledDateTime() {
@@ -64,12 +63,11 @@ public class ScheduleList extends BaseEntity {
 		this.updatedDate = updatedDate;
 	}
 
-	public User getUser() {
-		return user;
+	public LoginUser getLoginUser() {
+		return loginUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setLoginUser(LoginUser loginUser) {
+		this.loginUser = loginUser;
 	}
-	
 }

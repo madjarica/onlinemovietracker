@@ -30,10 +30,9 @@
                     </span>
                 </div>
                 <div class="row">
-                    <div>
-                        <span uib-rating ng-model="vm.rate" max="vm.max" read-only="vm.isReadonly" on-hover="vm.hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
-                        <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
-                        <!--<button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="vm.rate = 0" ng-disabled="vm.isReadonly">Clear rating</button>-->
+                    <div ng-controller="RatingController as rateCtrl">
+                        <span uib-rating ng-model="rateCtrl.rate" max="rateCtrl.max" read-only="rateCtrl.isReadonly" on-hover="rateCtrl.hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                        <!--<button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="rateCtrl.rate = 0" ng-disabled="rateCtrl.isReadonly">Clear rating</button>-->
                     </div>
                 </div>
                 <div class="row">
@@ -88,92 +87,33 @@
             </div>
             <div id="gallery" class="tab-pane fade">
                 <br>
-                <div class="row">
-                    <div uib-carousel active="active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
-                        <div uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                <div class="row" ng-controller="GalleryController as gallCtrl">
+                    <div uib-carousel active="active" interval="gallCtrl.myInterval" no-wrap="gallCtrl.noWrapSlides">
+                        <div uib-slide ng-repeat="slide in gallCtrl.slides track by slide.id" index="slide.id">
                             <img ng-src="{{slide.image}}" style="margin:auto;">
-                            <div class="carousel-caption">
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="actors" class="tab-pane fade">
                 <br>
-                <div class="row">
+                <div ng-repeat="actor in vm.movieDetails.characterList">
                     <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/nCVXBCgq5SKNLzh0jjRnqjkKpxJ.jpg" alt="">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-2">
+                                <img class="person-image" src="" alt="">
+                            </div>
+                            <div class="col-xs-6 col-sm-10">
+                                <h5><small><b>Name:</b> </small>{{ actor.character }}</h5>
+                                <h5><small><b>Real Name:</b> </small>{{ actor.person.name }}</h5>
+                                <h5><small><b>Birthday:</b> </small>{{ actor.person.birthday | date:'dd-MM-yyyy' }}</h5>
+                                <h5><small><b>Place of Birth:</b> </small>{{ actor.person.name }}</h5>
+                                <h5><small><b>Biography:</b> </small></h5>
+                                <p>{{ actor.person.biography }}</p>
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>Fionn Whitehead</h5>
-                            <h5><small><b>Birthday:</b> </small>-</h5>
-                            <h5><small><b>Place of Birth:</b> </small>-</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci amet, at distinctio exercitationem fugiat impedit in nam, quasi quis quo similique soluta temporibus, veritatis voluptate? A autem esse impedit!</p>
-                        </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/nCVXBCgq5SKNLzh0jjRnqjkKpxJ.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>Fionn Whitehead</h5>
-                            <h5><small><b>Birthday:</b> </small>-</h5>
-                            <h5><small><b>Place of Birth:</b> </small>-</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci amet, at distinctio exercitationem fugiat impedit in nam, quasi quis quo similique soluta temporibus, veritatis voluptate? A autem esse impedit!</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/nCVXBCgq5SKNLzh0jjRnqjkKpxJ.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>Fionn Whitehead</h5>
-                            <h5><small><b>Birthday:</b> </small>-</h5>
-                            <h5><small><b>Place of Birth:</b> </small>-</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci amet, at distinctio exercitationem fugiat impedit in nam, quasi quis quo similique soluta temporibus, veritatis voluptate? A autem esse impedit!</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/nCVXBCgq5SKNLzh0jjRnqjkKpxJ.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>Fionn Whitehead</h5>
-                            <h5><small><b>Birthday:</b> </small>-</h5>
-                            <h5><small><b>Place of Birth:</b> </small>-</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci amet, at distinctio exercitationem fugiat impedit in nam, quasi quis quo similique soluta temporibus, veritatis voluptate? A autem esse impedit!</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/nCVXBCgq5SKNLzh0jjRnqjkKpxJ.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>Fionn Whitehead</h5>
-                            <h5><small><b>Birthday:</b> </small>-</h5>
-                            <h5><small><b>Place of Birth:</b> </small>-</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci amet, at distinctio exercitationem fugiat impedit in nam, quasi quis quo similique soluta temporibus, veritatis voluptate? A autem esse impedit!</p>
-                        </div>
-                    </div>
-                    <hr>
                 </div>
             </div>
             <div id="comments" class="tab-pane fade">

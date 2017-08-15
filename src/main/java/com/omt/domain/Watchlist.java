@@ -57,7 +57,7 @@ public class Watchlist extends BaseEntity{
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private LoginUser LoginUser;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="watchlist_id")
@@ -67,10 +67,7 @@ public class Watchlist extends BaseEntity{
 	@JoinColumn(name="watchlist_id")
 	private Set<Rating> rating;
 
-	public Watchlist(Date watchDate, boolean visibleToOthers, boolean favorite, String screenshot, Date createdDate,
-			Date updatedDate, Set<Movie> movies, Set<TvShow> tvshows, User user, Set<Comment> comment,
-			Set<Rating> rating) {
-		super();
+	public Watchlist(Date watchDate, boolean visibleToOthers, boolean favorite, String screenshot, Date createdDate, Date updatedDate, Set<Movie> movies, Set<TvShow> tvshows, com.omt.domain.LoginUser loginUser, Set<Comment> comment, Set<Rating> rating) {
 		this.watchDate = watchDate;
 		this.visibleToOthers = visibleToOthers;
 		this.favorite = favorite;
@@ -79,7 +76,7 @@ public class Watchlist extends BaseEntity{
 		this.updatedDate = updatedDate;
 		this.movies = movies;
 		this.tvshows = tvshows;
-		this.user = user;
+		LoginUser = loginUser;
 		this.comment = comment;
 		this.rating = rating;
 	}
@@ -148,12 +145,12 @@ public class Watchlist extends BaseEntity{
 		this.tvshows = tvshows;
 	}
 
-	public User getUser() {
-		return user;
+	public com.omt.domain.LoginUser getLoginUser() {
+		return LoginUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setLoginUser(com.omt.domain.LoginUser loginUser) {
+		LoginUser = loginUser;
 	}
 
 	public Set<Comment> getComment() {
@@ -171,6 +168,5 @@ public class Watchlist extends BaseEntity{
 	public void setRating(Set<Rating> rating) {
 		this.rating = rating;
 	}
-	
 }
 

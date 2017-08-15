@@ -1,10 +1,10 @@
 (function () {
     angular.module('app')
-        .controller('RegisterLoginController', RegisterLoginController);
+        .controller('AuthenticationController', AuthenticationController);
 
-    GalleryController.$inject = ['$location', '$http', '$route'];
+    AuthenticationController.$inject = ['$location', '$http', '$route'];
 
-    function GalleryController($location, $http, $route) {
+    function AuthenticationController($location, $http, $route) {
 
         var vm = this;
 

@@ -1,13 +1,13 @@
 package com.omt.repository;
 
+import com.omt.domain.LoginUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.omt.domain.User;
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface LoginUserRepository extends JpaRepository<LoginUser, Long> {
 
-	public User findByCodeForActivation(String code);
+	public LoginUser findByUsername(String username);
+	public LoginUser findByCodeForActivation(String code);
 	
 }

@@ -30,10 +30,9 @@
                     </span>
                 </div>
                 <div class="row">
-                    <div>
-                        <span uib-rating ng-model="vm.rate" max="vm.max" read-only="vm.isReadonly" on-hover="vm.hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
-                        <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
-                        <!--<button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="vm.rate = 0" ng-disabled="vm.isReadonly">Clear rating</button>-->
+                    <div ng-controller="RatingController as rateCtrl">
+                        <span uib-rating ng-model="rateCtrl.rate" max="rateCtrl.max" read-only="rateCtrl.isReadonly" on-hover="rateCtrl.hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                        <!--<button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="rateCtrl.rate = 0" ng-disabled="rateCtrl.isReadonly">Clear rating</button>-->
                     </div>
                 </div>
                 <div class="row">
@@ -82,47 +81,21 @@
 
             <div id="episodes" class="tab-pane fade">
                 <br>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-3">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w227_and_h127_bestv2/ygWsbSEzVM9nTSKOqhVtamnBGyl.jpg" alt="">
+                <div ng-repeat="episode in vm.tvShowDetails.tvShowEpisodes">
+                    <div class="row" ng-if="episode.season_number > 0">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3">
+                                <img class="person-image" src="" alt="">
+                            </div>
+                            <div class="col-xs-6 col-sm-9">
+                                <h5><small><b>Title:</b> </small>{{ episode.name }}</h5>
+                                <h5><small><b>S</b></small>{{ episode.season_number }} <small><b>Ep</b></small>{{ episode.episode_number }}</h5>
+                                <h5><small><b>Air Date:</b> </small>{{ episode.air_date | date:'dd-MM-yyyy' }}</h5>
+                                <p>{{ episode.overview }}</p>
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-sm-9">
-                            <h5><small><b>Title:</b> </small>33</h5>
-                            <h5><small><b>S</b></small>1 <small><b>Ep</b></small>1</h5>
-                            <h5><small><b>Air Date:</b> </small>October 18, 2004</h5>
-                            <p>In the wake of the Cylon sneak attack, the ragtag fleet of human survivors is forced to play a deadly game of cat-and-mouse with their pursuers. Every 33 minutes, they make a jump to a new location. And every 33 minutes, the Cylons manage to find them. The pilots are on the brink of exhaustion, relying on artificial stimulants to keep fighting, and the civilians are beginning to doubt the leadership of Commander Adama and President Roslin.</p>
-                        </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-3">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w227_and_h127_bestv2/ygWsbSEzVM9nTSKOqhVtamnBGyl.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-9">
-                            <h5><small><b>Title:</b> </small>33</h5>
-                            <h5><small><b>S</b></small>1 <small><b>Ep</b></small>1</h5>
-                            <h5><small><b>Air Date:</b> </small>October 18, 2004</h5>
-                            <p>In the wake of the Cylon sneak attack, the ragtag fleet of human survivors is forced to play a deadly game of cat-and-mouse with their pursuers. Every 33 minutes, they make a jump to a new location. And every 33 minutes, the Cylons manage to find them. The pilots are on the brink of exhaustion, relying on artificial stimulants to keep fighting, and the civilians are beginning to doubt the leadership of Commander Adama and President Roslin.</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-3">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w227_and_h127_bestv2/ygWsbSEzVM9nTSKOqhVtamnBGyl.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-9">
-                            <h5><small><b>Title:</b> </small>33</h5>
-                            <h5><small><b>S</b></small>1 <small><b>Ep</b></small>1</h5>
-                            <h5><small><b>Air Date:</b> </small>October 18, 2004</h5>
-                            <p>In the wake of the Cylon sneak attack, the ragtag fleet of human survivors is forced to play a deadly game of cat-and-mouse with their pursuers. Every 33 minutes, they make a jump to a new location. And every 33 minutes, the Cylons manage to find them. The pilots are on the brink of exhaustion, relying on artificial stimulants to keep fighting, and the civilians are beginning to doubt the leadership of Commander Adama and President Roslin.</p>
-                        </div>
-                    </div>
-                    <hr>
                 </div>
             </div>
 
@@ -135,12 +108,10 @@
 
             <div id="gallery" class="tab-pane fade">
                 <br>
-                <div class="row">
-                    <div uib-carousel active="active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
-                        <div uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                <div class="row" ng-controller="GalleryController as gallCtrl">
+                    <div uib-carousel active="active" interval="gallCtrl.myInterval" no-wrap="gallCtrl.noWrapSlides">
+                        <div uib-slide ng-repeat="slide in gallCtrl.slides track by slide.id" index="slide.id">
                             <img ng-src="{{slide.image}}" style="margin:auto;">
-                            <div class="carousel-caption">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,80 +119,23 @@
 
             <div id="actors" class="tab-pane fade">
                 <br>
-                <div class="row">
+                <div ng-repeat="actor in vm.tvShowDetails.characterList">
                     <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/eKYhq4PGfqE7F2xOjNyeyXHNhRU.jpg" alt="">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-2">
+                                <img class="person-image" src="" alt="">
+                            </div>
+                            <div class="col-xs-6 col-sm-10">
+                                <h5><small><b>Name:</b> </small>{{ actor.character }}</h5>
+                                <h5><small><b>Real Name:</b> </small>{{ actor.person.name }}</h5>
+                                <h5><small><b>Birthday:</b> </small>{{ actor.person.birthday | date:'dd-MM-yyyy' }}</h5>
+                                <h5><small><b>Place of Birth:</b> </small>{{ actor.person.name }}</h5>
+                                <h5><small><b>Biography:</b> </small></h5>
+                                <p>{{ actor.person.biography }}</p>
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>James Callis</h5>
-                            <h5><small><b>Birthday:</b> </small>1971-06-04</h5>
-                            <h5><small><b>Place of Birth:</b> </small>London - England - UK</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>James Callis (born 4 June 1971) is a British actor. He is best known for playing Dr. Gaius Baltar in the re-imagined Battlestar Galactica miniseries and television series, and Bridget Jones' best friend in Bridget Jones's Diary and Bridget Jones: The Edge of Reason. He joined the cast of the TV Series Eureka, on Syfy, in 2010.</p>
-                        </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/eKYhq4PGfqE7F2xOjNyeyXHNhRU.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>James Callis</h5>
-                            <h5><small><b>Birthday:</b> </small>1971-06-04</h5>
-                            <h5><small><b>Place of Birth:</b> </small>London - England - UK</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>James Callis (born 4 June 1971) is a British actor. He is best known for playing Dr. Gaius Baltar in the re-imagined Battlestar Galactica miniseries and television series, and Bridget Jones' best friend in Bridget Jones's Diary and Bridget Jones: The Edge of Reason. He joined the cast of the TV Series Eureka, on Syfy, in 2010.</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/eKYhq4PGfqE7F2xOjNyeyXHNhRU.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>James Callis</h5>
-                            <h5><small><b>Birthday:</b> </small>1971-06-04</h5>
-                            <h5><small><b>Place of Birth:</b> </small>London - England - UK</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>James Callis (born 4 June 1971) is a British actor. He is best known for playing Dr. Gaius Baltar in the re-imagined Battlestar Galactica miniseries and television series, and Bridget Jones' best friend in Bridget Jones's Diary and Bridget Jones: The Edge of Reason. He joined the cast of the TV Series Eureka, on Syfy, in 2010.</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/eKYhq4PGfqE7F2xOjNyeyXHNhRU.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>James Callis</h5>
-                            <h5><small><b>Birthday:</b> </small>1971-06-04</h5>
-                            <h5><small><b>Place of Birth:</b> </small>London - England - UK</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>James Callis (born 4 June 1971) is a British actor. He is best known for playing Dr. Gaius Baltar in the re-imagined Battlestar Galactica miniseries and television series, and Bridget Jones' best friend in Bridget Jones's Diary and Bridget Jones: The Edge of Reason. He joined the cast of the TV Series Eureka, on Syfy, in 2010.</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="https://image.tmdb.org/t/p/w640/eKYhq4PGfqE7F2xOjNyeyXHNhRU.jpg" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5><small><b>Name:</b> </small>James Callis</h5>
-                            <h5><small><b>Birthday:</b> </small>1971-06-04</h5>
-                            <h5><small><b>Place of Birth:</b> </small>London - England - UK</h5>
-                            <h5><small><b>Biography:</b> </small></h5>
-                            <p>James Callis (born 4 June 1971) is a British actor. He is best known for playing Dr. Gaius Baltar in the re-imagined Battlestar Galactica miniseries and television series, and Bridget Jones' best friend in Bridget Jones's Diary and Bridget Jones: The Edge of Reason. He joined the cast of the TV Series Eureka, on Syfy, in 2010.</p>
-                        </div>
-                    </div>
-                    <hr>
                 </div>
             </div>
 

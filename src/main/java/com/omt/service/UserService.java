@@ -12,7 +12,6 @@ import com.omt.repository.LoginUserRepository;
 public class UserService {
 
 	LoginUserRepository loginUserRepository;
-
 	
     @Autowired
     public UserService(LoginUserRepository loginUserRepository) {
@@ -42,6 +41,8 @@ public class UserService {
     public LoginUser findByCodeForActivation(String code) {
     	 		return loginUserRepository.findByCodeForActivation(code);
     }
-    public LoginUser findByUsername(String username) { return loginUserRepository.findByUsername(username); }
+    public LoginUser findByUsername(String username) {
+        return loginUserRepository.findByUsername(username);
+    }
 	
 }
