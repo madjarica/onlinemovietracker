@@ -50,6 +50,10 @@ public class LoginUser extends BaseEntity {
 	@Column(unique = true, nullable = false)
 	@NotNull
 	private String email;
+
+	@Column(unique = true, nullable = false)
+	@NotNull
+	private String hashed_email;
 	   
 	@Column(nullable = true)
 	@DateTimeFormat
@@ -71,7 +75,7 @@ public class LoginUser extends BaseEntity {
 		this.roles = roles;
 	}
 
-	public LoginUser(String username, String password, String passwordTemp, String codeForActivation, boolean active, boolean status, Date blockedUntil, boolean subscription, String email, Date createdDate, Date updatedDate, Set<Role> roles) {
+	public LoginUser(String username, String password, String passwordTemp, String codeForActivation, boolean active, boolean status, Date blockedUntil, boolean subscription, String email, String hashed_email, Date createdDate, Date updatedDate, Set<Role> roles) {
 		this.username = username;
 		this.password = password;
 		this.passwordTemp = passwordTemp;
@@ -81,6 +85,7 @@ public class LoginUser extends BaseEntity {
 		this.blockedUntil = blockedUntil;
 		this.subscription = subscription;
 		this.email = email;
+		this.hashed_email = hashed_email;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 		this.roles = roles;
@@ -156,6 +161,14 @@ public class LoginUser extends BaseEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getHashed_email() {
+		return hashed_email;
+	}
+
+	public void setHashed_email(String hashed_email) {
+		this.hashed_email = hashed_email;
 	}
 
 	public Date getCreatedDate() {

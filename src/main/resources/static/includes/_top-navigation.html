@@ -1,114 +1,120 @@
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark default-color" style="margin-bottom: 0;">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand waves-effect waves-light" href="#/"><i class="fa fa-film" aria-hidden="true"></i> omt</a>
-            </div>
+<section ng-controller="AuthenticationController as authCtrl">
+    <header>
+        {{ authCtrl.user }}
+        <nav class="navbar navbar-expand-lg navbar-dark default-color" style="margin-bottom: 0;">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand waves-effect waves-light" href="#/"><i class="fa fa-film" aria-hidden="true"></i> omt</a>
+                </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li ng-class="{ 'active': vm.isActive('/') }"><a class="nav-link waves-effect waves-light" href="#/">Home</a></li>
-                    <li ng-class="{ 'active': vm.isActive('/search') }"><a class="nav-link waves-effect waves-light" href="#/search">Search</a></li>
-                    <li ng-class="{ 'active': vm.isActive('/add-movie') }"><a class="nav-link waves-effect waves-light" href="#/add-movie">Add Movie</a></li>
-                    <li ng-class="{ 'active': vm.isActive('/add-tv-show') }"><a class="nav-link waves-effect waves-light" href="#/add-tv-show">Add TV Show</a></li>
-                    <!--<li class="dropdown">-->
-                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-                    <!--<ul class="dropdown-menu">-->
-                    <!--<li><a href="#">Action</a></li>-->
-                    <!--<li><a href="#">Another action</a></li>-->
-                    <!--<li><a href="#">Something else here</a></li>-->
-                    <!--<li role="separator" class="divider"></li>-->
-                    <!--<li><a href="#">Separated link</a></li>-->
-                    <!--<li role="separator" class="divider"></li>-->
-                    <!--<li><a href="#">One more separated link</a></li>-->
-                    <!--</ul>-->
-                    <!--</li>-->
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">1 <i class="fa fa-bell"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">1 <i class="fa fa-envelope"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#auth-modal">Register/Login</button>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self" style="padding-top: 12px; padding-bottom: 0;"><img src="https://www.gravatar.com/avatar/dce6b4d774900927f2356091ab5478fb" class="img-responsive img-circle"></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" target="_self">Change Password</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#" target="_self">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    <!--/.Navbar-->
-</header>
-
-<!-- Modal -->
-<div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#login" target="_self">Login</a></li>
-                    <li><a data-toggle="tab" href="#registration" target="_self">Registration</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div id="login" class="tab-pane fade in active">
-                        <br>
-                        <form>
-                            <div class="form-group">
-                                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-                            </div>
-                            <div class="col-xs-8 col-xs-offset-2">
-                                <button class="btn btn-primary waves-effect waves-light btn-block">Login</button>
-                            </div>
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
-                    <div id="registration" class="tab-pane fade">
-                        <br>
-                        <form>
-                            <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="username" class="form-control" placeholder="Username">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
-                            </div>
-                            <div class="col-xs-8 col-xs-offset-2">
-                                <button class="btn btn-primary waves-effect waves-light btn-block">Register</button>
-                            </div>
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{ 'active': vm.isActive('/') }"><a class="nav-link waves-effect waves-light" href="#/">Home</a></li>
+                        <li ng-class="{ 'active': vm.isActive('/search') }"><a class="nav-link waves-effect waves-light" href="#/search">Search</a></li>
+                        <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/add-movie') }"><a class="nav-link waves-effect waves-light" href="#/add-movie">Add Movie</a></li>
+                        <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/add-tv-show') }"><a class="nav-link waves-effect waves-light" href="#/add-tv-show">Add TV Show</a></li>
+                        <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li><a href="#">Something else here</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">One more separated link</a></li>-->
+                        <!--</ul>-->
+                        <!--</li>-->
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item" ng-show="authCtrl.user">
+                            <a class="nav-link waves-effect waves-light">1 <i class="fa fa-bell"></i></a>
+                        </li>
+                        <li class="nav-item" ng-show="authCtrl.user">
+                            <a class="nav-link waves-effect waves-light">1 <i class="fa fa-envelope"></i></a>
+                        </li>
+                        <li class="nav-item" ng-show="!authCtrl.user">
+                            <button type="button" class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#auth-modal">Register/Login</button>
+                        </li>
+                        <li class="dropdown" ng-show="authCtrl.user">
+                            <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self" style="padding-top: 12px; padding-bottom: 0;"><img src="https://www.gravatar.com/avatar/dce6b4d774900927f2356091ab5478fb" class="img-responsive img-circle"></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" target="_self">Change Password</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#" ng-click="authCtrl.logout()" target="_self">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Close</button>
+        </nav>
+    </header>
+
+    <!-- Modal -->
+    <div class="modal fade" id="auth-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#login" target="_self">Login</a></li>
+                        <li><a data-toggle="tab" href="#registration" target="_self">Registration</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="login" class="tab-pane fade in active">
+                            <br>
+                            <form ng-submit="authCtrl.login(authCtrl.loginCredentials)" name="authCtrl.loginForm">
+                                <div class="form-group">
+                                    <input type="text" name="username" name="authCtrl.loginCredentials.username" ng-model="authCtrl.loginCredentials.username" class="form-control" id="username" placeholder="Username" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" name="authCtrl.loginCredentials.password" ng-model="authCtrl.loginCredentials.password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light btn-block">Login</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                        <div id="registration" class="tab-pane fade">
+                            <br>
+                            <form ng-submit="authCtrl.register(authCtrl.registerCredentials)" name="authCtrl.registerForm" novalidate>
+
+                                <div class="alert alert-danger" ng-class="{'hidden': authCtrl.errors.register == ''}">{{authCtrl.errors.register}}</div>
+
+                                <div class="form-group">
+                                    <input type="email" name="authCtrl.registerCredentials.email" ng-model="authCtrl.registerCredentials.email" class="form-control" placeholder="Email" required ng-pattern = '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
+                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['authCtrl.registerCredentials.email'].$invalid">Email is not valid.</div>
+                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['authCtrl.registerCredentials.email'].$error.required">Email is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="authCtrl.registerCredentials.username" ng-model="authCtrl.registerCredentials.username" class="form-control" placeholder="Username" required>
+                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['authCtrl.registerCredentials.username'].$error.required">Username is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="authCtrl.registerCredentials.password" ng-model="authCtrl.registerCredentials.password" class="form-control" placeholder="Password" required>
+                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$invalid">Password must have minimal 6 characters.</div>
+                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$error.required">Password is required.</div>
+                                </div>
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <button class="btn btn-primary waves-effect waves-light btn-block">Register</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+</section>

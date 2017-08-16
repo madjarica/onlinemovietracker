@@ -30,6 +30,7 @@
     <div>
         <div ng-include="'includes/_top-navigation.html'"></div>
         <div ng-include="'includes/_search-input.html'"></div>
+
         <div id="view" ng-view></div>
     </div>
     <div class="margin-bottom-70"></div>
@@ -62,12 +63,15 @@
 <script src="js/controllers/searchController.js"></script>
 <script src="js/controllers/ratingController.js"></script>
 <script src="js/controllers/galleryController.js"></script>
+<script src="js/controllers/authenticationController.js"></script>
 
 <!-- services -->
 <script src="js/services/homeService.js"></script>
 <script src="js/services/movieService.js"></script>
 <script src="js/services/tvShowsService.js"></script>
 <script src="js/services/searchService.js"></script>
+<script src="js/services/registerService.js"></script>
+<script src="js/services/authenticationService.js"></script>
 
 <!-- routes -->
 <script src="js/routes/mainRoute.js" type="text/javascript"></script>

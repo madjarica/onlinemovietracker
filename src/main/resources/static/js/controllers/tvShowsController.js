@@ -18,6 +18,8 @@
         vm.getTvShowDetails = getTvShowDetails;
         vm.tvShowObject = {};
         vm.tvShowDetails = TvShowsService.tvShowDetails;
+        vm.tvShowObject.poster_path = "/img/default_poster.jpg";
+        vm.tvShowObject.backdrop_path = "/img/default_backdrop.jpg";
         vm.tvShowsList = [];
 
         // On List of Movies

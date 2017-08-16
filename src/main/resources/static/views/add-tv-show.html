@@ -48,12 +48,12 @@
 
                     </div>
                     <div class="col-xs-12 col-sm-4">
-                        <img class="poster-image" src="{{ tvShowCtrl.tvShowObject.poster_path }}" alt="">
+                        <img class="poster-image" src="{{ $location.$$absUrl + tvShowCtrl.tvShowObject.poster_path }}" alt="">
                         <div class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
-                        <img class="poster-image" src="{{ tvShowCtrl.tvShowObject.backdrop_path }}" alt="">
+                        <img class="poster-image" src="{{ $location.$$absUrl + tvShowCtrl.tvShowObject.backdrop_path }}" alt="">
                         <div class="form-group">
                             <label>Add Backdrop</label>
                             <input type="file">
@@ -82,7 +82,8 @@
                     <div class="col-xs-12 search-result no-padding" ng-repeat="tvshow in tvShowCtrl.tvShowsList">
                         <div class="row search-add-movie-result" style="cursor: pointer; padding: 0 20px;" ng-click="tvShowCtrl.fillTvShowData(tvshow.id)" data-dismiss="modal">
                             <div class="col-xs-2" style="padding-left: 0;">
-                                <img class="img-responsive result-poster" src="https://image.tmdb.org/t/p/w154{{ tvshow.poster_path }}" alt="">
+                                <!--<img class="img-responsive result-poster" src="https://image.tmdb.org/t/p/w154{{ tvshow.poster_path }}" alt="">-->
+                                <img class="img-responsive result-poster" alt="">
                             </div>
                             <div class="col-xs-10">
                                 <div class="row" style="margin-top: 5px; margin-bottom: 10px;">

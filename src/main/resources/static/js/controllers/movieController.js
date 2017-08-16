@@ -18,6 +18,8 @@
         vm.saveMovie = saveMovie;
         vm.movieObject = {};
         vm.movieDetails = MovieService.movieDetails;
+        vm.movieObject.poster_path = "/img/default_poster.jpg";
+        vm.movieObject.backdrop_path = "/img/default_backdrop.jpg";
         vm.movieList = [];
 
         // On List of Movies

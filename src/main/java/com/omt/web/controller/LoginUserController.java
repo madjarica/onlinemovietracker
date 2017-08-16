@@ -1,12 +1,19 @@
 package com.omt.web.controller;
 
-import java.util.List;
+import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
+import com.omt.domain.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omt.service.UserNotificationService;
 import com.omt.service.UserService;
+import sun.security.provider.MD5;
 
 
 @RestController
@@ -32,6 +40,16 @@ public class LoginUserController {
 		this.userNotificationService = userNotificationService;
 	}
 
+	@RequestMapping("/user")
+	public AuthenticatedUser getUser(Authentication authentication) {
+		List<String> roles = new ArrayList<>();
+		for(GrantedAuthority authority : authentication.getAuthorities()) {
+			roles.add(authority.getAuthority());
+		}
+		AuthenticatedUser user = new AuthenticatedUser(authentication.getName(), roles);
+		return user;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<LoginUser> findAll() {
 		return userService.findAll();
@@ -43,7 +61,36 @@ public class LoginUserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public LoginUser save(@RequestBody LoginUser user) {
+	public LoginUser save(@RequestBody LoginUser user) throws Exception {
+
+		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 60; i++) {
+			char c = chars[random.nextInt(chars.length)];
+			sb.append(c);
+		}
+
+		String token = sb.toString();
+
+		user.setCodeForActivation(token);
+		user.setActive(false);
+		user.setStatus(true);
+		user.setSubscription(true);
+
+		String original = user.getEmail();
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(original.getBytes());
+		byte[] digest = md.digest();
+		StringBuffer hash = new StringBuffer();
+		for (byte b : digest) {
+			hash.append(String.format("%02x", b & 0xff));
+		}
+
+		user.setHashed_email(hash.toString());
+		user.setCreatedDate(new Date());
+		user.setUpdatedDate(new Date());
+
 		return userService.save(user);
 	}
 
