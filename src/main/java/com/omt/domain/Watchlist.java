@@ -20,6 +20,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "watchlists")
 public class Watchlist extends BaseEntity{
 
+	public Watchlist() {
+	}
 
 	@Column(nullable = false)
 	@NotNull
