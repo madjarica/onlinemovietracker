@@ -39,10 +39,15 @@ public class UserService {
     }
     
     public LoginUser findByCodeForActivation(String code) {
-    	 		return loginUserRepository.findByCodeForActivation(code);
+        return loginUserRepository.findByCodeForActivation(code);
     }
+
     public LoginUser findByUsername(String username) {
         return loginUserRepository.findByUsername(username);
+    }
+
+    public LoginUser findByEmail(String email) {
+        return loginUserRepository.findByEmail(email);
     }
 	
 }

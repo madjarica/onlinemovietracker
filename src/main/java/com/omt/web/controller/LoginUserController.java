@@ -1,13 +1,10 @@
 package com.omt.web.controller;
 
 import java.security.MessageDigest;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
-import com.omt.domain.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omt.service.UserNotificationService;
 import com.omt.service.UserService;
-import sun.security.provider.MD5;
+
+import javax.mail.MessagingException;
 
 
 @RestController
@@ -48,6 +46,31 @@ public class LoginUserController {
 		}
 		AuthenticatedUser user = new AuthenticatedUser(authentication.getName(), roles);
 		return user;
+	}
+
+	@RequestMapping(value = "/request-new-password/{email}/", method = RequestMethod.POST)
+	public void requestNewPassword(@PathVariable("email") String email) throws MessagingException {
+		// Check if user exists and grab an user
+		LoginUser user = userService.findByEmail(email);
+
+		if(user != null) {
+			// Generate new password
+			char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+			StringBuilder sb = new StringBuilder();
+			Random random = new Random();
+			for (int i = 0; i < 8; i++) {
+				char c = chars[random.nextInt(chars.length)];
+				sb.append(c);
+			}
+			String password = sb.toString();
+
+			// Save as temp password
+			user.setPasswordTemp(password);
+			userService.save(user);
+
+			// Send email with new password
+			userNotificationService.sendNewPassword(email, password);
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

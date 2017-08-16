@@ -7,7 +7,8 @@
     function AuthenticationService($http, $q) {
 
         var service = {
-            saveUser: saveUser
+            saveUser: saveUser,
+            requestNewPassword: requestNewPassword
         };
 
         return service;
@@ -28,6 +29,25 @@
                 });
             return def.promise;
         }
+
+        function requestNewPassword(email) {
+            var def = $q.defer();
+            var req = {
+                method: 'POST',
+                url: "users/request-new-password/" + email + "/"
+            };
+            $http(req)
+                .success(function (data) {
+                    def.resolve(data);
+                })
+                .error(function (error) {
+                    console.log(error);
+                    def.reject(error.message);
+                });
+            return def.promise;
+        }
+
+
 
     }
 })();

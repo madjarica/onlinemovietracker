@@ -12,14 +12,18 @@
         self.logout = logout;
         self.login = login;
         self.register = register;
+        self.requestNewPassword = requestNewPassword;
 
-        self.registerInput = {};
+        self.registerCredentials = {};
         self.loginCredentials = {};
+        self.forgotCredentials = {};
 
         self.errors = {};
         self.errors.register = '';
-        self.registerForm = {};
 
+        self.registerForm = {};
+        self.loginForm = {};
+        self.forgotForm = {};
 
         self.user;
         
@@ -69,6 +73,14 @@
             }, function(error) {
                 console.log(error)
 
+            });
+        }
+
+        function requestNewPassword(email) {
+            AuthenticationService.requestNewPassword(email).then(function (response) {
+                console.log("sent");
+            }, function (error) {
+                console.log("failed");
             });
         }
     }
