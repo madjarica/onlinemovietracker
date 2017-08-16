@@ -20,7 +20,6 @@ public class Video extends BaseEntity{
     private String title;
 
     @Column
-    @JsonProperty("original_title")
     private String originalTitle;
 
     @Column
@@ -93,11 +92,23 @@ public class Video extends BaseEntity{
         this.dtype = dtype;
     }
 
+    @JsonProperty("original_title")
     public String getOriginalTitle() {
         return originalTitle;
     }
 
+    @JsonProperty("original_title")
     public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    @JsonProperty("original_name")
+    public String getOriginalName() {
+        return originalTitle;
+    }
+
+    @JsonProperty("original_name")
+    public void setOriginalName(String originalTitle) {
         this.originalTitle = originalTitle;
     }
 

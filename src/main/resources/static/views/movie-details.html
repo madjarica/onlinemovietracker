@@ -101,13 +101,13 @@
                     <div class="row">
                         <div class="row">
                             <div class="col-xs-6 col-sm-2">
-                                <img class="person-image" src="" alt="">
+                                <img class="person-image" src="{{ $location.$$absUrl + actor.person.picture }}" alt="">
                             </div>
                             <div class="col-xs-6 col-sm-10">
                                 <h5><small><b>Name:</b> </small>{{ actor.character }}</h5>
                                 <h5><small><b>Real Name:</b> </small>{{ actor.person.name }}</h5>
                                 <h5><small><b>Birthday:</b> </small>{{ actor.person.birthday | date:'dd-MM-yyyy' }}</h5>
-                                <h5><small><b>Place of Birth:</b> </small>{{ actor.person.name }}</h5>
+                                <h5><small><b>Place of Birth:</b> </small>{{ actor.person.place_of_birth }}</h5>
                                 <h5><small><b>Biography:</b> </small></h5>
                                 <p>{{ actor.person.biography }}</p>
                             </div>

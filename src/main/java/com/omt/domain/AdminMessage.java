@@ -16,6 +16,9 @@ import java.util.Set;
 @Table(name = "admin_messages")
 public class AdminMessage extends BaseEntity{
 
+    public AdminMessage() {
+    }
+
     @NotNull
     @Column(nullable = false)
     private String type;

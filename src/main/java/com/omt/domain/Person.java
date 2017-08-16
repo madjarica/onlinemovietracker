@@ -1,8 +1,10 @@
 package com.omt.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -26,17 +28,18 @@ public class Person extends BaseEntity {
     private String biography;
 
     @Column
-    private String picture;
-
-    @Column
     @DateTimeFormat
     private Date birthday;
 
     @Column
+    @JsonProperty("place_of_birth")
     private String placeOfBirth;
 
     @Column(unique = true)
     private Long tmdbPersonId;
+
+    @Column
+    private String picture;
 
     @Column
     @DateTimeFormat

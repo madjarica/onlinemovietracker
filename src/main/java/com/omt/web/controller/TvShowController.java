@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.omt.JsonResults.CreditsResults;
 import com.omt.JsonResults.EpisodeResults;
@@ -37,8 +38,8 @@ public class TvShowController {
     GenreRepository genreRepository;
     RestOperations restTemplate = new RestTemplate();
 
-    String POSTER_PATH = "src/main/resources/static/img/posters/tvshows/poster";
-    String BACKDROP_PATH = "src/main/resources/static/img/backdrops/tvshows/backdrop";
+    String POSTER_PATH = "src/main/resources/static/public/img/posters/tvshows/poster";
+    String BACKDROP_PATH = "src/main/resources/static/public/img/backdrops/tvshows/backdrop";
 
     String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
     String API_GET_MOVIE = "https://api.themoviedb.org/3/tv/{id}?api_key={api_key}&language=en-US";
@@ -109,6 +110,14 @@ public class TvShowController {
 
         TvShow tvShow = restTemplate.getForObject(API_GET_MOVIE, TvShow.class, id, API_KEY);
         getCharacters(id);
+        Locale[] locales = Locale.getAvailableLocales();
+        for (Locale locale:locales) {
+            if(locale.getLanguage().equals(tvShow.getOriginalLanguage())) {
+                tvShow.setOriginalLanguage(locale.getDisplayLanguage());
+                break;
+            }
+
+        }
 
         tvShow.setTmdbTvShowId(tvShow.getId());
         tvShow.setId(null);
