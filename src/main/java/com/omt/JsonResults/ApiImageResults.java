@@ -18,7 +18,7 @@ public class ApiImageResults {
     public List<String> returnApiImagePaths(List<ApiImage> images){
         List<String> apiImages = new ArrayList<>();
         for (ApiImage image: images) {
-            apiImages.add("http://image.tmdb.org/t/p/w185" + image.getFilePath());
+            apiImages.add("http://image.tmdb.org/t/p/w640" + image.getFilePath());
         }
         return apiImages;
     }

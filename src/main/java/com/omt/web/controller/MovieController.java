@@ -1,9 +1,6 @@
 package com.omt.web.controller;
 
-import com.omt.JsonResults.ApiImageResults;
-import com.omt.JsonResults.CreditsResults;
-import com.omt.JsonResults.QueryResultsMovie;
-import com.omt.JsonResults.TrailerResults;
+import com.omt.JsonResults.*;
 import com.omt.domain.*;
 import com.omt.domain.Character;
 import com.omt.repository.GenreRepository;
@@ -37,6 +34,7 @@ public class MovieController {
 
     String POSTER_PATH = "src/main/resources/static/img/posters/movies/poster";
     String BACKDROP_PATH = "src/main/resources/static/img/backdrops/movies/backdrop";
+    String ADDTIONAL_BACKDROPS_PATH = "src/main/resources/static/img/backdrops/movies/additional_backdrops/backdrop";
     String PROFILE_PATH = "src/main/resources/static/img/profiles/profile";
 
     String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
@@ -45,6 +43,7 @@ public class MovieController {
     String API_GET_PERSON = "https://api.themoviedb.org/3/person/{person_id}?api_key={api_key}&language=en-US";
     String API_GET_VIDEO = "https://api.themoviedb.org/3/movie/{id}/videos?api_key={api_key}";
     String API_GET_ACTOR_PROFILE = "https://api.themoviedb.org/3/person/{person_id}/images?api_key={api_key}";
+    String API_GET_ALL_BACKDROPS = "https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={api_key}";
     String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
 
@@ -165,18 +164,27 @@ public class MovieController {
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
+                ApiImageResults results = restTemplate.getForObject(API_GET_ALL_BACKDROPS, ApiImageResults.class, id, API_KEY);
+                List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
                 String ext = movie.getTmdbMovieId() + ".jpg";
                 try {
                     saveImage(movie.getPosterPath(), POSTER_PATH + ext);
                     movie.setPosterPath("/img/posters/movies/poster" + ext);
                     System.out.println("Drugi thread.1");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
                     saveImage(movie.getBackdropPath(), BACKDROP_PATH + ext);
                     movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
-                    System.out.println("Drugi thread.2");
+                    System.out.println(backdrops.size());
+                    int size;
+                    if(backdrops.size() < 5) {
+                        size = backdrops.size();
+                    } else {
+                        size = 5;
+                    }
+                    for (int i = 0; i < size; i++) {
+                        System.out.println(backdrops.get(i));
+                        ext = movie.getTmdbMovieId() + "_" + i + ".jpg";
+                        saveImage(backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -188,12 +196,6 @@ public class MovieController {
         thread2.join();
 
 
-//        try {
-//            saveImage(movie.getBackdropPath(), BACKDROP_PATH + ext);
-//            movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         Thread thread3 = new Thread(new Runnable() {
             @Override
             public void run() {

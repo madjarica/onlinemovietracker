@@ -38,8 +38,8 @@ public class TvShowController {
     GenreRepository genreRepository;
     RestOperations restTemplate = new RestTemplate();
 
-    String POSTER_PATH = "src/main/resources/static/public/img/posters/tvshows/poster";
-    String BACKDROP_PATH = "src/main/resources/static/public/img/backdrops/tvshows/backdrop";
+    String POSTER_PATH = "src/main/resources/static/img/posters/tvshows/poster";
+    String BACKDROP_PATH = "src/main/resources/static/img/backdrops/tvshows/backdrop";
 
     String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
     String API_GET_MOVIE = "https://api.themoviedb.org/3/tv/{id}?api_key={api_key}&language=en-US";
