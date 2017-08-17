@@ -15,6 +15,9 @@ public class ApiImageResults {
     @JsonProperty("backdrops")
     private List<ApiImage> backdrops;
 
+    @JsonProperty("stills")
+    private List<ApiImage> stills;
+
     public List<String> returnApiImagePaths(List<ApiImage> images){
         List<String> apiImages = new ArrayList<>();
         for (ApiImage image: images) {
@@ -36,5 +39,13 @@ public class ApiImageResults {
 
     public void setBackdrops(List<ApiImage> backdrops) {
         this.backdrops = backdrops;
+    }
+
+    public List<ApiImage> getStills() {
+        return stills;
+    }
+
+    public void setStills(List<ApiImage> stills) {
+        this.stills = stills;
     }
 }

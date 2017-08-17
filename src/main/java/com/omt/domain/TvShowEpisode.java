@@ -45,6 +45,9 @@ public class TvShowEpisode extends BaseEntity {
     private Date releasedDate;
 
     @Column
+    private String still;
+
+    @Column
     @DateTimeFormat
     private Date createdDate;
 
@@ -109,6 +112,14 @@ public class TvShowEpisode extends BaseEntity {
 
     public void setReleasedDate(Date releasedDate) {
         this.releasedDate = releasedDate;
+    }
+
+    public String getStill() {
+        return still;
+    }
+
+    public void setStill(String still) {
+        this.still = still;
     }
 
     public Date getCreatedDate() {
