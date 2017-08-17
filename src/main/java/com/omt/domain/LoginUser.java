@@ -29,6 +29,9 @@ public class LoginUser extends BaseEntity {
 	private String passwordTemp;
 
 	@Column(nullable = true)
+	private String passwordActivationLink;
+
+	@Column(nullable = true)
 	private String codeForActivation;
 
 	@Column(nullable = false)
@@ -75,10 +78,11 @@ public class LoginUser extends BaseEntity {
 		this.roles = roles;
 	}
 
-	public LoginUser(String username, String password, String passwordTemp, String codeForActivation, boolean active, boolean status, Date blockedUntil, boolean subscription, String email, String hashed_email, Date createdDate, Date updatedDate, Set<Role> roles) {
+	public LoginUser(String username, String password, String passwordTemp, String passwordActivationLink, String codeForActivation, boolean active, boolean status, Date blockedUntil, boolean subscription, String email, String hashed_email, Date createdDate, Date updatedDate, Set<Role> roles) {
 		this.username = username;
 		this.password = password;
 		this.passwordTemp = passwordTemp;
+		this.passwordActivationLink = passwordActivationLink;
 		this.codeForActivation = codeForActivation;
 		this.active = active;
 		this.status = status;
@@ -113,6 +117,14 @@ public class LoginUser extends BaseEntity {
 
 	public void setPasswordTemp(String passwordTemp) {
 		this.passwordTemp = passwordTemp;
+	}
+
+	public String getPasswordActivationLink() {
+		return passwordActivationLink;
+	}
+
+	public void setPasswordActivationLink(String passwordActivationLink) {
+		this.passwordActivationLink = passwordActivationLink;
 	}
 
 	public String getCodeForActivation() {

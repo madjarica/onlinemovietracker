@@ -8,7 +8,8 @@
 
         var service = {
             saveUser: saveUser,
-            requestNewPassword: requestNewPassword
+            requestNewPassword: requestNewPassword,
+            activateNewPassword: activateNewPassword
         };
 
         return service;
@@ -46,8 +47,6 @@
                 });
             return def.promise;
         }
-
-
 
     }
 })();

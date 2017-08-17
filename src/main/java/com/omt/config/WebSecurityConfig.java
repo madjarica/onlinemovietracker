@@ -24,7 +24,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		super.configure(web);
+		web.ignoring().antMatchers("/users/activate-new-password/**");
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 		http
 			.authorizeRequests()
 			.antMatchers("/", "/bower_components/**", "/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
-			.antMatchers("/index.html", "/views/home.html", "/views/movie-details.html", "/views/tv-show-details.html", "/views/search-results.html").permitAll()
+			.antMatchers("/index.html", "/views/home.html", "/views/movie-details.html", "/views/tv-show-details.html", "/views/search-results.html", "/views/add-episode.html").permitAll()
 			.antMatchers("/includes/_footer.html", "/includes/_search-input.html", "/includes/_top-navigation.html").permitAll()
 			.antMatchers("/fonts/**", "/font/**").permitAll()
 			.antMatchers("https://image.tmdb.org/**", "http://image.tmdb.org/**").permitAll()
@@ -43,6 +43,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 			.antMatchers(HttpMethod.GET,"/movies").permitAll()
 			.antMatchers(HttpMethod.GET,"/movies/{id}").permitAll()
 			.antMatchers(HttpMethod.POST,"/users").permitAll()
+			.antMatchers(HttpMethod.POST,"/users/request-new-password/**").permitAll()
 			.anyRequest().fullyAuthenticated().and()
 			.httpBasic().and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

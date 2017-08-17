@@ -47,11 +47,11 @@ public class UserNotificationService {
         userNotificationRepository.delete(id);
     }
 
-    public void sendNewPassword(String email, String password) throws MessagingException {
+    public void sendNewPassword(String email, String password, String password_activation_link) throws MessagingException {
 
 		MimeMessage message = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper;
-		String emailContent = "You requested new password.<br><br>New password: " + password + "<br><br>Before you can use it, you'll need first to activate it.<br><br><a href='#'>Activate new password</a><br><br>If you did'nt requested new password, just ignore this email.";
+		String emailContent = "You requested new password.<br><br>New password: " + password + "<br><br>Before you can use it, you'll need first to activate it.<br><br><a href='http://localhost:8080/users/activate-new-password/" + password_activation_link + "'>Activate new password</a><br><br>If you did'nt requested new password, just ignore this email.";
 
 		helper = new MimeMessageHelper(message, true);
 		helper.setFrom("notification@onlinemovietracker.com");

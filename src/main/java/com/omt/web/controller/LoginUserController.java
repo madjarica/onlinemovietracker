@@ -57,21 +57,36 @@ public class LoginUserController {
 			// Generate new password
 			char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 			StringBuilder sb = new StringBuilder();
+			StringBuilder sb2 = new StringBuilder();
 			Random random = new Random();
+
 			for (int i = 0; i < 8; i++) {
 				char c = chars[random.nextInt(chars.length)];
 				sb.append(c);
 			}
+
+			for(int i = 0; i < 60; i++) {
+				char c = chars[random.nextInt(chars.length)];
+				sb2.append(c);
+			}
+
 			String password = sb.toString();
+			String password_activation_link = sb2.toString();
 
 			// Save as temp password
 			user.setPasswordTemp(password);
+			user.setPasswordActivationLink(password_activation_link);
 			userService.save(user);
 
 			// Send email with new password
-			userNotificationService.sendNewPassword(email, password);
+			userNotificationService.sendNewPassword(email, password, password_activation_link);
 		}
 	}
+
+//	@RequestMapping(value = "/activate-new-password/{password_activation_link}", method = RequestMethod.GET)
+//	public void activateNewPassword(@PathVariable("password_activation_link") String password_activation_link) {
+//		System.out.println(password_activation_link);
+//	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<LoginUser> findAll() {

@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('AuthenticationController', AuthenticationController);
 
-    AuthenticationController.$inject = ['$location', '$http', '$route', 'AuthenticationService'];
+    AuthenticationController.$inject = ['$location', '$http', '$route', '$routeParams', 'AuthenticationService'];
 
-    function AuthenticationController($location, $http, $route, AuthenticationService) {
+    function AuthenticationController($location, $http, $route, $routeParams, AuthenticationService) {
 
         var self = this;
 
@@ -13,6 +13,7 @@
         self.login = login;
         self.register = register;
         self.requestNewPassword = requestNewPassword;
+        // self.activateNewPassword = activateNewPassword;
 
         self.registerCredentials = {};
         self.loginCredentials = {};
@@ -86,5 +87,6 @@
                 console.log("failed");
             });
         }
+
     }
 })();

@@ -8,7 +8,6 @@ public class AuthenticatedUser extends BaseEntity {
 	private List<String> roles;
 
 	public AuthenticatedUser() {
-
 	}
 
 	public AuthenticatedUser(String username, List<String> roles) {
