@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="row search-result-hover" ng-click="tvShowCtrl.getTvShowDetails(tvShow.id)" style="padding-top: 20px;">
                         <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="{{ tvShow.poster_path }}" alt="">
+                            <img class="person-image" src="http://image.tmdb.org/t/p/w342/{{ tvShow.poster_path }}" alt="">
                         </div>
                         <div class="col-xs-6 col-sm-10">
                             <h5><small><b>Title:</b> </small>{{ tvShow.name }}</h5>
@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="row search-result-hover" ng-click="movieCtrl.getMovieDetails(movie.id)" style="padding-top: 20px;">
                         <div class="col-xs-6 col-sm-2">
-                            <img class="person-image" src="{{ movie.poster_path }}" alt="">
+                            <img class="person-image" src="http://image.tmdb.org/t/p/w342/{{ movie.poster_path }}" alt="">
                         </div>
                         <div class="col-xs-6 col-sm-10">
                             <h5><small><b>Title:</b> </small>{{ movie.name }}</h5>

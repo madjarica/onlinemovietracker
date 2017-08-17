@@ -11,6 +11,19 @@
 
         var vm = this;
 
+        // Gallery
+        vm.myInterval = 3000;
+        vm.noWrapSlides = false;
+        vm.active = 0;
+        vm.slides = [];
+        vm.movie_images = MovieService.movieDetails.additionalBackdrops;
+        var currIndex = 0;
+        vm.addSlides = addSlides;
+
+        if(vm.movie_images) {
+            addSlides(vm.movie_images);
+        }
+
         // Get Movies
         vm.getMovieByTitle = getMovieByTitle;
         vm.fillMovieData = fillMovieData;
@@ -60,6 +73,18 @@
                 vm.movieObject = response;
             })
         }
+
+        // Gallery functions
+        function addSlides(images) {
+            for(var i = 0; i < images.length; i++) {
+                vm.slides.push({
+                    image: images[i],
+                    id: currIndex++
+                });
+            }
+        }
+        // End of Gallery functions
+
     }
 
 })();

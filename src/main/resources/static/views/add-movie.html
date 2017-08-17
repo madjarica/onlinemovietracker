@@ -53,13 +53,19 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-4">
-                        <img class="poster-image" src="{{ $location.$$absUrl + movieCtrl.movieObject.poster_path }}" alt="">
-                        <div class="form-group">
+
+                        <img ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="poster-image" src="/img/default_poster.jpg" alt="">
+                        <img ng-show="movieCtrl.movieObject.poster_path != 'img/default_poster.jpg'"  class="poster-image" src="http://image.tmdb.org/t/p/w500/{{ movieCtrl.movieObject.poster_path }}" alt="">
+
+                        <div ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
-                        <img class="poster-image" src="{{ $location.$$absUrl + movieCtrl.movieObject.backdrop_path }}" alt="">
-                        <div class="form-group">
+
+                        <img ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="poster-image" src="/img/default_backdrop.jpg" alt="">
+                        <img ng-show="movieCtrl.movieObject.backdrop_path != 'img/default_backdrop.jpg'" class="poster-image" src="http://image.tmdb.org/t/p/w780/{{ movieCtrl.movieObject.backdrop_path }}" alt="">
+
+                        <div ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="form-group">
                             <label>Add Backdrop</label>
                             <input type="file">
                         </div>

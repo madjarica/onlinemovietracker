@@ -48,13 +48,18 @@
 
                     </div>
                     <div class="col-xs-12 col-sm-4">
-                        <img class="poster-image" src="{{ $location.$$absUrl + tvShowCtrl.tvShowObject.poster_path }}" alt="">
-                        <div class="form-group">
+                        <img ng-show="tvShowCtrl.tvShowObject.poster_path == 'img/default_poster.jpg'" class="poster-image" src="/img/default_poster.jpg" alt="">
+                        <img ng-show="tvShowCtrl.tvShowObject.poster_path != 'img/default_poster.jpg'"  class="poster-image" src="http://image.tmdb.org/t/p/w500/{{ tvShowCtrl.tvShowObject.poster_path }}" alt="">
+
+                        <div ng-show="tvShowCtrl.tvShowObject.poster_path == 'img/default_poster.jpg'" class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
-                        <img class="poster-image" src="{{ $location.$$absUrl + tvShowCtrl.tvShowObject.backdrop_path }}" alt="">
-                        <div class="form-group">
+
+                        <img ng-show="tvShowCtrl.tvShowObject.backdrop_path == 'img/default_backdrop.jpg'" class="poster-image" src="/img/default_backdrop.jpg" alt="">
+                        <img ng-show="tvShowCtrl.tvShowObject.backdrop_path != 'img/default_backdrop.jpg'" class="poster-image" src="http://image.tmdb.org/t/p/w780/{{ tvShowCtrl.tvShowObject.backdrop_path }}" alt="">
+
+                        <div ng-show="tvShowCtrl.tvShowObject.backdrop_path == 'img/default_backdrop.jpg'" class="form-group">
                             <label>Add Backdrop</label>
                             <input type="file">
                         </div>
@@ -62,7 +67,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-default waves-effect waves-light pull-right"ng-click="tvShowCtrl.saveTvShow(tvShowCtrl.tvShowObject)">Add TV Show</button>
+                        <button class="btn btn-default waves-effect waves-light pull-right" ng-click="tvShowCtrl.saveTvShow(tvShowCtrl.tvShowObject)">Add TV Show</button>
                     </div>
                 </div>
             </form>
@@ -82,8 +87,7 @@
                     <div class="col-xs-12 search-result no-padding" ng-repeat="tvshow in tvShowCtrl.tvShowsList">
                         <div class="row search-add-movie-result" style="cursor: pointer; padding: 0 20px;" ng-click="tvShowCtrl.fillTvShowData(tvshow.id)" data-dismiss="modal">
                             <div class="col-xs-2" style="padding-left: 0;">
-                                <!--<img class="img-responsive result-poster" src="https://image.tmdb.org/t/p/w154{{ tvshow.poster_path }}" alt="">-->
-                                <img class="img-responsive result-poster" alt="">
+                                <img class="img-responsive result-poster" src="https://image.tmdb.org/t/p/w154{{ tvshow.poster_path }}" alt="">
                             </div>
                             <div class="col-xs-10">
                                 <div class="row" style="margin-top: 5px; margin-bottom: 10px;">

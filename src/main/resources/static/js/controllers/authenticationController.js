@@ -29,6 +29,9 @@
         
         function init() {
             $('#auth-modal').modal('hide');
+            if (self.user) {
+                $route.reload();
+            }
         }
 
         function fireLogin() {

@@ -11,6 +11,19 @@
 
         var vm = this;
 
+        // Gallery
+        vm.myInterval = 3000;
+        vm.noWrapSlides = false;
+        vm.active = 0;
+        vm.slides = [];
+        vm.tv_show_images = TvShowsService.tvShowDetails.additionalBackdrops;
+        var currIndex = 0;
+        vm.addSlides = addSlides;
+
+        if(vm.tv_show_images) {
+            addSlides(vm.tv_show_images);
+        }
+
         // Get Movies
         vm.getTvShowByTitle = getTvShowByTitle;
         vm.fillTvShowData = fillTvShowData;
@@ -18,8 +31,8 @@
         vm.getTvShowDetails = getTvShowDetails;
         vm.tvShowObject = {};
         vm.tvShowDetails = TvShowsService.tvShowDetails;
-        vm.tvShowObject.poster_path = "/img/default_poster.jpg";
-        vm.tvShowObject.backdrop_path = "/img/default_backdrop.jpg";
+        vm.tvShowObject.poster_path = "img/default_poster.jpg";
+        vm.tvShowObject.backdrop_path = "img/default_backdrop.jpg";
         vm.tvShowsList = [];
 
         // On List of Movies
@@ -55,6 +68,18 @@
             })
         }
         // End of show movie details
+
+        // Gallery functions
+        function addSlides(images) {
+            for(var i = 0; i<images.length; i++){
+                vm.slides.push({
+                    image: images[i],
+                    id: currIndex++
+                });
+            }
+        }
+        // End of Gallery functions
+
     }
 
 })();
