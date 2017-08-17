@@ -61,11 +61,10 @@ public class Video extends BaseEntity{
     private List<Genre> genres;
 
     @ManyToMany
-    @JsonProperty(value = "keywords")
-    @JoinTable(name="video_genre", joinColumns=@JoinColumn(name="video_id"),
+    @JoinTable(name="video_keywords", joinColumns=@JoinColumn(name="video_id"),
                inverseJoinColumns=@JoinColumn(name="keyword_id"))
     private List<Keyword> keywords;
-    
+
     @Column
     @DateTimeFormat
     private Date createdDate;
@@ -200,6 +199,14 @@ public class Video extends BaseEntity{
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public List<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<Keyword> keywords) {
+        this.keywords = keywords;
     }
 
     public Date getCreatedDate() {
