@@ -10,6 +10,9 @@ import javax.persistence.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Character extends BaseEntity{
 
+    public Character() {
+    }
+
     @Column
     @JsonProperty("character")
     private String name;

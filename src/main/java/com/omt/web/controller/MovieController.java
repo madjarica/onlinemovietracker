@@ -73,6 +73,12 @@ public class MovieController {
             if (movieService.findOne(movie.getId()) != null) throw new Exception("You can't do that");
             if (videoService.findOne(movie.getId()) != null) throw new Exception("You can't use that id");
         }
+        List<Genre> genresToBeAdded = new ArrayList<>();
+        for (Genre genre : movie.getGenres()) {
+            genresToBeAdded.add(getGenres(genre.getName()));
+        }
+        movie.getGenres().clear();
+        movie.setGenres(genresToBeAdded);
 
         return movieService.save(movie);
     }
@@ -116,102 +122,102 @@ public class MovieController {
 
         Movie movie = restTemplate.getForObject(API_GET_MOVIE, Movie.class, id, API_KEY);
 
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getCharacters(id);
-                movie.setTmdbMovieId(movie.getId());
-                movie.setId(null);
-                Locale[] locales = Locale.getAvailableLocales();
-                for (Locale locale:locales) {
-                    if(locale.getLanguage().equals(movie.getOriginalLanguage())) {
-                        movie.setOriginalLanguage(locale.getDisplayLanguage());
-                        break;
-                    }
-                    
-                }
-                movie.setImdbPage("http://www.imdb.com/title/" + movie.getImdbPage());
-                movie.setPosterPath(movie.getPosterPath());
-                movie.setBackdropPath(movie.getBackdropPath());
-
-                List<Character> characterList = characterService.findByTmdbMediaId(movie.getTmdbMovieId());
-                movie.setCharacterList(characterList);
-
-                TrailerResults trailerResults = restTemplate.getForObject(API_GET_VIDEO, TrailerResults.class, id, API_KEY);
-                String youtube = trailerResults.getTrailers().get(0).getTrailerLink();
-
-                if (youtube == null) {
-                    movie.setTrailerLink(null);
-
-                } else {
-                    movie.setTrailerLink("https://www.youtube.com/embed/" + youtube);
-                }
-                List<Genre> genresToBeAdded = new ArrayList<>();
-                for (Genre genre : movie.getGenres()) {
-                    genresToBeAdded.add(getGenres(genre.getName()));
-                }
-                movie.getGenres().clear();
-                movie.setGenres(genresToBeAdded);
-                System.out.println("Prvi thread");
-
+//        Thread thread1 = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+        getCharacters(id);
+        movie.setTmdbMovieId(movie.getId());
+        movie.setId(null);
+        Locale[] locales = Locale.getAvailableLocales();
+        for (Locale locale : locales) {
+            if (locale.getLanguage().equals(movie.getOriginalLanguage())) {
+                movie.setOriginalLanguage(locale.getDisplayLanguage());
+                break;
             }
-        });
 
-        thread1.start();
-        thread1.join();
+        }
+        movie.setImdbPage("http://www.imdb.com/title/" + movie.getImdbPage());
+        movie.setPosterPath(movie.getPosterPath());
+        movie.setBackdropPath(movie.getBackdropPath());
 
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ApiImageResults results = restTemplate.getForObject(API_GET_ALL_BACKDROPS, ApiImageResults.class, id, API_KEY);
-                List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
-                String ext = movie.getTmdbMovieId() + ".jpg";
-                try {
-                    saveImage("https://image.tmdb.org/t/p/w500" + movie.getPosterPath(), POSTER_PATH + ext);
-//                    movie.setPosterPath("/img/posters/movies/poster" + ext);
-                    System.out.println("Drugi thread.1");
-                    saveImage("https://image.tmdb.org/t/p/w780" + movie.getBackdropPath(), BACKDROP_PATH + ext);
-//                    movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
+        List<Character> characterList = characterService.findByTmdbMediaId(movie.getTmdbMovieId());
+        movie.setCharacterList(characterList);
+
+        TrailerResults trailerResults = restTemplate.getForObject(API_GET_VIDEO, TrailerResults.class, id, API_KEY);
+        String youtube = trailerResults.getTrailers().get(0).getTrailerLink();
+
+        if (youtube == null) {
+            movie.setTrailerLink(null);
+
+        } else {
+            movie.setTrailerLink("https://www.youtube.com/embed/" + youtube);
+        }
+        List<Genre> genresToBeAdded = new ArrayList<>();
+        for (Genre genre : movie.getGenres()) {
+            genresToBeAdded.add(getGenres(genre.getName()));
+        }
+        movie.getGenres().clear();
+        movie.setGenres(genresToBeAdded);
+//        System.out.println("Prvi thread");
+////
+////            }
+////        });
+////
+////        thread1.start();
+////        thread1.join();
+////
+////        Thread thread2 = new Thread(new Runnable() {
+////            @Override
+////            public void run() {
+        ApiImageResults results = restTemplate.getForObject(API_GET_ALL_BACKDROPS, ApiImageResults.class, id, API_KEY);
+        List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
+        String ext = movie.getTmdbMovieId() + ".jpg";
+//                try {
+//////                    saveImage("https://image.tmdb.org/t/p/w500" + movie.getPosterPath(), POSTER_PATH + ext);
+//////                    movie.setPosterPath("/img/posters/movies/poster" + ext);
+////                    System.out.println("Drugi thread.1");
+////                    saveImage("https://image.tmdb.org/t/p/w780" + movie.getBackdropPath(), BACKDROP_PATH + ext);
+////                    movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
 
 
-                    movie.setAdditionalBackdrops(new ArrayList<>());
-                    System.out.println(backdrops.size());
-                    int size;
-                    if(backdrops.size() < 5) {
-                        size = backdrops.size();
-                    } else {
-                        size = 5;
-                    }
-                    for (int i = 0; i < size; i++) {
-                        System.out.println(backdrops.get(i));
-                        ext = movie.getTmdbMovieId() + "_" + i + ".jpg";
-                        saveImage("https://image.tmdb.org/t/p/w500" + backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
+        movie.setAdditionalBackdrops(new ArrayList<>());
+        System.out.println(backdrops.size());
+        int size;
+        if (backdrops.size() < 5) {
+            size = backdrops.size();
+        } else {
+            size = 5;
+        }
+        for (int i = 0; i < size; i++) {
+            System.out.println(backdrops.get(i));
+//            ext = movie.getTmdbMovieId() + "_" + i + ".jpg";
+//            saveImage("https://image.tmdb.org/t/p/w500" + backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
 //                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
-                        movie.getAdditionalBackdrops().add(backdrops.get(i));
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                }
+            movie.getAdditionalBackdrops().add(backdrops.get(i));
+        }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        });
+//
+//        thread2.start();
+//        thread2.join();
 
-        });
 
-        thread2.start();
-        thread2.join();
-
-
-        Thread thread3 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                movieService.save(movie);
-                System.out.println("Treci thread");
-            }
-        });
-
-        thread3.start();
-        thread3.join();
-
-        System.out.println("Kraj thread");
+//        Thread thread3 = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+        movieService.save(movie);
+//        System.out.println("Treci thread");
+//            }
+//        });
+//
+//        thread3.start();
+//        thread3.join();
+//
+//        System.out.println("Kraj thread");
 
         return movieService.findOne(movie.getId());
     }
@@ -275,15 +281,15 @@ public class MovieController {
             person.setId(null);
             ApiImageResults results = restTemplate.getForObject(API_GET_ACTOR_PROFILE, ApiImageResults.class, id, API_KEY);
             if (!results.getProfiles().isEmpty()) {
-                String ext = id + ".jpg";
+//                String ext = id + ".jpg";
                 person.setPicture(results.getProfiles().get(0).getFilePath());
                 System.out.println(person.getPicture());
-                try {
-                    saveImage("http://image.tmdb.org/t/p/w185" + person.getPicture(), PROFILE_PATH + ext);
-//                    person.setPicture("/img/profiles/profile" + ext);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    saveImage("http://image.tmdb.org/t/p/w185" + person.getPicture(), PROFILE_PATH + ext);
+////                    person.setPicture("/img/profiles/profile" + ext);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
             return personService.save(person);
         }

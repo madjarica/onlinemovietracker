@@ -68,6 +68,7 @@
         }
 
         function saveMovie(movie) {
+            vm.movieObject = movie;
             console.log(vm.movieObject.genres);
             MovieService.saveMovie(movie).then(function (response) {
                 vm.movieObject = response;

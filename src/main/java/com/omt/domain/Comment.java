@@ -12,6 +12,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "comments")
 public class Comment extends BaseEntity {
 
+	public Comment() {
+	}
+
 	@Column(columnDefinition = "TEXT")
     private String commentConntent;
 	

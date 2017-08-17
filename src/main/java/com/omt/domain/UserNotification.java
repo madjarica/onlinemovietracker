@@ -16,6 +16,9 @@ import java.util.Set;
 @Table(name = "user_notification")
 public class UserNotification extends BaseEntity{
 
+    public UserNotification() {
+    }
+
     @NotNull
     @Column(nullable = false)
     private String type;

@@ -36,6 +36,11 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
+            .when('/add-episode', {
+                templateUrl: '/views/add-episode.html',
+                controller: 'EpisodeController',
+                controllerAs: 'vm'
+            })
             .otherwise('/');
     }
 })();

@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 @Table(name = "keywords")
 public class Keyword extends BaseEntity {
 
+    public Keyword() {
+    }
+
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;

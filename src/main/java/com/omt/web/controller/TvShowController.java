@@ -46,7 +46,7 @@ public class TvShowController {
     String API_GET_EXTERNAL = "https://api.themoviedb.org/3/tv/{tv_id}/external_ids?api_key={api_key}";
     String API_GET_EPISODES = "https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={api_key}";
     String API_GET_ALL_TV_SHOW_BACKDROPS = "https://api.themoviedb.org/3/tv/{tv_id}/images?api_key={api_key}";
-    String API_GET_EPISODE_STILL = "https://api.themoviedb.org/3/tv/{tv_id}/season/{season}/episode/{episode}/images?api_key=550e1867817e4bf3266023c5274d8858";
+//    String API_GET_EPISODE_STILL = "https://api.themoviedb.org/3/tv/{tv_id}/season/{season}/episode/{episode}/images?api_key=550e1867817e4bf3266023c5274d8858";
     String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
 
@@ -76,6 +76,14 @@ public class TvShowController {
             if (tvShowService.findOne(tvShow.getId()) != null) throw new Exception("You can't do that");
             if (videoService.findOne(tvShow.getId()) != null) throw new Exception("You can't use that id");
         }
+        List<Genre> genresToBeAdded = new ArrayList<>();
+        for (Genre genre : tvShow.getGenres()) {
+            genresToBeAdded.add(getGenres(genre.getName()));
+            System.out.println(genre.getName());
+        }
+        tvShow.getGenres().clear();
+        tvShow.setGenres(genresToBeAdded);
+
         return tvShowService.save(tvShow);
     }
 
@@ -88,6 +96,7 @@ public class TvShowController {
             genresToBeAdded.add(getGenres(genre.getName()));
             System.out.println(genre.getName());
         }
+        System.out.print(tvShow.getName());
         tvShow.getGenres().clear();
         tvShow.setGenres(genresToBeAdded);
         return tvShowService.save(tvShow);
@@ -146,17 +155,17 @@ public class TvShowController {
         tvShow.getGenres().clear();
         tvShow.setGenres(genresToBeAdded);
 
-        String ext = tvShow.getTmdbTvShowId() + ".jpg";
+//        String ext = tvShow.getTmdbTvShowId() + ".jpg";
 
-        try {
-            saveImage("https://image.tmdb.org/t/p/w640" + tvShow.getPosterPath(), POSTER_PATH + ext);
-//            tvShow.setPosterPath("/img/posters/tvshows/poster" + ext);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            saveImage("https://image.tmdb.org/t/p/w640" + tvShow.getBackdropPath(), BACKDROP_PATH + ext);
+//        try {
+//            saveImage("https://image.tmdb.org/t/p/w640" + tvShow.getPosterPath(), POSTER_PATH + ext);
+////            tvShow.setPosterPath("/img/posters/tvshows/poster" + ext);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            saveImage("https://image.tmdb.org/t/p/w640" + tvShow.getBackdropPath(), BACKDROP_PATH + ext);
 //            tvShow.setBackdropPath("/img/backdrops/tvshows/backdrop" + ext);
             ApiImageResults results = restTemplate.getForObject(API_GET_ALL_TV_SHOW_BACKDROPS, ApiImageResults.class, id, API_KEY);
             List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
@@ -170,14 +179,14 @@ public class TvShowController {
             }
             for (int i = 0; i < size; i++) {
                 System.out.println(backdrops.get(i));
-                ext = tvShow.getTmdbTvShowId() + "_" + i + ".jpg";
-                saveImage("https://image.tmdb.org/t/p/w500" + backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
-//                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
+//                ext = tvShow.getTmdbTvShowId() + "_" + i + ".jpg";
+////                saveImage("https://image.tmdb.org/t/p/w500" + backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
+////                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
                 tvShow.getAdditionalBackdrops().add(backdrops.get(i));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         tvShow.setTvShowEpisodes(new ArrayList<>());
         tvShow = tvShowService.save(tvShow);
@@ -260,15 +269,15 @@ public class TvShowController {
             person.setId(null);
             ApiImageResults results = restTemplate.getForObject(API_GET_ACTOR_PROFILE, ApiImageResults.class, id, API_KEY);
             if (!results.getProfiles().isEmpty()) {
-                String ext = id + ".jpg";
+//                String ext = id + ".jpg";
                 person.setPicture(results.getProfiles().get(0).getFilePath());
                 System.out.println(person.getPicture());
-                try {
-                    saveImage("http://image.tmdb.org/t/p/w185" + person.getPicture(), PROFILE_PATH + ext);
-//                    person.setPicture("/img/profiles/profile" + ext);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    saveImage("http://image.tmdb.org/t/p/w185" + person.getPicture(), PROFILE_PATH + ext);
+////                    person.setPicture("/img/profiles/profile" + ext);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
             return personService.save(person);
         }

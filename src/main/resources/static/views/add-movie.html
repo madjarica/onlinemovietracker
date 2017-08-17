@@ -7,14 +7,14 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-8">
                         <div class="input-group">
-                            <input ng-model="movieCtrl.movieObject.title" type="text" class="form-control" placeholder="Enter Movie Title">
+                            <input ng-model="movieCtrl.movieObject.name" type="text" class="form-control" placeholder="Enter Movie Title">
                             <span class="input-group-btn">
-                                <button ng-click="movieCtrl.getMovieByTitle(movieCtrl.movieObject.title)" data-toggle="modal" data-target="#get-movies-list-modal" class="btn btn-default btn-sm waves-effect waves-light" type="button" style="margin-left: 5px; margin-right: 0;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                <button ng-click="movieCtrl.getMovieByTitle(movieCtrl.movieObject.name)" data-toggle="modal" data-target="#get-movies-list-modal" class="btn btn-default btn-sm waves-effect waves-light" type="button" style="margin-left: 5px; margin-right: 0;"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </span>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="movieCtrl.movieObject.original_title" class="form-control" placeholder="Enter Original Title">
+                            <input type="text" ng-model="movieCtrl.movieObject.original_name" class="form-control" placeholder="Enter Original Title">
                         </div>
 
                         <div class="form-group">

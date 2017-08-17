@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<section ng-controller="EpisodeController as epCtrl">
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center">Add a Episode</h2>
+            <hr>
+            <form>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="form-group">
+                            <input type="text" ng-model="epCtrl.episodeObject.name" class="form-control" placeholder="Enter Episode Name>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="epCtrl.episodeObject.season" class="form-control" placeholder="Enter Season Number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="epCtrl.episodeObject.episode" class="form-control" placeholder="Enter Episode Number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="epCtrl.episodeObject.overview" class="form-control" placeholder="Enter an Overview">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="epCtrl.episodeObject.tv_show_id" class="form-control" placeholder="tv_show_id">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-default waves-effect waves-light pull-right" ng-click="epCtrl.saveEpisode(epCtrl.episodeObject)">Add Episode</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>>
