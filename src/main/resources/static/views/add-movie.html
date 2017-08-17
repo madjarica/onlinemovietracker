@@ -54,16 +54,16 @@
 
                     <div class="col-xs-12 col-sm-4">
 
-                        <img ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="poster-image" src="/img/default_poster.jpg" alt="">
-                        <img ng-show="movieCtrl.movieObject.poster_path != 'img/default_poster.jpg'"  class="poster-image" src="http://image.tmdb.org/t/p/w500/{{ movieCtrl.movieObject.poster_path }}" alt="">
+                        <img ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="poster-image" ng-src="/img/default_poster.jpg" alt="">
+                        <img ng-show="movieCtrl.movieObject.poster_path != 'img/default_poster.jpg'"  class="poster-image" ng-src="http://image.tmdb.org/t/p/w500{{ movieCtrl.movieObject.poster_path }}" alt="">
 
                         <div ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
 
-                        <img ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="poster-image" src="/img/default_backdrop.jpg" alt="">
-                        <img ng-show="movieCtrl.movieObject.backdrop_path != 'img/default_backdrop.jpg'" class="poster-image" src="http://image.tmdb.org/t/p/w780/{{ movieCtrl.movieObject.backdrop_path }}" alt="">
+                        <img ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="poster-image" ng-src="/img/default_backdrop.jpg" alt="">
+                        <img ng-show="movieCtrl.movieObject.backdrop_path != 'img/default_backdrop.jpg'" class="poster-image" ng-src="http://image.tmdb.org/t/p/w780{{ movieCtrl.movieObject.backdrop_path }}" alt="">
 
                         <div ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="form-group">
                             <label>Add Backdrop</label>
@@ -93,8 +93,7 @@
                     <div class="col-xs-12 search-result no-padding" ng-repeat="movie in movieCtrl.movieList">
                         <div class="row search-add-movie-result" style="cursor: pointer; padding: 0 20px;" ng-click="movieCtrl.fillMovieData(movie.id)" data-dismiss="modal">
                             <div class="col-xs-2" style="padding-left: 0;">
-                                <!--<img class="img-responsive result-poster" src="https://image.tmdb.org/t/p/w154{{ movie.poster_path }}" alt="">-->
-                                <img class="img-responsive result-poster" alt="">
+                                <img ng-show="movie.poster_path" class="img-responsive result-poster" ng-src="https://image.tmdb.org/t/p/w154{{ movie.poster_path }}" alt="">
                             </div>
                             <div class="col-xs-10">
                                 <div class="row" style="margin-top: 5px; margin-bottom: 10px;">
