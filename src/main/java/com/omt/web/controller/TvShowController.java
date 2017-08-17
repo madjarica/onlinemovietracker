@@ -125,8 +125,8 @@ public class TvShowController {
         QueryResultsTv externalLinks = restTemplate.getForObject(API_GET_EXTERNAL, QueryResultsTv.class, id, API_KEY);
         tvShow.setImdbPage("http://www.imdb.com/title/" + externalLinks.getImdb_id());
 
-        tvShow.setPosterPath("https://image.tmdb.org/t/p/w640" + tvShow.getPosterPath());
-        tvShow.setBackdropPath( "http://image.tmdb.org/t/p/w640" + tvShow.getBackdropPath());
+//        tvShow.setPosterPath("https://image.tmdb.org/t/p/w640" + tvShow.getPosterPath());
+//        tvShow.setBackdropPath( "http://image.tmdb.org/t/p/w640" + tvShow.getBackdropPath());
 
         List<Character> characterList = characterService.findByTmdbMediaId(tvShow.getTmdbTvShowId());
         tvShow.setCharacterList(characterList);
@@ -150,15 +150,15 @@ public class TvShowController {
         String ext = tvShow.getTmdbTvShowId() + ".jpg";
 
         try {
-            saveImage(tvShow.getPosterPath(), POSTER_PATH + ext);
-            tvShow.setPosterPath("/img/posters/tvshows/poster" + ext);
+            saveImage("https://image.tmdb.org/t/p/w640" + tvShow.getPosterPath(), POSTER_PATH + ext);
+//            tvShow.setPosterPath("/img/posters/tvshows/poster" + ext);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            saveImage(tvShow.getBackdropPath(), BACKDROP_PATH + ext);
-            tvShow.setBackdropPath("/img/backdrops/tvshows/backdrop" + ext);
+            saveImage("https://image.tmdb.org/t/p/w640" + tvShow.getBackdropPath(), BACKDROP_PATH + ext);
+//            tvShow.setBackdropPath("/img/backdrops/tvshows/backdrop" + ext);
         } catch (IOException e) {
             e.printStackTrace();
         }

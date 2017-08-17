@@ -131,8 +131,8 @@ public class MovieController {
                     
                 }
                 movie.setImdbPage("http://www.imdb.com/title/" + movie.getImdbPage());
-                movie.setPosterPath("https://image.tmdb.org/t/p/w640" + movie.getPosterPath());
-                movie.setBackdropPath("http://image.tmdb.org/t/p/w640" + movie.getBackdropPath());
+                movie.setPosterPath(movie.getPosterPath());
+                movie.setBackdropPath(movie.getBackdropPath());
 
                 List<Character> characterList = characterService.findByTmdbMediaId(movie.getTmdbMovieId());
                 movie.setCharacterList(characterList);
@@ -167,11 +167,11 @@ public class MovieController {
                 List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
                 String ext = movie.getTmdbMovieId() + ".jpg";
                 try {
-                    saveImage(movie.getPosterPath(), POSTER_PATH + ext);
-                    movie.setPosterPath("/img/posters/movies/poster" + ext);
+                    saveImage("https://image.tmdb.org/t/p/w500" + movie.getPosterPath(), POSTER_PATH + ext);
+//                    movie.setPosterPath("/img/posters/movies/poster" + ext);
                     System.out.println("Drugi thread.1");
-                    saveImage(movie.getBackdropPath(), BACKDROP_PATH + ext);
-                    movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
+                    saveImage("https://image.tmdb.org/t/p/w780" + movie.getBackdropPath(), BACKDROP_PATH + ext);
+//                    movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
 
 
                     movie.setAdditionalBackdrops(new ArrayList<>());
@@ -185,8 +185,9 @@ public class MovieController {
                     for (int i = 0; i < size; i++) {
                         System.out.println(backdrops.get(i));
                         ext = movie.getTmdbMovieId() + "_" + i + ".jpg";
-                        saveImage(backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
-                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
+                        saveImage("https://image.tmdb.org/t/p/w500" + backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
+//                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
+                        movie.getAdditionalBackdrops().add(backdrops.get(i));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
