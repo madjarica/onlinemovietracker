@@ -53,7 +53,6 @@
         }
         
         function saveTvShow(tvShow) {
-            vm.tvShowObject = tvShow;
             console.log(vm.tvShowObject.genres);
             TvShowsService.saveTvShow(tvShow).then(function (resposnse) {
                 vm.tvShowObject = resposnse;

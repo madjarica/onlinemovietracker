@@ -22,4 +22,6 @@ public interface TvShowRepository extends JpaRepository<TvShow, Long> {
 
     public TvShow findByTmdbTvShowId(Long id);
 
+    public List<TvShow> findByTitleContaining(String search);
+
 }

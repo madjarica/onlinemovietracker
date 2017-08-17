@@ -77,12 +77,14 @@ public class TvShowController {
             if (videoService.findOne(tvShow.getId()) != null) throw new Exception("You can't use that id");
         }
         List<Genre> genresToBeAdded = new ArrayList<>();
-        for (Genre genre : tvShow.getGenres()) {
-            genresToBeAdded.add(getGenres(genre.getName()));
-            System.out.println(genre.getName());
+        if(!tvShow.getGenres().isEmpty()) {
+            for (Genre genre : tvShow.getGenres()) {
+                genresToBeAdded.add(getGenres(genre.getName()));
+                System.out.println(genre.getName());
+            }
+            tvShow.getGenres().clear();
+            tvShow.setGenres(genresToBeAdded);
         }
-        tvShow.getGenres().clear();
-        tvShow.setGenres(genresToBeAdded);
 
         return tvShowService.save(tvShow);
     }
@@ -107,6 +109,11 @@ public class TvShowController {
 //        deletePersons(id);
         deleteEpisodes(id);
         tvShowService.delete(id);
+    }
+
+    @RequestMapping(path = "search/title/{search}", method = RequestMethod.GET)
+    public List<TvShow> findByTitleContaining(@PathVariable("search") String search){
+        return tvShowService.findByTitleContaining(search);
     }
 
     @RequestMapping(path = "getTvShow/{id}", method = RequestMethod.GET)

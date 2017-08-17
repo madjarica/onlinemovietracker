@@ -10,12 +10,12 @@
             saveEpisode: saveEpisode
         };
 
-        function saveEpisode(episode){
+        function saveEpisode(episode) {
             var def = $q.defer();
             console.log(episode);
             var req = {
-                method: episode.id ? 'PUT': 'POST',
-                url: "/episode/",
+                method: episode.id ? 'PUT' : 'POST',
+                url: "/episodes",
                 data: episode
             }
             $http(req).success(function (response) {

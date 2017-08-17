@@ -44,4 +44,8 @@ public class TvShowService {
         return tvShowRepository.findByTmdbTvShowId(id);
     }
 
+    public List<TvShow> findByTitleContaining(String search){
+        return tvShowRepository.findByTitleContaining(search);
+    }
+
 }

@@ -14,6 +14,7 @@
             getTvShowDetails: getTvShowDetails,
             getTvShowByIdBackend : getTvShowByIdBackend,
             saveTvShow : saveTvShow,
+            searchTvShowInLocalDatabase: searchTvShowInLocalDatabase,
             tvShowDetails: {}
         };
 
@@ -153,6 +154,21 @@
 
             return def.promise;
 
+        }
+        function searchTvShowInLocalDatabase(search){
+            var def = $q.defer();
+            console.log(search);
+            var req = {
+                method: 'GET',
+                url: "tvshows/search/title/" + search,
+            }
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
         }
     }
 })();

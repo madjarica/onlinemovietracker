@@ -10,16 +10,19 @@
                             <input type="text" ng-model="epCtrl.episodeObject.name" class="form-control" placeholder="Enter Episode Name>
                         </div>
                         <div class="form-group">
-                            <input type="text" ng-model="epCtrl.episodeObject.season" class="form-control" placeholder="Enter Season Number">
+                            <input type="text" ng-model="epCtrl.episodeObject.season_number" class="form-control" placeholder="Enter Season Number">
                         </div>
                         <div class="form-group">
-                            <input type="text" ng-model="epCtrl.episodeObject.episode" class="form-control" placeholder="Enter Episode Number">
+                            <input type="text" ng-model="epCtrl.episodeObject.episode_number" class="form-control" placeholder="Enter Episode Number">
                         </div>
                         <div class="form-group">
                             <input type="text" ng-model="epCtrl.episodeObject.overview" class="form-control" placeholder="Enter an Overview">
                         </div>
                         <div class="form-group">
-                            <input type="text" ng-model="epCtrl.episodeObject.tv_show_id" class="form-control" placeholder="tv_show_id">
+                            <input type="text" ng-model="epCtrl.episodeObject.search" class="form-control" placeholder="Enter your TvShow">
+                            <span class="input-group-btn">
+                                <button ng-click="epCtrl.getTvShows(epCtrl.episodeObject.search)" data-toggle="modal" data-target="#get-tvshows-list-modal" class="btn btn-default btn-sm waves-effect waves-light" type="button" style="margin-left: 5px; margin-right: 0;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -28,7 +31,45 @@
                         <button class="btn btn-default waves-effect waves-light pull-right" ng-click="epCtrl.saveEpisode(epCtrl.episodeObject)">Add Episode</button>
                     </div>
                 </div>
+                {{epCtrl.tvShows}}
             </form>
         </div>
     </div>
+
+    <div class="modal fade" id="get-tvshows-list-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="model-header" style="padding: 5px 5px 10px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Search results</h4>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xs-12 search-result no-padding" ng-repeat="tvShow in epCtrl.tvShows">
+                        <div class="row search-add-movie-result" style="cursor: pointer; padding: 0 20px;" ng-click="epCtrl.select(tvShow)" data-dismiss="modal">
+                            <div class="col-xs-2" style="padding-left: 0;">
+                                <!--<img class="img-responsive result-poster" src="https://image.tmdb.org/t/p/w154{{ movie.poster_path }}" alt="">-->
+                                <img class="img-responsive result-poster" alt="">
+                            </div>
+                            <div class="col-xs-10">
+                                <div class="row" style="margin-top: 5px; margin-bottom: 10px;">
+                                    <span class="pull-left"><b>{{ tvShow.name }}</b></span>
+                                </div>
+                                <div class="row" style="text-align: justify;">
+                                    {{ tvShow.overview }}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-spinner" class="loading hidden">Loading&#8230;</div>
 </section>>

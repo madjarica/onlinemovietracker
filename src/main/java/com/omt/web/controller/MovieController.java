@@ -73,13 +73,14 @@ public class MovieController {
             if (movieService.findOne(movie.getId()) != null) throw new Exception("You can't do that");
             if (videoService.findOne(movie.getId()) != null) throw new Exception("You can't use that id");
         }
-        List<Genre> genresToBeAdded = new ArrayList<>();
-        for (Genre genre : movie.getGenres()) {
-            genresToBeAdded.add(getGenres(genre.getName()));
+        if(!movie.getGenres().isEmpty()) {
+            List<Genre> genresToBeAdded = new ArrayList<>();
+            for (Genre genre : movie.getGenres()) {
+                genresToBeAdded.add(getGenres(genre.getName()));
+            }
+            movie.getGenres().clear();
+            movie.setGenres(genresToBeAdded);
         }
-        movie.getGenres().clear();
-        movie.setGenres(genresToBeAdded);
-
         return movieService.save(movie);
     }
 
