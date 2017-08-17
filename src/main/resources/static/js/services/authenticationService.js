@@ -8,8 +8,7 @@
 
         var service = {
             saveUser: saveUser,
-            requestNewPassword: requestNewPassword,
-            activateNewPassword: activateNewPassword
+            requestNewPassword: requestNewPassword
         };
 
         return service;
