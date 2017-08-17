@@ -60,6 +60,12 @@ public class Video extends BaseEntity{
                inverseJoinColumns=@JoinColumn(name="genre_id"))
     private List<Genre> genres;
 
+    @ManyToMany
+    @JsonProperty(value = "keywords")
+    @JoinTable(name="video_genre", joinColumns=@JoinColumn(name="video_id"),
+               inverseJoinColumns=@JoinColumn(name="keyword_id"))
+    private List<Keyword> keywords;
+    
     @Column
     @DateTimeFormat
     private Date createdDate;
