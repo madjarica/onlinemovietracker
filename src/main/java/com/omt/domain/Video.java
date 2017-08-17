@@ -47,6 +47,10 @@ public class Video extends BaseEntity{
     @JsonProperty("backdrop_path")
     private String backdropPath;
 
+    @Column
+    @ElementCollection(targetClass = String.class)
+    private List<String> additionalBackdrops;
+
     @OneToMany
     private List<Character> characterList;
 
@@ -166,6 +170,14 @@ public class Video extends BaseEntity{
 
     public void setBackdropPath(String backdropPath) {
         this.backdropPath = backdropPath;
+    }
+
+    public List<String> getAdditionalBackdrops() {
+        return additionalBackdrops;
+    }
+
+    public void setAdditionalBackdrops(List<String> additionalBackdrops) {
+        this.additionalBackdrops = additionalBackdrops;
     }
 
     public List<Character> getCharacterList() {

@@ -146,7 +146,6 @@ public class MovieController {
                 } else {
                     movie.setTrailerLink("https://www.youtube.com/embed/" + youtube);
                 }
-
                 List<Genre> genresToBeAdded = new ArrayList<>();
                 for (Genre genre : movie.getGenres()) {
                     genresToBeAdded.add(getGenres(genre.getName()));
@@ -173,6 +172,9 @@ public class MovieController {
                     System.out.println("Drugi thread.1");
                     saveImage(movie.getBackdropPath(), BACKDROP_PATH + ext);
                     movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
+
+
+                    movie.setAdditionalBackdrops(new ArrayList<>());
                     System.out.println(backdrops.size());
                     int size;
                     if(backdrops.size() < 5) {
@@ -184,6 +186,7 @@ public class MovieController {
                         System.out.println(backdrops.get(i));
                         ext = movie.getTmdbMovieId() + "_" + i + ".jpg";
                         saveImage(backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
+                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
