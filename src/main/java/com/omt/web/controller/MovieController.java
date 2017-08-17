@@ -32,19 +32,19 @@ public class MovieController {
     GenreRepository genreRepository;
     RestOperations restTemplate = new RestTemplate();
 
-    String POSTER_PATH = "src/main/resources/static/img/posters/movies/poster";
-    String BACKDROP_PATH = "src/main/resources/static/img/backdrops/movies/backdrop";
-    String ADDTIONAL_BACKDROPS_PATH = "src/main/resources/static/img/backdrops/movies/additional_backdrops/backdrop";
-    String PROFILE_PATH = "src/main/resources/static/img/profiles/profile";
+    final static String POSTER_PATH = "src/main/resources/static/img/posters/movies/poster";
+    final static String BACKDROP_PATH = "src/main/resources/static/img/backdrops/movies/backdrop";
+    final static String ADDTIONAL_BACKDROPS_PATH = "src/main/resources/static/img/backdrops/movies/additional_backdrops/backdrop";
+    final static String PROFILE_PATH = "src/main/resources/static/img/profiles/profile";
 
-    String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
-    String API_GET_MOVIE = "https://api.themoviedb.org/3/movie/{id}?api_key={api_key}&language=en-US";
-    String API_GET_CREDITS = "https://api.themoviedb.org/3/movie/{id}/credits?api_key={api_key}";
-    String API_GET_PERSON = "https://api.themoviedb.org/3/person/{person_id}?api_key={api_key}&language=en-US";
-    String API_GET_VIDEO = "https://api.themoviedb.org/3/movie/{id}/videos?api_key={api_key}";
-    String API_GET_ACTOR_PROFILE = "https://api.themoviedb.org/3/person/{person_id}/images?api_key={api_key}";
-    String API_GET_ALL_BACKDROPS = "https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={api_key}";
-    String API_KEY = "550e1867817e4bf3266023c5274d8858";
+    final static String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
+    final static String API_GET_MOVIE = "https://api.themoviedb.org/3/movie/{id}?api_key={api_key}&language=en-US";
+    final static String API_GET_CREDITS = "https://api.themoviedb.org/3/movie/{id}/credits?api_key={api_key}";
+    final static String API_GET_PERSON = "https://api.themoviedb.org/3/person/{person_id}?api_key={api_key}&language=en-US";
+    final static String API_GET_VIDEO = "https://api.themoviedb.org/3/movie/{id}/videos?api_key={api_key}";
+    final static String API_GET_ACTOR_PROFILE = "https://api.themoviedb.org/3/person/{person_id}/images?api_key={api_key}";
+    final static String API_GET_ALL_BACKDROPS = "https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={api_key}";
+    final static String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
 
     @Autowired
@@ -276,10 +276,11 @@ public class MovieController {
             ApiImageResults results = restTemplate.getForObject(API_GET_ACTOR_PROFILE, ApiImageResults.class, id, API_KEY);
             if (!results.getProfiles().isEmpty()) {
                 String ext = id + ".jpg";
-                person.setPicture("http://image.tmdb.org/t/p/w185" + results.getProfiles().get(0).getFilePath());
+                person.setPicture(results.getProfiles().get(0).getFilePath());
+                System.out.println(person.getPicture());
                 try {
-                    saveImage(person.getPicture(), PROFILE_PATH + ext);
-                    person.setPicture("/img/profiles/profile" + ext);
+                    saveImage("http://image.tmdb.org/t/p/w185" + person.getPicture(), PROFILE_PATH + ext);
+//                    person.setPicture("/img/profiles/profile" + ext);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

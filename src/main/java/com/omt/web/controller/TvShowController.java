@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.omt.JsonResults.CreditsResults;
-import com.omt.JsonResults.EpisodeResults;
-import com.omt.JsonResults.QueryResultsTv;
-import com.omt.JsonResults.TrailerResults;
+import com.omt.JsonResults.*;
 import com.omt.domain.*;
 import com.omt.domain.Character;
 import com.omt.repository.GenreRepository;
@@ -24,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
+import static com.omt.web.controller.MovieController.API_GET_ACTOR_PROFILE;
+import static com.omt.web.controller.MovieController.PROFILE_PATH;
 import static com.omt.web.controller.MovieController.saveImage;
 
 @RestController
@@ -221,13 +220,25 @@ public class TvShowController {
 
     public Person getPerson(Long id){
         Person personCheck = personService.findByTmdbPersonId(id);
-        if(personCheck != null) {
+        if (personCheck != null) {
             return personCheck;
-        }else{
+        } else {
             Person person;
             person = restTemplate.getForObject(API_GET_PERSON, Person.class, id, API_KEY);
             person.setTmdbPersonId(person.getId());
             person.setId(null);
+            ApiImageResults results = restTemplate.getForObject(API_GET_ACTOR_PROFILE, ApiImageResults.class, id, API_KEY);
+            if (!results.getProfiles().isEmpty()) {
+                String ext = id + ".jpg";
+                person.setPicture(results.getProfiles().get(0).getFilePath());
+                System.out.println(person.getPicture());
+                try {
+                    saveImage("http://image.tmdb.org/t/p/w185" + person.getPicture(), PROFILE_PATH + ext);
+//                    person.setPicture("/img/profiles/profile" + ext);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             return personService.save(person);
         }
     }
