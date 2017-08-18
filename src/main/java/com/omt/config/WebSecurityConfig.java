@@ -24,7 +24,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/users/activate-new-password/**");
+		super.configure(web);
 	}
 
 	@Override
@@ -34,6 +34,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 			.antMatchers("/", "/bower_components/**", "/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
 			.antMatchers("/index.html", "/views/home.html", "/views/movie-details.html", "/views/tv-show-details.html", "/views/search-results.html", "/views/add-episode.html").permitAll()
 			.antMatchers("/includes/_footer.html", "/includes/_search-input.html", "/includes/_top-navigation.html").permitAll()
+			.antMatchers("/messages/failed-account-activation.html", "/messages/failed-password-activation.html", "/messages/success-account-activation.html", "/messages/success-password-activation.html").permitAll()
 			.antMatchers("/fonts/**", "/font/**").permitAll()
 			.antMatchers("https://image.tmdb.org/**", "http://image.tmdb.org/**").permitAll()
 			.antMatchers(HttpMethod.GET,"/users/code/*").permitAll()

@@ -68,9 +68,6 @@
         }
 
         function register(user) {
-            user.roles = [{
-                "id" : 1
-            }];
             AuthenticationService.saveUser(user).then(function(response) {
                 init();
                 console.log("registered");

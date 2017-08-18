@@ -49,5 +49,9 @@ public class UserService {
     public LoginUser findByEmail(String email) {
         return loginUserRepository.findByEmail(email);
     }
+
+    public LoginUser findByPasswordActivationLink(String code) {
+        return loginUserRepository.findByPasswordActivationLink(code);
+    }
 	
 }

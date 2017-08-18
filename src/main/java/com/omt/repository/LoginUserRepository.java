@@ -10,5 +10,6 @@ public interface LoginUserRepository extends JpaRepository<LoginUser, Long> {
 	LoginUser findByUsername(String username);
 	LoginUser findByCodeForActivation(String code);
 	LoginUser findByEmail(String email);
+	LoginUser findByPasswordActivationLink(String code);
 	
 }

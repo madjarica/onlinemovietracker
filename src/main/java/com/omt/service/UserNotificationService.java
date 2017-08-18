@@ -62,19 +62,19 @@ public class UserNotificationService {
 		javaMailSender.send(message);
 
 	}
-    
-    public void sendNotification(LoginUser loginUser) throws MailException {
- 		
- 		String emailContent = "Thank you for registration. In order to use your account, you'll need to activate it. Just click activate to confirm.<br><br>Activation code: <a href='http://localhost:8080/users/activate/" + loginUser.getCodeForActivation() + "'>Activate your account</a>";
- 		
- 		//send email		
- 		SimpleMailMessage mail = new SimpleMailMessage();
- 		mail.setTo(loginUser.getEmail());
- 		mail.setFrom("notification@onlinemovietracker.com");
- 		mail.setSubject("Registration email");
- 		mail.setText(emailContent);
- 		
- 		javaMailSender.send(mail);
- 	}
 
+	public void sendActivationLink(String email, String account_activation_link) throws MessagingException {
+
+		MimeMessage message = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper;
+		String emailContent = "Thank you for registration. In order to use your account, you'll need to activate it. <br><br>Click <a href='http://localhost:8080/users/activate/" + account_activation_link + "'>here</a> to activate your account.";
+
+		helper = new MimeMessageHelper(message, true);
+		helper.setFrom("notification@onlinemovietracker.com");
+		helper.setTo(email);
+		helper.setSubject("Activate your account");
+		helper.setText(emailContent, true);
+
+		javaMailSender.send(message);
+	}
 }

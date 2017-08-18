@@ -41,6 +41,26 @@
                 controller: 'EpisodeController',
                 controllerAs: 'vm'
             })
+            .when('/messages/success-password-activation', {
+                templateUrl: '/messages/success-password-activation.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
+            .when('/messages/failed-password-activation', {
+                templateUrl: '/messages/failed-password-activation.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
+            .when('/messages/success-account-activation', {
+                templateUrl: '/messages/success-account-activation.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
+            .when('/messages/failed-account-activation', {
+                templateUrl: '/messages/failed-account-activation.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
             .otherwise('/');
     }
 })();

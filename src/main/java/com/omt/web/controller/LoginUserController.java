@@ -5,10 +5,12 @@ import java.util.*;
 
 import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
+import com.omt.domain.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,10 +85,22 @@ public class LoginUserController {
 		}
 	}
 
-//	@RequestMapping(value = "/activate-new-password/{password_activation_link}", method = RequestMethod.GET)
-//	public void activateNewPassword(@PathVariable("password_activation_link") String password_activation_link) {
-//		System.out.println(password_activation_link);
-//	}
+	@RequestMapping(value = "/activate-new-password/{password_activation_code}", method = RequestMethod.GET)
+	public String activateNewPassword(@PathVariable("password_activation_code") String password_activation_code) {
+
+		LoginUser user = userService.findByPasswordActivationLink(password_activation_code);
+
+		if(user != null) {
+			user.setPassword(user.getPasswordTemp());
+			user.setPasswordActivationLink(null);
+			user.setPasswordTemp(null);
+			userService.save(user);
+
+			return "<script>window.location = 'http://localhost:8080/#/messages/success-password-activation';</script>";
+		}
+
+		return "<script>window.location = 'http://localhost:8080/#/messages/failed-password-activation';</script>";
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<LoginUser> findAll() {
@@ -109,12 +123,21 @@ public class LoginUserController {
 			sb.append(c);
 		}
 
-		String token = sb.toString();
+		String account_activation_link = sb.toString();
 
-		user.setCodeForActivation(token);
+		user.setCodeForActivation(account_activation_link);
 		user.setActive(false);
 		user.setStatus(true);
 		user.setSubscription(true);
+
+		Set<Role> role = new HashSet<Role>();
+
+		Role newRole = new Role();
+		newRole.setId((long)1);
+		newRole.setType(Role.RoleType.ROLE_USER);
+		role.add(newRole);
+
+		user.setRoles(role);
 
 		String original = user.getEmail();
 		MessageDigest md = MessageDigest.getInstance("MD5");
@@ -129,28 +152,22 @@ public class LoginUserController {
 		user.setCreatedDate(new Date());
 		user.setUpdatedDate(new Date());
 
+		userNotificationService.sendActivationLink(user.getEmail(), account_activation_link);
+
 		return userService.save(user);
-	}
-
-	@RequestMapping(path = "/sentMail", method = RequestMethod.GET)
-	public LoginUser findEmail() {
-		LoginUser newUser = userService.findOne((long)1);
-		userNotificationService.sendNotification(newUser);
-
-		return newUser;
 	}
 
 	@RequestMapping(path = "activate/{activation-code}", method = RequestMethod.GET)
 	public String activateUser(@PathVariable("activation-code") String code) {
-	LoginUser loginUser = findByCodeForActivation(code);
-		if(loginUser != null) {
-			loginUser.setActive(true);
-			loginUser.setCodeForActivation(null);
-			userService.save(loginUser);
+	LoginUser user = findByCodeForActivation(code);
+		if(user != null) {
+			user.setActive(true);
+			user.setCodeForActivation(null);
+			userService.save(user);
 
-//			return "redirect:" + "http://localhost:8080/";
+			return "<script>window.location = 'http://localhost:8080/#/messages/success-account-activation';</script>";
 		}
-		return "<script>window.location = 'http://localhost:8080/?success=true';</script>";
+		return "<script>window.location = 'http://localhost:8080/#/messages/failed-account-activation';</script>";
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
