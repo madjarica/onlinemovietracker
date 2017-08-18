@@ -25,7 +25,7 @@
             }).then(function () {
                 TvShowsService.saveTvShow(vm.tvShowForEpisode)
                     .then(function (response) {
-                        console.log(response);
+                        vm.episodeObject = {};
                     })
             })
         }

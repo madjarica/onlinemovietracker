@@ -9,14 +9,26 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class KeywordsResults {
 
-    @JsonProperty("results")
     private List<Keyword> keywords;
 
+    @JsonProperty("results")
     public List<Keyword> getKeywords() {
         return keywords;
     }
 
+    @JsonProperty("results")
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
+
+    @JsonProperty("keywords")
+    public List<Keyword> getMovieKeywords(){
+        return keywords;
+    }
+
+    @JsonProperty("keywords")
+    public void setMovieKeywords(List<Keyword> keywords){
+        this.keywords = keywords;
+    }
+
 }

@@ -194,7 +194,7 @@ public class MovieController {
         movie.setGenres(genresToBeAdded);
         
         KeywordsResults keywordsResults = restTemplate.getForObject(API_GET_MOVIE_KEYWORDS, KeywordsResults.class, id, API_KEY);
-        List<Keyword> keywords = keywordsResults.getKeywords();
+        List<Keyword> keywords = keywordsResults.getMovieKeywords();
 
         List<Keyword> keywordsToBeAdded = new ArrayList<>();
         for (Keyword keyword:keywords) {
