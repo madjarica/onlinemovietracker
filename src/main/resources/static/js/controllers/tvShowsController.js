@@ -31,6 +31,8 @@
         vm.getTvShowDetails = getTvShowDetails;
         vm.tvShowObject = {};
         vm.tvShowDetails = TvShowsService.tvShowDetails;
+        vm.tvShowEdit = {};
+        vm.tvShowEdit = angular.copy(vm.tvShowDetails);
         vm.tvShowObject.poster_path = "img/default_poster.jpg";
         vm.tvShowObject.backdrop_path = "img/default_backdrop.jpg";
         vm.tvShowsList = [];
@@ -53,10 +55,17 @@
         }
         
         function saveTvShow(tvShow) {
+            tvShow.addedBy = "default";
             TvShowsService.saveTvShow(tvShow).then(function (response) {
-                vm.tvShowObject = response;
-            })
+                vm.tvShowDetails = response;
+                TvShowsService.tvShowDetails = response;
+            }).then(function(){
+                vm.tvShowObject = {};
+            }).then(function () {
+                $location.url("tv-show-details");
+            });
         }
+
 
         // Show movie details
         function getTvShowDetails(id) {
