@@ -1,0 +1,41 @@
+<section ng-controller="UserController as userCtrl">
+    <div class="table-responsive col-xs-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Role</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Active</th>
+                    <th>Subscribed</th>
+                    <th>Status</th>
+                    <th>Blocked Until</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="user in userCtrl.usersList track by $index">
+                <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{ user.active }}</td>
+                    <td>{{ user.subscription }}</td>
+                    <td>{{ user.status }}</td>
+                    <td>{{ user.blockedUntil }}</td>
+                    <td>{{ user.createdDate }}</td>
+                    <td>{{ user.updatedDate }}</td>
+                    <td><button class="btn">E</button></td>
+                    <td><button class="btn">D</button></td>
+                </tr>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+    </div>
+</section>

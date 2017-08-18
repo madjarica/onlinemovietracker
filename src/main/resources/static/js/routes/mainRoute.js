@@ -61,6 +61,11 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
+            .when('/admin/view-users', {
+                templateUrl: '/views/admin/view-users.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
             .otherwise('/');
     }
 })();

@@ -104,7 +104,17 @@ public class LoginUserController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<LoginUser> findAll() {
-		return userService.findAll();
+		List<LoginUser> users = userService.findAll();
+
+		for(LoginUser user : users) {
+			user.setPassword(null);
+			user.setPasswordTemp(null);
+			user.setPasswordActivationLink(null);
+			user.setCodeForActivation(null);
+			user.setHashed_email(null);
+		}
+
+		return users;
 	}
 
 	@RequestMapping(path = "{id}", method = RequestMethod.GET)

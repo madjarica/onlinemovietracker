@@ -37,6 +37,8 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 			.antMatchers("/messages/failed-account-activation.html", "/messages/failed-password-activation.html", "/messages/success-account-activation.html", "/messages/success-password-activation.html").permitAll()
 			.antMatchers("/fonts/**", "/font/**").permitAll()
 			.antMatchers("https://image.tmdb.org/**", "http://image.tmdb.org/**").permitAll()
+			.antMatchers("/views/admin/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/users").permitAll()
 			.antMatchers(HttpMethod.GET,"/users/code/*").permitAll()
 			.antMatchers(HttpMethod.GET,"/users/activate/*").permitAll()
 			.antMatchers(HttpMethod.GET,"/tvshows").permitAll()

@@ -4,7 +4,7 @@
 
     MainController.$inject = ['$rootScope', '$location', '$http', '$route', '$window'];
 
-    function MainController($rootScope, $location, $http, $route, $windowe) {
+    function MainController($rootScope, $location, $http, $route, $window) {
 
         var self = this;
 
