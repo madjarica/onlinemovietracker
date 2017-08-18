@@ -5,6 +5,7 @@ import com.omt.domain.*;
 import com.omt.domain.Character;
 import com.omt.repository.GenreRepository;
 import com.omt.service.CharacterService;
+import com.omt.service.KeywordService;
 import com.omt.service.MovieService;
 import com.omt.service.PersonService;
 import com.omt.service.VideoService;
@@ -30,6 +31,7 @@ public class MovieController {
     PersonService personService;
     CharacterService characterService;
     GenreRepository genreRepository;
+    KeywordService keywordService;
     RestOperations restTemplate = new RestTemplate();
 
     final static String POSTER_PATH = "src/main/resources/static/img/posters/movies/poster";
@@ -44,16 +46,18 @@ public class MovieController {
     final static String API_GET_VIDEO = "https://api.themoviedb.org/3/movie/{id}/videos?api_key={api_key}";
     final static String API_GET_ACTOR_PROFILE = "https://api.themoviedb.org/3/person/{person_id}/images?api_key={api_key}";
     final static String API_GET_ALL_BACKDROPS = "https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={api_key}";
+    final static String API_GET_MOVIE_KEYWORDS = "https://api.themoviedb.org/3/movie/{movie_id}/keywords?api_key={api_key}";
     final static String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
 
     @Autowired
-    public MovieController(MovieService movieService, VideoService videoService, PersonService personService, CharacterService characterService, GenreRepository genreRepository) {
+    public MovieController(MovieService movieService, VideoService videoService, PersonService personService, CharacterService characterService, GenreRepository genreRepository, KeywordService keywordService) {
         this.movieService = movieService;
         this.videoService = videoService;
         this.personService = personService;
         this.characterService = characterService;
         this.genreRepository = genreRepository;
+        this.keywordService = keywordService;
     }
 
 
@@ -81,8 +85,20 @@ public class MovieController {
             movie.getGenres().clear();
             movie.setGenres(genresToBeAdded);
         }
-        return movieService.save(movie);
+    
+    List<Keyword> keywordsToBeAdded = new ArrayList<>();
+    if(movie.getKeywords() == null) movie.setKeywords(keywordsToBeAdded);
+    if (!movie.getKeywords().isEmpty()) {
+        for (Keyword keyword : movie.getKeywords()) {
+            keywordsToBeAdded.add(getKeywords(keyword.getName()));
+            System.out.println(keyword.getName());
+        }
+        movie.getKeywords().clear();
+        movie.setKeywords(keywordsToBeAdded);
     }
+
+    return movieService.save(movie);
+}    
 
     @RequestMapping(method = RequestMethod.PUT)
     public Movie update(@RequestBody Movie movie) throws Exception {
@@ -96,6 +112,16 @@ public class MovieController {
         movie.getGenres().clear();
         movie.setGenres(genresToBeAdded);
 
+        List<Keyword> keywordsToBeAdded = new ArrayList<>();
+        for (Keyword keyword : movie.getKeywords()) {
+            keywordsToBeAdded.add(getKeywords(keyword.getName()));
+            System.out.println(keyword.getName());
+        }
+        movie.getKeywords().clear();
+        movie.setKeywords(keywordsToBeAdded);
+
+        System.out.print(movie.getName());
+
         return movieService.save(movie);
     }
 
@@ -103,12 +129,19 @@ public class MovieController {
     public void delete(@PathVariable("id") Long id) {
 //        deletePersons(id);
         deleteGenres(id);
+        deleteKeywords(id);
         movieService.delete(id);
     }
 
     private void deleteGenres(Long id) {
         Movie movie = movieService.findOne(id);
         movie.getGenres().clear();
+        movieService.save(movie);
+    }
+    
+    private void deleteKeywords(Long id) {
+        Movie movie = movieService.findOne(id);
+        movie.getKeywords().clear();
         movieService.save(movie);
     }
 
@@ -159,6 +192,16 @@ public class MovieController {
         }
         movie.getGenres().clear();
         movie.setGenres(genresToBeAdded);
+        
+        KeywordsResults keywordsResults = restTemplate.getForObject(API_GET_MOVIE_KEYWORDS, KeywordsResults.class, id, API_KEY);
+        List<Keyword> keywords = keywordsResults.getKeywords();
+
+        List<Keyword> keywordsToBeAdded = new ArrayList<>();
+        for (Keyword keyword:keywords) {
+            keywordsToBeAdded.add(getKeywords(keyword.getName()));
+        }
+        movie.setKeywords(keywordsToBeAdded);
+        
 //        System.out.println("Prvi thread");
 ////
 ////            }
@@ -248,6 +291,17 @@ public class MovieController {
             genre.setName(name);
             return genreRepository.save(genre);
         }
+    }
+    
+    public Keyword getKeywords(String name) {
+        Keyword keyword = keywordService.findByName(name);
+        if (keyword == null) {
+            keyword = new Keyword();
+            keyword.setId(null);
+            keyword.setName(name);
+            return keywordService.save(keyword);
+        }
+        return keyword;
     }
 
     public void getCharacters(Long id) {
