@@ -51,6 +51,9 @@ public class Video extends BaseEntity{
     @ElementCollection(targetClass = String.class)
     private List<String> additionalBackdrops;
 
+    @Column
+    private String addedBy;
+
     @OneToMany
     private List<Character> characterList;
 
@@ -207,6 +210,14 @@ public class Video extends BaseEntity{
 
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
+    }
+
+    public String getAddedBy() {
+        return addedBy;
+    }
+
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
     }
 
     public Date getCreatedDate() {

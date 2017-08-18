@@ -2,11 +2,13 @@
     <div class="row no-padding no-margin" style=" background-color: rgba(0,0,0,.6);">
         <div class="container">
             <div class="col-xs-12 col-sm-4">
-                <img class="poster-image" src="http://image.tmdb.org/t/p/w500/{{ vm.tvShowDetails.poster_path }}" alt="">
+                <img class="poster-image" src="http://image.tmdb.org/t/p/w500/{{ vm.tvShowDetails.poster_path }}"
+                     alt="">
             </div>
             <div class="col-xs-12 col-sm-8">
                 <div class="row">
-                    <h4 class="white-text">{{ vm.tvShowDetails.name }} <span class="grey-text small">{{ vm.tvShowDetails.first_air_date | date:'yyyy' }}</span></h4>
+                    <h4 class="white-text">{{ vm.tvShowDetails.name }} <span class="grey-text small">{{ vm.tvShowDetails.first_air_date | date:'yyyy' }}</span>
+                    </h4>
                 </div>
                 <div class="row">
                     <h5 class="white-text genres">Genres</h5>
@@ -31,20 +33,25 @@
                 </div>
                 <div class="row">
                     <div ng-controller="RatingController as rateCtrl">
-                        <span uib-rating ng-model="rateCtrl.rate" max="rateCtrl.max" read-only="rateCtrl.isReadonly" on-hover="rateCtrl.hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                        <span uib-rating ng-model="rateCtrl.rate" max="rateCtrl.max" read-only="rateCtrl.isReadonly"
+                              on-hover="rateCtrl.hoveringOver(value)" on-leave="overStar = null"
+                              titles="['one','two','three']" aria-labelledby="default-rating"></span>
                         <!--<button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="rateCtrl.rate = 0" ng-disabled="rateCtrl.isReadonly">Clear rating</button>-->
                     </div>
                 </div>
                 <div class="row">
-                    <a href="{{ vm.tvShowDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
-                    <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Mark as favorite!"><i class="fa fa-heart red" aria-hidden="true"></i></button>
-                    <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
+                    <a href="{{ vm.tvShowDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png"
+                                                                                  class="imdb-logo"></a>
+                    <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
+                            title="Mark as favorite!"><i class="fa fa-heart red" aria-hidden="true"></i></button>
+                    <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
+                            title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
-                        <p class="white-text">
-                            {{ vm.tvShowDetails.overview }}
-                        </p>
+                    <p class="white-text">
+                        {{ vm.tvShowDetails.overview }}
+                    </p>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Featured Crew</h5>
@@ -68,15 +75,27 @@
             <li><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
             <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
             <li><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
+            <li><a data-toggle="tab" href="#edit" target="_self">Edit</a></li>
         </ul>
 
         <div class="tab-content">
             <div id="about" class="tab-pane fade in active">
                 <br>
-                <h5><small>Original Title: </small>{{ vm.tvShowDetails.title }}</h5>
-                <h5><small>Pilot Date: </small>{{ vm.tvShowDetails.first_air_date | date:'dd-MM-yyyy' }}</h5>
-                <h5><small>Original Language: </small>{{ vm.tvShowDetails.original_language }}</h5>
-                <h5><small>Homepage: </small><a target="_blank" href="{{ vm.tvShowDetails.homepage }}">{{ vm.tvShowDetails.homepage }}</a></h5>
+                <h5>
+                    <small>Original Title:</small>
+                    {{ vm.tvShowDetails.name }}
+                </h5>
+                <h5>
+                    <small>Pilot Date:</small>
+                    {{ vm.tvShowDetails.first_air_date | date:'dd-MM-yyyy' }}
+                </h5>
+                <h5>
+                    <small>Original Language:</small>
+                    {{ vm.tvShowDetails.original_language }}
+                </h5>
+                <h5>
+                    <small>Homepage:</small>
+                    <a target="_blank" href="{{ vm.tvShowDetails.homepage }}">{{ vm.tvShowDetails.homepage }}</a></h5>
             </div>
 
             <div id="episodes" class="tab-pane fade">
@@ -88,9 +107,20 @@
                                 <img class="person-image" src="" alt="">
                             </div>
                             <div class="col-xs-6 col-sm-9">
-                                <h5><small><b>Title:</b> </small>{{ episode.name }}</h5>
-                                <h5><small><b>S</b></small>{{ episode.season_number }} <small><b>Ep</b></small>{{ episode.episode_number }}</h5>
-                                <h5><small><b>Air Date:</b> </small>{{ episode.air_date | date:'dd-MM-yyyy' }}</h5>
+                                <h5>
+                                    <small><b>Title:</b></small>
+                                    {{ episode.name }}
+                                </h5>
+                                <h5>
+                                    <small><b>S</b></small>
+                                    {{ episode.season_number }}
+                                    <small><b>Ep</b></small>
+                                    {{ episode.episode_number }}
+                                </h5>
+                                <h5>
+                                    <small><b>Air Date:</b></small>
+                                    {{ episode.air_date | date:'dd-MM-yyyy' }}
+                                </h5>
                                 <p>{{ episode.overview }}</p>
                             </div>
                         </div>
@@ -123,14 +153,29 @@
                     <div class="row">
                         <div class="row">
                             <div class="col-xs-6 col-sm-2">
-                                <img class="person-image" src="http://image.tmdb.org/t/p/w185{{ actor.person.picture }}" alt="">
+                                <img class="person-image" src="http://image.tmdb.org/t/p/w185{{ actor.person.picture }}"
+                                     alt="">
                             </div>
                             <div class="col-xs-6 col-sm-10">
-                                <h5><small><b>Name:</b> </small>{{ actor.character }}</h5>
-                                <h5><small><b>Real Name:</b> </small>{{ actor.person.name }}</h5>
-                                <h5><small><b>Birthday:</b> </small>{{ actor.person.birthday | date:'dd-MM-yyyy' }}</h5>
-                                <h5><small><b>Place of Birth:</b> </small>{{ actor.person.placeOfBirth }}</h5>
-                                <h5><small><b>Biography:</b> </small></h5>
+                                <h5>
+                                    <small><b>Name:</b></small>
+                                    {{ actor.character }}
+                                </h5>
+                                <h5>
+                                    <small><b>Real Name:</b></small>
+                                    {{ actor.person.name }}
+                                </h5>
+                                <h5>
+                                    <small><b>Birthday:</b></small>
+                                    {{ actor.person.birthday | date:'dd-MM-yyyy' }}
+                                </h5>
+                                <h5>
+                                    <small><b>Place of Birth:</b></small>
+                                    {{ actor.person.placeOfBirth }}
+                                </h5>
+                                <h5>
+                                    <small><b>Biography:</b></small>
+                                </h5>
                                 <p>{{ actor.person.biography }}</p>
                             </div>
                         </div>
@@ -148,7 +193,8 @@
                             <div class="panel panel-white post panel-shadow">
                                 <div class="post-heading">
                                     <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                             alt="user profile image">
                                     </div>
                                     <div class="pull-left meta">
                                         <div class="title h5">
@@ -175,7 +221,8 @@
                             <div class="panel panel-white post panel-shadow">
                                 <div class="post-heading">
                                     <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                             alt="user profile image">
                                     </div>
                                     <div class="pull-left meta">
                                         <div class="title h5">
@@ -185,7 +232,8 @@
                                     </div>
                                 </div>
                                 <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for
+                                        bootstrap css hmtl js framework. Codes for developers and web designers</p>
                                     <div class="stats">
                                         <a href="#" class="btn btn-default">
                                             <i class="fa fa-reply icon"></i> Reply
@@ -207,7 +255,8 @@
                             <div class="panel panel-white post panel-shadow">
                                 <div class="post-heading">
                                     <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                             alt="user profile image">
                                     </div>
                                     <div class="pull-left meta">
                                         <div class="title h5">
@@ -217,7 +266,8 @@
                                     </div>
                                 </div>
                                 <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for
+                                        bootstrap css hmtl js framework. Codes for developers and web designers</p>
                                     <div class="stats">
                                         <a href="#" class="btn btn-default">
                                             <i class="fa fa-reply icon"></i> Reply
@@ -239,7 +289,8 @@
                             <div class="panel panel-white post panel-shadow">
                                 <div class="post-heading">
                                     <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                             alt="user profile image">
                                     </div>
                                     <div class="pull-left meta">
                                         <div class="title h5">
@@ -249,7 +300,8 @@
                                     </div>
                                 </div>
                                 <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for
+                                        bootstrap css hmtl js framework. Codes for developers and web designers</p>
                                     <div class="stats">
                                         <a href="#" class="btn btn-default">
                                             <i class="fa fa-reply icon"></i> Reply
@@ -264,6 +316,66 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div id="edit" class="tab-pane fade">
+                <div class="row">
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.tvShowEdit.name" class="form-control"
+                               placeholder="Enter Original Title">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.tvShowEdit.original_name" class="form-control"
+                               placeholder="Enter Original Title">
+                    </div>
+
+                    <div class="form-group">
+                        <tags-input class="form-control" ng-model="vm.tvShowEdit.genres"
+                                    display-property="name" min-length="0" placeholder="Add Genre"></tags-input>
+                        <span class="small">Add genres on enter key</span>
+                    </div>
+
+                    <div class="form-group">
+                        <tags-input class="form-control" ng-model="vm.tvShowEdit.keywords"
+                                    display-property="name" min-length="0" placeholder="Add Keywords"></tags-input>
+                        <span class="small">Add keywords on enter key</span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.tvShowEdit.first_air_date" class="form-control"
+                               placeholder="Enter Pilot Date">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.tvShowEdit.original_language" class="form-control"
+                               placeholder="Enter Language">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.tvShowEdit.homepage" class="form-control"
+                               placeholder="Enter Homepage">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.tvShowEdit.imdb_id" class="form-control"
+                               placeholder="Enter IMDB Link">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.tvShowEdit.trailerLink" class="form-control"
+                               placeholder="Enter YouTube Trailer Link">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea rows="11" ng-model="vm.tvShowEdit.overview" class="form-control"
+                                  placeholder="Enter Overview"
+                                  style="border-radius: 0; border-color: #9e9e9e;"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit Tv Show</button>
                     </div>
                 </div>
             </div>
