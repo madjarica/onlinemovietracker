@@ -17,4 +17,6 @@ public interface KeywordRepository extends JpaRepository<Keyword, Long>{
 
     public void delete(Long id);
 
+    public Keyword findByName(String name);
+
 }

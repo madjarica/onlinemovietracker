@@ -1,10 +1,8 @@
 package com.omt.web.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import com.omt.JsonResults.*;
 import com.omt.domain.*;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,6 +31,7 @@ public class TvShowController {
     VideoService videoService;
     PersonService personService;
     CharacterService characterService;
+    KeywordService keywordService;
     GenreRepository genreRepository;
     RestOperations restTemplate = new RestTemplate();
 
@@ -46,18 +46,21 @@ public class TvShowController {
     String API_GET_EXTERNAL = "https://api.themoviedb.org/3/tv/{tv_id}/external_ids?api_key={api_key}";
     String API_GET_EPISODES = "https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={api_key}";
     String API_GET_ALL_TV_SHOW_BACKDROPS = "https://api.themoviedb.org/3/tv/{tv_id}/images?api_key={api_key}";
-//    String API_GET_EPISODE_STILL = "https://api.themoviedb.org/3/tv/{tv_id}/season/{season}/episode/{episode}/images?api_key=550e1867817e4bf3266023c5274d8858";
+    String API_GET_TV_SHOW_KEYWORDS = "https://api.themoviedb.org/3/tv/{tv_id}/keywords?api_key={api_key}";
+    //    String API_GET_EPISODE_STILL = "https://api.themoviedb.org/3/tv/{tv_id}/season/{season}/episode/{episode}/images?api_key=550e1867817e4bf3266023c5274d8858";
     String API_KEY = "550e1867817e4bf3266023c5274d8858";
 
 
     @Autowired
-    public TvShowController(TvShowService tvShowService, TvShowEpisodeService tvShowEpisodeService, VideoService videoService, PersonService personService, CharacterService characterService, GenreRepository genreRepository) {
+    public TvShowController(TvShowService tvShowService, TvShowEpisodeService tvShowEpisodeService, VideoService videoService, PersonService personService,
+                            CharacterService characterService, GenreRepository genreRepository, KeywordService keywordService) {
         this.tvShowService = tvShowService;
         this.tvShowEpisodeService = tvShowEpisodeService;
         this.videoService = videoService;
         this.personService = personService;
         this.characterService = characterService;
         this.genreRepository = genreRepository;
+        this.keywordService = keywordService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -77,13 +80,25 @@ public class TvShowController {
             if (videoService.findOne(tvShow.getId()) != null) throw new Exception("You can't use that id");
         }
         List<Genre> genresToBeAdded = new ArrayList<>();
-        if(!tvShow.getGenres().isEmpty()) {
+        if(tvShow.getGenres() == null) tvShow.setGenres(genresToBeAdded);
+        if (!tvShow.getGenres().isEmpty()) {
             for (Genre genre : tvShow.getGenres()) {
                 genresToBeAdded.add(getGenres(genre.getName()));
                 System.out.println(genre.getName());
             }
             tvShow.getGenres().clear();
             tvShow.setGenres(genresToBeAdded);
+        }
+
+        List<Keyword> keywordsToBeAdded = new ArrayList<>();
+        if(tvShow.getKeywords() == null) tvShow.setKeywords(keywordsToBeAdded);
+        if (!tvShow.getKeywords().isEmpty()) {
+            for (Keyword keyword : tvShow.getKeywords()) {
+                keywordsToBeAdded.add(getKeywords(keyword.getName()));
+                System.out.println(keyword.getName());
+            }
+            tvShow.getKeywords().clear();
+            tvShow.setKeywords(keywordsToBeAdded);
         }
 
         return tvShowService.save(tvShow);
@@ -98,9 +113,19 @@ public class TvShowController {
             genresToBeAdded.add(getGenres(genre.getName()));
             System.out.println(genre.getName());
         }
-        System.out.print(tvShow.getName());
         tvShow.getGenres().clear();
         tvShow.setGenres(genresToBeAdded);
+
+        List<Keyword> keywordsToBeAdded = new ArrayList<>();
+        for (Keyword keyword : tvShow.getKeywords()) {
+            keywordsToBeAdded.add(getKeywords(keyword.getName()));
+            System.out.println(keyword.getName());
+        }
+        tvShow.getKeywords().clear();
+        tvShow.setKeywords(keywordsToBeAdded);
+
+        System.out.print(tvShow.getName());
+
         return tvShowService.save(tvShow);
     }
 
@@ -112,7 +137,7 @@ public class TvShowController {
     }
 
     @RequestMapping(path = "search/title/{search}", method = RequestMethod.GET)
-    public List<TvShow> findByTitleContaining(@PathVariable("search") String search){
+    public List<TvShow> findByTitleContaining(@PathVariable("search") String search) {
         return tvShowService.findByTitleContaining(search);
     }
 
@@ -126,13 +151,13 @@ public class TvShowController {
 
         TvShow tvShow = restTemplate.getForObject(API_GET_MOVIE, TvShow.class, id, API_KEY);
         getCharacters(id);
+
         Locale[] locales = Locale.getAvailableLocales();
         for (Locale locale : locales) {
             if (locale.getLanguage().equals(tvShow.getOriginalLanguage())) {
                 tvShow.setOriginalLanguage(locale.getDisplayLanguage());
                 break;
             }
-
         }
 
         tvShow.setTmdbTvShowId(tvShow.getId());
@@ -162,6 +187,15 @@ public class TvShowController {
         tvShow.getGenres().clear();
         tvShow.setGenres(genresToBeAdded);
 
+        KeywordsResults keywordsResults = restTemplate.getForObject(API_GET_TV_SHOW_KEYWORDS, KeywordsResults.class, id, API_KEY);
+        List<Keyword> keywords = keywordsResults.getKeywords();
+
+        List<Keyword> keywordsToBeAdded = new ArrayList<>();
+        for (Keyword keyword:keywords) {
+            keywordsToBeAdded.add(getKeywords(keyword.getName()));
+        }
+        tvShow.setKeywords(keywordsToBeAdded);
+
 //        String ext = tvShow.getTmdbTvShowId() + ".jpg";
 
 //        try {
@@ -174,23 +208,23 @@ public class TvShowController {
 //        try {
 //            saveImage("https://image.tmdb.org/t/p/w640" + tvShow.getBackdropPath(), BACKDROP_PATH + ext);
 //            tvShow.setBackdropPath("/img/backdrops/tvshows/backdrop" + ext);
-            ApiImageResults results = restTemplate.getForObject(API_GET_ALL_TV_SHOW_BACKDROPS, ApiImageResults.class, id, API_KEY);
-            List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
-            tvShow.setAdditionalBackdrops(new ArrayList<>());
-            System.out.println(backdrops.size());
-            int size;
-            if (backdrops.size() < 5) {
-                size = backdrops.size();
-            } else {
-                size = 5;
-            }
-            for (int i = 0; i < size; i++) {
-                System.out.println(backdrops.get(i));
+        ApiImageResults imageResults = restTemplate.getForObject(API_GET_ALL_TV_SHOW_BACKDROPS, ApiImageResults.class, id, API_KEY);
+        List<String> backdrops = imageResults.returnApiImagePaths(imageResults.getBackdrops());
+        tvShow.setAdditionalBackdrops(new ArrayList<>());
+        System.out.println(backdrops.size());
+        int size;
+        if (backdrops.size() < 5) {
+            size = backdrops.size();
+        } else {
+            size = 5;
+        }
+        for (int i = 0; i < size; i++) {
+            System.out.println(backdrops.get(i));
 //                ext = tvShow.getTmdbTvShowId() + "_" + i + ".jpg";
 ////                saveImage("https://image.tmdb.org/t/p/w500" + backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
 ////                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
-                tvShow.getAdditionalBackdrops().add(backdrops.get(i));
-            }
+            tvShow.getAdditionalBackdrops().add(backdrops.get(i));
+        }
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -198,25 +232,24 @@ public class TvShowController {
         tvShow.setTvShowEpisodes(new ArrayList<>());
         tvShow = tvShowService.save(tvShow);
         for (int i = 0; i < tvShow.getNumberOfSeasons(); i++) {
-            try {
-                tvShow.getTvShowEpisodes().addAll((getEpisodes(tvShow.getTmdbTvShowId(), tvShow.getId(), i)));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            tvShow.getTvShowEpisodes().addAll((getEpisodes(tvShow.getTmdbTvShowId(), tvShow.getId(), i)));
         }
         return tvShowService.save(tvShow);
 
     }
 
-    public List<TvShowEpisode> getEpisodes(Long tmdbId, Long id, int season) throws InterruptedException {
-        EpisodeResults episodeResults = restTemplate.getForObject(API_GET_EPISODES, EpisodeResults.class, tmdbId, season, API_KEY);
-        List<TvShowEpisode> tvShowEpisodes = episodeResults.getEpisodesList();
-        List<TvShowEpisode> tvShowEpisodesToSend = new ArrayList<>();
-        TvShowEpisode episodeToSend;
-        for (TvShowEpisode episode : tvShowEpisodes) {
+    public List<TvShowEpisode> getEpisodes(Long tmdbId, Long id, int season) {
 
-            episode.setId(null);
-            episode.setTv_show_id(id);
+        List<TvShowEpisode> tvShowEpisodesToSend = new ArrayList<>();
+        try {
+            EpisodeResults episodeResults = restTemplate.getForObject(API_GET_EPISODES, EpisodeResults.class, tmdbId, season, API_KEY);
+            List<TvShowEpisode> tvShowEpisodes = episodeResults.getEpisodesList();
+            if (!tvShowEpisodes.isEmpty()) {
+                TvShowEpisode episodeToSend;
+                for (TvShowEpisode episode : tvShowEpisodes) {
+
+                    episode.setId(null);
+                    episode.setTv_show_id(id);
 //            TimeUnit.MILLISECONDS.sleep(10);
 //            ApiImageResults episodeStills = restTemplate.getForObject(API_GET_EPISODE_STILL, ApiImageResults.class, tmdbId, episode.getSeason(), episode.getEpisode());
 //            if (episodeStills != null) {
@@ -226,11 +259,14 @@ public class TvShowController {
 //                    episode.setStill(episodeSitll);
 //                }
 //            }
-            episodeToSend = tvShowEpisodeService.save(episode);
-            tvShowEpisodesToSend.add(episodeToSend);
+                    episodeToSend = tvShowEpisodeService.save(episode);
+                    tvShowEpisodesToSend.add(episodeToSend);
+                }
+            }
+        } catch (HttpClientErrorException ex) {
+            return tvShowEpisodesToSend;
         }
         return tvShowEpisodesToSend;
-
     }
 
     public Genre getGenres(String name) {
@@ -288,6 +324,17 @@ public class TvShowController {
             }
             return personService.save(person);
         }
+    }
+
+    public Keyword getKeywords(String name) {
+        Keyword keyword = keywordService.findByName(name);
+        if (keyword == null) {
+            keyword = new Keyword();
+            keyword.setId(null);
+            keyword.setName(name);
+            return keywordService.save(keyword);
+        }
+        return keyword;
     }
 
     public void deleteEpisodes(Long id) {

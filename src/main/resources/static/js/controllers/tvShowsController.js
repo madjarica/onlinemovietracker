@@ -53,9 +53,8 @@
         }
         
         function saveTvShow(tvShow) {
-            console.log(vm.tvShowObject.genres);
-            TvShowsService.saveTvShow(tvShow).then(function (resposnse) {
-                vm.tvShowObject = resposnse;
+            TvShowsService.saveTvShow(tvShow).then(function (response) {
+                vm.tvShowObject = response;
             })
         }
 

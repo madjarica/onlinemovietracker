@@ -36,4 +36,8 @@ public class KeywordService {
         // TODO Auto-generated method stub
         keywordRepository.delete(id);
     }
+
+    public Keyword findByName(String name){
+        return keywordRepository.findByName(name);
+    }
 }

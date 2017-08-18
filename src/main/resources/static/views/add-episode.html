@@ -6,8 +6,14 @@
             <form>
                 <div class="row">
                     <div class="col-xs-12 col-sm-8">
+                        <div class="input-group">
+                            <input type="text" ng-model="epCtrl.episodeObject.search" class="form-control" placeholder="Enter your TvShow">
+                            <span class="input-group-btn">
+                                <button ng-click="epCtrl.getTvShows(epCtrl.episodeObject.search)" data-toggle="modal" data-target="#get-tvshows-list-modal" class="btn btn-default btn-sm waves-effect waves-light" type="button" style="margin-left: 5px; margin-right: 0;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
                         <div class="form-group">
-                            <input type="text" ng-model="epCtrl.episodeObject.name" class="form-control" placeholder="Enter Episode Name>
+                            <input type="text" ng-model="epCtrl.episodeObject.name" class="form-control" placeholder="Enter Episode Name">
                         </div>
                         <div class="form-group">
                             <input type="text" ng-model="epCtrl.episodeObject.season_number" class="form-control" placeholder="Enter Season Number">
@@ -16,13 +22,7 @@
                             <input type="text" ng-model="epCtrl.episodeObject.episode_number" class="form-control" placeholder="Enter Episode Number">
                         </div>
                         <div class="form-group">
-                            <input type="text" ng-model="epCtrl.episodeObject.overview" class="form-control" placeholder="Enter an Overview">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" ng-model="epCtrl.episodeObject.search" class="form-control" placeholder="Enter your TvShow">
-                            <span class="input-group-btn">
-                                <button ng-click="epCtrl.getTvShows(epCtrl.episodeObject.search)" data-toggle="modal" data-target="#get-tvshows-list-modal" class="btn btn-default btn-sm waves-effect waves-light" type="button" style="margin-left: 5px; margin-right: 0;"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </span>
+                            <textarea rows="11" ng-model="epCtrl.episodeObject.overview" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,6 @@
                         <button class="btn btn-default waves-effect waves-light pull-right" ng-click="epCtrl.saveEpisode(epCtrl.episodeObject)">Add Episode</button>
                     </div>
                 </div>
-                {{epCtrl.tvShows}}
             </form>
         </div>
     </div>
