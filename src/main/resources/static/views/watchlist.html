@@ -1,11 +1,37 @@
 <section ng-controller="WatchlistController as watchCtrl">
     <div class="container">
         <div class="row">
-            <div ng-repeat="video in watchCtrl.userWatchlist.videos">
-                Name: {{video.name}}
-                <br>
-                Overview: {{video.overview}}
+            <div ng-repeat="watchlist in watchCtrl.userWatchlist">
+                <div class="panel-body">
+                    <div class="col-xs-6 col-sm-2">
+                        <img ng-show="watchlist.video.poster_path" class="person-image"
+                             ng-src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}" alt=""
+                             src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}">
+                    </div>
+                    <div class="col-xs-6 col-sm-10">
+                        <h5 class="ng-binding">
+                            <small><b>Title:</b></small>
+                            {{watchlist.video.name}}
+                        </h5>
+                        <h5 class="ng-binding">
+                            <small><b>Watch date:</b></small>
+                            <span class="small" ng-if="watchlist.video.watchDate != null">{{watchlist.video.watchDate}}</span>
+                            <span class="small" ng-if="watchlist.video.watchDate == null">not yet set</span>
+                        </h5>
+                        <h5>
+                            <small><b>Overview:</b></small>
+                        </h5>
+                        <p class="ng-binding">{{watchlist.video.overview}}</p>
+                        <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
+                                title="Mark as favorite!"><i class="fa fa-heart red" aria-hidden="true"></i></button>
+                        <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
+                                title="Delete"><i class="fa fa-trash-o blue" ng-click="watchCtrl.deleteWatchlist(watchlist.id)" aria-hidden="true"></i></button>
+                        <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
+                                title="Edit"><i class="fa fa-pencil-square-o" ng-click="" aria-hidden="true"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 </section>

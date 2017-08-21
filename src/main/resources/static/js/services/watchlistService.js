@@ -9,7 +9,8 @@
         var service = {
             getWatchlists: getWatchlists,
             saveWatchlist: saveWatchlist,
-            getUserWatchlist: getUserWatchlist
+            getUserWatchlist: getUserWatchlist,
+            deleteWatchlist: deleteWatchlist
         };
 
         return service;
@@ -36,6 +37,22 @@
                 method: watchlist.id ? 'PUT': 'POST',
                 url: "/watchlists/",
                 data: watchlist
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+
+        function deleteWatchlist(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'DELETE',
+                url: "/watchlists/" + id,
             };
 
             $http(req).success(function (response) {
