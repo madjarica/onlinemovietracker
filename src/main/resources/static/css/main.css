@@ -9,6 +9,17 @@
     margin-bottom: 100px;
 }
 
+.center-cell, .center-cell > th, .center-cell > td {
+    text-align: center;
+}
+
+.sortorder:after {
+    content: '\25b2';   // BLACK UP-POINTING TRIANGLE
+}
+.sortorder.reverse:after {
+    content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
+}
+
 i.glyphicon.ng-scope.glyphicon-star-empty, i.glyphicon.ng-scope.glyphicon-star {
     font-size: 22px;
     color: #2BBBAD;

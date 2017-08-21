@@ -1,41 +1,118 @@
 <section ng-controller="UserController as userCtrl">
+    <h2 class="text-center">Users</h2>
     <div class="table-responsive col-xs-12">
+
+        <!--<ul class="pagination">-->
+            <!--<li ng-repeat="i in userCtrl.getNumber(userCtrl.numOfPages) track by $index"><a href="#" target="_self">{{ $index + 1 }}</a></li>-->
+        <!--</ul>-->
+
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Role</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Active</th>
-                    <th>Subscribed</th>
-                    <th>Status</th>
-                    <th>Blocked Until</th>
-                    <th>Created Date</th>
-                    <th>Updated Date</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('id')" style="cursor: pointer;">
+                            <span>ID</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'id'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('role')" style="cursor: pointer;">
+                            <span>Role</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'role'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('username')" style="cursor: pointer;">
+                            <span>Username</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'username'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('email')" style="cursor: pointer;">
+                            <span>Email</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'email'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('active')" style="cursor: pointer;">
+                            <span>Active</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'active'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('subscribed')" style="cursor: pointer;">
+                            <span>Subscribed</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'subscribed'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('status')" style="cursor: pointer;">
+                            <span>Status</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'status'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('blockedUntil')" style="cursor: pointer;">
+                            <span>Blocked Until</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'blockedUntil'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('createdDate')" style="cursor: pointer;">
+                            <span>Created Date</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'createdDate'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center">
+                        <span ng-click="userCtrl.sortBy('updatedDate')" style="cursor: pointer;">
+                            <span>Updated Date</span>
+                            <span class="sortorder" ng-show="userCtrl.propertyName === 'updatedDate'" ng-class="{reverse: userCtrl.reverse}"></span>
+                        </span>
+                    </th>
+                    <th class="text-center" style="width: 80px;">Edit</th>
+                    <th class="text-center" style="width: 80px;">Delete</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="user in userCtrl.usersList track by $index">
-                <tr>
-                    <td>{{user.id}}</td>
-                    <td>{{user.role}}</td>
-                    <td>{{user.username}}</td>
-                    <td>{{user.email}}</td>
+
+            <tbody ng-repeat="user in userCtrl.usersData | orderBy:userCtrl.propertyName:userCtrl.reverse">
+                <tr class="center-cell">
+                    <td>{{ user.id }}</td>
+                    <td>
+                        <span>USER</span>
+                        <span ng-if="user.roles[0].type === 'ROLE_ADMIN' || user.roles[1].type === 'ROLE_ADMIN'">, ADMIN</span>
+                    </td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
                     <td>{{ user.active }}</td>
                     <td>{{ user.subscription }}</td>
                     <td>{{ user.status }}</td>
-                    <td>{{ user.blockedUntil }}</td>
-                    <td>{{ user.createdDate }}</td>
-                    <td>{{ user.updatedDate }}</td>
-                    <td><button class="btn">E</button></td>
-                    <td><button class="btn">D</button></td>
+                    <td>{{ user.blockedUntil | date:'dd-MMM-yyyy' }}</td>
+                    <td>{{ user.createdDate | date:'dd-MMM-yyyy' }}</td>
+                    <td>{{ user.updatedDate | date:'dd-MMM-yyyy' }}</td>
+                    <td><button class="btn btn-warning btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                    <td><button class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                 </tr>
             </tbody>
-            <tfoot>
 
-            </tfoot>
+            <!--<tbody ng-repeat="users in userCtrl.filteredTables | orderBy:userCtrl.propertyName:userCtrl.reverse">-->
+                <!--<tr class="center-cell" ng-repeat="user in users">-->
+                    <!--<td>{{user.id}}</td>-->
+                    <!--<td>-->
+                        <!--<span>USER</span>-->
+                        <!--<span ng-if="user.roles[0].type === 'ROLE_ADMIN' || user.roles[1].type === 'ROLE_ADMIN'">, ADMIN</span>-->
+                    <!--</td>-->
+                    <!--<td>{{user.username}}</td>-->
+                    <!--<td>{{user.email}}</td>-->
+                    <!--<td>{{ user.active }}</td>-->
+                    <!--<td>{{ user.subscription }}</td>-->
+                    <!--<td>{{ user.status }}</td>-->
+                    <!--<td>{{ user.blockedUntil | date:'dd-MMM-yyyy' }}</td>-->
+                    <!--<td>{{ user.createdDate | date:'dd-MMM-yyyy' }}</td>-->
+                    <!--<td>{{ user.updatedDate | date:'dd-MMM-yyyy' }}</td>-->
+                    <!--<td><button class="btn btn-warning btn-block"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>-->
+                    <!--<td><button class="btn btn-danger btn-block"><i class="fa fa-trash" aria-hidden="true"></i></button></td>-->
+                <!--</tr>-->
+            <!--</tbody>-->
         </table>
     </div>
 </section>
