@@ -1,0 +1,11 @@
+<section ng-controller="WatchlistController as watchCtrl">
+    <div class="container">
+        <div class="row">
+            <div ng-repeat="video in watchCtrl.userWatchlist.videos">
+                Name: {{video.name}}
+                <br>
+                Overview: {{video.overview}}
+            </div>
+        </div>
+    </div>
+</section>

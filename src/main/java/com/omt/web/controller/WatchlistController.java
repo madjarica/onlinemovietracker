@@ -16,37 +16,41 @@ import com.omt.service.WatchlistService;
 @RequestMapping("/watchlists")
 public class WatchlistController {
 
-	 WatchlistService watchlistService;
+    WatchlistService watchlistService;
 
-	    @Autowired
-	    public WatchlistController(WatchlistService watchlistService) {
-	        this.watchlistService = watchlistService;
-	    }
+    @Autowired
+    public WatchlistController(WatchlistService watchlistService) {
+        this.watchlistService = watchlistService;
+    }
 
 
-	    @RequestMapping(method = RequestMethod.GET)
-	    public List<Watchlist> findAll() {
-	        return watchlistService.findAll();
-	    }
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Watchlist> findAll() {
+        return watchlistService.findAll();
+    }
 
-	    @RequestMapping(path = "{id}", method = RequestMethod.GET)
-	    public Watchlist findOne(@PathVariable("id") Long id) {
-	        return watchlistService.findOne(id);
-	    }
+    @RequestMapping(path = "{id}", method = RequestMethod.GET)
+    public Watchlist findOne(@PathVariable("id") Long id) {
+        return watchlistService.findOne(id);
+    }
 
-	    @RequestMapping(method = RequestMethod.POST)
-	    public Watchlist save(@RequestBody Watchlist watchlist) {
-	        return watchlistService.save(watchlist);
-	    }
+    @RequestMapping(method = RequestMethod.POST)
+    public Watchlist save(@RequestBody Watchlist watchlist) {
+        return watchlistService.save(watchlist);
+    }
 
-	    @RequestMapping(method = RequestMethod.PUT)
-	    public Watchlist update(@RequestBody Watchlist watchlist) {
-	        return watchlistService.save(watchlist);
-	    }
+    @RequestMapping(method = RequestMethod.PUT)
+    public Watchlist update(@RequestBody Watchlist watchlist) {
+        return watchlistService.save(watchlist);
+    }
 
-	    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	    public void delete(@PathVariable("id") Long id) {
-	        watchlistService.delete(id);
-	    }
-	
+    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Long id) {
+        watchlistService.delete(id);
+    }
+
+    @RequestMapping(path = "get-user-watchlist/{username}")
+    public Watchlist findByUsername(@PathVariable("username") String username) {
+        return watchlistService.findByUsername(username);
+    }
 }

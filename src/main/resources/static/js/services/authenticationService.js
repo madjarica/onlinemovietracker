@@ -8,7 +8,8 @@
 
         var service = {
             saveUser: saveUser,
-            requestNewPassword: requestNewPassword
+            requestNewPassword: requestNewPassword,
+            currentUsername: {}
         };
 
         return service;

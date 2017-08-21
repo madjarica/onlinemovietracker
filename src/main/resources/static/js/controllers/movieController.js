@@ -72,8 +72,12 @@
             console.log(vm.movieObject.genres);
             console.log(vm.movieObject.keywords);
             MovieService.saveMovie(movie).then(function (response) {
-                vm.movieObject = response;
-            })
+                MovieService.movieDetails = response;
+            }).then(function () {
+                vm.movieObject = {};
+            }).then(function () {
+                $location.url("movie-details");
+            });
         }
 
         // Gallery functions

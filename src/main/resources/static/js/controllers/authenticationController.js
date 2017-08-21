@@ -55,6 +55,7 @@
                 // setting the same header value for all request calling from this app
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 self.user = res;
+                AuthenticationService.currentUsername = self.user.username;
                 init();
             }).error(function (error) {
                 self.error = 'Bad credentials!';

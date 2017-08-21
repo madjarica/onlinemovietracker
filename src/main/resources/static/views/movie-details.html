@@ -38,7 +38,7 @@
                 <div class="row">
                     <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
                     <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Mark as favorite!"><i class="fa fa-heart red" aria-hidden="true"></i></button>
-                    <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip" title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
+                    <button class="btn-floating btn waves-effect waves-light default-color" ng-controller="WatchlistController as watchCtrl" ng-click="watchCtrl.addToWatchlist(vm.movieDetails)" data-toggle="tooltip" title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>

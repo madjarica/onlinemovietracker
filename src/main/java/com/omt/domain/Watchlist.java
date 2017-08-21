@@ -1,6 +1,7 @@
 package com.omt.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -30,10 +32,10 @@ public class Watchlist extends BaseEntity{
 	
 	@Column(nullable = false)
 	@NotNull
-	private boolean visibleToOthers;
+	private Boolean visibleToOthers;
 
 	@Column
-	private boolean favorite;
+	private Boolean favourite;
 
 	@Column
 	private String screenshot;
@@ -48,18 +50,13 @@ public class Watchlist extends BaseEntity{
 	
 	@ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "watchlist_id"),
-    inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private Set<Movie> movies;
-	
-	@ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "watchlist_id"),
-    inverseJoinColumns = @JoinColumn(name = "tw_shows_id"))
-    private Set<TvShow> tvshows;
+    inverseJoinColumns = @JoinColumn(name = "video_id"))
+    private List<Video> videos;
 	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private LoginUser LoginUser;
+	private LoginUser loginUser;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="watchlist_id")
@@ -69,20 +66,6 @@ public class Watchlist extends BaseEntity{
 	@JoinColumn(name="watchlist_id")
 	private Set<Rating> rating;
 
-	public Watchlist(Date watchDate, boolean visibleToOthers, boolean favorite, String screenshot, Date createdDate, Date updatedDate, Set<Movie> movies, Set<TvShow> tvshows, com.omt.domain.LoginUser loginUser, Set<Comment> comment, Set<Rating> rating) {
-		this.watchDate = watchDate;
-		this.visibleToOthers = visibleToOthers;
-		this.favorite = favorite;
-		this.screenshot = screenshot;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-		this.movies = movies;
-		this.tvshows = tvshows;
-		LoginUser = loginUser;
-		this.comment = comment;
-		this.rating = rating;
-	}
-
 	public Date getWatchDate() {
 		return watchDate;
 	}
@@ -91,20 +74,20 @@ public class Watchlist extends BaseEntity{
 		this.watchDate = watchDate;
 	}
 
-	public boolean isVisibleToOthers() {
+	public Boolean isVisibleToOthers() {
 		return visibleToOthers;
 	}
 
-	public void setVisibleToOthers(boolean visibleToOthers) {
+	public void setVisibleToOthers(Boolean visibleToOthers) {
 		this.visibleToOthers = visibleToOthers;
 	}
 
-	public boolean isFavorite() {
-		return favorite;
+	public Boolean isFavourite() {
+		return favourite;
 	}
 
-	public void setFavorite(boolean favorite) {
-		this.favorite = favorite;
+	public void setFavourite(Boolean favourite) {
+		this.favourite = favourite;
 	}
 
 	public String getScreenshot() {
@@ -131,28 +114,21 @@ public class Watchlist extends BaseEntity{
 		this.updatedDate = updatedDate;
 	}
 
-	public Set<Movie> getMovies() {
-		return movies;
+	public List<Video> getVideos() {
+		return videos;
 	}
 
-	public void setMovies(Set<Movie> movies) {
-		this.movies = movies;
+	public void setVideos(List<Video> videos) {
+		this.videos = videos;
 	}
 
-	public Set<TvShow> getTvshows() {
-		return tvshows;
+
+	public LoginUser getLoginUser() {
+		return loginUser;
 	}
 
-	public void setTvshows(Set<TvShow> tvshows) {
-		this.tvshows = tvshows;
-	}
-
-	public com.omt.domain.LoginUser getLoginUser() {
-		return LoginUser;
-	}
-
-	public void setLoginUser(com.omt.domain.LoginUser loginUser) {
-		LoginUser = loginUser;
+	public void setLoginUser(LoginUser loginUser) {
+		this.loginUser = loginUser;
 	}
 
 	public Set<Comment> getComment() {

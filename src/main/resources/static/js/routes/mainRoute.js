@@ -41,6 +41,11 @@
                 controller: 'EpisodeController',
                 controllerAs: 'vm'
             })
+            .when('/watchlist', {
+                templateUrl: '/views/watchlist.html',
+                controller: 'WatchlistController',
+                controllerAs: 'vm'
+            })
             .when('/messages/success-password-activation', {
                 templateUrl: '/messages/success-password-activation.html',
                 controller: 'HomeController',

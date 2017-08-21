@@ -37,5 +37,9 @@ public class WatchlistService {
         // TODO Auto-generated method stub
         watchlistRepository.delete(id);
     }
+
+    public Watchlist findByUsername(String username){
+        return watchlistRepository.findByLoginUserUsername(username);
+    }
 	
 }
