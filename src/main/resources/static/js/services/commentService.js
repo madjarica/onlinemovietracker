@@ -10,7 +10,9 @@
 		var service = {
     		saveComment: saveComment,
             deleteComment: deleteComment,
-            getComments: getComments
+            getComments: getComments,
+            getCommentByWatchlistId: getCommentByWatchlistId,
+            selectedWatchlist: {}
         }
 
         return service;
@@ -74,6 +76,27 @@
                 .error(function () {
                     def.reject("Failed to get comments");
                 });
+            return def.promise;
+        }
+        
+        /**
+         * Getting all comments for single watchlist
+         * @param {Long} id
+         * @return {Object} data
+         */
+        function getCommentByWatchlistId(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "comments/watchlist/" + id
+            }
+            $http(req)
+	            .success(function (data) {
+	                def.resolve(data);
+	            })
+	            .error(function () {
+	                return def.reject("Failed to get comments");
+	            });
             return def.promise;
         }
         

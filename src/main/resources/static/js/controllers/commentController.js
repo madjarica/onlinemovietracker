@@ -12,6 +12,8 @@ angular.module('app')
         vm.saveComment = saveComment;
         vm.comment;
         vm.selectedComment;
+        vm.commentForm;
+        vm.importError = "";
         
         vm.comment = {};
         
@@ -21,12 +23,11 @@ angular.module('app')
         	getComments(vm.watchlist.id);
         }
         
-        function addComment(commentInput) {
+        function addComment(commentContent) {
         	vm.comment = {};
-        	vm.comment.commentContent = commentInput.commentContent;
+        	vm.comment.commentContent = commentContent;
         	vm.comment.createdDate = new Date();
             vm.watchlist.comment.push(vm.comment);
-            commentInput.commentContent='';
             CommentService.saveComment(vm.comment).then(function(response){
             	getComments(vm.watchlist.id)})
             
@@ -38,6 +39,11 @@ angular.module('app')
         	}).then(function(){
         		vm.comments = vm.watchlist.comment;
         	})        	
+        }
+        
+      //Get all comments
+        function handleSuccessComment(data, status) {
+            vm.comments = data;
         }
     };
 })();
