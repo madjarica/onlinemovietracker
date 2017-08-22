@@ -25,6 +25,8 @@ public class Watchlist extends BaseEntity{
 	public Watchlist() {
 	}
 
+	@Column(nullable = false)
+	private Date watchDate;
 	
 	@Column(nullable = false)
 	@NotNull
@@ -59,6 +61,14 @@ public class Watchlist extends BaseEntity{
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="watchlist_id")
 	private Set<Rating> rating;
+
+	public Date getWatchDate() {
+		return watchDate;
+	}
+
+	public void setWatchDate(Date watchDate) {
+		this.watchDate = watchDate;
+	}
 
 	public Boolean getVisibleToOthers() {
 		return visibleToOthers;

@@ -9,10 +9,45 @@
         var service = {
             saveUser: saveUser,
             requestNewPassword: requestNewPassword,
+            requestHashedEmail: requestHashedEmail,
+            changePassword: changePassword,
             currentUsername: {}
         };
 
         return service;
+
+        function changePassword(username, password) {
+            var def = $q.defer();
+            var req = {
+                method: 'POST',
+                url: "users/change-password/" + username,
+                data: password
+            };
+            $http(req)
+                .success(function (data) {
+                    def.resolve(data);
+                })
+                .error(function (error) {
+                    def.reject(error.message);
+                });
+            return def.promise;
+        }
+        
+        function requestHashedEmail(username) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "users/hashed-email/" + username
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
 
         function saveUser(user) {
             var def = $q.defer();

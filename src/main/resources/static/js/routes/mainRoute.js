@@ -71,6 +71,21 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
+            .when('/admin/view-messages', {
+                templateUrl: '/views/admin/view-messages.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
+            .when('/user/view-notifications', {
+                templateUrl: '/views/user/view-notifications.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
+            .when('/user/change-password', {
+                templateUrl: '/views/user/change-password.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
             .otherwise('/');
     }
 })();

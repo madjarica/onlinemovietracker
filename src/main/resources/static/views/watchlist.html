@@ -3,49 +3,68 @@
         <div class="row">
             <div ng-repeat="watchlist in watchCtrl.userWatchlist">
                 <div class="row search-result-hover">
-                    <div class="panel-body" ng-click="watchCtrl.goToDetailsPage(watchlist)">
-                        <div class="col-xs-6 col-sm-2">
-                            <img ng-show="watchlist.video.poster_path" class="person-image"
-                                 ng-src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}" alt=""
-                                 src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}">
+                    <div class="panel-body">
+                        <div class="row" ng-click="watchCtrl.goToDetailsPage(watchlist)">
+                            <div class="col-xs-6 col-sm-2">
+                                <img ng-show="watchlist.video.poster_path" class="person-image" ng-src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}" alt="" src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}">
+                            </div>
+                            <div class="col-xs-6 col-sm-10">
+                                <h5 class="ng-binding">
+                                    <small><b>Title:</b></small>
+                                    {{watchlist.video.name}}
+                                </h5>
+                                <h5 class="ng-binding">
+                                    <small><b>Watch date:</b></small>
+                                    <span class="small">{{ watchlist.watchDate | date:'dd-MMM-yyyy' }}</span>
+                                </h5>
+                                <h5>
+                                    <small><b>Overview:</b></small>
+                                </h5>
+                                <p class="ng-binding">{{ watchlist.video.overview }}</p>
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-sm-10">
-                            <h5 class="ng-binding">
-                                <small><b>Title:</b></small>
-                                {{watchlist.video.name}}
-                            </h5>
-                            <h5 class="ng-binding">
-                                <small><b>Watch date:</b></small>
-                                <span class="small"
-                                      ng-if="watchlist.video.watchDate != null">{{watchlist.video.watchDate}}</span>
-                                <span class="small" ng-if="watchlist.video.watchDate == null">not yet set</span>
-                            </h5>
-                            <h5>
-                                <small><b>Overview:</b></small>
-                            </h5>
-                            <p class="ng-binding">{{watchlist.video.overview}}</p>
-                            <button class="btn-floating btn waves-effect waves-light default-color"
-                                    data-toggle="tooltip"
-                                    title="Mark as favorite!"><i class="fa fa-heart"
-                                                                 ng-class="watchlist.favourite ? 'red':'gray'"
-                                                                 ng-click="watchCtrl.favWatchlist(watchlist)"
-                                                                 aria-hidden="true"></i></button>
-                            <button class="btn-floating btn waves-effect waves-light default-color"
-                                    data-toggle="tooltip"
-                                    title="Delete"><i class="fa fa-trash-o blue"
-                                                      ng-click="watchCtrl.deleteWatchlist(watchlist.id)"
-                                                      aria-hidden="true"></i></button>
-                            <button class="btn-floating btn waves-effect waves-light default-color"
-                                    data-toggle="tooltip"
-                                    title="Edit"><i class="fa fa-pencil-square-o"
-                                                    ng-click="watchCtrl.selectWatchlist(watchlist)"
-                                                    aria-hidden="true"></i>
+
+                            <button class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="tooltip" title="Delete" ng-click="watchCtrl.deleteWatchlist(watchlist.id)">
+                                <i class="fa fa-trash-o blue" aria-hidden="true"></i>
                             </button>
-                        </div>
+
+                            <button type="button" class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="modal" data-target="#EditTimeModal" title="Edit" ng-click="watchCtrl.selectWatchlist(watchlist)">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+
+                            <button class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="tooltip" title="Mark as favorite!" ng-click="watchCtrl.favWatchlist(watchlist)">
+                                <i class="fa fa-heart" ng-class="watchlist.favourite ? 'red':'gray'" aria-hidden="true"></i>
+                            </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="EditTimeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Watch Date</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-11" style="padding-right: 0;">
+                            <input name="datePicker" type="text" class="form-control" uib-datepicker-popup ng-model="watchCtrl.watchDate" is-open="watchCtrl.popupCalendar.opened" datepicker-options="watchCtrl.datePickerOptions" ng-required="true" close-text="Close" date-parser required/>
+                        </div>
+                        <span class="col-xs-1" style="padding-left: 0;">
+                            <button style="margin-left: 0;" type="button" class="btn btn-sm btn-primary" ng-click="watchCtrl.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" style="margin-bottom: 10px;">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
+
 </section>
