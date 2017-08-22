@@ -11,7 +11,8 @@
             saveWatchlist: saveWatchlist,
             getUserWatchlist: getUserWatchlist,
             deleteWatchlist: deleteWatchlist,
-            userWatchlist: []
+            userWatchlist: [],
+            selectedWatchlist: {}
         };
 
         return service;
