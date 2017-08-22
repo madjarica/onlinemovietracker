@@ -16,37 +16,38 @@ import com.omt.service.ScheduleListService;
 @RequestMapping("/scheduleLists")
 public class ScheduleListController {
 
-	ScheduleListService scheduleListService;
 
-	    @Autowired
-	    public ScheduleListController(ScheduleListService scheduleListService) {
-	        this.scheduleListService = scheduleListService;
-	    }
+    ScheduleListService scheduleListService;
+
+    @Autowired
+    public ScheduleListController(ScheduleListService scheduleListService) {
+        this.scheduleListService = scheduleListService;
+    }
 
 
-	    @RequestMapping(method = RequestMethod.GET)
-	    public List<ScheduleList> findAll() {
-	        return scheduleListService.findAll();
-	    }
+    @RequestMapping(method = RequestMethod.GET)
+    public List<ScheduleList> findAll() {
+        return scheduleListService.findAll();
+    }
 
-	    @RequestMapping(path = "{id}", method = RequestMethod.GET)
-	    public ScheduleList findOne(@PathVariable("id") Long id) {
-	        return scheduleListService.findOne(id);
-	    }
+    @RequestMapping(path = "{id}", method = RequestMethod.GET)
+    public ScheduleList findOne(@PathVariable("id") Long id) {
+        return scheduleListService.findOne(id);
+    }
 
-	    @RequestMapping(method = RequestMethod.POST)
-	    public ScheduleList save(@RequestBody ScheduleList scheduleList) {
-	        return scheduleListService.save(scheduleList);
-	    }
+    @RequestMapping(method = RequestMethod.POST)
+    public ScheduleList save(@RequestBody ScheduleList scheduleList) {
+        return scheduleListService.save(scheduleList);
+    }
 
-	    @RequestMapping(method = RequestMethod.PUT)
-	    public ScheduleList update(@RequestBody ScheduleList scheduleList) {
-	        return scheduleListService.save(scheduleList);
-	    }
+    @RequestMapping(method = RequestMethod.PUT)
+    public ScheduleList update(@RequestBody ScheduleList scheduleList) {
+        return scheduleListService.save(scheduleList);
+    }
 
-	    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	    public void delete(@PathVariable("id") Long id) {
-	        scheduleListService.delete(id);
-	    }
-	
+    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Long id) {
+        scheduleListService.delete(id);
+    }
+
 }

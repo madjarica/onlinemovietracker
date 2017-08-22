@@ -2,72 +2,88 @@ package com.omt.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "schedulelists")
+@Table(name = "schedule_lists")
 public class ScheduleList extends BaseEntity {
 
-	@Column
+    public ScheduleList() {
+    }
+
+    @Column
     @DateTimeFormat
-	private Date sheduledDateTime;
-	
-	@Column
+    @NotNull
+    private Date scheduledDateTime;
+
+    @Column
     @DateTimeFormat
-	private Date createdDate;
-	
-	@Column
+    private Date createdDate;
+
+    @Column
     @DateTimeFormat
-	private Date updatedDate;
-	
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private LoginUser loginUser;
+    private Date updatedDate;
 
-	public ScheduleList(Date sheduledDateTime, Date createdDate, Date updatedDate, LoginUser loginUser) {
-		this.sheduledDateTime = sheduledDateTime;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-		this.loginUser = loginUser;
-	}
+    @ManyToOne
+    @JoinColumn(name = "watchlist_id")
+    private Watchlist watchlist;
 
-	public Date getSheduledDateTime() {
-		return sheduledDateTime;
-	}
+    @Column
+    @NotNull
+    private String username;
 
-	public void setSheduledDateTime(Date sheduledDateTime) {
-		this.sheduledDateTime = sheduledDateTime;
-	}
+    @Column
+    @NotNull
+    private String email;
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    public Date getScheduledDateTime() {
+        return scheduledDateTime;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setScheduledDateTime(Date scheduledDateTime) {
+        this.scheduledDateTime = scheduledDateTime;
+    }
 
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public LoginUser getLoginUser() {
-		return loginUser;
-	}
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
 
-	public void setLoginUser(LoginUser loginUser) {
-		this.loginUser = loginUser;
-	}
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public Watchlist getWatchlist() {
+        return watchlist;
+    }
+
+    public void setWatchlist(Watchlist watchlist) {
+        this.watchlist = watchlist;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

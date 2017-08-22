@@ -36,4 +36,5 @@ INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `vi
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`) VALUES ('Strava film', NOW(), NOW(), 1);
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`) VALUES ('Ok je', NOW(), NOW(), 2);
 
-
+INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `username`, `email`) VALUES ('1', NOW(), 'zoki', 'zoranjankov99@gmail.com');
+INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `username`, `email`) VALUES ('1', NOW(), 'zoki', 'zoranjankov99@gmail.com');
