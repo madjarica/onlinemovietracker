@@ -3,6 +3,8 @@ package com.omt.web.controller;
 import java.security.MessageDigest;
 import java.util.*;
 
+import com.omt.JsonResults.HashedEmail;
+import com.omt.JsonResults.Password;
 import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
 import com.omt.domain.Role;
@@ -38,6 +40,33 @@ public class LoginUserController {
 	public LoginUserController(UserService userService, UserNotificationService userNotificationService) {
 		this.userService = userService;
 		this.userNotificationService = userNotificationService;
+	}
+
+	@RequestMapping(value = "/change-password/{username}", method = RequestMethod.POST)
+	public void changePassword(@PathVariable("username") String username, @RequestBody Password password) {
+		LoginUser user = userService.findByUsername(username);
+
+		if(user != null) {
+			if(user.getPassword().equals(password.getOldPassword())) {
+				user.setPassword(password.getNewPassword());
+				userService.save(user);
+			}
+		}
+	}
+
+	@RequestMapping(value = "/hashed-email/{username}", method = RequestMethod.GET)
+	public HashedEmail getHashedEmail(@PathVariable("username") String username) {
+		LoginUser user = userService.findByUsername(username);
+		HashedEmail hashedEmail = new HashedEmail();
+
+		if(user != null) {
+			String hash = user.getHashed_email();
+			hashedEmail.setHashedEmail(hash);
+			return hashedEmail;
+		}
+
+		hashedEmail.setHashedEmail("?d=identicon");
+		return hashedEmail;
 	}
 
 	@RequestMapping("/user")

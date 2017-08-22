@@ -38,6 +38,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 			.antMatchers("/fonts/**", "/font/**").permitAll()
 			.antMatchers("https://image.tmdb.org/**", "http://image.tmdb.org/**").permitAll()
 			.antMatchers("/views/admin/**").permitAll()
+			.antMatchers("/views/user/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/users").permitAll()
 			.antMatchers(HttpMethod.GET,"/users/code/*").permitAll()
 			.antMatchers(HttpMethod.GET,"/users/activate/*").permitAll()

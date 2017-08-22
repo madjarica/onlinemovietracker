@@ -666,3 +666,14 @@ tags-input .tags.focused {
         transform: rotate(360deg);
     }
 }
+
+/* Calendar */
+.uib-day button, .uib-month button, .uib-year button {
+    min-width: 0;
+}
+
+.uib-datepicker .uib-title {
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}

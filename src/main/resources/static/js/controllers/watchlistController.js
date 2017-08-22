@@ -17,6 +17,21 @@
         vm.newWatchlist = {};
         vm.selectedWatchlist = {};
         vm.userWatchlist = {};
+        vm.watchDate = {};
+
+        vm.openCalendar = openCalendar;
+        vm.datePickerOptions = {
+            formatYear: 'yy',
+            maxDate : new Date()
+        };
+
+        vm.popupCalendar = {
+            opened: false
+        };
+
+        function openCalendar() {
+            vm.popupCalendar.opened = true;
+        }
 
         init();
         
@@ -33,6 +48,7 @@
             vm.newWatchlist.video = video;
             vm.newWatchlist.watchlistUser = vm.username;
             vm.newWatchlist.visibleToOthers = true;
+            vm.newWatchlist.watchDate = new Date();
             WatchlistService.saveWatchlist(vm.newWatchlist).then(function (response) {
                 vm.userWatchlist.push(response);
                 getUserWatchlist(vm.username);
@@ -55,6 +71,7 @@
 
         function selectWatchlist(watchlist){
             vm.selectedWatchlist = watchlist;
+            vm.watchDate = vm.selectedWatchlist.watchDate;
             console.log(vm.selectedWatchlist);
         }
 

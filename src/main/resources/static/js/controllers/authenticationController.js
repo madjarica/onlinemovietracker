@@ -13,7 +13,8 @@
         self.login = login;
         self.register = register;
         self.requestNewPassword = requestNewPassword;
-        // self.activateNewPassword = activateNewPassword;
+        self.getHashedEmail = getHashedEmail;
+        self.changePassword = changePassword;
 
         self.registerCredentials = {};
         self.loginCredentials = {};
@@ -27,12 +28,21 @@
         self.forgotForm = {};
 
         self.user;
+        self.username = AuthenticationService.currentUsername;
+        self.hashedEmail = "https://www.gravatar.com/avatar/?d=identicon";
         
         function init() {
             $('#auth-modal').modal('hide');
+            // self.hashedEmail = "https://www.gravatar.com/avatar/" + AuthenticationService.requestHashedEmail(self.user.username);
             if (self.user) {
                 $route.reload();
             }
+        }
+        
+        function getHashedEmail(username) {
+            AuthenticationService.requestHashedEmail(username).then(function (response) {
+                self.hashedEmail = "https://www.gravatar.com/avatar/" + response;
+            })
         }
 
         function fireLogin() {
@@ -56,7 +66,13 @@
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 self.user = res;
                 AuthenticationService.currentUsername = self.user.username;
-                init();
+
+                AuthenticationService.requestHashedEmail(self.user.username).then(function (response) {
+                    self.hashedEmail = "https://www.gravatar.com/avatar/" + response.hashedEmail;
+                }).then(function () {
+                    init();
+                });
+
             }).error(function (error) {
                 self.error = 'Bad credentials!';
             });
@@ -74,8 +90,15 @@
                 console.log("registered");
             }, function(error) {
                 console.log(error)
-
             });
+        }
+
+        function changePassword(username, password) {
+            AuthenticationService.changePassword(username, password).then(function (response) {
+                console.log("changed");
+            }, function (error) {
+                console.log("error");
+            })
         }
 
         function requestNewPassword(email) {

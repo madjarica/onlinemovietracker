@@ -22,6 +22,7 @@
                         <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/add-tv-show') }"><a class="nav-link waves-effect waves-light" href="#/add-tv-show">Add TV Show</a></li>
                         <li ng-class="{ 'active': vm.isActive('/admin/view-users') }"><a class="nav-link waves-effect waves-light" href="#/admin/view-users">View Users</a></li>
                         <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/add-episode') }"><a class="nav-link waves-effect waves-light" href="#/add-episode">Add Episode</a></li>
+                        <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/watchlist') }"><a class="nav-link waves-effect waves-light" href="#/watchlist">Watchlist</a></li>
                         <!--<li class="dropdown">-->
                         <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
                         <!--<ul class="dropdown-menu">-->
@@ -37,18 +38,18 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item" ng-show="authCtrl.user">
-                            <a class="nav-link waves-effect waves-light">1 <i class="fa fa-bell"></i></a>
+                            <a class="nav-link waves-effect waves-light" href="#/user/view-notifications">1 <i class="fa fa-bell"></i></a>
                         </li>
                         <li class="nav-item" ng-show="authCtrl.user">
-                            <a class="nav-link waves-effect waves-light">1 <i class="fa fa-envelope"></i></a>
+                            <a class="nav-link waves-effect waves-light" href="#/admin/view-messages">1 <i class="fa fa-envelope"></i></a>
                         </li>
                         <li class="nav-item" ng-show="!authCtrl.user">
                             <button type="button" class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#auth-modal">Register/Login</button>
                         </li>
                         <li class="dropdown" ng-show="authCtrl.user">
-                            <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self" style="padding-top: 12px; padding-bottom: 0;"><img src="https://www.gravatar.com/avatar/dce6b4d774900927f2356091ab5478fb" class="img-responsive img-circle"></a>
+                            <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self" style="padding-top: 12px; padding-bottom: 0;"><img ng-src="{{ authCtrl.hashedEmail }}" class="img-responsive img-circle"></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" target="_self">Change Password</a></li>
+                                <li><a href="#/user/change-password" target="_self">Change Password</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#" ng-click="authCtrl.logout()" target="_self">Logout</a></li>
                             </ul>
@@ -73,10 +74,10 @@
                             <br>
                             <form ng-submit="authCtrl.login(authCtrl.loginCredentials)" name="authCtrl.loginForm">
                                 <div class="form-group">
-                                    <input type="text" name="username" name="authCtrl.loginCredentials.username" ng-model="authCtrl.loginCredentials.username" class="form-control" id="username" placeholder="Username" autofocus>
+                                    <input type="text" name="authCtrl.loginCredentials.username" ng-model="authCtrl.loginCredentials.username" class="form-control" id="username" placeholder="Username" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" name="authCtrl.loginCredentials.password" ng-model="authCtrl.loginCredentials.password" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" name="authCtrl.loginCredentials.password" ng-model="authCtrl.loginCredentials.password" class="form-control" id="password" placeholder="Password">
                                 </div>
                                 <div class="col-xs-8 col-xs-offset-2">
                                     <button type="submit" class="btn btn-primary waves-effect waves-light btn-block">Login</button>
