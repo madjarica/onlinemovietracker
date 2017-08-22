@@ -15,7 +15,12 @@ INSERT INTO `onlinemoviedatabase`.`user_roles`(`user_id`, `role_id`) VALUES (3, 
 INSERT INTO `video`(`dtype`, `created_date`, `original_language`, `original_title`, `overview`, `title`, `released`, `runtime`) VALUES ('Movie', NOW(), 'english', 'Tea', 'It is a horror based on a true story', 'Tea', 1, 122);
 INSERT INTO `video`(`dtype`, `created_date`, `original_language`, `original_title`, `overview`, `title`, `released`, `runtime`) VALUES ('Movie', NOW(), 'english', 'aegaeg', '1321', '123', 1, 122);
 
-INSERT INTO `watchlists`(`watch_date`, `user_id`, `visible_to_others`, `favourite`) VALUES ('2017-04-05', '1', true, false);
+INSERT INTO `watchlists`(`watch_date`, `user_id`, `visible_to_others`, `favourite`) VALUES ('2017-04-05', 2, true, false);
+INSERT INTO `watchlists`(`watch_date`, `user_id`, `visible_to_others`, `favourite`) VALUES ('2017-04-05', 2, true, false);
 
 INSERT INTO `watchlists_videos`(`watchlist_id`, `video_id`) VALUES ('1', '1');
 INSERT INTO `watchlists_videos`(`watchlist_id`, `video_id`) VALUES ('1', '2');
+INSERT INTO `watchlists_videos`(`watchlist_id`, `video_id`) VALUES ('2', '2');
+
+INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`) VALUES ('Strava film', NOW(), NOW(), '1');
+INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`) VALUES ('Ok je', NOW(), NOW(), '2');

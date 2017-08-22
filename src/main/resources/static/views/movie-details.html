@@ -146,103 +146,48 @@
                         </div>
                     </div>
 
-                    <!-- Comment -->
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                            <div class="panel panel-white post panel-shadow">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                                    </div>
-                                    <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
-                                        <h6 class="text-muted time">1 minute ago</h6>
-                                    </div>
-                                </div>
-                                <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default">
-                                            <i class="fa fa-reply icon"></i> Reply
-                                        </a>
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-pencil icon"></i> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="fa fa-trash icon"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Comment -->
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                            <div class="panel panel-white post panel-shadow">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                                    </div>
-                                    <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
-                                        <h6 class="text-muted time">1 minute ago</h6>
-                                    </div>
-                                </div>
-                                <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default">
-                                            <i class="fa fa-reply icon"></i> Reply
-                                        </a>
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-pencil icon"></i> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="fa fa-trash icon"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Comment -->
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                            <div class="panel panel-white post panel-shadow">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                                    </div>
-                                    <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
-                                        <h6 class="text-muted time">1 minute ago</h6>
-                                    </div>
-                                </div>
-                                <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default">
-                                            <i class="fa fa-reply icon"></i> Reply
-                                        </a>
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-pencil icon"></i> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="fa fa-trash icon"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                <!-- Comment -->               
+                <div class="row">
+                <div ng-controller="CommentController as comCtrl">
+                <div class="col-xs-12" ng-repeat="comment in comCtrl.comments | orderBy: '-id'">
+				<div class="col-sm-8 col-sm-offset-2 col-xs-12">
+					<div class="panel panel-white post panel-shadow">
+                      <div class="pull-left image">
+                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                      </div>
+				</div>
+				<div class="col-sm-5">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="text-muted">commented {{comment.createdDate | date:'dd-MMM-yyyy'}}</span>																		
+						<div class="panel-body">
+							<span style="float: right;" ng-if="comment.commentContent === '' || comment.commentContent === null">
+								<i>No comment</i>
+							</span>
+							<span style="float: right;" ng-if="comment.commentContent !== '' || comment.commentContent !== null">
+								{{ comment.commentContent }}
+							</span>					
+						</div>
+							<div class="stats">
+                            	<a href="#" class="btn btn-default">
+                                	<i class="fa fa-reply icon"></i> Reply
+                                </a>
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fa fa-pencil icon"></i> Edit
+                                </a>
+                                <a href="#" class="btn btn-danger">
+                                	<i class="fa fa-trash icon"></i> Delete
+                                </a>
+                             </div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>						
+		</div>
+            </div>    
+            </div>
             </div>
         </div>
     </div>

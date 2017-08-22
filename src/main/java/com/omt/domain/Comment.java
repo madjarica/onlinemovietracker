@@ -16,7 +16,7 @@ public class Comment extends BaseEntity {
 	}
 
 	@Column(columnDefinition = "TEXT")
-    private String commentConntent;
+    private String commentContent;
 	
     @Column
     @DateTimeFormat
@@ -28,17 +28,17 @@ public class Comment extends BaseEntity {
 
 	public Comment(String commentConntent, Date createdDate, Date updatedDate) {
 		super();
-		this.commentConntent = commentConntent;
+		this.commentContent = commentContent;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 	}
 
-	public String getCommentConntent() {
-		return commentConntent;
+	public String getCommentContent() {
+		return commentContent;
 	}
 
-	public void setCommentConntent(String commentConntent) {
-		this.commentConntent = commentConntent;
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
 	}
 
 	public Date getCreatedDate() {
