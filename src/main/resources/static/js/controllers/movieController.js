@@ -1,13 +1,13 @@
 (function () {
     angular.module('app')
         .controller('MovieController', MovieController)
-        .config(function($sceProvider) {
+        .config(function ($sceProvider) {
             $sceProvider.enabled(false);
         });
 
-    MovieController.$inject = ['$location', '$http', '$route', 'MovieService'];
+    MovieController.$inject = ['$location', '$http', '$route', 'MovieService', 'WatchlistService'];
 
-    function MovieController($location, $http, $route, MovieService) {
+    function MovieController($location, $http, $route, MovieService, WatchlistService) {
 
         var vm = this;
 
@@ -20,7 +20,7 @@
         var currIndex = 0;
         vm.addSlides = addSlides;
 
-        if(vm.movie_images) {
+        if (vm.movie_images) {
             addSlides(vm.movie_images);
         }
 
@@ -35,12 +35,21 @@
         vm.movieObject.backdrop_path = "/img/default_backdrop.jpg";
         vm.movieList = [];
 
+        //Watchlist
+        vm.checkFav = checkFav;
+        vm.checkIfAdded = checkIfAdded;
+        vm.favMovie = favMovie;
+        vm.favourite = false;
+        vm.userWatchlist = WatchlistService.userWatchlist;
+        checkFav();
+
         // On List of Movies
         function getMovieByTitle(title) {
             MovieService.getMovieByTitle(title).then(function (response) {
-                vm.movieList = response.results.slice(0,5);
+                vm.movieList = response.results.slice(0, 5);
             });
         }
+
         // End of List of Movies Functions
 
         // Show movie details
@@ -54,6 +63,7 @@
                 $location.url("movie-details");
             })
         }
+
         // End of show movie details
 
         function fillMovieData(id) {
@@ -63,7 +73,7 @@
                 $('#loading-spinner').addClass('hidden');
                 vm.movieObject = response;
             }).then(MovieService.getMovieTrailer(id).then(function (videos) {
-                    vm.movieObject.youtube = vm.movieObject.trailerLink;
+                vm.movieObject.youtube = vm.movieObject.trailerLink;
             }));
         }
 
@@ -82,14 +92,60 @@
 
         // Gallery functions
         function addSlides(images) {
-            for(var i = 0; i < images.length; i++) {
+            for (var i = 0; i < images.length; i++) {
                 vm.slides.push({
                     image: images[i],
                     id: currIndex++
                 });
             }
         }
+
         // End of Gallery functions
+
+
+        //Watchlist favourite checking
+        function checkFav() {
+            if (vm.userWatchlist.length > 0) {
+                for (var i = 0; i < vm.userWatchlist.length; i++) {
+                    if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {
+                        vm.favourite = vm.userWatchlist[i].favourite;
+                    }
+                }
+            }
+        }
+
+        function checkIfAdded() {
+            if (vm.userWatchlist.length > 0) {
+                for (var i = 0; i < vm.userWatchlist.length; i++) {
+                    if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function favMovie(){
+            if (vm.userWatchlist.length > 0) {
+                for (var i = 0; i < vm.userWatchlist.length; i++) {
+                    if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {
+                        if(vm.userWatchlist[i].favourite){
+                            vm.favourite = false;
+                            vm.userWatchlist[i].favourite = false;
+                        }else {
+                            vm.favourite = true;
+                            vm.userWatchlist[i].favourite = true;
+                        }
+                        WatchlistService.saveWatchlist(vm.userWatchlist[i]).then(function (response) {
+                            console.log(response);
+                        })
+                    }
+                }
+            }
+        }
+
+        //End of favourite checking
+
 
     }
 

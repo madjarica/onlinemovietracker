@@ -10,7 +10,8 @@
             getWatchlists: getWatchlists,
             saveWatchlist: saveWatchlist,
             getUserWatchlist: getUserWatchlist,
-            deleteWatchlist: deleteWatchlist
+            deleteWatchlist: deleteWatchlist,
+            userWatchlist: []
         };
 
         return service;
