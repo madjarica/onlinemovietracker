@@ -15,7 +15,8 @@
                         </h5>
                         <h5 class="ng-binding">
                             <small><b>Watch date:</b></small>
-                            <span class="small" ng-if="watchlist.video.watchDate != null">{{watchlist.video.watchDate}}</span>
+                            <span class="small"
+                                  ng-if="watchlist.video.watchDate != null">{{watchlist.video.watchDate}}</span>
                             <span class="small" ng-if="watchlist.video.watchDate == null">not yet set</span>
                         </h5>
                         <h5>
@@ -23,11 +24,18 @@
                         </h5>
                         <p class="ng-binding">{{watchlist.video.overview}}</p>
                         <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
-                                title="Mark as favorite!"><i class="fa fa-heart red" aria-hidden="true"></i></button>
+                                title="Mark as favorite!"><i class="fa fa-heart"
+                                                             ng-class="watchlist.favourite ? 'red':'gray'"
+                                                             ng-click="watchCtrl.favWatchlist(watchlist)"
+                                                             aria-hidden="true"></i></button>
                         <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
-                                title="Delete"><i class="fa fa-trash-o blue" ng-click="watchCtrl.deleteWatchlist(watchlist.id)" aria-hidden="true"></i></button>
+                                title="Delete"><i class="fa fa-trash-o blue"
+                                                  ng-click="watchCtrl.deleteWatchlist(watchlist.id)"
+                                                  aria-hidden="true"></i></button>
                         <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
-                                title="Edit"><i class="fa fa-pencil-square-o" ng-click="" aria-hidden="true"></i></button>
+                                title="Edit"><i class="fa fa-pencil-square-o"
+                                                ng-click="watchCtrl.selectWatchlist(watchlist)" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
             </div>

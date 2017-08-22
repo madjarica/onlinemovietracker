@@ -178,14 +178,14 @@ public class MovieController {
         movie.setCharacterList(characterList);
 
         TrailerResults trailerResults = restTemplate.getForObject(API_GET_VIDEO, TrailerResults.class, id, API_KEY);
-        String youtube = trailerResults.getTrailers().get(0).getTrailerLink();
-
-        if (youtube == null) {
-            movie.setTrailerLink(null);
-
-        } else {
+        if (!trailerResults.getTrailers().isEmpty()) {
+            String youtube = trailerResults.getTrailers().get(0).getTrailerLink();
             movie.setTrailerLink("https://www.youtube.com/embed/" + youtube);
+        } else {
+            movie.setTrailerLink(null);
         }
+
+
         List<Genre> genresToBeAdded = new ArrayList<>();
         for (Genre genre : movie.getGenres()) {
             genresToBeAdded.add(getGenres(genre.getName()));

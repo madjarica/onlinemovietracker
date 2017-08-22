@@ -5,9 +5,9 @@
             $sceProvider.enabled(false);
         });
 
-    TvShowController.$inject = ['$location', '$http', '$route', 'TvShowsService'];
+    TvShowController.$inject = ['$location', '$http', '$route', 'TvShowsService', 'WatchlistService'];
 
-    function TvShowController($location, $http, $route, TvShowsService) {
+    function TvShowController($location, $http, $route, TvShowsService, WatchlistService) {
 
         var vm = this;
 
@@ -36,6 +36,14 @@
         vm.tvShowObject.poster_path = "img/default_poster.jpg";
         vm.tvShowObject.backdrop_path = "img/default_backdrop.jpg";
         vm.tvShowsList = [];
+
+        //Watchlist
+        vm.checkFav = checkFav;
+        vm.checkIfAdded = checkIfAdded;
+        vm.favTvShow = favTvShow;
+        vm.favourite = false;
+        vm.userWatchlist = WatchlistService.userWatchlist;
+        checkFav();
 
         // On List of Movies
         function getTvShowByTitle(title){
@@ -87,6 +95,49 @@
             }
         }
         // End of Gallery functions
+
+        //Watchlist favourite checking
+        function checkFav() {
+            if (vm.userWatchlist.length > 0) {
+                for (var i = 0; i < vm.userWatchlist.length; i++) {
+                    if (vm.userWatchlist[i].video.id === vm.tvShowDetails.id) {
+                        vm.favourite = vm.userWatchlist[i].favourite;
+                    }
+                }
+            }
+        }
+
+        function checkIfAdded() {
+            if (vm.userWatchlist.length > 0) {
+                for (var i = 0; i < vm.userWatchlist.length; i++) {
+                    if (vm.userWatchlist[i].video.id === vm.tvShowDetails.id) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function favTvShow(){
+            if (vm.userWatchlist.length > 0) {
+                for (var i = 0; i < vm.userWatchlist.length; i++) {
+                    if (vm.userWatchlist[i].video.id === vm.tvShowDetails.id) {
+                        if(vm.userWatchlist[i].favourite){
+                            vm.favourite = false;
+                            vm.userWatchlist[i].favourite = false;
+                        } else {
+                            vm.favourite = true;
+                            vm.userWatchlist[i].favourite = true;
+                        }
+                        WatchlistService.saveWatchlist(vm.userWatchlist[i]).then(function (response) {
+                            console.log(response);
+                        })
+                    }
+                }
+            }
+        }
+
+        //End of favourite checking
 
     }
 
