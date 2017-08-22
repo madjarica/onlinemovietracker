@@ -33,7 +33,7 @@ INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `vi
 INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`) VALUES ('zoricab', true, false, 1);
 INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`) VALUES ('zoki', true, false, 1);
 
-INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`) VALUES ('Strava film', NOW(), NOW(), 1);
-INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`) VALUES ('Ok je', NOW(), NOW(), 2);
+INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user`) VALUES ('Strava film', NOW(), NOW(), 1, 'zoki');
+INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user` ) VALUES ('Ok je', NOW(), NOW(), 2, 'madjarica');
 
 

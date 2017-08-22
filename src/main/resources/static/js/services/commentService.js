@@ -2,17 +2,19 @@
 	angular.module("app")
 		.factory('CommentService', CommentService);
 	
-	commentService.$inject = ['$http', '$q'];
+	CommentService.$inject = ['$http', '$q'];
 	
-	function commentService($http, $q) {
+	function CommentService($http, $q) {
 
 		
 		var service = {
     		saveComment: saveComment,
             deleteComment: deleteComment,
             getComments: getComments,
+            getUserComment: getUserComment,
             getCommentByWatchlistId: getCommentByWatchlistId,
-            selectedWatchlist: {}
+            userComment: [],
+            selectedComment: {}
         }
 
         return service;
@@ -99,6 +101,25 @@
 	            });
             return def.promise;
         }
+        
+        function getUserComment(username) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: '/watchlists/get-user-comment/' + username
+            }
+
+            $http(req).success(function (response) {
+                console.log(username);
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+
+        }
+
         
     };
 }());        

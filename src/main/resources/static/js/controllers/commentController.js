@@ -2,39 +2,70 @@
 angular.module('app')
     .controller('CommentController', CommentController);
     
-    CommentController.$inject = ['$location' ,'CommentService', '$filter', '$rootScope', 'WatchlistService'];
+    CommentController.$inject = ['$location' ,'CommentService', '$filter', '$rootScope', 'WatchlistService', 'AuthenticationService'];
    
-    function BookmarkDetailsController($location ,CommentService, $filter, $rootScope, WatchlistService) {
+    function CommentController($location ,CommentService, $filter, $rootScope, WatchlistService, AuthenticationService) {
     	
     	var vm = this;
         vm.addComment = addComment;
-        vm.deleteComment = deleteComment;
+        vm.selectComment = selectComment;
         vm.saveComment = saveComment;
-        vm.comment;
-        vm.selectedComment;
         vm.commentForm;
         vm.importError = "";
-        
+        vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+        vm.comments = vm.selectedWatchlist.comment;
         vm.comment = {};
+        console.log(vm.comment);
+        vm.username = AuthenticationService.currentUsername;
+        vm.userComment = {};
+        
         
         init();
 
         function init() {
-        	getComments(vm.watchlist.id);
+//        	getComments(vm.watchlist.id);
+        	getUserComment(vm.username)
+        }
+        
+        function getUserComment(username) {
+            console.log(username);
+            CommentService.getUserComment(username).then(function (response) {
+                vm.userComment = response;
+                CommentService.userComment = response;
+                console.log(vm.userComment)
+            });
         }
         
         function addComment(commentContent) {
-        	vm.comment = {};
+        	console.log('click');
+        	console.log(vm.comment);
         	vm.comment.commentContent = commentContent;
+        	//vm.comment.userComment.username
         	vm.comment.createdDate = new Date();
-            vm.watchlist.comment.push(vm.comment);
+            vm.comments.push(vm.comment);
             CommentService.saveComment(vm.comment).then(function(response){
-            	getComments(vm.watchlist.id)})
+            	getComments(vm.selectedWatchlist.id);
+            	});
+            	//getUserComment(vm.userComment.username)
             
         }
         
+        function selectComment(comment){
+            vm.selectedComment = angular.copy(comment);
+        }
+        
+        function saveComment(comment){
+        	comment.createdDate = new Date();
+        	CommentService.saveComment(comment).then(function(response){
+                init();
+            }, function(error){
+
+            })
+           
+        }
+        
         function getComments(id){
-        	watchlistService.getWatchlist(id).then(function(response){
+        	WatchlistService.getWatchlist(id).then(function(response){
         		vm.watchlist = response;
         	}).then(function(){
         		vm.comments = vm.watchlist.comment;

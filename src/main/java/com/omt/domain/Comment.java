@@ -4,7 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,6 +18,9 @@ public class Comment extends BaseEntity {
 	public Comment() {
 	}
 
+	@Column
+	private String commentUser;
+	
 	@Column(columnDefinition = "TEXT")
     private String commentContent;
 	
@@ -26,8 +32,9 @@ public class Comment extends BaseEntity {
     @DateTimeFormat
     private Date updatedDate;
 
-	public Comment(String commentConntent, Date createdDate, Date updatedDate) {
+	public Comment(String commentUser, String commentContent, Date createdDate, Date updatedDate) {
 		super();
+		this.commentUser = commentUser;
 		this.commentContent = commentContent;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
@@ -55,6 +62,14 @@ public class Comment extends BaseEntity {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public String getCommentUser() {
+		return commentUser;
+	}
+
+	public void setCommentUser(String commentUser) {
+		this.commentUser = commentUser;
 	}
 	
 }

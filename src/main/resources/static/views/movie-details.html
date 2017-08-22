@@ -70,8 +70,8 @@
 </section>
 
 <section>
-    <div class="container">
-    <div ng-controller="CommentController as comCtrl">
+    <div class="container" class="row" ng-controller="CommentController as comCtrl">
+    <div>
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#about" target="_self">About</a></li>
             <li><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
@@ -172,17 +172,17 @@
                                              alt="user profile image">
                                     </div>
                                     <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
+                                        <div class="title h5"></div>
                                     </div>
                                 </div>
                                 <div class="post-description">
-                                    <textarea name="" id="" rows="5" class="form-control"></textarea>
+                                	<form ng-submit="comCtrl.addComment(comCtrl.commentContent)">
+                                	<textarea name="" id="" rows="5" class="form-control" ng-model="comCtrl.commentContent"></textarea>
                                     <div class="stats">
-                                        <a href="#" class="btn btn-default" style="float: right">
+                                        <button class="btn btn-default" style="float: right">
                                             <i class="fa fa-comment-o icon"></i> Comment
-                                        </a>
+                                        </button>
+                                	</form>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
@@ -192,8 +192,8 @@
 
 
                 <!-- Comment -->
-                <div class="row">
-				<div class="col-sm-8 col-sm-offset-2 col-xs-12" ng-repeat="comment in comCtrl.comments | orderBy: '-id'">
+                <div>
+				<div class="col-sm-8 col-sm-offset-2 col-xs-12" ng-repeat="comment in comCtrl.comments">
 					<div class="panel panel-white post panel-shadow">
                       <div class="pull-left image">
                         <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
@@ -233,5 +233,6 @@
             </div>
             </div>
             </div>
+        </div>
         </div>
 </section>
