@@ -35,7 +35,10 @@ public class WatchlistController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Watchlist save(@RequestBody Watchlist watchlist) {
+    public Watchlist save(@RequestBody Watchlist watchlist) throws Exception{
+        String username = watchlist.getWatchlistUser();
+        Long id = watchlist.getVideo().getId();
+        if(checkForDuplicate(username, id) != null) throw new Exception("You already have this in your watchlist");
         return watchlistService.save(watchlist);
     }
 
@@ -50,7 +53,11 @@ public class WatchlistController {
     }
 
     @RequestMapping(path = "get-user-watchlist/{username}")
-    public Watchlist findByUsername(@PathVariable("username") String username) {
+    public List<Watchlist> findByUsername(@PathVariable("username") String username) {
         return watchlistService.findByUsername(username);
+    }
+
+    public Watchlist checkForDuplicate(String username, Long id){
+        return watchlistService.checkForDuplicate(username, id);
     }
 }

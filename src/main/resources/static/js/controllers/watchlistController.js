@@ -9,14 +9,12 @@
         var vm = this;
         vm.username = AuthenticationService.currentUsername;
         vm.addToWatchlist = addToWatchlist;
+        vm.deleteWatchlist = deleteWatchlist;
+        vm.editWatchlist = editWatchlist;
+        vm.newWatchlist = {};
         vm.userWatchlist = {};
 
         init();
-        function getWatchlists() {
-            WatchlistService.getWatchlists().then(function (response) {
-                vm.watchlistsList = response;
-            });
-        }
         
         function getUserWatchlist(username) {
             console.log(username);
@@ -27,11 +25,25 @@
         }
 
         function addToWatchlist(video){
-            vm.userWatchlist.videos.push(video);
-            WatchlistService.saveWatchlist(vm.userWatchlist).then(function (response) {
-                vm.userWatchlist = response;
+            vm.newWatchlist.video = video;
+            vm.newWatchlist.watchlistUser = vm.username;
+            vm.newWatchlist.visibleToOthers = true;
+            WatchlistService.saveWatchlist(vm.newWatchlist).then(function (response) {
+                vm.userWatchlist.push(response);
             }).then(function () {
                 $location.url('watchlist')
+            })
+        }
+        
+        function deleteWatchlist(id) {
+            WatchlistService.deleteWatchlist(id).then(function () {
+                getUserWatchlist(vm.username);
+            })
+        }
+
+        function editWatchlist(watchlist){
+            WatchlistService.saveWatchlist(watchlist).then(function () {
+                getUserWatchlist(vm.username);
             })
         }
 

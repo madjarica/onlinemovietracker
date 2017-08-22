@@ -25,10 +25,6 @@ public class Watchlist extends BaseEntity{
 	public Watchlist() {
 	}
 
-	@Column(nullable = false)
-	@NotNull
-	@DateTimeFormat
-	private Date watchDate;
 	
 	@Column(nullable = false)
 	@NotNull
@@ -48,15 +44,13 @@ public class Watchlist extends BaseEntity{
 	@DateTimeFormat
 	private Date updatedDate;
 	
-	@ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "watchlist_id"),
-    inverseJoinColumns = @JoinColumn(name = "video_id"))
-    private List<Video> videos;
+	@ManyToOne
+	@JoinColumn(name = "video_id", nullable = false)
+	private Video video;
 	
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private LoginUser loginUser;
+	@Column(nullable = false)
+	private String watchlistUser;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="watchlist_id")
@@ -66,15 +60,7 @@ public class Watchlist extends BaseEntity{
 	@JoinColumn(name="watchlist_id")
 	private Set<Rating> rating;
 
-	public Date getWatchDate() {
-		return watchDate;
-	}
-
-	public void setWatchDate(Date watchDate) {
-		this.watchDate = watchDate;
-	}
-
-	public Boolean isVisibleToOthers() {
+	public Boolean getVisibleToOthers() {
 		return visibleToOthers;
 	}
 
@@ -82,7 +68,7 @@ public class Watchlist extends BaseEntity{
 		this.visibleToOthers = visibleToOthers;
 	}
 
-	public Boolean isFavourite() {
+	public Boolean getFavourite() {
 		return favourite;
 	}
 
@@ -114,21 +100,20 @@ public class Watchlist extends BaseEntity{
 		this.updatedDate = updatedDate;
 	}
 
-	public List<Video> getVideos() {
-		return videos;
+	public Video getVideo() {
+		return video;
 	}
 
-	public void setVideos(List<Video> videos) {
-		this.videos = videos;
+	public void setVideo(Video video) {
+		this.video = video;
 	}
 
-
-	public LoginUser getLoginUser() {
-		return loginUser;
+	public String getWatchlistUser() {
+		return watchlistUser;
 	}
 
-	public void setLoginUser(LoginUser loginUser) {
-		this.loginUser = loginUser;
+	public void setWatchlistUser(String watchlistUser) {
+		this.watchlistUser = watchlistUser;
 	}
 
 	public Set<Comment> getComment() {

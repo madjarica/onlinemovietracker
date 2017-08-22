@@ -38,8 +38,11 @@ public class WatchlistService {
         watchlistRepository.delete(id);
     }
 
-    public Watchlist findByUsername(String username){
-        return watchlistRepository.findByLoginUserUsername(username);
+    public List<Watchlist> findByUsername(String username){
+        return watchlistRepository.findByWatchlistUser(username);
     }
-	
+
+    public Watchlist checkForDuplicate(String username, Long id){
+        return watchlistRepository.findByWatchlistUserAndVideoId(username, id);
+    }
 }
