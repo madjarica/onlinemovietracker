@@ -14,4 +14,6 @@ public interface UserNotificationRepository extends JpaRepository<UserNotificati
     public UserNotification save(UserNotification userNotification);
 
     public void delete(Long id);
+
+    public List<UserNotification> getUserNotificationByWatchlistWatchlistUser(String name);
 }

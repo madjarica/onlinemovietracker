@@ -78,8 +78,8 @@
             })
             .when('/user/view-notifications', {
                 templateUrl: '/views/user/view-notifications.html',
-                controller: 'HomeController',
-                controllerAs: 'vm'
+                controller: 'NotificationController',
+                controllerAs: 'notifyController'
             })
             .when('/user/change-password', {
                 templateUrl: '/views/user/change-password.html',

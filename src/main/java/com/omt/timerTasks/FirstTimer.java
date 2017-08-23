@@ -1,14 +1,10 @@
 package com.omt.timerTasks;
 
-import com.omt.JsonResults.Notification;
-
 import com.omt.domain.ScheduleList;
 import com.omt.domain.UserNotification;
 import com.omt.domain.Watchlist;
-import com.omt.service.ScheduleListService;
 
 import com.omt.service.UserNotificationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 

@@ -3,11 +3,7 @@ package com.omt.web.controller;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import com.omt.JsonResults.Notification;
-import com.omt.domain.UserNotification;
 import com.omt.service.UserNotificationService;
 import com.omt.timerTasks.FirstTimer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +56,6 @@ public class ScheduleListController {
         return scheduleListService.save(scheduleList);
     }
 
-    @RequestMapping(path="recent", method = RequestMethod.GET)
-    public Notification sendNotification(){
-        return scheduleListService.getNotification();
-    }
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
         scheduleListService.delete(id);

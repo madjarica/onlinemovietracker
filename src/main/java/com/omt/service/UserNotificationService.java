@@ -47,6 +47,10 @@ public class UserNotificationService {
         userNotificationRepository.delete(id);
     }
 
+    public List<UserNotification> getUserNotifications(String name){
+ 		return userNotificationRepository.getUserNotificationByWatchlistWatchlistUser(name);
+	}
+
     public void sendNewPassword(String email, String password, String password_activation_link) throws MessagingException {
 
 		MimeMessage message = javaMailSender.createMimeMessage();
