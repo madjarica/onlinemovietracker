@@ -2,6 +2,7 @@ package com.omt.service;
 
 import java.util.List;
 
+import com.omt.JsonResults.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.omt.repository.ScheduleListRepository;
 public class ScheduleListService {
 
 	ScheduleListRepository scheduleListRepository;
+	Notification notification;
 
     @Autowired
     public ScheduleListService(ScheduleListRepository scheduleListRepository) {
@@ -37,6 +39,13 @@ public class ScheduleListService {
         // TODO Auto-generated method stub
         scheduleListRepository.delete(id);
     }
-	
+
+    public Notification getNotification() {
+        return notification;
+    }
+
+    public void setNotification(Notification notification) {
+        this.notification = notification;
+    }
 }
 
