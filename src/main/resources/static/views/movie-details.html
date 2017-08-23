@@ -39,8 +39,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png"
-                                                                                 class="imdb-logo"></a>
+                    <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
                     <button ng-hide="::(vm.checkIfAdded())"
                             class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
                             title="Mark as favorite!"><i class="fa fa-heart" ng-class="(vm.favourite ? 'red':'gray')"
@@ -141,18 +140,25 @@
                                     <small><b>Real Name:</b></small>
                                     {{ actor.person.name }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.birthday != null">
                                     <small><b>Birthday:</b></small>
                                     {{ actor.person.birthday | date:'dd-MM-yyyy' }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.place_of_birth != null">
                                     <small><b>Place of Birth:</b></small>
                                     {{ actor.person.place_of_birth }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.biography != ''">
                                     <small><b>Biography:</b></small>
                                 </h5>
-                                <p>{{ actor.person.biography }}</p>
+
+                                <div class="collapse-box" ng-if="actor.person.biography != ''">
+                                    <p class="collapse" id="actor_{{ actor.id }}" aria-expanded="false">
+                                        {{ actor.person.biography }}
+                                    </p>
+                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#actor_{{ actor.id }}" aria-expanded="false" aria-controls="collapseExample">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <hr>

@@ -20,7 +20,6 @@
 
         function handleSuccessMovies(data, status){
             vm.movies = data;
-            console.log(vm.movies);
         }
 
         function getTvShows(){
@@ -29,7 +28,6 @@
 
         function handleSuccessTvShows(data, status){
             vm.tvShows = data;
-            console.log(vm.tvShows);
         }
 
     }

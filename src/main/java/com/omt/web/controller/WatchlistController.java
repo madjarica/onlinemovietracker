@@ -1,5 +1,6 @@
 package com.omt.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,15 @@ public class WatchlistController {
         Long id = watchlist.getVideo().getId();
         if(checkForDuplicate(username, id) != null) throw new Exception("You already have this in your watchlist");
         return watchlistService.save(watchlist);
+    }
+
+    @RequestMapping(path = "change-watch-date/{id}", method = RequestMethod.POST)
+    public void changeWatchDate(@PathVariable Long id, @RequestBody Date watchDate) {
+        Watchlist watchlist = watchlistService.findOne((long) id);
+        if(watchlist != null) {
+            watchlist.setWatchDate(watchDate);
+            watchlistService.save(watchlist);
+        }
     }
 
     @RequestMapping(method = RequestMethod.PUT)
