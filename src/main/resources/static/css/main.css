@@ -479,6 +479,11 @@ img.ng-scope {
 
 }
 
+tags-input.form-control.ng-pristine.ng-untouched.ng-valid.ng-isolate-scope.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-not-empty,
+tags-input.form-control.ng-untouched.ng-valid.ng-isolate-scope.ng-valid-max-tags.ng-valid-min-tags.ng-valid-leftover-text.ng-not-empty.ng-dirty {
+    height: auto;
+}
+
 .input.ng-pristine.ng-valid.ng-empty.ng-touched,
 .input.ng-pristine.ng-valid.ng-empty {
     padding: 0;
@@ -510,7 +515,7 @@ tags-input .tags .tag-item {
     background-color: #2BBBAD;
     border: 1px solid #2BBBAD;
     border-radius: 0;
-    margin: 0 2px;
+    margin: 2px 2px;
     padding-top: 2px;
     line-height: 20px;
 }
@@ -676,4 +681,28 @@ tags-input .tags.focused {
     width: auto;
     display: block;
     margin: 0 auto;
+}
+
+/* Collapsible div */
+.collapse-box {
+    width: 100%;
+    text-align: justify;
+}
+
+.collapse-box p.collapse[aria-expanded="false"] {
+    display: block;
+    height: 40px !important;
+    overflow: hidden;
+}
+
+.collapse-box p.collapsing[aria-expanded="false"] {
+    height: 40px !important;
+}
+
+.collapse-box a.collapsed:after  {
+    content: '+ Show More';
+}
+
+.collapse-box a:not(.collapsed):after {
+    content: '- Show Less';
 }

@@ -14,10 +14,17 @@
         vm.selectWatchlist = selectWatchlist;
         vm.favWatchlist = favWatchlist;
         vm.goToDetailsPage = goToDetailsPage;
+        vm.saveWatchDate = saveWatchDate;
         vm.newWatchlist = {};
         vm.selectedWatchlist = {};
         vm.userWatchlist = {};
         vm.watchDate = {};
+        
+        function saveWatchDate(id, date) {
+            WatchlistService.changeWatchDate(id, date).then(function (response) {
+
+            })
+        }
 
         vm.openCalendar = openCalendar;
         vm.datePickerOptions = {
@@ -36,7 +43,6 @@
         init();
         
         function getUserWatchlist(username) {
-            console.log(username);
             WatchlistService.getUserWatchlist(username).then(function (response) {
                 vm.userWatchlist = response;
                 WatchlistService.userWatchlist = response;
@@ -72,7 +78,6 @@
         function selectWatchlist(watchlist){
             vm.selectedWatchlist = watchlist;
             vm.watchDate = vm.selectedWatchlist.watchDate;
-            console.log(vm.selectedWatchlist);
         }
 
         function favWatchlist(watchlist){

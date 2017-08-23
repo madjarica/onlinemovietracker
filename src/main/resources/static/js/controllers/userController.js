@@ -8,6 +8,25 @@
 
         var vm = this;
         vm.getNumber = getNumber;
+        vm.editUser = editUser;
+
+        vm.active;
+        vm.subscription;
+        vm.status;
+        vm.blockedUntil;
+
+        vm.active_options = [true, false];
+        vm.subscription_option = [true, false];
+
+        function editUser(id) {
+            UserService.getUserById(id).then(function (response) {
+                console.log(response);
+                vm.active = response.active;
+                vm.subscription = response.subscription;
+                vm.status = response.status;
+                vm.blockedUntil = response.blockedUntil;
+            });
+        }
 
         function getNumber(num) {
             return new Array(num);
@@ -19,38 +38,28 @@
         vm.usersData;
         vm.sortBy = sortBy;
 
-        // vm.filteredTables = [];
-        // vm.currentPage = 1;
-        // vm.numOfPages = 0;
-        // vm.numPerPage = 3;
-        // vm.makeTables = makeTables;
+        vm.openCalendar = openCalendar;
+        vm.datePickerOptions = {
+            formatYear: 'yy'
+        };
 
-        // function makeTables(table) {
-        //     var def =  $q.defer();
-        //     var number_of_elements = table.length;
-        //     var number_of_tables = Math.ceil(number_of_elements / vm.numPerPage);
-        //     var begin = 0;
-        //     var end = vm.numPerPage;
-        //     var pom_table = [];
-        //     var pom_table_2 = [];
-        //     vm.numOfPages = number_of_tables;
-        //
-        //     for(i = 0; i < number_of_tables; i++) {
-        //         for(j = begin; j < end; j++) {
-        //             pom_table.push(table[j]);
-        //         }
-        //         pom_table_2.push(pom_table);
-        //
-        //         begin = end;
-        //         end = end + vm.numPerPage;
-        //         pom_table = [];
-        //     }
-        //     return pom_table_2;
-        // }
+        vm.popupCalendar = {
+            opened: false
+        };
+
+        function openCalendar() {
+            vm.popupCalendar.opened = true;
+        }
 
         function sortBy(propertyName) {
             vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
             vm.propertyName = propertyName;
+        }
+
+        function getUserById(id) {
+            UserService.getUserById().then(function (response) {
+                console.log(response);
+            })
         }
 
         function getUsers() {

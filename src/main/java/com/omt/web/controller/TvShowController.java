@@ -231,7 +231,7 @@ public class TvShowController {
 
         tvShow.setTvShowEpisodes(new ArrayList<>());
         tvShow = tvShowService.save(tvShow);
-        for (int i = 0; i < tvShow.getNumberOfSeasons(); i++) {
+        for (int i = 1; i <= tvShow.getNumberOfSeasons(); i++) {
             tvShow.getTvShowEpisodes().addAll((getEpisodes(tvShow.getTmdbTvShowId(), tvShow.getId(), i)));
         }
         return tvShowService.save(tvShow);
