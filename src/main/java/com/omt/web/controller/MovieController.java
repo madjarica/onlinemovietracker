@@ -160,6 +160,7 @@ public class MovieController {
 //            @Override
 //            public void run() {
         getCharacters(id);
+        getCrew(id);
         movie.setTmdbMovieId(movie.getId());
         movie.setId(null);
         Locale[] locales = Locale.getAvailableLocales();
@@ -304,6 +305,25 @@ public class MovieController {
         return keyword;
     }
 
+    public void getCrew(Long id) {
+        Person person;
+        CrewResults crewResults = restTemplate.getForObject(API_GET_CREDITS, CrewResults.class, id, API_KEY);
+        List<Character> crewList = crewResults.getCharacters();
+        int size = crewList.size();
+
+        for(int i = 0; i < size; i++) {
+            if(crewList.get(i).getJob().equals("Director")) {
+                person = getPerson(crewList.get(i).getId());
+                crewList.get(i).setActorId(crewList.get(i).getId());
+                crewList.get(i).setTmdbMediaId(crewResults.getTmdbMediaId());
+                crewList.get(i).setId(null);
+                crewList.get(i).setPerson(person);
+                crewList.get(i).setJob("director");
+                characterService.save(crewList.get(i));
+            }
+        }
+    }
+
     public void getCharacters(Long id) {
         Person person;
         int size;
@@ -321,6 +341,7 @@ public class MovieController {
             characterList.get(i).setTmdbMediaId(creditsResults.getTmdbMediaId());
             characterList.get(i).setId(null);
             characterList.get(i).setPerson(person);
+            characterList.get(i).setJob("actor");
             characterService.save(characterList.get(i));
         }
     }

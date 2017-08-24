@@ -85,7 +85,7 @@
                     <td>{{ user.createdDate | date:'dd-MMM-yyyy' }}</td>
                     <td>{{ user.updatedDate | date:'dd-MMM-yyyy' }}</td>
                     <td><button class="btn btn-warning btn-block" data-toggle="modal" data-target="#EditUserModal" ng-click="userCtrl.editUser(user.id)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
-                    <td><button class="btn btn-danger btn-block" data-toggle="modal" data-target="#DeleteUserModal"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                    <td><button class="btn btn-danger btn-block" data-toggle="modal" data-target="#DeleteUserModal" ng-click="userCtrl.selectUser(user.id)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                 </tr>
             </tbody>
         </table>
@@ -158,12 +158,16 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Delete User</h4>
                 </div>
-
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Do you want to delete <b>{{ userCtrl.userOptions.username }}</b>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" style="margin-bottom: 10px;" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="btn btn-danger" style="margin-bottom: 10px;" data-dismiss="modal" ng-click="userCtrl.deleteUser(userCtrl.userOptions.userId)">Delete</button>
                 </div>
             </div>
         </div>

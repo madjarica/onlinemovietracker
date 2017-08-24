@@ -9,10 +9,27 @@
         var service = {
             getUsers: getUsers,
             getUserById: getUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            deleteUserById: deleteUserById
         };
 
         return service;
+
+        function deleteUserById(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'DELETE',
+                url: "/users/" + id
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
 
         function updateUser(id, data) {
             var def = $q.defer();

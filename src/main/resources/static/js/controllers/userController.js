@@ -10,6 +10,8 @@
         vm.getNumber = getNumber;
         vm.editUser = editUser;
         vm.updateUser = updateUser;
+        vm.selectUser = selectUser;
+        vm.deleteUser = deleteUser;
 
         vm.active;
         vm.subscription;
@@ -27,6 +29,13 @@
             })
         }
 
+        function selectUser(id) {
+            UserService.getUserById(id).then(function (response) {
+                vm.userOptions.username = response.username;
+                vm.userOptions.userId = id;
+            });
+        }
+
         function editUser(id) {
             UserService.getUserById(id).then(function (response) {
                 vm.userOptions.userId = id;
@@ -34,6 +43,12 @@
                 vm.userOptions.subscription = response.subscription;
                 vm.userOptions.status = response.status;
                 vm.userOptions.blockedUntil = response.blockedUntil;
+            });
+        }
+        
+        function deleteUser(id) {
+            UserService.deleteUserById(id).then(function (response) {
+                getUsers();
             });
         }
 

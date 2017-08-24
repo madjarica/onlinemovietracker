@@ -22,7 +22,7 @@
         
         function saveWatchDate(id, date) {
             WatchlistService.changeWatchDate(id, date).then(function (response) {
-
+                init();
             })
         }
 

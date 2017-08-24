@@ -172,6 +172,8 @@ public class TvShowController {
         List<Character> characterList = characterService.findByTmdbMediaId(tvShow.getTmdbTvShowId());
         tvShow.setCharacterList(characterList);
 
+
+
         TrailerResults trailerResults = restTemplate.getForObject(API_GET_VIDEO, TrailerResults.class, id, API_KEY);
         if (!trailerResults.getTrailers().isEmpty()) {
             String youtube = trailerResults.getTrailers().get(0).getTrailerLink();
@@ -229,11 +231,28 @@ public class TvShowController {
 //            e.printStackTrace();
 //        }
 
+        Person person;
+        List<Character> creatorsList = new ArrayList<>();
+        for (Character creators : tvShow.getCreators()) {
+            person = getPerson(creators.getId());
+            creators.setActorId(creators.getId());
+            creators.setTmdbMediaId(tvShow.getTmdbTvShowId());
+            creators.setId(null);
+            creators.setPerson(person);
+            creators.setJob("director");
+            characterService.save(creators);
+            creatorsList.add(creators);
+        }
+
+        tvShow.getCharacterList().addAll(creatorsList);
+
         tvShow.setTvShowEpisodes(new ArrayList<>());
         tvShow = tvShowService.save(tvShow);
         for (int i = 1; i <= tvShow.getNumberOfSeasons(); i++) {
             tvShow.getTvShowEpisodes().addAll((getEpisodes(tvShow.getTmdbTvShowId(), tvShow.getId(), i)));
         }
+
+
         return tvShowService.save(tvShow);
 
     }
@@ -296,6 +315,7 @@ public class TvShowController {
             characterList.get(i).setActorId(characterList.get(i).getId());
             characterList.get(i).setTmdbMediaId(creditsResults.getTmdbMediaId());
             characterList.get(i).setId(null);
+            characterList.get(i).setJob("actor");
             characterList.get(i).setPerson(person);
             characterService.save(characterList.get(i));
         }
