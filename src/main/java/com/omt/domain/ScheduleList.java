@@ -27,17 +27,13 @@ public class ScheduleList extends BaseEntity {
     @DateTimeFormat
     private Date updatedDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "watchlist_id")
     private Watchlist watchlist;
 
     @Column
-    @NotNull
-    private String username;
+    private Integer timer;
 
-    @Column
-    @NotNull
-    private String email;
 
     public Date getScheduledDateTime() {
         return scheduledDateTime;
@@ -71,19 +67,11 @@ public class ScheduleList extends BaseEntity {
         this.watchlist = watchlist;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getTimer() {
+        return timer;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTimer(Integer timer) {
+        this.timer = timer;
     }
 }

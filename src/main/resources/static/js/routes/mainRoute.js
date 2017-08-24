@@ -46,6 +46,11 @@
                 controller: 'WatchlistController',
                 controllerAs: 'vm'
             })
+            .when('/schedule-list', {
+                templateUrl: '/views/schedule-list.html',
+                controller: 'ScheduleListController',
+                controllerAs: 'schListCtrl'
+            })
             .when('/messages/success-password-activation', {
                 templateUrl: '/messages/success-password-activation.html',
                 controller: 'HomeController',

@@ -1,0 +1,38 @@
+<section>
+    <div class="container">
+        <div>
+            <div ng-repeat="schedule in schListCtrl.scheduleList">
+                <div class="row search-result-hover">
+                    <div class="panel-body">
+                            <div class="col-xs-6 col-sm-2">
+                                <img ng-show="schedule.watchlist.video.poster_path" class="person-image" ng-src="http://image.tmdb.org/t/p/w342/{{schedule.watchlist.video.poster_path}}" alt="" src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}">
+                            </div>
+                            <div class="col-xs-6 col-sm-10">
+                                <h5 class="ng-binding">
+                                    <small><b>Title:</b></small>
+                                    {{schedule.watchlist.video.name}}
+                                </h5>
+                                <h5 class="ng-binding">
+                                    <small><b>Watch date:</b></small>
+                                    <span class="small">{{ schedule.watchlist.watchDate | date:'dd-MMM-yyyy' }}</span>
+                                </h5>
+                                <h5>
+                                    <small><b>Overview:</b></small>
+                                </h5>
+                                <p class="ng-binding">{{ schedule.watchlist.video.overview }}</p>
+                            </div>
+
+                        <button class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="tooltip" title="Delete" ng-click="">
+                            <i class="fa fa-trash-o blue" aria-hidden="true"></i>
+                        </button>
+
+                        <button type="button" class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="modal" data-target="#EditTimeModal" title="Edit" ng-click="">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

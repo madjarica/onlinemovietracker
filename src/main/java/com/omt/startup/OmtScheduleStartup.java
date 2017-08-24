@@ -3,6 +3,7 @@ package com.omt.startup;
 import com.omt.domain.ScheduleList;
 import com.omt.service.ScheduleListService;
 import com.omt.service.UserNotificationService;
+import com.omt.service.UserService;
 import com.omt.timerTasks.FirstTimer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -18,11 +19,14 @@ public class OmtScheduleStartup implements ApplicationListener<ApplicationReadyE
 
     ScheduleListService scheduleListService;
     UserNotificationService userNotificationService;
+    UserService userService;
+    public static List<Timer> timers = new ArrayList<>();
 
     @Autowired
-    public OmtScheduleStartup(ScheduleListService scheduleListService, FirstTimer firstTimer, UserNotificationService userNotificationService) {
+    public OmtScheduleStartup(ScheduleListService scheduleListService, UserNotificationService userNotificationService, UserService userService) {
         this.scheduleListService = scheduleListService;
         this.userNotificationService = userNotificationService;
+        this.userService = userService;
 
     }
 
@@ -30,11 +34,13 @@ public class OmtScheduleStartup implements ApplicationListener<ApplicationReadyE
     public void onApplicationEvent(ApplicationReadyEvent event) {
         List<ScheduleList> scheduleLists = scheduleListService.findAll();
         for(int i = 0; i< scheduleLists.size(); i++){
-            FirstTimer firstTimer = new FirstTimer(userNotificationService);
+            FirstTimer firstTimer = new FirstTimer(userNotificationService, userService);
+            scheduleLists.get(i).setTimer(i);
             firstTimer.setScheduleList(scheduleLists.get(i));
             firstTimer.setDate(scheduleLists.get(i).getScheduledDateTime());
             Timer timer = new Timer();
-            timer.schedule(firstTimer, firstTimer.getDate());
+            timers.add(timer);
+            timers.get(i).schedule(firstTimer, firstTimer.getDate());
             System.out.println("Did it");
         }
     }

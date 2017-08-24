@@ -3,6 +3,10 @@ package com.omt.web.controller;
 import java.util.Date;
 import java.util.List;
 
+import com.omt.domain.ScheduleList;
+import com.omt.domain.UserNotification;
+import com.omt.service.ScheduleListService;
+import com.omt.service.UserNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +22,14 @@ import com.omt.service.WatchlistService;
 public class WatchlistController {
 
     WatchlistService watchlistService;
+    ScheduleListService scheduleListService;
+    UserNotificationService userNotificationService;
 
     @Autowired
-    public WatchlistController(WatchlistService watchlistService) {
+    public WatchlistController(WatchlistService watchlistService, ScheduleListService scheduleListService, UserNotificationService userNotificationService) {
         this.watchlistService = watchlistService;
+        this.scheduleListService = scheduleListService;
+        this.userNotificationService = userNotificationService;
     }
 
 
@@ -59,6 +67,14 @@ public class WatchlistController {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
+        List<ScheduleList> scheduleLists =  scheduleListService.findByWatchlistId(id);
+        for (ScheduleList scheduleList : scheduleLists) {
+            scheduleListService.delete(scheduleList.getId());
+        }
+        List<UserNotification> userNotifications = userNotificationService.getUserNotificationByWatchlistId(id);
+        for (UserNotification userNotification : userNotifications) {
+            userNotificationService.delete(userNotification.getId());
+        }
         watchlistService.delete(id);
     }
 
