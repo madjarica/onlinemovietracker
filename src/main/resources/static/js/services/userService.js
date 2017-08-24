@@ -8,10 +8,28 @@
 
         var service = {
             getUsers: getUsers,
-            getUserById: getUserById
+            getUserById: getUserById,
+            updateUser: updateUser
         };
 
         return service;
+
+        function updateUser(id, data) {
+            var def = $q.defer();
+            var req = {
+                method: 'PUT',
+                url: "/users/update-user/" + id,
+                data: data
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
 
         function getUserById(id) {
             var def = $q.defer();

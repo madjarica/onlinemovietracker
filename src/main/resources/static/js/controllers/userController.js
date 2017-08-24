@@ -9,22 +9,31 @@
         var vm = this;
         vm.getNumber = getNumber;
         vm.editUser = editUser;
+        vm.updateUser = updateUser;
 
         vm.active;
         vm.subscription;
         vm.status;
         vm.blockedUntil;
+        vm.userOptions = {};
 
-        vm.active_options = [true, false];
-        vm.subscription_option = [true, false];
+        vm.userOptions.active_options = [true, false];
+        vm.userOptions.subscription_option = [true, false];
+        vm.userOptions.status_option = [true, false];
+
+        function updateUser(data) {
+            UserService.updateUser(data.userId, data).then(function () {
+                getUsers();
+            })
+        }
 
         function editUser(id) {
             UserService.getUserById(id).then(function (response) {
-                console.log(response);
-                vm.active = response.active;
-                vm.subscription = response.subscription;
-                vm.status = response.status;
-                vm.blockedUntil = response.blockedUntil;
+                vm.userOptions.userId = id;
+                vm.userOptions.active = response.active;
+                vm.userOptions.subscription = response.subscription;
+                vm.userOptions.status = response.status;
+                vm.userOptions.blockedUntil = response.blockedUntil;
             });
         }
 

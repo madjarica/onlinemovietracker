@@ -29,7 +29,7 @@
         // On TV Functions
         function getOnTv(){
             HomeService.getOnTvFromService().then(function (response) {
-                vm.onTv = response.results.slice(3,6);
+                vm.onTv = response.results.slice(0,3);
             });
         }
         // End of On Tv Functions
@@ -37,7 +37,7 @@
         // In Theaters Functions
         function getInTheaters(){
             HomeService.getInTheatersService().then(function (response) {
-                vm.inTheaters = response.results.slice(3,6);
+                vm.inTheaters = response.results.slice(0,3);
             });
         }
         // End of In Theaters Functions
