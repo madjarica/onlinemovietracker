@@ -42,7 +42,7 @@
                     </th>
                     <th class="text-center">
                         <span ng-click="userCtrl.sortBy('status')" style="cursor: pointer;">
-                            <span>Status</span>
+                            <span>Blocked</span>
                             <span class="sortorder" ng-show="userCtrl.propertyName === 'status'" ng-class="{reverse: userCtrl.reverse}"></span>
                         </span>
                     </th>
@@ -80,7 +80,7 @@
                     <td>{{ user.email }}</td>
                     <td><span ng-if="user.active == true"><i class="fa fa-check" aria-hidden="true"></i></span><span ng-if="user.active == false"><i class="fa fa-ban" aria-hidden="true"></i></span></td>
                     <td><span ng-if="user.subscription == true"><i class="fa fa-check" aria-hidden="true"></i></span><span ng-if="user.subscription == false"><i class="fa fa-ban" aria-hidden="true"></i></span></td>
-                    <td><span ng-if="user.status == true"><i class="fa fa-ban" aria-hidden="true"></i></span><span ng-if="user.status == false"><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                    <td><span ng-if="user.status == false"><i class="fa fa-ban" aria-hidden="true"></i></span><span ng-if="user.status == true"><i class="fa fa-check" aria-hidden="true"></i></span></td>
                     <td>{{ user.blockedUntil | date:'dd-MMM-yyyy' }}</td>
                     <td>{{ user.createdDate | date:'dd-MMM-yyyy' }}</td>
                     <td>{{ user.updatedDate | date:'dd-MMM-yyyy' }}</td>

@@ -122,27 +122,30 @@ public class LoginUserController {
 
 	// Function for logging in user
 	// TODO Exception for bad password
-	// TODO Exceptions for not active and blocked until
-	// TODO check for status, active, and blocked until
 	@RequestMapping("/user")
-	public AuthenticatedUser getUser(Authentication authentication) {
+	public AuthenticatedUser getUser(Authentication authentication) throws Exception {
 
 		LoginUser loginUser = userService.findByUsername(authentication.getName());
 
 		// Logic for checking is user active and not blocked
 		if(loginUser != null) {
-			if(loginUser.isActive() == false) { // User is not active
-				// TODO exception da nalog nije aktiviran
+			if(!loginUser.isActive()) { // User is not active
+				// exception da nalog nije aktiviran
+				throw new Exception("Your account is not active.");
 			}
 
-			if(loginUser.isStatus() == true) { // User is blocked
-				// TODO exception da je user blokiran
+			if(loginUser.isStatus()) { // User is blocked
+				// exception da je user blokiran
+				throw new Exception("Your account is blocked by Admin.");
 			}
 
 			Date current_date = new Date();
 
-			if(loginUser.getBlockedUntil().after(current_date)) { // User is blocked until
-				// TODO exception da je user blokiran do tad i tad
+			if(loginUser.getBlockedUntil() != null) {
+				if(loginUser.getBlockedUntil().after(current_date)) { // User is blocked until
+					// exception da je user blokiran do tad i tad
+					throw new Exception("Your account is blocked until " + loginUser.getBlockedUntil());
+				}
 			}
 		}
 
@@ -285,10 +288,6 @@ public class LoginUserController {
 			user.setBlockedUntil(userData.getBlockedUntil());
 
 			Date current_date = new Date();
-
-			if(current_date.before(userData.getBlockedUntil())) {
-				user.setStatus(false);
-			}
 
 			user.setUpdatedDate(current_date);
 			userService.save(user);
