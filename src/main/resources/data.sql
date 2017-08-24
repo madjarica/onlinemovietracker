@@ -40,5 +40,5 @@ INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `vi
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user`) VALUES ('Strava film', NOW(), NOW(), 1, 'zoki');
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user` ) VALUES ('Ok je', NOW(), NOW(), 2, 'madjarica');
 
-INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `timer`) VALUES ('1', '2017-08-24 09:02:30', 1);
-INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `timer`) VALUES ('3', '2017-08-24 09:03:30', 2);
+INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `timer`) VALUES ('1', '2017-08-24 09:02:30', 0);
+INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `timer`) VALUES ('3', '2017-08-24 09:03:30', 1);

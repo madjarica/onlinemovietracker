@@ -5,7 +5,7 @@
                 <div class="row search-result-hover">
                     <div class="panel-body">
                             <div class="col-xs-6 col-sm-2">
-                                <img ng-show="schedule.watchlist.video.poster_path" class="person-image" ng-src="http://image.tmdb.org/t/p/w342/{{schedule.watchlist.video.poster_path}}" alt="" src="http://image.tmdb.org/t/p/w342/{{watchlist.video.poster_path}}">
+                                <img ng-show="schedule.watchlist.video.poster_path" class="person-image" ng-src="http://image.tmdb.org/t/p/w342/{{schedule.watchlist.video.poster_path}}" alt="" src="http://image.tmdb.org/t/p/w342/{{schedule.watchlist.video.poster_path}}">
                             </div>
                             <div class="col-xs-6 col-sm-10">
                                 <h5 class="ng-binding">
@@ -14,7 +14,7 @@
                                 </h5>
                                 <h5 class="ng-binding">
                                     <small><b>Watch date:</b></small>
-                                    <span class="small">{{ schedule.watchlist.watchDate | date:'dd-MMM-yyyy' }}</span>
+                                    <span class="small">{{ schedule.scheduledDateTime | date:'dd-MMM-yyyy hh-mm' }}</span>
                                 </h5>
                                 <h5>
                                     <small><b>Overview:</b></small>
@@ -22,15 +22,84 @@
                                 <p class="ng-binding">{{ schedule.watchlist.video.overview }}</p>
                             </div>
 
-                        <button class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="tooltip" title="Delete" ng-click="">
+                        <button class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="tooltip" title="Delete" ng-click="schListCtrl.deleteSchedule(schedule)">
                             <i class="fa fa-trash-o blue" aria-hidden="true"></i>
                         </button>
 
-                        <button type="button" class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="modal" data-target="#EditTimeModal" title="Edit" ng-click="">
+                        <button type="button" class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="modal" data-target="#EditTimeModal" title="Edit" ng-click="schListCtrl.selectSchedule(schedule)">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </button>
 
                     </div>
+                </div>
+            </div>
+            <button type="button" class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="modal" data-target="#SaveScheduleModal" title="Add new schedule element" ng-click="">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="EditTimeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Watch Date</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-11" style="padding-right: 0;">
+                            <input name="datePicker" type="text" class="form-control" uib-datepicker-popup ng-model="schListCtrl.selectedSchedule.scheduledDateTime" is-open="schListCtrl.popupCalendar.opened" datepicker-options="schListCtrl.datePickerOptions" ng-required="true" close-text="Close" date-parser required/>
+                        </div>
+                        <span class="col-xs-1" style="padding-left: 0;">
+                            <button style="margin-left: 0;" type="button" class="btn btn-sm btn-primary" ng-click="schListCtrl.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <input type="text" ng-model="schListCtrl.hours" class="form-control" placeholder="Hour">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="schListCtrl.minutes" class="form-control" placeholder="Minutes">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" style="margin-bottom: 10px;" ng-click="schListCtrl.saveSchedule(schListCtrl.selectedSchedule)" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SaveScheduleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabe2">Make a new scheduling</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-11" style="padding-right: 0;">
+                            <input name="datePicker" type="text" class="form-control" uib-datepicker-popup ng-model="schListCtrl.newSchedule.scheduledDateTime" is-open="schListCtrl.popupCalendar.opened" datepicker-options="schListCtrl.datePickerOptions" ng-required="true" close-text="Close" date-parser required/>
+                        </div>
+                        <span class="col-xs-1" style="padding-left: 0;">
+                            <button style="margin-left: 0;" type="button" class="btn btn-sm btn-primary" ng-click="schListCtrl.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <input type="text" ng-model="schListCtrl.hours" class="form-control" placeholder="Hour">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="schListCtrl.minutes" class="form-control" placeholder="Minutes">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" style="margin-bottom: 10px;" ng-click="schListCtrl.saveSchedule(schListCtrl.selectedSchedule)" data-dismiss="modal">Save changes</button>
                 </div>
             </div>
         </div>
