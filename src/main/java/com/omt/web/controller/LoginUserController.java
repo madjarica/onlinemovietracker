@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.omt.JsonResults.HashedEmail;
 import com.omt.JsonResults.Password;
+import com.omt.JsonResults.UpdateUser;
 import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
 import com.omt.domain.Role;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omt.service.UserNotificationService;
 import com.omt.service.UserService;
+import sun.rmi.runtime.Log;
 
 import javax.mail.MessagingException;
 
@@ -42,6 +44,54 @@ public class LoginUserController {
 		this.userNotificationService = userNotificationService;
 	}
 
+	// Find single user by ID
+	@RequestMapping(path = "{id}", method = RequestMethod.GET)
+	public LoginUser findOne(@PathVariable("id") Long id) {
+		return userService.findOne(id);
+	}
+
+	// Function for finding user by activation code
+	@RequestMapping(path = "code/{code}", method = RequestMethod.GET)
+	public LoginUser findByCodeForActivation(@PathVariable("code") String code) {
+		return userService.findByCodeForActivation(code);
+	}
+
+	// Function for finding user by username
+	@RequestMapping(path = "username/{username}", method = RequestMethod.GET)
+	public LoginUser findByUsername(@PathVariable("username") String username) {
+		return userService.findByUsername(username);
+	}
+
+	// Function for getting all users
+	@RequestMapping(method = RequestMethod.GET)
+	public List<LoginUser> findAll() {
+		List<LoginUser> users = userService.findAll();
+
+		for(LoginUser user : users) {
+			user.setPassword(null);
+			user.setPasswordTemp(null);
+			user.setPasswordActivationLink(null);
+			user.setCodeForActivation(null);
+			user.setHashed_email(null);
+		}
+
+		return users;
+	}
+
+	// Function for updating user
+	@RequestMapping(method = RequestMethod.PUT)
+	public LoginUser update(@RequestBody LoginUser user) {
+		return userService.save(user);
+	}
+
+	// Function for deleting user
+	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("id") Long id) {
+		userService.delete(id);
+	}
+
+	// Function for changing password
+	// TODO exception for short password
 	@RequestMapping(value = "/change-password/{username}", method = RequestMethod.POST)
 	public void changePassword(@PathVariable("username") String username, @RequestBody Password password) {
 		LoginUser user = userService.findByUsername(username);
@@ -54,6 +104,7 @@ public class LoginUserController {
 		}
 	}
 
+	// Function for getting hashed email needed for gravatar service
 	@RequestMapping(value = "/hashed-email/{username}", method = RequestMethod.GET)
 	public HashedEmail getHashedEmail(@PathVariable("username") String username) {
 		LoginUser user = userService.findByUsername(username);
@@ -69,8 +120,35 @@ public class LoginUserController {
 		return hashedEmail;
 	}
 
+	// Function for logging in user
+	// TODO Exception for bad password
 	@RequestMapping("/user")
-	public AuthenticatedUser getUser(Authentication authentication) {
+	public AuthenticatedUser getUser(Authentication authentication) throws Exception {
+
+		LoginUser loginUser = userService.findByUsername(authentication.getName());
+
+		// Logic for checking is user active and not blocked
+		if(loginUser != null) {
+			if(!loginUser.isActive()) { // User is not active
+				// exception da nalog nije aktiviran
+				throw new Exception("Your account is not active.");
+			}
+
+			if(loginUser.isStatus()) { // User is blocked
+				// exception da je user blokiran
+				throw new Exception("Your account is blocked by Admin.");
+			}
+
+			Date current_date = new Date();
+
+			if(loginUser.getBlockedUntil() != null) {
+				if(loginUser.getBlockedUntil().after(current_date)) { // User is blocked until
+					// exception da je user blokiran do tad i tad
+					throw new Exception("Your account is blocked until " + loginUser.getBlockedUntil());
+				}
+			}
+		}
+
 		List<String> roles = new ArrayList<>();
 		for(GrantedAuthority authority : authentication.getAuthorities()) {
 			roles.add(authority.getAuthority());
@@ -79,6 +157,7 @@ public class LoginUserController {
 		return user;
 	}
 
+	// Function for requesting new password if user forgotten password
 	@RequestMapping(value = "/request-new-password/{email}/", method = RequestMethod.POST)
 	public void requestNewPassword(@PathVariable("email") String email) throws MessagingException {
 		// Check if user exists and grab an user
@@ -114,6 +193,7 @@ public class LoginUserController {
 		}
 	}
 
+	// Function for activating new requested password
 	@RequestMapping(value = "/activate-new-password/{password_activation_code}", method = RequestMethod.GET)
 	public String activateNewPassword(@PathVariable("password_activation_code") String password_activation_code) {
 
@@ -131,26 +211,8 @@ public class LoginUserController {
 		return "<script>window.location = 'http://localhost:8080/#/messages/failed-password-activation';</script>";
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<LoginUser> findAll() {
-		List<LoginUser> users = userService.findAll();
-
-		for(LoginUser user : users) {
-			user.setPassword(null);
-			user.setPasswordTemp(null);
-			user.setPasswordActivationLink(null);
-			user.setCodeForActivation(null);
-			user.setHashed_email(null);
-		}
-
-		return users;
-	}
-
-	@RequestMapping(path = "{id}", method = RequestMethod.GET)
-	public LoginUser findOne(@PathVariable("id") Long id) {
-		return userService.findOne(id);
-	}
-
+	// Function for user registration
+	// TODO Exceptions for username, email, short password
 	@RequestMapping(method = RequestMethod.POST)
 	public LoginUser save(@RequestBody LoginUser user) throws Exception {
 
@@ -196,6 +258,7 @@ public class LoginUserController {
 		return userService.save(user);
 	}
 
+	// Function for activating user
 	@RequestMapping(path = "activate/{activation-code}", method = RequestMethod.GET)
 	public String activateUser(@PathVariable("activation-code") String code) {
 	LoginUser user = findByCodeForActivation(code);
@@ -209,23 +272,25 @@ public class LoginUserController {
 		return "<script>window.location = 'http://localhost:8080/#/messages/failed-account-activation';</script>";
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public LoginUser update(@RequestBody LoginUser user) {
-		return userService.save(user);
-	}
+	// Admin function for updating user information about status, active, subscription and Date until user is blocked
+	// TODO Exceptions
+	@RequestMapping(path = "update-user/{id}", method = RequestMethod.PUT)
+	public void updateUser(@PathVariable("id") Long id, @RequestBody UpdateUser userData) {
 
-	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable("id") Long id) {
-		userService.delete(id);
-	}
+		//Grab an user
+		LoginUser user = userService.findOne(id);
 
-	@RequestMapping(path = "code/{code}", method = RequestMethod.GET)
-	public LoginUser findByCodeForActivation(@PathVariable("code") String code) {
-		return userService.findByCodeForActivation(code);
-	}
+		// Update fields
+		if(user != null) {
+			user.setSubscription(userData.isSubscription());
+			user.setActive(userData.isActive());
+			user.setStatus(userData.isStatus());
+			user.setBlockedUntil(userData.getBlockedUntil());
 
-	@RequestMapping(path = "username/{username}", method = RequestMethod.GET)
-	public LoginUser findByUsername(@PathVariable("username") String username) {
-		return userService.findByUsername(username);
+			Date current_date = new Date();
+
+			user.setUpdatedDate(current_date);
+			userService.save(user);
+		}
 	}
 }

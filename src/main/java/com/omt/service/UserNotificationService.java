@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,6 +48,13 @@ public class UserNotificationService {
         userNotificationRepository.delete(id);
     }
 
+    public List<UserNotification> getUserNotifications(String name){
+ 		return userNotificationRepository.getUserNotificationByWatchlistWatchlistUser(name);
+	}
+	public List<UserNotification> getUserNotificationByWatchlistId(Long id){
+    	return userNotificationRepository.getUserNotificationByWatchlistId(id);
+	}
+
     public void sendNewPassword(String email, String password, String password_activation_link) throws MessagingException {
 
 		MimeMessage message = javaMailSender.createMimeMessage();
@@ -76,5 +84,20 @@ public class UserNotificationService {
 		helper.setText(emailContent, true);
 
 		javaMailSender.send(message);
+	}
+
+	public void sendScheduledReminder(String email, String username, String mediaToWatch, Date dateToWatch) throws MessagingException {
+    	MimeMessage message = javaMailSender.createMimeMessage();
+    	MimeMessageHelper helper;
+    	String emailContent = username + ", you wanted to watch " + mediaToWatch + " today at " + dateToWatch;
+
+    	helper = new MimeMessageHelper(message, true);
+    	helper.setFrom("notification@onlinemovietracker.com");
+    	helper.setTo(email);
+    	helper.setSubject("Scheduled reminder");
+    	helper.setText(emailContent, true);
+
+    	javaMailSender.send(message);
+    	System.out.println("Email - Did it");
 	}
 }

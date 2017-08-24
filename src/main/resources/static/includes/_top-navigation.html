@@ -72,6 +72,8 @@
                     <div class="tab-content">
                         <div id="login" class="tab-pane fade in active">
                             <br>
+                            <div style="margin-top: 5px;" class="alert alert-danger" ng-if="authCtrl.loginMessages.error != ''">{{ authCtrl.loginMessages.error }}</div>
+
                             <form ng-submit="authCtrl.login(authCtrl.loginCredentials)" name="authCtrl.loginForm">
                                 <div class="form-group">
                                     <input type="text" name="authCtrl.loginCredentials.username" ng-model="authCtrl.loginCredentials.username" class="form-control" id="username" placeholder="Username" autofocus>

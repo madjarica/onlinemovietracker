@@ -46,6 +46,11 @@
                 controller: 'WatchlistController',
                 controllerAs: 'vm'
             })
+            .when('/schedule-list', {
+                templateUrl: '/views/schedule-list.html',
+                controller: 'ScheduleListController',
+                controllerAs: 'schListCtrl'
+            })
             .when('/messages/success-password-activation', {
                 templateUrl: '/messages/success-password-activation.html',
                 controller: 'HomeController',
@@ -78,8 +83,8 @@
             })
             .when('/user/view-notifications', {
                 templateUrl: '/views/user/view-notifications.html',
-                controller: 'HomeController',
-                controllerAs: 'vm'
+                controller: 'NotificationController',
+                controllerAs: 'notifyController'
             })
             .when('/user/change-password', {
                 templateUrl: '/views/user/change-password.html',

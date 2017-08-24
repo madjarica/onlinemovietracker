@@ -12,11 +12,29 @@
             saveWatchlist: saveWatchlist,
             getUserWatchlist: getUserWatchlist,
             deleteWatchlist: deleteWatchlist,
+            changeWatchDate: changeWatchDate,
             userWatchlist: [],
             selectedWatchlist: {}
         };
 
         return service;
+
+        function changeWatchDate(id, date) {
+            var def = $q.defer();
+            var req = {
+                method: 'POST',
+                url: "watchlists/change-watch-date/" + id,
+                data: date
+            };
+            $http(req)
+                .success(function (data) {
+                    def.resolve(data);
+                })
+                .error(function (error) {
+                    def.reject(error.message);
+                });
+            return def.promise;
+        }
 
         function getWatchlists() {
             var def = $q.defer();

@@ -2,14 +2,10 @@ package com.omt.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,8 +15,7 @@ public class UserNotification extends BaseEntity{
     public UserNotification() {
     }
 
-    @NotNull
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String type;
 
     @NotNull
@@ -28,27 +23,12 @@ public class UserNotification extends BaseEntity{
     @DateTimeFormat
     private Date createdDate;
 
-    @NotNull
     @Column
-    private boolean read;
+    private Boolean readState;
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "user_notification_id"),
-    inverseJoinColumns = @JoinColumn(name = "watchlist_id"))
-    private Set<Watchlist> watchlist;
-    
-    /*
-    private List<Comment> comments;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "watchlist_id")
     private Watchlist watchlist;
-    */
-
-    public UserNotification(String type, Date createdDate, boolean read, Set<Watchlist> watchlist) {
-		super();
-		this.type = type;
-		this.createdDate = createdDate;
-		this.read = read;
-		this.watchlist = watchlist;
-	}
 
 	public String getType() {
         return type;
@@ -66,19 +46,19 @@ public class UserNotification extends BaseEntity{
         this.createdDate = createdDate;
     }
 
-    public boolean isRead() {
-        return read;
+    public Boolean isRead() {
+        return readState;
     }
 
-    public void setRead(boolean read) {
-        this.read = read;
+    public void setRead(Boolean read) {
+        this.readState = read;
     }
 
-	public Set<Watchlist> getWatchlist() {
-		return watchlist;
-	}
+    public Watchlist getWatchlist() {
+        return watchlist;
+    }
 
-	public void setWatchlist(Set<Watchlist> watchlist) {
-		this.watchlist = watchlist;
-	}
+    public void setWatchlist(Watchlist watchlist) {
+        this.watchlist = watchlist;
+    }
 }

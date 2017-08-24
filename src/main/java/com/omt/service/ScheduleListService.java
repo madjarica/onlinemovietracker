@@ -37,6 +37,13 @@ public class ScheduleListService {
         // TODO Auto-generated method stub
         scheduleListRepository.delete(id);
     }
-	
+
+    public List<ScheduleList> findByWatchlistId(Long id){
+        return scheduleListRepository.findByWatchlistId(id);
+    }
+
+    public List<ScheduleList> findByUser(String username){
+        return scheduleListRepository.findByWatchlistWatchlistUser(username);
+    }
 }
 

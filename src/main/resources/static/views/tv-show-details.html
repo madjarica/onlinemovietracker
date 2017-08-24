@@ -56,14 +56,6 @@
                         {{ vm.tvShowDetails.overview }}
                     </p>
                 </div>
-                <div class="row">
-                    <h5 class="white-text">Featured Crew</h5>
-
-                    <p class="white-text">
-                        <b>Ronald D. Moore</b><br>
-                        Creator
-                    </p>
-                </div>
             </div>
         </div>
     </div>
@@ -77,6 +69,7 @@
             <li><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
             <li><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
             <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
+            <li><a data-toggle="tab" href="#creators" target="_self">Creators</a></li>
             <li><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
             <li><a data-toggle="tab" href="#edit" target="_self">Edit</a></li>
         </ul>
@@ -106,10 +99,7 @@
                 <div ng-repeat="episode in vm.tvShowDetails.tvShowEpisodes">
                     <div class="row" ng-if="episode.season_number > 0">
                         <div class="row">
-                            <div class="col-xs-6 col-sm-3">
-                                <img class="person-image" src="" alt="">
-                            </div>
-                            <div class="col-xs-6 col-sm-9">
+                            <div class="col-xs-12">
                                 <h5>
                                     <small><b>Title:</b></small>
                                     {{ episode.name }}
@@ -124,7 +114,13 @@
                                     <small><b>Air Date:</b></small>
                                     {{ episode.air_date | date:'dd-MM-yyyy' }}
                                 </h5>
-                                <p>{{ episode.overview }}</p>
+                                <div id="module" class="collapse-box" ng-if="episode.overview != ''">
+                                    <p class="collapse" id="episode_{{ episode.id }}" aria-expanded="false">
+                                        {{ episode.overview }}
+                                    </p>
+                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#episode_{{ episode.id }}" aria-expanded="false" aria-controls="collapseExample">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -152,7 +148,7 @@
 
             <div id="actors" class="tab-pane fade">
                 <br>
-                <div ng-repeat="actor in vm.tvShowDetails.characterList">
+                <div ng-repeat="actor in vm.tvShowDetails.characterList" ng-show="actor.job == 'actor'">
                     <div class="row">
                         <div class="row">
                             <div class="col-xs-6 col-sm-2">
@@ -168,18 +164,60 @@
                                     <small><b>Real Name:</b></small>
                                     {{ actor.person.name }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.birthday != null">
                                     <small><b>Birthday:</b></small>
                                     {{ actor.person.birthday | date:'dd-MM-yyyy' }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.placeOfBirth != null">
                                     <small><b>Place of Birth:</b></small>
                                     {{ actor.person.placeOfBirth }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.biography != ''">
                                     <small><b>Biography:</b></small>
                                 </h5>
-                                <p>{{ actor.person.biography }}</p>
+                                <div class="collapse-box" ng-if="actor.person.biography != ''">
+                                    <p class="collapse" id="actor_{{ actor.id }}" aria-expanded="false">
+                                        {{ actor.person.biography }}
+                                    </p>
+                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#actor_{{ actor.id }}" aria-expanded="false" aria-controls="collapseExample">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+            <div id="creators" class="tab-pane fade">
+                <br>
+                <div ng-repeat="director in vm.tvShowDetails.characterList" ng-show="director.job == 'director'">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-2">
+                                <img class="person-image"
+                                     src="http://image.tmdb.org/t/p/w185/{{ director.person.picture }}" alt="">
+                            </div>
+                            <div class="col-xs-6 col-sm-10">
+                                <h5>
+                                    <small><b>Real Name:</b></small>
+                                    {{ director.person.name }}
+                                </h5>
+                                <h5 ng-if="director.person.birthday != null">
+                                    <small><b>Birthday:</b></small>
+                                    {{ director.person.birthday | date:'dd-MM-yyyy' }}
+                                </h5>
+                                <h5 ng-if="director.person.place_of_birth != null">
+                                    <small><b>Place of Birth:</b></small>
+                                    {{ director.person.place_of_birth }}
+                                </h5>
+                                <h5 ng-if="director.person.biography != ''">
+                                    <small><b>Biography:</b></small>
+                                </h5>
+
+                                <p ng-if="director.person.biography != ''">
+                                    {{ director.person.biography }}
+                                </p>
                             </div>
                         </div>
                         <hr>

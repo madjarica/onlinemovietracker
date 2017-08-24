@@ -14,8 +14,8 @@ public class Character extends BaseEntity{
     }
 
     @Column
-    @JsonProperty("character")
-    private String name;
+	@JsonProperty("character")
+	private String name;
 
     @Column
     @JsonProperty("actor_id")
@@ -24,16 +24,21 @@ public class Character extends BaseEntity{
     @Column
     private Long tmdbMediaId;
 
+    @Column
+	@JsonProperty("job")
+    private String job;
+
     @ManyToOne
     private Person person;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
     public Long getActorId() {
         return actorId;
@@ -57,5 +62,13 @@ public class Character extends BaseEntity{
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 }

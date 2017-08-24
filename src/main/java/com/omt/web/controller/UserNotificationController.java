@@ -49,5 +49,9 @@ public class UserNotificationController {
         userNotificationService.delete(id);
     }
 
+    @RequestMapping(path="by-user/{username}", method = RequestMethod.GET)
+    public List<UserNotification> getUserNotifications(@PathVariable("username") String name){
+        return userNotificationService.getUserNotifications(name);
+    }
 
 }

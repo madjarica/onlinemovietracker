@@ -20,6 +20,9 @@
         self.loginCredentials = {};
         self.forgotCredentials = {};
 
+        self.loginMessages = {};
+        self.loginMessages.error = '';
+
         self.errors = {};
         self.errors.register = '';
 
@@ -74,7 +77,8 @@
                 });
 
             }).error(function (error) {
-                self.error = 'Bad credentials!';
+                console.log(error.message);
+                self.loginMessages.error = error.message;
             });
         }
 

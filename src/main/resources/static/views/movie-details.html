@@ -39,8 +39,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png"
-                                                                                 class="imdb-logo"></a>
+                    <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
                     <button ng-hide="::(vm.checkIfAdded())"
                             class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
                             title="Mark as favorite!"><i class="fa fa-heart" ng-class="(vm.favourite ? 'red':'gray')"
@@ -56,14 +55,6 @@
                         {{ vm.movieDetails.overview }}
                     </p>
                 </div>
-                <div class="row">
-                    <h5 class="white-text">Featured Crew</h5>
-
-                    <p class="white-text">
-                        <b>Christopher Nolan</b><br>
-                        Director, Writer
-                    </p>
-                </div>
             </div>
         </div>
     </div>
@@ -77,6 +68,7 @@
             <li><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
             <li><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
             <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
+            <li><a data-toggle="tab" href="#creators" target="_self">Director</a></li>
             <li><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
         </ul>
 
@@ -125,7 +117,7 @@
             </div>
             <div id="actors" class="tab-pane fade">
                 <br>
-                <div ng-repeat="actor in vm.movieDetails.characterList">
+                <div ng-repeat="actor in vm.movieDetails.characterList" ng-show="actor.job == 'actor'">
                     <div class="row">
                         <div class="row">
                             <div class="col-xs-6 col-sm-2">
@@ -141,18 +133,60 @@
                                     <small><b>Real Name:</b></small>
                                     {{ actor.person.name }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.birthday != null">
                                     <small><b>Birthday:</b></small>
                                     {{ actor.person.birthday | date:'dd-MM-yyyy' }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.place_of_birth != null">
                                     <small><b>Place of Birth:</b></small>
                                     {{ actor.person.place_of_birth }}
                                 </h5>
-                                <h5>
+                                <h5 ng-if="actor.person.biography != ''">
                                     <small><b>Biography:</b></small>
                                 </h5>
-                                <p>{{ actor.person.biography }}</p>
+
+                                <div class="collapse-box" ng-if="actor.person.biography != ''">
+                                    <p class="collapse" id="actor_{{ actor.id }}" aria-expanded="false">
+                                        {{ actor.person.biography }}
+                                    </p>
+                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#actor_{{ actor.id }}" aria-expanded="false" aria-controls="collapseExample">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div id="creators" class="tab-pane fade">
+                <br>
+                <div ng-repeat="director in vm.movieDetails.characterList" ng-show="director.job == 'director'">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-2">
+                                <img class="person-image"
+                                     src="http://image.tmdb.org/t/p/w185/{{ director.person.picture }}" alt="">
+                            </div>
+                            <div class="col-xs-6 col-sm-10">
+                                <h5>
+                                    <small><b>Real Name:</b></small>
+                                    {{ director.person.name }}
+                                </h5>
+                                <h5 ng-if="director.person.birthday != null">
+                                    <small><b>Birthday:</b></small>
+                                    {{ director.person.birthday | date:'dd-MM-yyyy' }}
+                                </h5>
+                                <h5 ng-if="director.person.place_of_birth != null">
+                                    <small><b>Place of Birth:</b></small>
+                                    {{ director.person.place_of_birth }}
+                                </h5>
+                                <h5 ng-if="director.person.biography != ''">
+                                    <small><b>Biography:</b></small>
+                                </h5>
+
+                                <p ng-if="director.person.biography != ''">
+                                    {{ director.person.biography }}
+                                </p>
                             </div>
                         </div>
                         <hr>

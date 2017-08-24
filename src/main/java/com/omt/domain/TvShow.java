@@ -45,6 +45,10 @@ public class TvShow extends Video {
     @JsonProperty("number_of_seasons")
     private Integer numberOfSeasons;
 
+    @Column
+    @JsonProperty("created_by")
+    @ElementCollection(targetClass = Character.class)
+    private List<Character> creators;
 
     public List<TvShowEpisode> getTvShowEpisodes() {
         return tvShowEpisodes;
@@ -84,5 +88,13 @@ public class TvShow extends Video {
 
     public void setNumberOfSeasons(Integer numberOfSeasons) {
         this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public List<Character> getCreators() {
+        return creators;
+    }
+
+    public void setCreators(List<Character> creators) {
+        this.creators = creators;
     }
 }

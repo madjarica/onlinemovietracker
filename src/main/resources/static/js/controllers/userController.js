@@ -8,6 +8,49 @@
 
         var vm = this;
         vm.getNumber = getNumber;
+        vm.editUser = editUser;
+        vm.updateUser = updateUser;
+        vm.selectUser = selectUser;
+        vm.deleteUser = deleteUser;
+
+        vm.active;
+        vm.subscription;
+        vm.status;
+        vm.blockedUntil;
+        vm.userOptions = {};
+
+        vm.userOptions.active_options = [true, false];
+        vm.userOptions.subscription_option = [true, false];
+        vm.userOptions.status_option = [true, false];
+
+        function updateUser(data) {
+            UserService.updateUser(data.userId, data).then(function () {
+                getUsers();
+            })
+        }
+
+        function selectUser(id) {
+            UserService.getUserById(id).then(function (response) {
+                vm.userOptions.username = response.username;
+                vm.userOptions.userId = id;
+            });
+        }
+
+        function editUser(id) {
+            UserService.getUserById(id).then(function (response) {
+                vm.userOptions.userId = id;
+                vm.userOptions.active = response.active;
+                vm.userOptions.subscription = response.subscription;
+                vm.userOptions.status = response.status;
+                vm.userOptions.blockedUntil = response.blockedUntil;
+            });
+        }
+        
+        function deleteUser(id) {
+            UserService.deleteUserById(id).then(function (response) {
+                getUsers();
+            });
+        }
 
         function getNumber(num) {
             return new Array(num);
@@ -19,38 +62,28 @@
         vm.usersData;
         vm.sortBy = sortBy;
 
-        // vm.filteredTables = [];
-        // vm.currentPage = 1;
-        // vm.numOfPages = 0;
-        // vm.numPerPage = 3;
-        // vm.makeTables = makeTables;
+        vm.openCalendar = openCalendar;
+        vm.datePickerOptions = {
+            formatYear: 'yy'
+        };
 
-        // function makeTables(table) {
-        //     var def =  $q.defer();
-        //     var number_of_elements = table.length;
-        //     var number_of_tables = Math.ceil(number_of_elements / vm.numPerPage);
-        //     var begin = 0;
-        //     var end = vm.numPerPage;
-        //     var pom_table = [];
-        //     var pom_table_2 = [];
-        //     vm.numOfPages = number_of_tables;
-        //
-        //     for(i = 0; i < number_of_tables; i++) {
-        //         for(j = begin; j < end; j++) {
-        //             pom_table.push(table[j]);
-        //         }
-        //         pom_table_2.push(pom_table);
-        //
-        //         begin = end;
-        //         end = end + vm.numPerPage;
-        //         pom_table = [];
-        //     }
-        //     return pom_table_2;
-        // }
+        vm.popupCalendar = {
+            opened: false
+        };
+
+        function openCalendar() {
+            vm.popupCalendar.opened = true;
+        }
 
         function sortBy(propertyName) {
             vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
             vm.propertyName = propertyName;
+        }
+
+        function getUserById(id) {
+            UserService.getUserById().then(function (response) {
+                console.log(response);
+            })
         }
 
         function getUsers() {

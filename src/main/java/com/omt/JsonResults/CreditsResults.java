@@ -14,6 +14,9 @@ public class CreditsResults {
     @JsonProperty("id")
     private Long tmdbMediaId;
 
+	@JsonProperty("job")
+	private String job;
+
     public List<Character> getObject() {
         return characters;
     }
@@ -37,4 +40,12 @@ public class CreditsResults {
     public void setTmdbMediaId(Long tmdbMediaId) {
         this.tmdbMediaId = tmdbMediaId;
     }
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
 }
