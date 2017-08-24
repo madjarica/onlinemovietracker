@@ -8,6 +8,7 @@
 
         var service = {
             getWatchlists: getWatchlists,
+            getWatchlist: getWatchlist,
             saveWatchlist: saveWatchlist,
             getUserWatchlist: getUserWatchlist,
             deleteWatchlist: deleteWatchlist,
@@ -24,6 +25,22 @@
                 url: "/watchlists/"
             };
 
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+        
+        function getWatchlist(id){
+        	var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "/watchlists/" + id,
+            };
+            
             $http(req).success(function (response) {
                 def.resolve(response);
             }).error(function (error) {
@@ -83,6 +100,5 @@
             return def.promise;
 
         }
-
     }
 })();
