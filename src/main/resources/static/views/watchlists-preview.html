@@ -11,7 +11,12 @@
                         <div class="col-xs-6 col-sm-10">
                             <h5><small><b>Title:</b> </small>{{ watchlist.video.name }}</h5>
                             <h5><small><b>Original Title:</b> </small>{{ watchlist.video.original_title }}</h5>
+                            <div ng-if="watchlist.video.release_date">
                             <h5><small><b>Release date:</b> </small>{{ watchlist.video.release_date | date:'dd-MMM-yyyy' }}</h5>
+                            </div>
+                            <div ng-if="watchlist.video.first_air_date">
+                            <h5><small><b>Release date:</b> </small>{{ watchlist.video.first_air_date | date:'dd-MMM-yyyy' }}</h5>
+                            </div>
                             <h5><small><b>Genres:</b> </small>Comedy, Romance</h5>
                             <h5><small><b>Overview:</b> </small></h5>
                             <p>{{ watchlist.video.overview }}</p>
