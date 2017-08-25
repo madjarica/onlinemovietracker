@@ -12,9 +12,10 @@ angular.module('app')
         vm.saveComment = saveComment;
         vm.deleteComment = deleteComment;
         vm.commentForm;
-//        vm.commentInput = {}
         vm.importError = "";
+        vm.commentContent;
         vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+        vm.notification;
         vm.comments = vm.selectedWatchlist.comment;
         vm.comment = {};
         console.log(vm.comment);
@@ -61,6 +62,13 @@ angular.module('app')
             			console.log(vm.selectedWatchlist);
             			vm.comments = vm.selectedWatchlist.comment;
             			console.log(vm.comments);
+            			vm.commentContent = "";
+//            			vm.notification.type = "notification_comment"
+            			console.log(vm.commentContent);
+/*            			vm.notification = vm.comment.commentUser;
+            			NotificationService.saveNotification(notification).then(function(){
+            				vm.notification.type = "notification_comment";
+            			});*/
             		});
 //            	});
             	//getUserComment(vm.userComment.username)

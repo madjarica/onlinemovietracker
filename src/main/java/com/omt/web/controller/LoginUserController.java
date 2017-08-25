@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omt.service.UserNotificationService;
 import com.omt.service.UserService;
-import sun.rmi.runtime.Log;
 
 import javax.mail.MessagingException;
 

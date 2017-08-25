@@ -21,8 +21,6 @@
 		
 		  /**
          * Saving comment into database
-         * @param {Object} comment
-         * @return {Object} data
          */
         function saveComment(comment) {
             var def = $q.defer();
@@ -42,8 +40,6 @@
         
         /**
          * Deleting comment from database
-         * @param {Long} id
-         * @return {Object} data
          */
         function deleteComment(id) {
             var def = $q.defer();
@@ -63,7 +59,6 @@
         
         /**
          * Getting all comments from database
-         * @return {Object} data
          */
         function getComments() {
             var def = $q.defer();
@@ -83,8 +78,6 @@
         
         /**
          * Getting all comments for single watchlist
-         * @param {Long} id
-         * @return {Object} data
          */
         function getCommentByWatchlistId(id) {
             var def = $q.defer();

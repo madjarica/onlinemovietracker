@@ -7,7 +7,8 @@
     function NotificationService($http, $q) {
 
         var service = {
-            getUserNotifications: getUserNotifications
+            getUserNotifications: getUserNotifications,
+            saveNotification: saveNotification
         };
 
         return service;
@@ -28,6 +29,22 @@
                     return def.reject("Failed to get notifications");
                 });
 
+            return def.promise;
+        }
+        
+        function saveNotification(notification) {
+            var def = $q.defer();
+            var req = {
+                method: notification.id ? 'PUT' : 'POST',
+                url: "notifications"
+                data: notification}
+            $http(req)
+	            .success(function (data) {
+	                def.resolve(data);
+	            })
+                .error(function () {
+                    def.reject("Failed");
+                });
             return def.promise;
         }
 

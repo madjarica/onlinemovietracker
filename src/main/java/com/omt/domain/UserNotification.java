@@ -25,6 +25,9 @@ public class UserNotification extends BaseEntity{
 
     @Column
     private Boolean readState;
+    
+    @Column
+    private String sender;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "watchlist_id")
