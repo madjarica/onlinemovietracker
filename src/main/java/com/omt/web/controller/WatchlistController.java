@@ -3,6 +3,8 @@ package com.omt.web.controller;
 import java.util.Date;
 import java.util.List;
 
+import com.omt.config.LoginUserService;
+import com.omt.domain.LoginUser;
 import com.omt.domain.ScheduleList;
 import com.omt.domain.UserNotification;
 import com.omt.service.ScheduleListService;
@@ -24,12 +26,14 @@ public class WatchlistController {
     WatchlistService watchlistService;
     ScheduleListService scheduleListService;
     UserNotificationService userNotificationService;
+    LoginUserService loginUserService;
 
     @Autowired
-    public WatchlistController(WatchlistService watchlistService, ScheduleListService scheduleListService, UserNotificationService userNotificationService) {
+    public WatchlistController(WatchlistService watchlistService, ScheduleListService scheduleListService, UserNotificationService userNotificationService, LoginUserService loginUserService) {
         this.watchlistService = watchlistService;
         this.scheduleListService = scheduleListService;
         this.userNotificationService = userNotificationService;
+        this.loginUserService = loginUserService;
     }
 
 
@@ -81,6 +85,12 @@ public class WatchlistController {
     @RequestMapping(path = "get-user-watchlist/{username}")
     public List<Watchlist> findByUsername(@PathVariable("username") String username) {
         return watchlistService.findByUsername(username);
+    }
+
+    @RequestMapping(path = "get-by-title/{search}")
+    public List<Watchlist> findByTitle(@PathVariable("search") String search){
+        System.out.println(loginUserService.getCurrentUser().getUsername());
+        return watchlistService.findByTitle(search, loginUserService.getCurrentUser().getUsername());
     }
 
     public Watchlist checkForDuplicate(String username, Long id){

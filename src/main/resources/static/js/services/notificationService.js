@@ -8,7 +8,9 @@
 
         var service = {
             getUserNotifications: getUserNotifications,
-            saveNotification: saveNotification
+            saveNotification: saveNotification,
+            notifications: [],
+            number: {}
         };
 
         return service;
@@ -31,7 +33,7 @@
 
             return def.promise;
         }
-        
+
         function saveNotification(notification) {
             var def = $q.defer();
             var req = {

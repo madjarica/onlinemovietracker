@@ -2,22 +2,26 @@
     angular.module('app')
         .controller('ScheduleListController', ScheduleListController);
 
-    ScheduleListController.$inject = [ 'ScheduleListService', 'AuthenticationService'];
+    ScheduleListController.$inject = [ 'ScheduleListService', 'AuthenticationService', 'WatchlistService'];
 
-    function ScheduleListController(ScheduleListService, AuthenticationService) {
+    function ScheduleListController(ScheduleListService, AuthenticationService, WatchlistService) {
 
         var vm = this;
         vm.saveSchedule = saveSchedule;
         vm.deleteSchedule = deleteSchedule;
         vm.selectSchedule = selectSchedule;
+        vm.getUserWatchlist = getUserWatchlist;
         vm.username = AuthenticationService.currentUsername;
         vm.selectedSchedule = {}
         vm.newSchedule = {};
+        vm.newSchedule.scheduledDateTime = new Date(vm.newSchedule.scheduledDateTime);
         vm.scheduleList = [];
-        vm.hours = {};
-        vm.minutes = {};
+        vm.userWatchlist = [];
+        vm.hours;
+        vm.minutes;
 
         getUserScheduleList();
+        getUserWatchlist();
 
         function getUserScheduleList(){
             ScheduleListService.getUserScheduleList(vm.username).then(function (response) {
@@ -26,12 +30,15 @@
         }
 
         function saveSchedule(schedule){
-            console.log("klik klak")
+            console.log("klik klak");
+            console.log(schedule);
             schedule.scheduledDateTime.setHours(vm.hours);
             schedule.scheduledDateTime.setMinutes(vm.minutes);
             ScheduleListService.saveSchedule(schedule).then(function (response) {
                 console.log(response);
                 getUserScheduleList();
+                vm.hours = null;
+                vm.minutes = null;
             })
         }
         
@@ -49,10 +56,17 @@
             console.log(vm.selectedSchedule);
         }
 
+        function getUserWatchlist(){
+            WatchlistService.getUserWatchlist(vm.username).then(function (response) {
+                vm.userWatchlist = response;
+                console.log(response);
+            })
+        }
+
         vm.openCalendar = openCalendar;
         vm.datePickerOptions = {
             formatYear: 'yy',
-            maxDate : new Date()
+            // maxDate : new Date()
         };
 
         vm.popupCalendar = {

@@ -85,6 +85,7 @@
         function logout() {
             $http.defaults.headers.common['Authorization'] = null;
             delete self.user;
+            AuthenticationService.currentUsername = null;
             $location.url("/");
         }
 

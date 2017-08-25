@@ -15,6 +15,7 @@
             deleteWatchlist: deleteWatchlist,
             changeWatchDate: changeWatchDate,
             getwatchlistDetails: getwatchlistDetails,
+            getByTitle: getByTitle,
             userWatchlist: [],
             selectedWatchlist: {}
         };
@@ -53,14 +54,14 @@
 
             return def.promise;
         }
-        
+
         function getWatchlist(id){
         	var def = $q.defer();
             var req = {
                 method: 'GET',
                 url: "/watchlists/" + id,
             };
-            
+
             $http(req).success(function (response) {
                 def.resolve(response);
             }).error(function (error) {
@@ -129,12 +130,24 @@
             };
 
             $http(req).success(function (response) {
+
+
+        function getByTitle(search) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: '/watchlists/get-by-title/' + search
+            }
+
+            $http(req).success(function (response) {
+                console.log(search);
                 def.resolve(response);
             }).error(function (error) {
                 def.reject(error);
             });
 
             return def.promise;
+
         }
     }
 })();

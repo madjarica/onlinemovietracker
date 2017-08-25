@@ -11,7 +11,7 @@
             requestNewPassword: requestNewPassword,
             requestHashedEmail: requestHashedEmail,
             changePassword: changePassword,
-            currentUsername: {}
+            currentUsername: null
         };
 
         return service;

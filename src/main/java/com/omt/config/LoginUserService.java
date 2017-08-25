@@ -56,9 +56,11 @@ public class LoginUserService implements UserDetailsService {
 		return authorities;
 	}
 
-	public User getCurrentllyLoggedUser(){
+	public User getCurrentlyLoggedUser(){
 		return currentUser;
 	}
 
-
+	public User getCurrentUser() {
+		return currentUser;
+	}
 }

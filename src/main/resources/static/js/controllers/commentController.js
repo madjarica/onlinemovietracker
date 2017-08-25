@@ -65,7 +65,8 @@ angular.module('app')
             			vm.commentContent = "";
 //            			vm.notification.type = "notification_comment"
             			console.log(vm.commentContent);
-            			vm.notification.sender = vm.comment.commentUser;
+            			vm.notification.sender = vm.username;
+            			vm.notification.read = false;
             			vm.notification.watchlist = vm.selectedWatchlist;
             			vm.notification.type = "notification_comment";
             			NotificationService.saveNotification(vm.notification).then(function(response){

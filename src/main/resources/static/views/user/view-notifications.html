@@ -5,9 +5,16 @@
         <nav class="navbar navbar-dark default-color">
             <div class="container-fluid">
                 <ul class="nav navbar-nav" role="tablist">
-                    <li role="presentation" class="active"><a href="#inbox" aria-controls="inbox" role="tab" data-toggle="tab" target="_self"><i class="fa fa-envelope" aria-hidden="true"></i> Inbox</a></li>
-                    <li role="presentation"><a href="#sent" aria-controls="sent" role="tab" data-toggle="tab" target="_self"><i class="fa fa-paper-plane" aria-hidden="true"></i> Sent</a></li>
-                    <li role="presentation"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab" target="_self"><i class="fa fa-trash" aria-hidden="true"></i> Trash</a></li>
+                    <li role="presentation" class="active"><a href="#inbox" aria-controls="inbox" role="tab"
+                                                              data-toggle="tab" target="_self"><i class="fa fa-envelope"
+                                                                                                  aria-hidden="true"></i>
+                        Inbox</a></li>
+                    <li role="presentation"><a href="#sent" aria-controls="sent" role="tab" data-toggle="tab"
+                                               target="_self"><i class="fa fa-paper-plane" aria-hidden="true"></i> Sent</a>
+                    </li>
+                    <li role="presentation"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab"
+                                               target="_self"><i class="fa fa-trash" aria-hidden="true"></i> Trash</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -21,7 +28,8 @@
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">
                                 <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                         alt="user profile image">
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5">
@@ -36,7 +44,8 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
+                                    css hmtl js framework. Codes for developers and web designers</p>
                             </div>
                         </div>
                     </div>
@@ -49,7 +58,8 @@
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">
                                 <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                         alt="user profile image">
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5">
@@ -64,15 +74,24 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
+                                    css hmtl js framework. Codes for developers and web designers</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div>
                     <div ng-repeat="notify in notifyController.notifications">
-                        {{notify.watchlist.watchlistUser}}, you wanted to watch {{notify.watchlist.video.name}} today at {{notify.createdDate}}!
-                        <br>
+                        <div ng-if="notify.type === 'reminder'">
+                            {{notify.watchlist.watchlistUser}}, you wanted to watch {{notify.watchlist.video.name}}
+                            today at {{notify.createdDate}}!
+                            <br>
+                        </div>
+                        <div ng-if="notify.type === 'notification_comment'">
+                            {{notify.sender}}, commented on your {{notify.watchlist.video.name}} watchlist
+                            today at {{notify.createdDate}}!
+                            <br>
+                        </div>
                     </div>
                 </div>
                 <!-- Comment -->
@@ -85,7 +104,8 @@
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">
                                 <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                         alt="user profile image">
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5">
@@ -100,7 +120,8 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
+                                    css hmtl js framework. Codes for developers and web designers</p>
                             </div>
                         </div>
                     </div>
@@ -112,7 +133,8 @@
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">
                                 <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                         alt="user profile image">
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5">
@@ -127,7 +149,8 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
+                                    css hmtl js framework. Codes for developers and web designers</p>
                             </div>
                         </div>
                     </div>
@@ -142,7 +165,8 @@
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">
                                 <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                         alt="user profile image">
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5">
@@ -157,7 +181,8 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
+                                    css hmtl js framework. Codes for developers and web designers</p>
                             </div>
                         </div>
                     </div>
@@ -169,7 +194,8 @@
                         <div class="panel panel-white post panel-shadow">
                             <div class="post-heading">
                                 <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                         alt="user profile image">
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5">
@@ -184,7 +210,8 @@
                                 </div>
                             </div>
                             <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
+                                    css hmtl js framework. Codes for developers and web designers</p>
                             </div>
                         </div>
                     </div>
