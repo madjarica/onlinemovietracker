@@ -91,6 +91,11 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
-            .otherwise('/');
+        	.when('/watchlists-preview', {
+            	templateUrl: '/views/watchlists-preview.html',
+            	controller: 'WatchlistController',
+            	controllerAs: 'wCtrl'
+        	})
+        	.otherwise('/');
     }
 })();

@@ -15,9 +15,12 @@
         vm.favWatchlist = favWatchlist;
         vm.goToDetailsPage = goToDetailsPage;
         vm.saveWatchDate = saveWatchDate;
+        getWatchlists = getWatchlists;
+        getWatchlistDetails = getWatchlistDetails;
         vm.newWatchlist = {};
         vm.selectedWatchlist = {};
         vm.userWatchlist = {};
+        vm.watchlists = {};
         vm.watchDate = {};
         
         function saveWatchDate(id, date) {
@@ -41,6 +44,19 @@
         }
 
         init();
+        
+        function getWatchlists(){
+            WatchlistService.getWatchlists().then(function (response){
+            	vm.watchlists = response;
+            	console.log(vm.watchlists)
+            })
+//            .then(handleSuccessWatchlists).then(function () {
+//            })
+        }
+        
+        function handleSuccessWatchlists(data, status){
+            vm.watchlists = data.data;
+        }
         
         function getUserWatchlist(username) {
             WatchlistService.getUserWatchlist(username).then(function (response) {
@@ -102,9 +118,21 @@
                 $location.url('tv-show-details');
             }
         }
+        
+        function getWatchlistDetails(id) {
+            WatchlistService.getWatchlistDetails(id).then(function (response) {
+            	WatchlistService.watchlistDetails = response;
+                var runtime = WatchlistService.watchlistDetails.runtime;
+                var hoursAndMinutes = Math.floor(runtime / 60) + 'h ' + Math.floor(runtime % 60) + 'min';
+                WatchlistService.watchlistDetails.runtime = hoursAndMinutes;
+            }).then(function () {
+                $location.url("watchlists-preview");
+            })
+        }
 
         function init() {
-            getUserWatchlist(vm.username)
+            getUserWatchlist(vm.username);
+        	getWatchlists();
         }
     }
 

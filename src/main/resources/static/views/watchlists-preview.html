@@ -1,0 +1,25 @@
+<section>
+  <div class="container">
+  agvaga
+	<div ng-repeat="watchlist in wCtrl.watchlists">
+        	Result
+            	<div class="row">
+                	<div class="row search-result-hover" ng-click="wCtrl.goToDetailsPage(watchlist)" style="padding-top: 20px;">
+                        <div class="col-xs-6 col-sm-2">
+                            <img ng-show="watchlist.video.poster_path" class="person-image" ng-src="http://image.tmdb.org/t/p/w342/{{ watchlist.video.poster_path }}" alt="">
+                        </div>
+                        <div class="col-xs-6 col-sm-10">
+                            <h5><small><b>Title:</b> </small>{{ watchlist.video.name }}</h5>
+                            <h5><small><b>Original Title:</b> </small>{{ watchlist.video.original_title }}</h5>
+                            <h5><small><b>Release date:</b> </small>{{ watchlist.video.release_date | date:'dd-MMM-yyyy' }}</h5>
+                            <h5><small><b>Genres:</b> </small>Comedy, Romance</h5>
+                            <h5><small><b>Overview:</b> </small></h5>
+                            <p>{{ watchlist.video.overview }}</p>
+                            <h5><strong><b>Added by:</b></strong>{{watchlist.watchlistUser}}</h5>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+    	</div>
+    </div>
+</section>

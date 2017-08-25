@@ -62,7 +62,7 @@
 </section>
 
 <section>
-    <div class="container">
+    <div class="container" class="row" ng-controller="CommentController as comCtrl">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#about" target="_self">About</a></li>
             <li><a data-toggle="tab" href="#episodes" target="_self">Episodes</a></li>
@@ -238,128 +238,118 @@
                                              alt="user profile image">
                                     </div>
                                     <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
+                                        <div class="title h5"></div>
                                     </div>
                                 </div>
                                 <div class="post-description">
-                                    <textarea name="" id="" rows="5" class="form-control"></textarea>
+                                	<form ng-submit="comCtrl.addComment(comCtrl.commentContent)">
+                                	<textarea name="" id="" rows="5" class="form-control" ng-model="comCtrl.commentContent"></textarea>
                                     <div class="stats">
-                                        <a href="#" class="btn btn-default" style="float: right">
+                                        <button class="btn btn-default" style="float: right">
                                             <i class="fa fa-comment-o icon"></i> Comment
-                                        </a>
+                                        </button>
+                                	</form>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
+                    
+<!-- Comment -->
+<div>
+	<div class="col-sm-10 col-sm-offset-2 col-xs-10" ng-repeat="comment in comCtrl.comments | orderBy: '-id'">
+		<div class="panel panel-white post panel-shadow">
+        	<div class="pull-left image">
+            	<img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+           </div>
+		</div>
+			<div class="col-sm-5">
+				<div class="panel panel-default">	
+					<div class="panel-heading">
+						<strong>{{ comment.commentUser }}</strong> 																	
+						<div class="panel-body">
+							<span style="float: center;" ng-if="comment.commentContent === '' || comment.commentContent === null">
+								<i>No comment</i>
+							</span>
+							<span style="float: center;" ng-if="comment.commentContent !== '' || comment.commentContent !== null">
+								{{ comment.commentContent }}
+							</span>
+						</div>
+						<div class="stats">
+                            <a href="#" class="btn btn-default">
+                                <i class="fa fa-reply icon"></i> Reply
+                            </a>
+                            <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-comment-modal" ng-click="comCtrl.selectComment(comment)">
+                            	<i class="fa fa-pencil icon"></i> Edit
+                            </button>
+                            <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-comment-modal" ng-click="comCtrl.selectComment(comment)">
+                                <i class="fa fa-trash icon"></i> Delete
+                            </button>
+                        </div>
+                        <div class="panel-footer">
+							<span class="text-muted">commented {{comment.createdDate | date:'dd-MMM-yyyy'}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-                    <!-- Comment -->
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                            <div class="panel panel-white post panel-shadow">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
-                                             alt="user profile image">
-                                    </div>
-                                    <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
-                                        <h6 class="text-muted time">1 minute ago</h6>
-                                    </div>
-                                </div>
-                                <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for
-                                        bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default">
-                                            <i class="fa fa-reply icon"></i> Reply
-                                        </a>
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-pencil icon"></i> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="fa fa-trash icon"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Comment -->
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                            <div class="panel panel-white post panel-shadow">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
-                                             alt="user profile image">
-                                    </div>
-                                    <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
-                                        <h6 class="text-muted time">1 minute ago</h6>
-                                    </div>
-                                </div>
-                                <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for
-                                        bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default">
-                                            <i class="fa fa-reply icon"></i> Reply
-                                        </a>
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-pencil icon"></i> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="fa fa-trash icon"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Comment -->
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                            <div class="panel panel-white post panel-shadow">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
-                                             alt="user profile image">
-                                    </div>
-                                    <div class="pull-left meta">
-                                        <div class="title h5">
-                                            <b>Ryan Haywood</b>
-                                        </div>
-                                        <h6 class="text-muted time">1 minute ago</h6>
-                                    </div>
-                                </div>
-                                <div class="post-description">
-                                    <p>Bootdey is a gallery of free snippets resources templates and utilities for
-                                        bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default">
-                                            <i class="fa fa-reply icon"></i> Reply
-                                        </a>
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-pencil icon"></i> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="fa fa-trash icon"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    
+        <!-- Modal -->
+		<!-- Delete comment -->
+		<div class="modal fade" id="delete-comment-modal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<fieldset>
+						<legend>Delete comment</legend>
+						<p>Do you want to delete this comment?</p>
+					</fieldset>	
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="comCtrl.deleteComment(comCtrl.selectedComment.id)">OK</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+        <!-- Modal -->
+		<!-- Edit comment -->
+		<div class="modal fade" id="edit-comment-modal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<fieldset>
+							<legend>Edit comment</legend>
+							<form name="comCtrl.addCommentForm">
+							<div class="form-group">
+								<label class="col-md-2 control-label">Comment:</label>
+								{{BkmdCtrl.nah}}
+								<div class="col-md-10">
+									<textarea name="" ng-model="comCtrl.selectedComment.commentContent" id="" rows="5" class="form-control" required></textarea>
+								</div>
+							</div>
+						</form>
+						</fieldset>
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="comCtrl.saveComment(comCtrl.selectedComment)">OK</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>            
+                
             <div id="edit" class="tab-pane fade">
                 <div class="row">
                     <div class="form-group">
