@@ -114,8 +114,8 @@
                                     <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$invalid">Password must have minimal 6 characters.</div>
                                     <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$error.required">Password is required.</div>
                                 </div>
-                                <div class="col-xs-8 col-xs-offset-2">
-                                    <div class="g-recaptcha" data-sitekey="6Ld4Ii4UAAAAAPUDKnd4I2PrzhEZ4no-C8S62rB9"></div>
+                                <div class="col-xs-12" style="text-align: center;">
+                                    <div vc-recaptcha key="authCtrl.publicKey" size="normal" style="display:inline-block"></div>
                                 </div>
                                 <div class="col-xs-8 col-xs-offset-2">
                                     <button class="btn btn-primary waves-effect waves-light btn-block">Register</button>

@@ -29,6 +29,7 @@
         vm.fillTvShowData = fillTvShowData;
         vm.saveTvShow = saveTvShow;
         vm.getTvShowDetails = getTvShowDetails;
+        vm.fbshareCurrentPage = fbshareCurrentPage;
         vm.tvShowObject = {};
         vm.tvShowDetails = TvShowsService.tvShowDetails;
         vm.tvShowEdit = {};
@@ -44,6 +45,13 @@
         vm.favourite = false;
         vm.userWatchlist = WatchlistService.userWatchlist;
         checkFav();
+
+        function fbshareCurrentPage(imdb_link) {
+            window.open("https://www.facebook.com/sharer/sharer.php?u="+escape(imdb_link)+"&t="+document.title, '',
+                'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            return false;
+        }
+
 
         // On List of Movies
         function getTvShowByTitle(title){

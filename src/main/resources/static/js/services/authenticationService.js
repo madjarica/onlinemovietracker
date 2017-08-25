@@ -11,10 +11,28 @@
             requestNewPassword: requestNewPassword,
             requestHashedEmail: requestHashedEmail,
             changePassword: changePassword,
+            sendCaptcha: sendCaptcha,
             currentUsername: null
         };
 
         return service;
+
+        function sendCaptcha(data) {
+            var def = $q.defer();
+            var req = {
+                method: 'POST',
+                url: "users/captcha",
+                data: data
+            };
+
+            return $http(req).success(function (response) {
+                return response;
+            }).error(function () {
+                def.reject("Failed");
+            });
+
+            return def.promise;
+        }
 
         function changePassword(username, password) {
             var def = $q.defer();
