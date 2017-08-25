@@ -71,5 +71,5 @@ public class Comment extends BaseEntity {
 	public void setCommentUser(String commentUser) {
 		this.commentUser = commentUser;
 	}
-	
+
 }

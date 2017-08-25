@@ -39,7 +39,7 @@ public class FirstTimer extends TimerTask {
         watchlist = scheduleList.getWatchlist();
         System.out.println(watchlist.getWatchlistUser() + ", you wanted to watch " + watchlist.getVideo().getName() + " at " + date + "........." + LocalDateTime.now());
         userNotification.setRead(false);
-        userNotification.setType("Reminder");
+        userNotification.setType("reminder");
         userNotification.setWatchlist(watchlist);
         userNotification.setCreatedDate(date);
         userNotificationService.save(userNotification);

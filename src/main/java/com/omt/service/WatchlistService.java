@@ -45,4 +45,8 @@ public class WatchlistService {
     public Watchlist checkForDuplicate(String username, Long id){
         return watchlistRepository.findByWatchlistUserAndVideoId(username, id);
     }
+
+    public List<Watchlist> findByTitle(String search, String username){
+        return watchlistRepository.findByVideoTitleContainsAndWatchlistUser(search, username);
+    }
 }

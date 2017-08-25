@@ -44,8 +44,8 @@
                         <!--</li>-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item" ng-show="authCtrl.user">
-                            <a class="nav-link waves-effect waves-light" href="#/user/view-notifications">1 <i class="fa fa-bell"></i></a>
+                        <li class="nav-item" ng-show="authCtrl.user" ng-controller="NotificationController as notifyCtrl" >
+                            <a class="nav-link waves-effect waves-light" href="#/user/view-notifications" ng-click="notifyCtrl.markAsRead()"> {{notifyCtrl.number}} <i class="fa fa-bell"></i></a>
                         </li>
                         <li class="nav-item" ng-show="authCtrl.user">
                             <a class="nav-link waves-effect waves-light" href="#/admin/view-messages">1 <i class="fa fa-envelope"></i></a>

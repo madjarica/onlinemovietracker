@@ -63,4 +63,12 @@ public class UserNotification extends BaseEntity{
     public void setWatchlist(Watchlist watchlist) {
         this.watchlist = watchlist;
     }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 }

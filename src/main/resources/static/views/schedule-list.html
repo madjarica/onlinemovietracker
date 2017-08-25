@@ -95,11 +95,15 @@
                         <div class="form-group">
                             <input type="text" ng-model="schListCtrl.minutes" class="form-control" placeholder="Minutes">
                         </div>
+                        <div>
+                            <select ng-model="schListCtrl.newSchedule.watchlist" ng-options="watchlist.video.name for watchlist in schListCtrl.userWatchlist">
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" style="margin-bottom: 10px;" ng-click="schListCtrl.saveSchedule(schListCtrl.selectedSchedule)" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="btn btn-primary" style="margin-bottom: 10px;" ng-click="schListCtrl.saveSchedule(schListCtrl.newSchedule)" data-dismiss="modal">Save changes</button>
                 </div>
             </div>
         </div>
