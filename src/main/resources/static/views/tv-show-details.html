@@ -51,6 +51,10 @@
                             title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
+                    <a class="btn btn-sm btn-primary waves-effect waves-light" style="margin-left: 0;" ng-click="vm.fbshareCurrentPage(vm.tvShowDetails.imdb_id)" target="_blank" alt="Share on Facebook">Facebook</a>
+                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world" data-size="large" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
+                </div>
+                <div class="row">
                     <h5 class="white-text">Overview</h5>
                     <p class="white-text">
                         {{ vm.tvShowDetails.overview }}

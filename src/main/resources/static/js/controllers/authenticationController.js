@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('AuthenticationController', AuthenticationController);
 
-    AuthenticationController.$inject = ['$location', '$http', '$route', '$routeParams', 'AuthenticationService'];
+    AuthenticationController.$inject = ['$location', '$http', '$route', '$routeParams', 'AuthenticationService', 'vcRecaptchaService'];
 
-    function AuthenticationController($location, $http, $route, $routeParams, AuthenticationService) {
+    function AuthenticationController($location, $http, $route, $routeParams, AuthenticationService, vcRecaptchaService) {
 
         var self = this;
 
@@ -29,6 +29,8 @@
         self.registerForm = {};
         self.loginForm = {};
         self.forgotForm = {};
+
+        self.publicKey = "6Ld4Ii4UAAAAAPUDKnd4I2PrzhEZ4no-C8S62rB9";
 
         self.user;
         self.username = AuthenticationService.currentUsername;
@@ -90,12 +92,27 @@
         }
 
         function register(user) {
-            AuthenticationService.saveUser(user).then(function(response) {
-                init();
-                console.log("registered");
-            }, function(error) {
-                console.log(error)
-            });
+            if(vcRecaptchaService.getResponse() === "") {
+                self.errors.register = "You need to solve captcha first.";
+            } else {
+                var data = {
+                    'g-recaptcha-response': vcRecaptchaService.getResponse()  //send g-captcah-reponse to our server
+                };
+                self.errors.register = "";
+                AuthenticationService.sendCaptcha(data).then(function (response) {
+                   if(response.data.success) {
+                       AuthenticationService.saveUser(user).then(function() {
+                           init();
+                           console.log("registered");
+                       }, function(error) {
+                           console.log(error)
+                       });
+                   }
+                }, function (error) {
+                    console.log(error);
+                });
+
+            }
         }
 
         function changePassword(username, password) {

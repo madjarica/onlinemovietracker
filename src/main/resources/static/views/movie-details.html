@@ -1,3 +1,13 @@
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1951619005120869";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <section class="background-image" back-img="http://image.tmdb.org/t/p/w780/{{ vm.movieDetails.backdrop_path }}">
     <div class="row no-padding no-margin" style="background-color: rgba(0,0,0,.6);">
         <div class="container">
@@ -48,6 +58,10 @@
                             ng-controller="WatchlistController as watchCtrl"
                             ng-click="watchCtrl.addToWatchlist(vm.movieDetails)" data-toggle="tooltip"
                             title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
+                </div>
+                <div class="row">
+                    <a class="btn btn-sm btn-primary waves-effect waves-light" style="margin-left: 0;" ng-click="vm.fbshareCurrentPage(vm.movieDetails.imdb_id)" target="_blank" alt="Share on Facebook">Facebook</a>
+                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world" data-size="large" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
@@ -211,14 +225,14 @@
                                 </div>
                                 <div class="post-description">
                                 	<form ng-submit="comCtrl.addComment(comCtrl.commentContent)">
-                                	<textarea name="" id="" rows="5" class="form-control" ng-model="comCtrl.commentContent"></textarea>
-                                    <div class="stats">
-                                        <button class="btn btn-default" style="float: right">
-                                            <i class="fa fa-comment-o icon"></i> Comment
-                                        </button>
-                                	</form>
+                                        <textarea name="" rows="5" class="form-control" ng-model="comCtrl.commentContent"></textarea>
+                                        <div class="stats">
+                                            <button class="btn btn-default" style="float: right">
+                                                <i class="fa fa-comment-o icon"></i> Comment
+                                            </button>
+                                        </div>
                                         <div class="clearfix"></div>
-                                    </div>
+                                	</form>
                                 </div>
                             </div>
                         </div>

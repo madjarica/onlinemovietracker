@@ -1,5 +1,6 @@
 package com.omt.web.controller;
 
+import java.net.URI;
 import java.security.MessageDigest;
 import java.util.*;
 
@@ -9,10 +10,11 @@ import com.omt.JsonResults.UpdateUser;
 import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
 import com.omt.domain.Role;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestOperations;
 
 import com.omt.service.UserNotificationService;
 import com.omt.service.UserService;
+import org.springframework.web.client.RestTemplate;
 
 import javax.mail.MessagingException;
 
@@ -31,10 +35,18 @@ import javax.mail.MessagingException;
 @RequestMapping("/users")
 public class LoginUserController {
 
-	private Logger logger = LoggerFactory.getLogger(LoginUserController.class);
+//	private Logger logger = LoggerFactory.getLogger(LoginUserController.class);
 
 	UserService userService;
 	private UserNotificationService userNotificationService;
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
+	@Autowired
+	private RestOperations restTemplate;
 
 	@Autowired
 	public LoginUserController(UserService userService, UserNotificationService userNotificationService) {
@@ -290,5 +302,14 @@ public class LoginUserController {
 			user.setUpdatedDate(current_date);
 			userService.save(user);
 		}
+	}
+
+	@RequestMapping(path ="/captcha", method = RequestMethod.POST)
+	public String getSomethingSomething(@RequestBody Map<String, String> request){
+		String response = request.get("g-recaptcha-response");
+		String secret = "6Ld4Ii4UAAAAAC2-gF8dnqW9zzFm1YQxLuxDmedv";
+		URI verifyUri = URI.create(String.format("https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s", secret, response));
+		String googleResponse = restTemplate.getForObject(verifyUri, String.class);
+		return googleResponse;
 	}
 }

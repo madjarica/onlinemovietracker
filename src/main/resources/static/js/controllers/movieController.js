@@ -5,9 +5,9 @@
             $sceProvider.enabled(false);
         });
 
-    MovieController.$inject = ['$location', '$http', '$route', 'MovieService', 'WatchlistService'];
+    MovieController.$inject = ['$location', '$http', '$scope', '$route', 'MovieService', 'WatchlistService', '$window', '$sce'];
 
-    function MovieController($location, $http, $route, MovieService, WatchlistService) {
+    function MovieController($location, $http, $scope, $route, MovieService, WatchlistService, $window, $sce) {
 
         var vm = this;
 
@@ -29,11 +29,13 @@
         vm.fillMovieData = fillMovieData;
         vm.getMovieDetails = getMovieDetails;
         vm.saveMovie = saveMovie;
+        vm.fbshareCurrentPage = fbshareCurrentPage;
         vm.movieObject = {};
         vm.movieDetails = MovieService.movieDetails;
         vm.movieObject.poster_path = "/img/default_poster.jpg";
         vm.movieObject.backdrop_path = "/img/default_backdrop.jpg";
         vm.movieList = [];
+        vm.shareFacebook = "";
 
         //Watchlist
         vm.checkFav = checkFav;
@@ -62,6 +64,12 @@
             }).then(function () {
                 $location.url("movie-details");
             })
+        }
+
+        function fbshareCurrentPage(imdb_link) {
+            window.open("https://www.facebook.com/sharer/sharer.php?u="+escape(imdb_link)+"&t="+document.title, '',
+            'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            return false;
         }
 
         // End of show movie details
