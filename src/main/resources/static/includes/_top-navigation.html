@@ -18,11 +18,18 @@
                     <ul class="nav navbar-nav">
                         <li ng-class="{ 'active': vm.isActive('/') }"><a class="nav-link waves-effect waves-light" href="#/">Home</a></li>
                         <li ng-class="{ 'active': vm.isActive('/search') }"><a class="nav-link waves-effect waves-light" href="#/search">Search</a></li>
-                        <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/add-movie') }"><a class="nav-link waves-effect waves-light" href="#/add-movie">Add Movie</a></li>
-                        <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/add-tv-show') }"><a class="nav-link waves-effect waves-light" href="#/add-tv-show">Add TV Show</a></li>
-                        <li ng-class="{ 'active': vm.isActive('/admin/view-users') }"><a class="nav-link waves-effect waves-light" href="#/admin/view-users">View Users</a></li>
-                        <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/add-episode') }"><a class="nav-link waves-effect waves-light" href="#/add-episode">Add Episode</a></li>
                         <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/watchlist') }"><a class="nav-link waves-effect waves-light" href="#/watchlist">Watchlist</a></li>
+                        <li ng-show="authCtrl.user" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self">Add Movie/Tv Show <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-class="{ 'active': vm.isActive('/add-movie') }"><a class="nav-link waves-effect waves-light" href="#/add-movie">Add Movie</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li ng-class="{ 'active': vm.isActive('/add-tv-show') }"><a class="nav-link waves-effect waves-light" href="#/add-tv-show">Add TV Show</a></li>
+                                <li ng-class="{ 'active': vm.isActive('/add-episode') }"><a class="nav-link waves-effect waves-light" href="#/add-episode">Add Tv Show Episode</a></li>
+                            </ul>
+                        </li>
+
+                        <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/admin/view-users') }"><a class="nav-link waves-effect waves-light" href="#/admin/view-users">View Users</a></li>
                         <!--<li class="dropdown">-->
                         <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
                         <!--<ul class="dropdown-menu">-->
@@ -106,6 +113,9 @@
                                     <input type="password" name="authCtrl.registerCredentials.password" ng-model="authCtrl.registerCredentials.password" class="form-control" placeholder="Password" required>
                                     <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$invalid">Password must have minimal 6 characters.</div>
                                     <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$error.required">Password is required.</div>
+                                </div>
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <div class="g-recaptcha" data-sitekey="6Ld4Ii4UAAAAAPUDKnd4I2PrzhEZ4no-C8S62rB9"></div>
                                 </div>
                                 <div class="col-xs-8 col-xs-offset-2">
                                     <button class="btn btn-primary waves-effect waves-light btn-block">Register</button>
