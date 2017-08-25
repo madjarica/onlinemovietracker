@@ -36,7 +36,7 @@
             var def = $q.defer();
             var req = {
                 method: notification.id ? 'PUT' : 'POST',
-                url: "notifications"
+                url: "user_notifications",
                 data: notification}
             $http(req)
 	            .success(function (data) {

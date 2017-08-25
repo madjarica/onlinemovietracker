@@ -2,9 +2,9 @@
 angular.module('app')
     .controller('CommentController', CommentController);
     
-    CommentController.$inject = ['$location' ,'CommentService', '$filter', '$rootScope', 'WatchlistService', 'AuthenticationService'];
+    CommentController.$inject = ['$location' ,'CommentService', '$filter', '$rootScope', 'WatchlistService', 'AuthenticationService', 'NotificationService'];
    
-    function CommentController($location ,CommentService, $filter, $rootScope, WatchlistService, AuthenticationService) {
+    function CommentController($location ,CommentService, $filter, $rootScope, WatchlistService, AuthenticationService, NotificationService) {
     	
     	var vm = this;
         vm.addComment = addComment;
@@ -15,7 +15,7 @@ angular.module('app')
         vm.importError = "";
         vm.commentContent;
         vm.selectedWatchlist = WatchlistService.selectedWatchlist;
-        vm.notification;
+        vm.notification = {};
         vm.comments = vm.selectedWatchlist.comment;
         vm.comment = {};
         console.log(vm.comment);
@@ -65,10 +65,12 @@ angular.module('app')
             			vm.commentContent = "";
 //            			vm.notification.type = "notification_comment"
             			console.log(vm.commentContent);
-/*            			vm.notification = vm.comment.commentUser;
-            			NotificationService.saveNotification(notification).then(function(){
-            				vm.notification.type = "notification_comment";
-            			});*/
+            			vm.notification.sender = vm.comment.commentUser;
+            			vm.notification.watchlist = vm.selectedWatchlist;
+            			vm.notification.type = "notification_comment";
+            			NotificationService.saveNotification(vm.notification).then(function(response){
+            				console.log(response);
+            			});
             		});
 //            	});
             	//getUserComment(vm.userComment.username)

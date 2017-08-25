@@ -18,7 +18,6 @@ public class UserNotification extends BaseEntity{
     @Column(nullable = true)
     private String type;
 
-    @NotNull
     @Column
     @DateTimeFormat
     private Date createdDate;
