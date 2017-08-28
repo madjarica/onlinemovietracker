@@ -30,6 +30,13 @@
         self.loginForm = {};
         self.forgotForm = {};
 
+        // Navigation
+        self.isActive = isActive;
+
+        function isActive(viewLocation) {
+            return viewLocation === $location.path();
+        }
+
         self.publicKey = "6Ld4Ii4UAAAAAPUDKnd4I2PrzhEZ4no-C8S62rB9";
 
         self.user;

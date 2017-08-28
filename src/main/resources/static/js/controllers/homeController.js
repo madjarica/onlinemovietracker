@@ -8,9 +8,6 @@
 
         var vm = this;
 
-        // Navigation
-        vm.isActive = isActive;
-
         // TV Shows
         vm.getOnTv = getOnTv;
         vm.onTv = [];
@@ -41,11 +38,6 @@
             });
         }
         // End of In Theaters Functions
-
-        function isActive(viewLocation) {
-            return viewLocation === $location.path();
-        }
-
 
     }
 })();

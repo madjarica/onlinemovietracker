@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.omt.JsonResults.*;
+import com.omt.config.LoginUserService;
 import com.omt.domain.*;
 import com.omt.domain.Character;
 import com.omt.repository.GenreRepository;
@@ -33,6 +34,7 @@ public class TvShowController {
     CharacterService characterService;
     KeywordService keywordService;
     GenreRepository genreRepository;
+	LoginUserService loginUserService;
     RestOperations restTemplate = new RestTemplate();
 
     String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
@@ -49,7 +51,7 @@ public class TvShowController {
 
     @Autowired
     public TvShowController(TvShowService tvShowService, TvShowEpisodeService tvShowEpisodeService, VideoService videoService, PersonService personService,
-                            CharacterService characterService, GenreRepository genreRepository, KeywordService keywordService) {
+                            CharacterService characterService, GenreRepository genreRepository, KeywordService keywordService, LoginUserService loginUserService) {
         this.tvShowService = tvShowService;
         this.tvShowEpisodeService = tvShowEpisodeService;
         this.videoService = videoService;
@@ -57,6 +59,7 @@ public class TvShowController {
         this.characterService = characterService;
         this.genreRepository = genreRepository;
         this.keywordService = keywordService;
+        this.loginUserService = loginUserService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -146,6 +149,10 @@ public class TvShowController {
 
         TvShow tvShow = restTemplate.getForObject(API_GET_MOVIE, TvShow.class, id, API_KEY);
         getCharacters(id);
+
+        if(loginUserService.getCurrentUser() != null) {
+			tvShow.setAddedBy(loginUserService.getCurrentUser().getUsername());
+        }
 
         Locale[] locales = Locale.getAvailableLocales();
         for (Locale locale : locales) {
