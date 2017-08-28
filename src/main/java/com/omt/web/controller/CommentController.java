@@ -2,6 +2,7 @@ package com.omt.web.controller;
 
 import java.util.List;
 
+import com.omt.service.AdminMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,10 +18,12 @@ import com.omt.service.CommentService;
 public class CommentController {
 
 	 CommentService commentService;
+	 AdminMessageService adminMessageService;
 
 	    @Autowired
-	    public CommentController(CommentService commentService) {
+	    public CommentController(CommentService commentService, AdminMessageService adminMessageService) {
 	        this.commentService = commentService;
+	        this.adminMessageService = adminMessageService;
 	    }
 
 
@@ -46,6 +49,7 @@ public class CommentController {
 
 	    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	    public void delete(@PathVariable("id") Long id) {
+			adminMessageService.deleteForComments(id);
 	        commentService.delete(id);
 	    }
 	    

@@ -3,13 +3,8 @@ package com.omt.domain;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.persistence.JoinColumn;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -65,7 +60,7 @@ public class LoginUser extends BaseEntity {
 	@Column(nullable = true)
 	@DateTimeFormat
 	private Date updatedDate;
-	
+
 	@ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
