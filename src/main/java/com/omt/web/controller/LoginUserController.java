@@ -10,9 +10,8 @@ import com.omt.JsonResults.UpdateUser;
 import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
 import com.omt.domain.Role;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
+import com.omt.startup.OmtScheduleStartup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
@@ -35,8 +34,6 @@ import javax.mail.MessagingException;
 @RequestMapping("/users")
 public class LoginUserController {
 
-//	private Logger logger = LoggerFactory.getLogger(LoginUserController.class);
-
 	UserService userService;
 	private UserNotificationService userNotificationService;
 
@@ -58,6 +55,18 @@ public class LoginUserController {
 	@RequestMapping(path = "{id}", method = RequestMethod.GET)
 	public LoginUser findOne(@PathVariable("id") Long id) {
 		return userService.findOne(id);
+	}
+
+	// Find secured user by ID
+	@RequestMapping(path = "secure/{id}", method = RequestMethod.GET)
+	public LoginUser findOneSecure(@PathVariable("id") Long id) {
+		LoginUser user = userService.findOne(id);
+		user.setPassword(null);
+		user.setPasswordTemp(null);
+		user.setPasswordActivationLink(null);
+		user.setCodeForActivation(null);
+		user.setHashed_email(null);
+		return user;
 	}
 
 	// Function for finding user by activation code
@@ -101,12 +110,16 @@ public class LoginUserController {
 	}
 
 	// Function for changing password
-	// TODO exception for short password
 	@RequestMapping(value = "/change-password/{username}", method = RequestMethod.POST)
-	public void changePassword(@PathVariable("username") String username, @RequestBody Password password) {
+	public void changePassword(@PathVariable("username") String username, @RequestBody Password password) throws Exception {
 		LoginUser user = userService.findByUsername(username);
 
 		if(user != null) {
+			//exception for short password
+			if(user.getPassword().length() <= 6) {
+				throw new Exception("Your password is too short.");
+			}
+
 			if(user.getPassword().equals(password.getOldPassword())) {
 				user.setPassword(password.getNewPassword());
 				userService.save(user);
@@ -131,7 +144,6 @@ public class LoginUserController {
 	}
 
 	// Function for logging in user
-	// TODO Exception for bad password
 	@RequestMapping("/user")
 	public AuthenticatedUser getUser(Authentication authentication) throws Exception {
 
@@ -215,16 +227,35 @@ public class LoginUserController {
 			user.setPasswordTemp(null);
 			userService.save(user);
 
-			return "<script>window.location = 'http://localhost:8080/#/messages/success-password-activation';</script>";
+			return "<script>window.location = '" + OmtScheduleStartup.home + "messages/success-password-activation';</script>";
 		}
 
-		return "<script>window.location = 'http://localhost:8080/#/messages/failed-password-activation';</script>";
+		return "<script>window.location = '" + OmtScheduleStartup.home + "messages/failed-password-activation';</script>";
 	}
 
 	// Function for user registration
-	// TODO Exceptions for username, email, short password
 	@RequestMapping(method = RequestMethod.POST)
 	public LoginUser save(@RequestBody LoginUser user) throws Exception {
+
+		// exception for used username
+		LoginUser userCheckUsername = userService.findByUsername(user.getUsername());
+		if(userCheckUsername != null) {
+			throw new Exception("Username already taken");
+		}
+
+		// exception for user email
+		LoginUser userCheckEmail = userService.findByEmail(user.getEmail());
+		if(userCheckEmail != null) {
+			throw new Exception("Email already taken");
+		}
+
+		// exception for short password
+		LoginUser userCheckPassword = userService.findByEmail(user.getEmail());
+		if(userCheckPassword != null) {
+			if(userCheckPassword.getPassword().length() <= 6) {
+				throw new Exception("Your password is too short.");
+			}
+		}
 
 		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 		StringBuilder sb = new StringBuilder();
@@ -277,15 +308,15 @@ public class LoginUserController {
 			user.setCodeForActivation(null);
 			userService.save(user);
 
-			return "<script>window.location = 'http://localhost:8080/#/messages/success-account-activation';</script>";
+			return "<script>window.location = '" + OmtScheduleStartup.home + "messages/success-account-activation';</script>";
 		}
-		return "<script>window.location = 'http://localhost:8080/#/messages/failed-account-activation';</script>";
+		return "<script>window.location = '" + OmtScheduleStartup.home + "messages/failed-account-activation';</script>";
 	}
 
 	// Admin function for updating user information about status, active, subscription and Date until user is blocked
 	// TODO Exceptions
 	@RequestMapping(path = "update-user/{id}", method = RequestMethod.PUT)
-	public void updateUser(@PathVariable("id") Long id, @RequestBody UpdateUser userData) {
+	public void updateUser(@PathVariable("id") Long id, @RequestBody UpdateUser userData) throws Exception {
 
 		//Grab an user
 		LoginUser user = userService.findOne(id);
@@ -301,6 +332,8 @@ public class LoginUserController {
 
 			user.setUpdatedDate(current_date);
 			userService.save(user);
+		} else {
+			throw new Exception("This user not exists");
 		}
 	}
 

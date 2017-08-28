@@ -12,6 +12,9 @@ import java.util.List;
 @Inheritance
 public class Video extends BaseEntity{
 
+    public Video() {
+    }
+
     @Column(insertable = false, updatable = false)
     private String dtype;
 

@@ -23,7 +23,6 @@ public class GenreController {
         this.genreService = genreService;
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public List<Genre> findAll() {
         return genreService.findAll();

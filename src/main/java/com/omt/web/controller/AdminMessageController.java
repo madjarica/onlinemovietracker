@@ -23,7 +23,6 @@ public class AdminMessageController {
         this.adminMessageService = adminMessageService;
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public List<AdminMessage> findAll() {
         return adminMessageService.findAll();

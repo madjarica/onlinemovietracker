@@ -72,29 +72,6 @@ public class LoginUser extends BaseEntity {
 
 	public LoginUser() {}
 
-	public LoginUser(String username, String password, Set<Role> roles) {
-		this.username = username;
-		this.password = password;
-		this.roles = roles;
-	}
-
-	public LoginUser(String username, String password, String passwordTemp, String passwordActivationLink, String codeForActivation, boolean active, boolean status, Date blockedUntil, boolean subscription, String email, String hashed_email, Date createdDate, Date updatedDate, Set<Role> roles) {
-		this.username = username;
-		this.password = password;
-		this.passwordTemp = passwordTemp;
-		this.passwordActivationLink = passwordActivationLink;
-		this.codeForActivation = codeForActivation;
-		this.active = active;
-		this.status = status;
-		this.blockedUntil = blockedUntil;
-		this.subscription = subscription;
-		this.email = email;
-		this.hashed_email = hashed_email;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-		this.roles = roles;
-	}
-
 	public String getUsername() {
 		return username;
 	}

@@ -18,7 +18,6 @@ public class KeywordController {
         this.keywordService = keywordService;
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public List<Keyword> findAll() {
         return keywordService.findAll();

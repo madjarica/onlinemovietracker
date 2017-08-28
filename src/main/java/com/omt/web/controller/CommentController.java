@@ -16,37 +16,36 @@ import com.omt.service.CommentService;
 @RequestMapping("/comments")
 public class CommentController {
 
-	 CommentService commentService;
+	CommentService commentService;
 
-	    @Autowired
-	    public CommentController(CommentService commentService) {
-	        this.commentService = commentService;
-	    }
+	@Autowired
+	public CommentController(CommentService commentService) {
+		this.commentService = commentService;
+	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Comment> findAll() {
+		return commentService.findAll();
+	}
 
-	    @RequestMapping(method = RequestMethod.GET)
-	    public List<Comment> findAll() {
-	        return commentService.findAll();
-	    }
+	@RequestMapping(path = "{id}", method = RequestMethod.GET)
+	public Comment findOne(@PathVariable("id") Long id) {
+		return commentService.findOne(id);
+	}
 
-	    @RequestMapping(path = "{id}", method = RequestMethod.GET)
-	    public Comment findOne(@PathVariable("id") Long id) {
-	        return commentService.findOne(id);
-	    }
+	@RequestMapping(method = RequestMethod.POST)
+	public Comment save(@RequestBody Comment comment) {
+		return commentService.save(comment);
+	}
 
-	    @RequestMapping(method = RequestMethod.POST)
-	    public Comment save(@RequestBody Comment comment) {
-	        return commentService.save(comment);
-	    }
+	@RequestMapping(method = RequestMethod.PUT)
+	public Comment update(@RequestBody Comment comment) {
+		return commentService.save(comment);
+	}
 
-	    @RequestMapping(method = RequestMethod.PUT)
-	    public Comment update(@RequestBody Comment comment) {
-	        return commentService.save(comment);
-	    }
-
-	    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	    public void delete(@PathVariable("id") Long id) {
-	        commentService.delete(id);
-	    }
+	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("id") Long id) {
+		commentService.delete(id);
+	}
 	    
 }

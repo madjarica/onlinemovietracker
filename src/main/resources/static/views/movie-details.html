@@ -61,7 +61,7 @@
                 </div>
                 <div class="row">
                     <a class="btn btn-sm btn-primary waves-effect waves-light" style="margin-left: 0;" ng-click="vm.fbshareCurrentPage(vm.movieDetails.imdb_id)" target="_blank" alt="Share on Facebook">Facebook</a>
-                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world" data-size="large" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
+                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=I%27m+currently+watching+Amelie+at+http%3A%2F%2Fimdb.com+using+OnlineMovieTracker" data-size="large" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
@@ -76,215 +76,216 @@
 
 <section>
     <div class="container" class="row" ng-controller="CommentController as comCtrl">
-    <div>
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#about" target="_self">About</a></li>
-            <li><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
-            <li><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
-            <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
-            <li><a data-toggle="tab" href="#creators" target="_self">Director</a></li>
-            <li><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
-        </ul>
+        <div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#about" target="_self">About</a></li>
+                <li><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
+                <li><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
+                <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
+                <li><a data-toggle="tab" href="#creators" target="_self">Director</a></li>
+                <li><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
+            </ul>
 
-        <div class="tab-content">
-            <div id="about" class="tab-pane fade in active">
-                <br>
-                <h5>
-                    <small>Original Title:</small>
-                    {{ vm.movieDetails.title }}
-                </h5>
-                <h5>
-                    <small>Released:</small>
-                    Yes
-                </h5>
-                <h5>
-                    <small>Date of Release:</small>
-                    {{ vm.movieDetails.release_date | date:'dd-MMM-yyyy' }}
-                </h5>
-                <h5>
-                    <small>Original Language:</small>
-                    {{ vm.movieDetails.original_language }}
-                </h5>
-                <h5>
-                    <small>Runtime:</small>
-                    {{ vm.movieDetails.runtime }}
-                </h5>
-                <h5>
-                    <small>Homepage:</small>
-                    <a target="_blank" href="{{ vm.movieDetails.homepage }}">{{ vm.movieDetails.homepage }}</a></h5>
-            </div>
-            <div id="trailer" class="tab-pane fade">
-                <br>
-                <div class="videoWrapper">
-                    <iframe src="{{ vm.movieDetails.trailerLink }}" frameborder="0" allowfullscreen></iframe>
+            <div class="tab-content">
+                <div id="about" class="tab-pane fade in active">
+                    <br>
+                    <h5>
+                        <small>Original Title:</small>
+                        {{ vm.movieDetails.title }}
+                    </h5>
+                    <h5>
+                        <small>Released:</small>
+                        Yes
+                    </h5>
+                    <h5>
+                        <small>Date of Release:</small>
+                        {{ vm.movieDetails.release_date | date:'dd-MMM-yyyy' }}
+                    </h5>
+                    <h5>
+                        <small>Original Language:</small>
+                        {{ vm.movieDetails.original_language }}
+                    </h5>
+                    <h5>
+                        <small>Runtime:</small>
+                        {{ vm.movieDetails.runtime }}
+                    </h5>
+                    <h5>
+                        <small>Homepage:</small>
+                        <a target="_blank" href="{{ vm.movieDetails.homepage }}">{{ vm.movieDetails.homepage }}</a></h5>
                 </div>
-            </div>
-            <div id="gallery" class="tab-pane fade">
-                <br>
-                <div class="row">
-                    <div uib-carousel active="active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
-                        <div uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
-                            <img src="http://image.tmdb.org/t/p/w780/{{ slide.image }}" style="margin:auto;">
+                <div id="trailer" class="tab-pane fade">
+                    <br>
+                    <div class="videoWrapper">
+                        <iframe src="{{ vm.movieDetails.trailerLink }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div id="gallery" class="tab-pane fade">
+                    <br>
+                    <div class="row">
+                        <div uib-carousel active="active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+                            <div uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                                <img src="http://image.tmdb.org/t/p/w780/{{ slide.image }}" style="margin:auto;">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="actors" class="tab-pane fade">
-                <br>
-                <div ng-repeat="actor in vm.movieDetails.characterList" ng-show="actor.job == 'actor'">
-                    <div class="row">
+                <div id="actors" class="tab-pane fade">
+                    <br>
+                    <div ng-repeat="actor in vm.movieDetails.characterList" ng-show="actor.job == 'actor'">
                         <div class="row">
-                            <div class="col-xs-6 col-sm-2">
-                                <img class="person-image"
-                                     src="http://image.tmdb.org/t/p/w185/{{ actor.person.picture }}" alt="">
-                            </div>
-                            <div class="col-xs-6 col-sm-10">
-                                <h5>
-                                    <small><b>Name:</b></small>
-                                    {{ actor.character }}
-                                </h5>
-                                <h5>
-                                    <small><b>Real Name:</b></small>
-                                    {{ actor.person.name }}
-                                </h5>
-                                <h5 ng-if="actor.person.birthday != null">
-                                    <small><b>Birthday:</b></small>
-                                    {{ actor.person.birthday | date:'dd-MM-yyyy' }}
-                                </h5>
-                                <h5 ng-if="actor.person.place_of_birth != null">
-                                    <small><b>Place of Birth:</b></small>
-                                    {{ actor.person.place_of_birth }}
-                                </h5>
-                                <h5 ng-if="actor.person.biography != ''">
-                                    <small><b>Biography:</b></small>
-                                </h5>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-2">
+                                    <img class="person-image"
+                                         src="http://image.tmdb.org/t/p/w185/{{ actor.person.picture }}" alt="">
+                                </div>
+                                <div class="col-xs-6 col-sm-10">
+                                    <h5>
+                                        <small><b>Name:</b></small>
+                                        {{ actor.character }}
+                                    </h5>
+                                    <h5>
+                                        <small><b>Real Name:</b></small>
+                                        {{ actor.person.name }}
+                                    </h5>
+                                    <h5 ng-if="actor.person.birthday != null">
+                                        <small><b>Birthday:</b></small>
+                                        {{ actor.person.birthday | date:'dd-MM-yyyy' }}
+                                    </h5>
+                                    <h5 ng-if="actor.person.place_of_birth != null">
+                                        <small><b>Place of Birth:</b></small>
+                                        {{ actor.person.place_of_birth }}
+                                    </h5>
+                                    <h5 ng-if="actor.person.biography != ''">
+                                        <small><b>Biography:</b></small>
+                                    </h5>
 
-                                <div class="collapse-box" ng-if="actor.person.biography != ''">
-                                    <p class="collapse" id="actor_{{ actor.id }}" aria-expanded="false">
-                                        {{ actor.person.biography }}
+                                    <div class="collapse-box" ng-if="actor.person.biography != ''">
+                                        <p class="collapse" id="actor_{{ actor.id }}" aria-expanded="false">
+                                            {{ actor.person.biography }}
+                                        </p>
+                                        <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#actor_{{ actor.id }}" aria-expanded="false" aria-controls="collapseExample">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div id="creators" class="tab-pane fade">
+                    <br>
+                    <div ng-repeat="director in vm.movieDetails.characterList" ng-show="director.job == 'director'">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-2">
+                                    <img class="person-image"
+                                         src="http://image.tmdb.org/t/p/w185/{{ director.person.picture }}" alt="">
+                                </div>
+                                <div class="col-xs-6 col-sm-10">
+                                    <h5>
+                                        <small><b>Real Name:</b></small>
+                                        {{ director.person.name }}
+                                    </h5>
+                                    <h5 ng-if="director.person.birthday != null">
+                                        <small><b>Birthday:</b></small>
+                                        {{ director.person.birthday | date:'dd-MM-yyyy' }}
+                                    </h5>
+                                    <h5 ng-if="director.person.place_of_birth != null">
+                                        <small><b>Place of Birth:</b></small>
+                                        {{ director.person.place_of_birth }}
+                                    </h5>
+                                    <h5 ng-if="director.person.biography != ''">
+                                        <small><b>Biography:</b></small>
+                                    </h5>
+
+                                    <p ng-if="director.person.biography != ''">
+                                        {{ director.person.biography }}
                                     </p>
-                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#actor_{{ actor.id }}" aria-expanded="false" aria-controls="collapseExample">
-                                    </a>
                                 </div>
                             </div>
+                            <hr>
                         </div>
-                        <hr>
                     </div>
                 </div>
-            </div>
-            <div id="creators" class="tab-pane fade">
-                <br>
-                <div ng-repeat="director in vm.movieDetails.characterList" ng-show="director.job == 'director'">
+                <div id="comments" class="tab-pane fade">
+                    <br>
                     <div class="row">
+                        <!-- Comment input -->
                         <div class="row">
-                            <div class="col-xs-6 col-sm-2">
-                                <img class="person-image"
-                                     src="http://image.tmdb.org/t/p/w185/{{ director.person.picture }}" alt="">
-                            </div>
-                            <div class="col-xs-6 col-sm-10">
-                                <h5>
-                                    <small><b>Real Name:</b></small>
-                                    {{ director.person.name }}
-                                </h5>
-                                <h5 ng-if="director.person.birthday != null">
-                                    <small><b>Birthday:</b></small>
-                                    {{ director.person.birthday | date:'dd-MM-yyyy' }}
-                                </h5>
-                                <h5 ng-if="director.person.place_of_birth != null">
-                                    <small><b>Place of Birth:</b></small>
-                                    {{ director.person.place_of_birth }}
-                                </h5>
-                                <h5 ng-if="director.person.biography != ''">
-                                    <small><b>Biography:</b></small>
-                                </h5>
-
-                                <p ng-if="director.person.biography != ''">
-                                    {{ director.person.biography }}
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-            <div id="comments" class="tab-pane fade">
-                <br>
-                <div class="row">
-                    <!-- Comment input -->
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-                            <div class="panel panel-white post panel-shadow">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
-                                             alt="user profile image">
+                            <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+                                <div class="panel panel-white post panel-shadow">
+                                    <div class="post-heading">
+                                        <div class="pull-left image">
+                                            <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                                 alt="user profile image">
+                                        </div>
+                                        <div class="pull-left meta">
+                                            <div class="title h5"></div>
+                                        </div>
                                     </div>
-                                    <div class="pull-left meta">
-                                        <div class="title h5"></div>
+                                    <div class="post-description">
+                                        <form ng-submit="comCtrl.addComment(comCtrl.commentContent)">
+                                            <textarea name="" rows="5" class="form-control" ng-model="comCtrl.commentContent"></textarea>
+                                            <div class="stats">
+                                                <button class="btn btn-default" style="float: right">
+                                                    <i class="fa fa-comment-o icon"></i> Comment
+                                                </button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="post-description">
-                                	<form ng-submit="comCtrl.addComment(comCtrl.commentContent)">
-                                        <textarea name="" rows="5" class="form-control" ng-model="comCtrl.commentContent"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8 col-sm-offset-2 col-xs-12" ng-repeat="comment in comCtrl.comments | orderBy: '-id'">
+                            <!-- Comment -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel panel-white post panel-shadow">
+                                        <div class="post-heading">
+                                            <div class="pull-left image">
+                                                <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                            </div>
+                                            <div class="pull-left meta">
+                                                <div class="title h5">
+                                                    <b>{{ comment.commentUser }}</b>
+                                                </div>
+                                                <h6 class="text-muted time">{{comment.createdDate | date:'dd-MMM-yyyy'}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="post-description">
+                                            <p>
+                                                <span style="text-align: center;" ng-if="comment.commentContent === '' || comment.commentContent === null">
+                                                    <i>No comment</i>
+                                                </span>
+                                                <span style="text-align: center;" ng-if="comment.commentContent !== '' || comment.commentContent !== null">
+                                                    {{ comment.commentContent }}
+                                                </span>
+                                            </p>
+                                        </div>
                                         <div class="stats">
-                                            <button class="btn btn-default" style="float: right">
-                                                <i class="fa fa-comment-o icon"></i> Comment
+                                            <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-comment-modal" ng-click="comCtrl.selectComment(comment)">
+                                                <i class="fa fa-pencil icon"></i> Edit
+                                            </button>
+                                            <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-comment-modal" ng-click="comCtrl.selectComment(comment)">
+                                                <i class="fa fa-trash icon"></i> Delete
+                                            </button>
+                                            <button ng-controller="AdminMessageController as amCtrl" href="#" class="btn btn-warning" data-toggle="modal" data-target="#report-comment-modal" ng-click="comCtrl.selectCommentToReport(comment)">
+                                                <i class="fa fa-flag icon"></i> Report
                                             </button>
                                         </div>
-                                        <div class="clearfix"></div>
-                                	</form>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Comment -->
                         </div>
                     </div>
-
-
-                <!-- Comment -->
-                <div>
-				<div class="col-sm-10 col-sm-offset-2 col-xs-10" ng-repeat="comment in comCtrl.comments | orderBy: '-id'">
-					<div class="panel panel-white post panel-shadow">
-                      <div class="pull-left image">
-                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                      </div>
-				</div>
-			<div class="col-sm-5">
-				<div class="panel panel-default">	
-					<div class="panel-heading">
-						<strong>{{ comment.commentUser }}</strong> 																	
-						<div class="panel-body">
-							<span style="float: center;" ng-if="comment.commentContent === '' || comment.commentContent === null">
-								<i>No comment</i>
-							</span>
-							<span style="float: center;" ng-if="comment.commentContent !== '' || comment.commentContent !== null">
-								{{ comment.commentContent }}
-							</span>
-						</div>
-						<div class="stats">
-                            <a href="#" class="btn btn-default">
-                                <i class="fa fa-reply icon"></i> Reply
-                            </a>
-                            <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-comment-modal" ng-click="comCtrl.selectComment(comment)">
-                            	<i class="fa fa-pencil icon"></i> Edit
-                            </button>
-                            <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-comment-modal" ng-click="comCtrl.selectComment(comment)">
-                                <i class="fa fa-trash icon"></i> Delete
-                            </button>
-                            <button ng-controller="AdminMessageController as amCtrl" href="#" class="btn btn-danger" data-toggle="modal" data-target="#report-comment-modal" ng-click="comCtrl.selectCommentToReport(comment)">
-                                <i class="fa fa-trash icon"></i> Report
-                            </button>
-                        </div>
-                        <div class="panel-footer">
-							<span class="text-muted">commented {{comment.createdDate | date:'dd-MMM-yyyy'}}</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-            </div>
-            </div>
+                </div>
             </div>
         </div>
-        		<!-- Modal -->
+
+        <!-- Modal -->
 		<!-- Delete comment -->
 		<div class="modal fade" id="delete-comment-modal" role="dialog">
 			<div class="modal-dialog">
@@ -292,14 +293,14 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<fieldset>
-						<legend>Delete comment</legend>
-						<p>Do you want to delete this comment?</p>
-					</fieldset>	
+                        <h4>Delete comment</h4>
 					</div>
+                    <div class="model-body">
+                        Do you want to delete this comment?
+                    </div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="comCtrl.deleteComment(comCtrl.selectedComment.id)">OK</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-danger" style="margin-bottom: 10px;" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
 			</div>
@@ -312,49 +313,51 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
+                        <h4>Edit Comment</h4>
+                    </div>
 					<div class="modal-body">
-						<fieldset>
-							<legend>Edit comment</legend>
-							<form name="comCtrl.addCommentForm">
+                        <form name="comCtrl.addCommentForm">
 							<div class="form-group">
 								<label class="col-md-2 control-label">Comment:</label>
-								{{BkmdCtrl.nah}}
 								<div class="col-md-10">
 									<textarea name="" ng-model="comCtrl.selectedComment.commentContent" id="" rows="5" class="form-control" required></textarea>
 								</div>
 							</div>
 						</form>
-						</fieldset>
+                        <div class="clearfix"></div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="comCtrl.saveComment(comCtrl.selectedComment)">OK</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-danger" style="margin-bottom: 10px;" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
-            <!-- Modal -->
-            <!-- New report-->
-            <div class="modal fade" id="report-comment-modal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <input type="text" ng-model="comCtrl.newMessage.message" class="form-control" placeholder="Enter a message">
+        <!-- Modal -->
+        <!-- New report-->
+        <div class="modal fade" id="report-comment-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>Report comment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Comment:</label>
+                            <div class="col-md-10">
+                                <textarea name="" ng-model="comCtrl.newMessage.message" rows="5" class="form-control"  placeholder="Enter a message"></textarea>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button ng-controller="AdminMessageController as amCtrl" type="button" data-dismiss="modal" class="btn btn-primary" ng-click="amCtrl.saveAdminMessage(comCtrl.newMessage)">OK</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-controller="AdminMessageController as amCtrl" type="button" data-dismiss="modal" class="btn btn-primary" ng-click="amCtrl.saveAdminMessage(comCtrl.newMessage)">OK</button>
+                        <button type="button" class="btn btn-danger" style="margin-bottom: 10px;" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
-        
         </div>
+    </div>
 </section>

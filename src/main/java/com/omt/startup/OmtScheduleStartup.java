@@ -17,6 +17,12 @@ import java.util.Timer;
 @Component
 public class OmtScheduleStartup implements ApplicationListener<ApplicationReadyEvent>{
 
+    /*
+    * Site configuration
+    * Enter default url for home
+    * */
+    public static final String home = "http://localhost:8080/#/";
+
     ScheduleListService scheduleListService;
     UserNotificationService userNotificationService;
     UserService userService;

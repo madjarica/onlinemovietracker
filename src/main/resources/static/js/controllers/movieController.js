@@ -11,6 +11,11 @@
 
         var vm = this;
 
+    // <script>
+    //     var encoded_name = encodeURIComponent(vm.movieDetails.name);
+    //     var encoded_url = encodeURIComponent(vm.movieDetails.imdb_id);
+    // </script>
+
         // Gallery
         vm.myInterval = 3000;
         vm.noWrapSlides = false;
@@ -32,8 +37,8 @@
         vm.fbshareCurrentPage = fbshareCurrentPage;
         vm.movieObject = {};
         vm.movieDetails = MovieService.movieDetails;
-        vm.movieObject.poster_path = "/img/default_poster.jpg";
-        vm.movieObject.backdrop_path = "/img/default_backdrop.jpg";
+        vm.movieObject.poster_path = "img/default_poster.jpg";
+        vm.movieObject.backdrop_path = "img/default_backdrop.jpg";
         vm.movieList = [];
         vm.shareFacebook = "";
 
@@ -87,8 +92,6 @@
 
         function saveMovie(movie) {
             vm.movieObject = movie;
-            console.log(vm.movieObject.genres);
-            console.log(vm.movieObject.keywords);
             MovieService.saveMovie(movie).then(function (response) {
                 MovieService.movieDetails = response;
             }).then(function () {

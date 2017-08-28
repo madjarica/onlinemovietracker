@@ -43,7 +43,6 @@ public class Movie extends Video {
         return released;
     }
 
-
     public void setReleased(boolean released) {
         this.released = released;
     }

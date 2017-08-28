@@ -21,80 +21,65 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">
-                <!-- Comment -->
-                {{notifyController.number}}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="panel panel-white post panel-shadow">
-                            <div class="post-heading">
-                                <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
-                                         alt="user profile image">
-                                </div>
-                                <div class="pull-left meta">
-                                    <div class="title h5">
-                                        <b>Ryan Haywood</b>
+                <div ng-repeat="notify in notifyController.notifications">
+                    <div ng-if="notify.type === 'reminder'">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="panel panel-white post panel-shadow">
+                                    <div class="post-heading">
+                                        <div class="pull-left image">
+                                            <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                                 alt="user profile image">
+                                        </div>
+                                        <div class="pull-left meta">
+                                            <div class="title h5">
+                                                <b>{{notify.watchlist.watchlistUser}}</b>
+                                            </div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-warning">
+                                                <i class="fa fa-trash icon"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <h6 class="text-muted time">1 minute ago</h6>
+                                    <div class="post-description">
+                                        <p>You wanted to watch {{notify.watchlist.video.name}} today at {{notify.createdDate | date: "dd-MMM-yyyy, H:mm"}}</p>
+                                    </div>
                                 </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-warning">
-                                        <i class="fa fa-trash icon"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
-                                    css hmtl js framework. Codes for developers and web designers</p>
                             </div>
                         </div>
+                        <br>
                     </div>
-                </div>
-                <!-- Comment -->
 
-                <!-- Comment -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="panel panel-white post panel-shadow">
-                            <div class="post-heading">
-                                <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
-                                         alt="user profile image">
-                                </div>
-                                <div class="pull-left meta">
-                                    <div class="title h5">
-                                        <b>Ryan Haywood</b>
+                    <div ng-if="notify.type === 'notification_comment'">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="panel panel-white post panel-shadow">
+                                    <div class="post-heading">
+                                        <div class="pull-left image">
+                                            <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                                 alt="user profile image">
+                                        </div>
+                                        <div class="pull-left meta">
+                                            <div class="title h5">
+                                                <b>{{notify.sender}}</b>
+                                            </div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-warning">
+                                                <i class="fa fa-trash icon"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <h6 class="text-muted time">1 minute ago</h6>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-warning">
-                                        <i class="fa fa-trash icon"></i>
-                                    </a>
+                                    <div class="post-description">
+                                        <p>You wanted to watch {{notify.watchlist.video.name}} today at {{notify.createdDate | date: "dd-MMM-yyyy, H:mm"}}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap
-                                    css hmtl js framework. Codes for developers and web designers</p>
-                            </div>
                         </div>
+                        <br>
                     </div>
                 </div>
-                <div>
-                    <div ng-repeat="notify in notifyController.notifications">
-                        <div ng-if="notify.type === 'reminder'">
-                            {{notify.watchlist.watchlistUser}}, you wanted to watch {{notify.watchlist.video.name}}
-                            today at {{notify.createdDate}}!
-                            <br>
-                        </div>
-                        <div ng-if="notify.type === 'notification_comment'">
-                            {{notify.sender}}, commented on your {{notify.watchlist.video.name}} watchlist
-                            today at {{notify.createdDate}}!
-                            <br>
-                        </div>
-                    </div>
-                </div>
-                <!-- Comment -->
             </div>
 
             <div role="tabpanel" class="tab-pane" id="sent">
@@ -127,6 +112,7 @@
                     </div>
                 </div>
                 <!-- Comment -->
+
                 <!-- Comment -->
                 <div class="row">
                     <div class="col-xs-12">

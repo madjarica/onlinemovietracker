@@ -23,7 +23,6 @@ public class UserNotificationController {
         this.userNotificationService = userNotificationService;
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public List<UserNotification> findAll(){
         return userNotificationService.findAll();
