@@ -27,12 +27,12 @@ public class AdminMessage extends BaseEntity{
     @Column
     private Boolean readState;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "watchlist_id")
     private Watchlist watchlist;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
