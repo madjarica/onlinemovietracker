@@ -23,6 +23,10 @@ public class AdminMessage extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String message;
 
+    @Column
+    @NotNull
+    private String sentBy;
+
     @NotNull
     @Column
     private Boolean readState;
@@ -53,7 +57,15 @@ public class AdminMessage extends BaseEntity{
         this.message = message;
     }
 
-    public Boolean isReadState() {
+    public String getSentBy() {
+        return sentBy;
+    }
+
+    public void setSentBy(String sentBy) {
+        this.sentBy = sentBy;
+    }
+
+    public Boolean getReadState() {
         return readState;
     }
 

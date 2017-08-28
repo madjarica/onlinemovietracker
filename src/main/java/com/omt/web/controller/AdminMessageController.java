@@ -72,16 +72,15 @@ public class AdminMessageController {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-
         adminMessageService.delete(id);
     }
 
     public void sendEmailToAdmin(String email, AdminMessage adminMessage) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
-        String emailContent = "Somebody complained about this comment\n" + adminMessage.getComment().getCommentContent()
+        String emailContent = adminMessage.getSentBy() + ", complained about this comment\n" + adminMessage.getComment().getCommentContent()
                 + "\n" + "on this watchlist " + adminMessage.getWatchlist().getVideo().getName() + " by " + adminMessage.getWatchlist().getWatchlistUser()
-                + " they said "+ adminMessage.getMessage();
+                + " he/she said "+ adminMessage.getMessage();
 
         helper = new MimeMessageHelper(message, true);
         helper.setFrom("admin_messages@onlinemovietracker.com");

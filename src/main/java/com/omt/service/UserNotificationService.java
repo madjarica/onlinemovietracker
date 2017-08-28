@@ -1,11 +1,8 @@
 package com.omt.service;
 
-import com.omt.domain.LoginUser;
 import com.omt.domain.UserNotification;
 import com.omt.repository.UserNotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -49,7 +46,7 @@ public class UserNotificationService {
     }
 
     public List<UserNotification> getUserNotifications(String name){
- 		return userNotificationRepository.getUserNotificationByWatchlistWatchlistUser(name);
+ 		return userNotificationRepository.findByReciver(name);
 	}
 	public List<UserNotification> getUserNotificationByWatchlistId(Long id){
     	return userNotificationRepository.getUserNotificationByWatchlistId(id);

@@ -68,6 +68,7 @@ angular.module('app')
 //            			vm.notification.type = "notification_comment"
             			console.log(vm.commentContent);
             			vm.notification.sender = vm.username;
+            			vm.notification.reciver = vm.selectedWatchlist.watchlistUser;
             			vm.notification.read = false;
             			vm.notification.watchlist = vm.selectedWatchlist;
             			vm.notification.type = "notification_comment";
@@ -121,6 +122,7 @@ angular.module('app')
             vm.newMessage.comment = comment;
             vm.newMessage.watchlist = vm.selectedWatchlist;
             vm.newMessage.readState = false;
+            vm.newMessage.sentBy = vm.username;
             console.log(vm.newMessage);
         }
     };

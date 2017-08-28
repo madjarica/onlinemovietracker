@@ -28,9 +28,15 @@ public class UserNotification extends BaseEntity{
     @Column
     private String sender;
 
+    @Column
+    private String reciver;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "watchlist_id")
     private Watchlist watchlist;
+
+    @Column
+    private String message;
 
 	public String getType() {
         return type;
@@ -70,5 +76,21 @@ public class UserNotification extends BaseEntity{
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getReciver() {
+        return reciver;
+    }
+
+    public void setReciver(String reciver) {
+        this.reciver = reciver;
     }
 }

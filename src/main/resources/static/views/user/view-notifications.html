@@ -79,6 +79,36 @@
                         </div>
                         <br>
                     </div>
+
+
+                    <div ng-if="notify.type === 'notification_admin'">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="panel panel-white post panel-shadow">
+                                    <div class="post-heading">
+                                        <div class="pull-left image">
+                                            <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
+                                                 alt="user profile image">
+                                        </div>
+                                        <div class="pull-left meta">
+                                            <div class="title h5">
+                                                <b>{{notify.sender}}</b>
+                                            </div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-warning">
+                                                <i class="fa fa-trash icon"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="post-description">
+                                        <p>{{notify.message}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
                 </div>
             </div>
 
