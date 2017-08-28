@@ -13,7 +13,7 @@ import com.omt.domain.AdminMessage;
 import com.omt.service.AdminMessageService;
 
 @RestController
-@RequestMapping("/adminMessages")
+@RequestMapping("/admin-messages")
 public class AdminMessageController {
 
     AdminMessageService adminMessageService;

@@ -44,3 +44,4 @@ INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watch
 
 INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `timer`) VALUES ('1', '2017-08-24 09:02:30', 0);
 INSERT INTO `schedule_lists`(`watchlist_id`, `scheduled_date_time`, `timer`) VALUES ('3', '2017-08-24 09:03:30', 1);
+

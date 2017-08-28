@@ -14,6 +14,17 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">
+
+                <div ng-repeat="am in amCtrl.adminMessages">
+                    {{am.watchlist.id}}
+                    <br>
+                    {{am.watchlist.watchlistUser}}
+                    <br>
+                    {{am.comment}}
+                    <br>
+                    {{am.message}}
+                </div>
+
                 <!-- Comment -->
                 <div class="row">
                     <div class="col-xs-12">

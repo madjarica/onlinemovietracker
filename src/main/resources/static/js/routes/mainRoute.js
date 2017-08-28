@@ -86,6 +86,11 @@
                 controller: 'NotificationController',
                 controllerAs: 'notifyController'
             })
+            .when('/admin/view-messages', {
+                templateUrl: '/views/admin/view-messages.html',
+                controller: 'AdminMessageController',
+                controllerAs: 'amCtrl'
+            })
             .when('/user/change-password', {
                 templateUrl: '/views/user/change-password.html',
                 controller: 'HomeController',

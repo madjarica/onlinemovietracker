@@ -269,6 +269,9 @@
                             <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-comment-modal" ng-click="comCtrl.selectComment(comment)">
                                 <i class="fa fa-trash icon"></i> Delete
                             </button>
+                            <button ng-controller="AdminMessageController as amCtrl" href="#" class="btn btn-danger" data-toggle="modal" data-target="#report-comment-modal" ng-click="comCtrl.selectCommentToReport(comment)">
+                                <i class="fa fa-trash icon"></i> Report
+                            </button>
                         </div>
                         <div class="panel-footer">
 							<span class="text-muted">commented {{comment.createdDate | date:'dd-MMM-yyyy'}}</span>
@@ -331,6 +334,27 @@
 				</div>
 			</div>
 		</div>
+
+            <!-- Modal -->
+            <!-- New report-->
+            <div class="modal fade" id="report-comment-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="text" ng-model="comCtrl.newMessage.message" class="form-control" placeholder="Enter a message">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button ng-controller="AdminMessageController as amCtrl" type="button" data-dismiss="modal" class="btn btn-primary" ng-click="amCtrl.saveAdminMessage(comCtrl.newMessage)">OK</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         
         </div>
 </section>
