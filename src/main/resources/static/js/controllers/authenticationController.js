@@ -20,11 +20,17 @@
         self.loginCredentials = {};
         self.forgotCredentials = {};
 
+        self.requestPasswordMessages = {};
+        self.requestPasswordMessages.success = '';
+        self.requestPasswordMessages.error = '';
+
         self.loginMessages = {};
+        self.loginMessages.success = '';
         self.loginMessages.error = '';
 
-        self.errors = {};
-        self.errors.register = '';
+        self.registerMessages = {};
+        self.registerMessages.success = '';
+        self.registerMessages.error = '';
 
         self.registerForm = {};
         self.loginForm = {};
@@ -32,6 +38,37 @@
 
         // Navigation
         self.isActive = isActive;
+
+        self.clickOnLogin = clickOnLogin;
+        self.clickOnRegister = clickOnRegister;
+        self.clickOnRequire = clickOnRequire;
+
+        function clickOnLogin() {
+            self.requestPasswordMessages.success = '';
+            self.requestPasswordMessages.error = '';
+            self.loginMessages.success = '';
+            self.loginMessages.error = '';
+            self.registerMessages.success = '';
+            self.registerMessages.error = '';
+        }
+
+        function clickOnRegister() {
+            self.requestPasswordMessages.success = '';
+            self.requestPasswordMessages.error = '';
+            self.loginMessages.success = '';
+            self.loginMessages.error = '';
+            self.registerMessages.success = '';
+            self.registerMessages.error = '';
+        }
+
+        function clickOnRequire() {
+            self.requestPasswordMessages.success = '';
+            self.requestPasswordMessages.error = '';
+            self.loginMessages.success = '';
+            self.loginMessages.error = '';
+            self.registerMessages.success = '';
+            self.registerMessages.error = '';
+        }
 
         function isActive(viewLocation) {
             return viewLocation === $location.path();
@@ -45,7 +82,6 @@
         
         function init() {
             $('#auth-modal').modal('hide');
-            // self.hashedEmail = "https://www.gravatar.com/avatar/" + AuthenticationService.requestHashedEmail(self.user.username);
             if (self.user) {
                 $route.reload();
             }
@@ -73,7 +109,12 @@
                 }
             }).success(function (res) {
                 self.loginCredentials.password = null;
-                self.message = '';
+                self.requestPasswordMessages.success = '';
+                self.requestPasswordMessages.error = '';
+                self.loginMessages.success = '';
+                self.loginMessages.error = '';
+                self.registerMessages.success = '';
+                self.registerMessages.error = '';
                 // setting the same header value for all request calling from this app
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 self.user = res;
@@ -87,7 +128,16 @@
 
             }).error(function (error) {
                 console.log(error.message);
-                self.loginMessages.error = error.message;
+                if(!error.message) {
+                    self.loginMessages.error = "Bad Credentials";
+                } else {
+                    self.loginMessages.error = error.message;
+                }
+                self.requestPasswordMessages.error = '';
+                self.requestPasswordMessages.success = '';
+                self.loginMessages.success = '';
+                self.registerMessages.success = '';
+                self.registerMessages.error = '';
             });
         }
 
@@ -95,30 +145,50 @@
             $http.defaults.headers.common['Authorization'] = null;
             delete self.user;
             AuthenticationService.currentUsername = null;
+            self.requestPasswordMessages.success = '';
+            self.requestPasswordMessages.error = '';
+            self.loginMessages.success = '';
+            self.loginMessages.error = '';
+            self.registerMessages.success = '';
+            self.registerMessages.error = '';
             $location.url("/");
         }
 
         function register(user) {
             if(vcRecaptchaService.getResponse() === "") {
-                self.errors.register = "You need to solve captcha first.";
+                self.registerMessages.error = "You need to solve captcha first.";
             } else {
                 var data = {
                     'g-recaptcha-response': vcRecaptchaService.getResponse()  //send g-captcah-reponse to our server
                 };
-                self.errors.register = "";
+                self.registerMessages.error = "";
                 AuthenticationService.sendCaptcha(data).then(function (response) {
                    if(response.data.success) {
                        AuthenticationService.saveUser(user).then(function() {
                            init();
-                           console.log("registered");
+                           self.requestPasswordMessages.success = '';
+                           self.requestPasswordMessages.error = '';
+                           self.loginMessages.success = '';
+                           self.loginMessages.error = '';
+                           self.registerMessages.success = 'You have been successfully registered';
+                           self.registerMessages.error = '';
                        }, function(error) {
-                           console.log(error)
+                           self.requestPasswordMessages.success = '';
+                           self.requestPasswordMessages.error = '';
+                           self.loginMessages.success = '';
+                           self.loginMessages.error = '';
+                           self.registerMessages.success = '';
+                           self.registerMessages.error = 'There was an error with your registration. Please try again.';
                        });
                    }
                 }, function (error) {
-                    console.log(error);
+                    self.requestPasswordMessages.success = '';
+                    self.requestPasswordMessages.error = '';
+                    self.loginMessages.success = '';
+                    self.loginMessages.error = '';
+                    self.registerMessages.success = '';
+                    self.registerMessages.error = 'There was an error with your registration. Please try again.';
                 });
-
             }
         }
 
@@ -132,11 +202,20 @@
 
         function requestNewPassword(email) {
             AuthenticationService.requestNewPassword(email).then(function (response) {
-                console.log("sent");
+                self.requestPasswordMessages.success = 'We have sent you new password on your email.';
+                self.requestPasswordMessages.error = '';
+                self.loginMessages.success = '';
+                self.loginMessages.error = '';
+                self.registerMessages.success = '';
+                self.registerMessages.error = '';
             }, function (error) {
-                console.log("failed");
+                self.requestPasswordMessages.success = '';
+                self.requestPasswordMessages.error = 'Email you entered is not registered.';
+                self.loginMessages.success = '';
+                self.loginMessages.error = '';
+                self.registerMessages.success = '';
+                self.registerMessages.error = '';
             });
         }
-
     }
 })();

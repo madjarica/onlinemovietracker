@@ -50,6 +50,14 @@
         vm.userWatchlist = WatchlistService.userWatchlist;
         checkFav();
 
+        // youtube_parser("http://www.youtube.com/watch?v=0zM3nApSvMg&feature=feedrec_grec_index");
+        // youtube_parser("http://www.youtube.com/user/IngridMichaelsonVEVO#p/a/u/1/QdK8U-VIH_o");
+        // youtube_parser("http://www.youtube.com/v/0zM3nApSvMg?fs=1&amp;hl=en_US&amp;rel=0");
+        // youtube_parser("http://www.youtube.com/watch?v=0zM3nApSvMg#t=0m10s");
+        // youtube_parser("http://www.youtube.com/embed/0zM3nApSvMg?rel=0");
+        // youtube_parser("http://www.youtube.com/watch?v=0zM3nApSvMg");
+        // youtube_parser("http://youtu.be/0zM3nApSvMg");
+
         // On List of Movies
         function getMovieByTitle(title) {
             MovieService.getMovieByTitle(title).then(function (response) {
@@ -90,8 +98,21 @@
             }));
         }
 
+        function youtube_parser(url){
+            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            res = (match&&match[7].length==11)? match[7] : false;
+            return res;
+        }
+
         function saveMovie(movie) {
             vm.movieObject = movie;
+            var youtube_link = movie.trailerLink;
+            console.log(youtube_link);
+            var video_id = youtube_parser(youtube_link);
+            console.log(video_id);
+            var parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;
+            movie.trailerLink = parsed_youtube_link;
             MovieService.saveMovie(movie).then(function (response) {
                 MovieService.movieDetails = response;
             }).then(function () {

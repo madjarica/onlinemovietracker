@@ -74,15 +74,19 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#login" target="_self">Login</a></li>
-                        <li><a data-toggle="tab" href="#registration" target="_self">Registration</a></li>
+                        <li ng-click="authCtrl.clickOnLogin()" class="active"><a data-toggle="tab" href="#login" target="_self">Login</a></li>
+                        <li ng-click="authCtrl.clickOnRegister()" id="#register-form-link"><a data-toggle="tab" href="#registration" target="_self">Registration</a></li>
+                        <li ng-click="authCtrl.clickOnRequire()" id="#request-password-form-link"><a data-toggle="tab" href="#forgot-password" target="_self">Forgotten password?</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="login" class="tab-pane fade in active">
                             <br>
-                            <div style="margin-top: 5px;" class="alert alert-danger" ng-if="authCtrl.loginMessages.error != ''">{{ authCtrl.loginMessages.error }}</div>
 
                             <form ng-submit="authCtrl.login(authCtrl.loginCredentials)" name="authCtrl.loginForm">
+
+                                <div class="alert alert-danger" ng-class="{'hidden': authCtrl.loginMessages.error == ''}">{{ authCtrl.loginMessages.error }}</div>
+                                <div class="alert alert-success" ng-class="{'hidden': authCtrl.loginMessages.success == ''}">{{ authCtrl.loginMessages.success }}</div>
+
                                 <div class="form-group">
                                     <input type="text" name="authCtrl.loginCredentials.username" ng-model="authCtrl.loginCredentials.username" class="form-control" id="username" placeholder="Username" autofocus>
                                 </div>
@@ -99,7 +103,8 @@
                             <br>
                             <form ng-submit="authCtrl.register(authCtrl.registerCredentials)" name="authCtrl.registerForm" novalidate>
 
-                                <div class="alert alert-danger" ng-class="{'hidden': authCtrl.errors.register == ''}">{{authCtrl.errors.register}}</div>
+                                <div class="alert alert-danger" ng-class="{'hidden': authCtrl.registerMessages.error == ''}">{{ authCtrl.registerMessages.error }}</div>
+                                <div class="alert alert-success" ng-class="{'hidden': authCtrl.registerMessages.success == ''}">{{ authCtrl.registerMessages.success }}</div>
 
                                 <div class="form-group">
                                     <input type="email" name="authCtrl.registerCredentials.email" ng-model="authCtrl.registerCredentials.email" class="form-control" placeholder="Email" required ng-pattern = '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
@@ -127,6 +132,10 @@
                         <div id="forgot-password" class="tab-pane fade">
                             <br>
                             <form name="authCtrl.forgotForm" ng-submit="authCtrl.requestNewPassword(authCtrl.forgotCredentials.email)" novalidate>
+
+                                <div class="alert alert-danger" ng-class="{'hidden': authCtrl.requestPasswordMessages.error == ''}">{{ authCtrl.requestPasswordMessages.error }}</div>
+                                <div class="alert alert-success" ng-class="{'hidden': authCtrl.requestPasswordMessages.success == ''}">{{ authCtrl.requestPasswordMessages.success }}</div>
+
                                 <div class="form-group">
                                     <input type="email" name="authCtrl.forgotCredentials.email" ng-model="authCtrl.forgotCredentials.email" class="form-control" placeholder="Email" required ng-pattern = '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
                                     <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.forgotForm.$submitted && authCtrl.forgotForm['authCtrl.forgotCredentials.email'].$invalid">Email is not valid.</div>
@@ -140,7 +149,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a data-toggle="tab" href="#forgot-password" target="_self">Forgotten password?</a>
                     <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Close</button>
                 </div>
             </div>
