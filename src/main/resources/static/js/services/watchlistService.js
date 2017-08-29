@@ -13,7 +13,8 @@
             getUserWatchlist: getUserWatchlist,
             deleteWatchlist: deleteWatchlist,
             changeWatchDate: changeWatchDate,
-            getByTitle: getByTitle,
+            getUserWatchlistCollection: getUserWatchlistCollection,
+            saveWatchlistCollection: saveWatchlistCollection,
             userWatchlist: [],
             selectedWatchlist: {}
         };
@@ -120,23 +121,39 @@
 
         }
 
-
-        function getByTitle(search) {
+        
+        function getUserWatchlistCollection(username) {
             var def = $q.defer();
             var req = {
                 method: 'GET',
-                url: '/watchlists/get-by-title/' + search
+                url: '/watchlist-collection/find-by-user/' + username
             }
 
             $http(req).success(function (response) {
-                console.log(search);
                 def.resolve(response);
             }).error(function (error) {
                 def.reject(error);
             });
 
             return def.promise;
-
         }
+
+        function saveWatchlistCollection(watchlistCollection) {
+            var def = $q.defer();
+            var req = {
+                method: 'POST',
+                url: "/watchlist-collection/",
+                data: watchlistCollection
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+
     }
 })();

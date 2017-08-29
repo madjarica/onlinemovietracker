@@ -15,8 +15,7 @@
         vm.favWatchlist = favWatchlist;
         vm.goToDetailsPage = goToDetailsPage;
         vm.saveWatchDate = saveWatchDate;
-        getWatchlists = getWatchlists;
-        getWatchlistDetails = getWatchlistDetails;
+        vm.watchlistCollection = [];
         vm.newWatchlist = {};
         vm.selectedWatchlist = {};
         vm.userWatchlist = {};
@@ -50,33 +49,26 @@
             	vm.watchlists = response;
             	console.log(vm.watchlists)
             })
-//            .then(handleSuccessWatchlists).then(function () {
-//            })
         }
-        
-        function handleSuccessWatchlists(data, status){
-            vm.watchlists = data.data;
-        }
-        
-        function getUserWatchlist(username) {
-            WatchlistService.getUserWatchlist(username).then(function (response) {
-                vm.userWatchlist = response;
-                WatchlistService.userWatchlist = response;
-                console.log(vm.userWatchlist)
-            });
-        }
+
 
         function addToWatchlist(video){
             vm.newWatchlist.video = video;
             vm.newWatchlist.watchlistUser = vm.username;
             vm.newWatchlist.visibleToOthers = true;
             vm.newWatchlist.watchDate = new Date();
+            getUserWatchlist(vm.username);
             WatchlistService.saveWatchlist(vm.newWatchlist).then(function (response) {
-                vm.userWatchlist.push(response);
-                getUserWatchlist(vm.username);
+                vm.watchlistCollection.watchlistElements.push(response);
+            }).then(function () {
+                WatchlistService.saveWatchlistCollection(vm.watchlistCollection).then(function (response) {
+                    vm.watchlistCollection = response;
+                    getUserWatchlist(vm.username);
+                })
             }).then(function () {
                 $location.url('watchlist')
             })
+
         }
         
         function deleteWatchlist(id) {
@@ -128,6 +120,14 @@
             }).then(function () {
                 $location.url("watchlists-preview");
             })
+        }
+
+        function getUserWatchlist(username) {
+            WatchlistService.getUserWatchlistCollection(username).then(function (response) {
+                vm.userWatchlist = response.watchlistElements;
+                console.log(vm.userWatchlist);
+                vm.watchlistCollection = response;
+            });
         }
 
         function init() {
