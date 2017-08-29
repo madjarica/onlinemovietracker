@@ -8,12 +8,12 @@
 
         var vm = this;
         vm.markAsRead = markAsRead;
+        vm.trash = [];
         vm.username = AuthenticationService.currentUsername;
         vm.notifications = NotificationService.notifications;
         vm.number = NotificationService.number;
 
 
-        getNotifications();
         setInterval(function () {
             getNotifications();
         }, 5000);
@@ -21,7 +21,7 @@
 
         function getNotifications() {
             if (AuthenticationService.currentUsername !== null) {
-                NotificationService.getUserNotifications(vm.username).then(function (response) {
+                NotificationService.getUserNotifications(AuthenticationService.currentUsername).then(function (response) {
                     vm.number = NotificationService.number;
                     if (vm.notifications.length !== response.data.length) {
                         vm.notifications = response.data;
