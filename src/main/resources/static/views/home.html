@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-xs-12 no-margin no-padding" ng-controller="TvShowController as tvShowCtrl">
-            <h4>Latest added Tv Shows</h4>
+            <h4 class="text-center">Latest added Tv Shows</h4>
             <div class="col-xs-12 col-sm-12 no-margin no-padding">
                 <div class="big-home-image" ng-click="tvShowCtrl.getTvShowDetails(vm.latestThreeTvShows[2].id)" style="cursor: pointer;">
                     <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeTvShows[2].backdrop_path }}" alt="" />
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col-sm-6 col-xs-12 no-margin no-padding" ng-controller="MovieController as movieCtrl">
-            <h4>Latest added Movies</h4>
+            <h4 class="text-center">Latest added Movies</h4>
             <div class="col-xs-12 col-sm-6 no-margin no-padding">
                 <div class="big-home-image" ng-click="movieCtrl.getMovieDetails(vm.latestThreeMovies[2].id)" style="cursor: pointer;">
                     <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeMovies[2].backdrop_path }}" alt="" />
