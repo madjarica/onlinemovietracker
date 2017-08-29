@@ -1,47 +1,98 @@
 <div ng-include="'../includes/_search-input.html'"></div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-6 col-xs-12 no-margin no-padding">
+        <div class="col-sm-6 col-xs-12 no-margin no-padding" ng-controller="TvShowController as tvShowCtrl">
             <h4>On TV</h4>
             <div class="col-xs-12 col-sm-12 no-margin no-padding">
-                <div class="big-home-image">
-                    <img src="https://image.tmdb.org/t/p/w500{{ vm.onTv[0].backdrop_path }}" alt="" />
-                    <h3 class="big-home-h3"><span>{{ vm.onTv[0].original_name }}</span></h3>
+                <div class="big-home-image" ng-click="tvShowCtrl.getTvShowDetails(vm.latestThreeTvShows[2].id)" style="cursor: pointer;">
+                    <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeTvShows[2].backdrop_path }}" alt="" />
+                    <h3 class="big-home-h3"><span>{{ vm.latestThreeTvShows[2].title }}</span></h3>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 no-margin no-padding">
-                <div class="big-home-image">
-                    <img src="https://image.tmdb.org/t/p/w500{{ vm.onTv[1].backdrop_path }}" alt="" />
-                    <h4 class="big-home-h4"><span>{{ vm.onTv[1].original_name }}</span></h4>
+                <div class="big-home-image" ng-click="tvShowCtrl.getTvShowDetails(vm.latestThreeTvShows[1].id)" style="cursor: pointer;">
+                    <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeTvShows[1].backdrop_path }}" alt="" />
+                    <h4 class="big-home-h4"><span>{{ vm.latestThreeTvShows[1].title }}</span></h4>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 no-margin no-padding">
-                <div class="big-home-image">
-                    <img src="https://image.tmdb.org/t/p/w500{{ vm.onTv[2].backdrop_path }}" alt="" />
-                    <h4 class="big-home-h4"><span>{{ vm.onTv[2].original_name }}</span></h4>
+                <div class="big-home-image" ng-click="tvShowCtrl.getTvShowDetails(vm.latestThreeTvShows[0].id)" style="cursor: pointer;">
+                    <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeTvShows[0].backdrop_path }}" alt="" />
+                    <h4 class="big-home-h4"><span>{{ vm.latestThreeTvShows[0].title }}</span></h4>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12 no-margin no-padding">
+        <div class="col-sm-6 col-xs-12 no-margin no-padding" ng-controller="MovieController as movieCtrl">
             <h4>In Theaters</h4>
             <div class="col-xs-12 col-sm-6 no-margin no-padding">
-                <div class="big-home-image">
-                    <img src="https://image.tmdb.org/t/p/w500{{ vm.inTheaters[0].backdrop_path }}" alt="" />
-                    <h4 class="big-home-h4"><span>{{ vm.inTheaters[0].original_title }}</span></h4>
+                <div class="big-home-image" ng-click="movieCtrl.getMovieDetails(vm.latestThreeMovies[2].id)" style="cursor: pointer;">
+                    <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeMovies[2].backdrop_path }}" alt="" />
+                    <h4 class="big-home-h4"><span>{{ vm.latestThreeMovies[2].title }}</span></h4>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 no-margin no-padding">
-                <div class="big-home-image">
-                    <img src="https://image.tmdb.org/t/p/w500{{ vm.inTheaters[1].backdrop_path }}" alt="" />
-                    <h4 class="big-home-h4"><span>{{ vm.inTheaters[1].original_title }}</span></h4>
+                <div class="big-home-image" ng-click="movieCtrl.getMovieDetails(vm.latestThreeMovies[1].id)" style="cursor: pointer;">
+                    <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeMovies[1].backdrop_path }}" alt="" />
+                    <h4 class="big-home-h4"><span>{{ vm.latestThreeMovies[1].title }}</span></h4>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 no-margin no-padding">
-                <div class="big-home-image">
-                    <img src="https://image.tmdb.org/t/p/w500{{ vm.inTheaters[2].backdrop_path }}" alt="" />
-                    <h3 class="big-home-h3"><span>{{ vm.inTheaters[2].original_title }}</span></h3>
+                <div class="big-home-image" ng-click="movieCtrl.getMovieDetails(vm.latestThreeMovies[0].id)" style="cursor: pointer;">
+                    <img src="https://image.tmdb.org/t/p/w500{{ vm.latestThreeMovies[0].backdrop_path }}" alt="" />
+                    <h3 class="big-home-h3"><span>{{ vm.latestThreeMovies[0].title }}</span></h3>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4">
+            <h4 class="text-center">In Theaters</h4>
+            <ul class="list-group">
+                <li class="list-group-item">{{ vm.inTheaters[0].original_title }}<span class="badge">From {{ vm.inTheaters[0].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[1].original_title }}<span class="badge">From {{ vm.inTheaters[1].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[2].original_title }}<span class="badge">From {{ vm.inTheaters[2].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[3].original_title }}<span class="badge">From {{ vm.inTheaters[3].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[4].original_title }}<span class="badge">From {{ vm.inTheaters[4].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[5].original_title }}<span class="badge">From {{ vm.inTheaters[5].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[6].original_title }}<span class="badge">From {{ vm.inTheaters[6].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[7].original_title }}<span class="badge">From {{ vm.inTheaters[7].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[8].original_title }}<span class="badge">From {{ vm.inTheaters[8].release_date }}</span></li>
+                <li class="list-group-item">{{ vm.inTheaters[9].original_title }}<span class="badge">From {{ vm.inTheaters[9].release_date }}</span></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <h4 class="text-center">On TV Today</h4>
+            <ul class="list-group">
+                <li class="list-group-item">{{ vm.onTvToday[0].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[1].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[2].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[3].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[4].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[5].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[6].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[7].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[8].name }}</li>
+                <li class="list-group-item">{{ vm.onTvToday[9].name }}</li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <h4 class="text-center">On TV</h4>
+            <ul class="list-group">
+                <li class="list-group-item">{{ vm.onTv[0].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[1].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[2].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[3].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[4].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[5].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[6].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[7].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[8].name }}</li>
+                <li class="list-group-item">{{ vm.onTv[9].name }}</li>
+            </ul>
         </div>
     </div>
 </div>

@@ -39,35 +39,18 @@
         // Navigation
         self.isActive = isActive;
 
-        self.clickOnLogin = clickOnLogin;
-        self.clickOnRegister = clickOnRegister;
-        self.clickOnRequire = clickOnRequire;
+        self.clearMessages = clearMessages;
 
-        function clickOnLogin() {
+        function clearMessages() {
             self.requestPasswordMessages.success = '';
             self.requestPasswordMessages.error = '';
             self.loginMessages.success = '';
             self.loginMessages.error = '';
             self.registerMessages.success = '';
             self.registerMessages.error = '';
-        }
-
-        function clickOnRegister() {
-            self.requestPasswordMessages.success = '';
-            self.requestPasswordMessages.error = '';
-            self.loginMessages.success = '';
-            self.loginMessages.error = '';
-            self.registerMessages.success = '';
-            self.registerMessages.error = '';
-        }
-
-        function clickOnRequire() {
-            self.requestPasswordMessages.success = '';
-            self.requestPasswordMessages.error = '';
-            self.loginMessages.success = '';
-            self.loginMessages.error = '';
-            self.registerMessages.success = '';
-            self.registerMessages.error = '';
+            self.registerForm.$setPristine();
+            self.loginForm.$setPristine();
+            self.forgotForm.$setPristine();
         }
 
         function isActive(viewLocation) {
@@ -83,6 +66,9 @@
         function init() {
             $('#auth-modal').modal('hide');
             if (self.user) {
+                self.registerForm.$setPristine();
+                self.loginForm.$setPristine();
+                self.forgotForm.$setPristine();
                 $route.reload();
             }
         }
