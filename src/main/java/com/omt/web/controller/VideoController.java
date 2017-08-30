@@ -1,6 +1,5 @@
 package com.omt.web.controller;
 
-import com.omt.config.LoginUserService;
 import com.omt.domain.Video;
 import com.omt.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,10 @@ import java.util.List;
 public class VideoController {
 
 	VideoService videoService;
-	private LoginUserService loginUserService;
 
 	@Autowired
-	public VideoController(VideoService videoService, LoginUserService loginUserService) {
+	public VideoController(VideoService videoService) {
 		this.videoService = videoService;
-		this.loginUserService = loginUserService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

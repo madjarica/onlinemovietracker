@@ -11,6 +11,7 @@
         vm.propertyName = 'title';
         vm.reverse = false;
         vm.sortBy = sortBy;
+        vm.getVideoByTitle = getVideoByTitle;
         function sortBy(propertyName) {
             vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
             vm.propertyName = propertyName;
@@ -49,6 +50,15 @@
             vm.tvShows = data;
         }
 
+        function getVideoByTitle(video) {
+			SearchService.getVideoByTitle(video).then(function(response) {
+				console.log(response);
+				vm.videos = response;
+				console.log(click);
+			}, function(error) {
+				vm.searchError = error;
+			});
+		}
     }
 
 })();

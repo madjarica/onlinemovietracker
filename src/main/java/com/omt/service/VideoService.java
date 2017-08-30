@@ -38,6 +38,6 @@ public class VideoService {
 
 	public List<Video> getPublicVideoByTitle(String title) {
 		// TODO Auto-generated method stub
-		return videoRepository.findByTitle(title);
+		return videoRepository.findByTitleContaining(title);
 	}
 }
