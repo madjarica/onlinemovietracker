@@ -10,7 +10,8 @@
             getMovies: getMovies,
             getTvShows: getTvShows,
             getVideos: getVideos,
-            getVideoByTitle: getVideoByTitle
+            getVideoByTitle: getVideoByTitle,
+            selectedVideo: {}
         };
 
         return service;
