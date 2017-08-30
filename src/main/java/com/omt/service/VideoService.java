@@ -35,4 +35,9 @@ public class VideoService {
         // TODO Auto-generated method stub
         videoRepository.delete(id);
     }
+
+	public List<Video> getPublicVideoByTitle(String title) {
+		// TODO Auto-generated method stub
+		return videoRepository.findByTitle(title);
+	}
 }

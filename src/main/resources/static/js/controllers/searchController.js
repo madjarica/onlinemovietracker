@@ -8,6 +8,14 @@
 
         var vm = this;
 
+        vm.propertyName = 'title';
+        vm.reverse = false;
+        vm.sortBy = sortBy;
+        function sortBy(propertyName) {
+            vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
+            vm.propertyName = propertyName;
+        }
+
         vm.getMovies = getMovies;
         vm.movies = getMovies();
 
