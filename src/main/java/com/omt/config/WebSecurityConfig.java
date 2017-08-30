@@ -48,6 +48,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 			.antMatchers(HttpMethod.GET,"/movies/{id}").permitAll()
 			.antMatchers(HttpMethod.GET,"/videos").permitAll()
 			.antMatchers(HttpMethod.GET,"/videos/{id}").permitAll()
+			.antMatchers(HttpMethod.GET,"/videos/search/video/{title}").permitAll()
 			.antMatchers(HttpMethod.POST,"/users").permitAll()
 			.antMatchers(HttpMethod.POST, "/users/captcha").permitAll()
 			.antMatchers(HttpMethod.POST,"/users/request-new-password/**").permitAll()

@@ -1,6 +1,5 @@
 <section>
     <div class="container" ng-controller = "SearchController as srchCtrl">
-
         <section>
             <div class="row no-padding no-margin">
                 <div class="container">
@@ -8,7 +7,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" ng-model="wCtrl.searchData.title" placeholder="Search Movies and TvShows by Title">
                             <span class="input-group-btn">
-                              <button ng-click="" data-toggle="modal" class="btn btn-default btn-sm waves-effect waves-light" type="submit" style="margin-left: 5px; margin-right: 0;">
+                              <button ng-click="srchCtrl.getVideoByTitle(wCtrl.searchData.title)" data-toggle="modal" class="btn btn-default btn-sm waves-effect waves-light" type="submit" style="margin-left: 5px; margin-right: 0;">
                                   <i class="fa fa-search" aria-hidden="true"></i>
                               </button>
                           </span>
@@ -52,40 +51,36 @@
                         <th>
                             <span ng-click="srchCtrl.sortBy('comments')" style="cursor: pointer;">
                                 <span>Comments</span>
-                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'comments'"
-                                      ng-class="{reverse: srchCtrl.reverse}"></span>
+                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'comments'" ng-class="{reverse: srchCtrl.reverse}"></span>
                             </span>
                         </th>
                     </tr>
                     </thead>
-                    <tbody ng-repeat="video in srchCtrl.videos.data | orderBy:srchCtrl.propertyName:srchCtrl.reverse">
-                        <span ng-controller="TvShowController as tvShowCtrl">
-                            <span ng-controller="MovieController as movieCtrl">
-                                <tr style="cursor: pointer;" ng-if="video.dtype == 'Movie'">
-                                    <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
-                                    <td>{{ video.name }}</td>
-                                    <td>Rating</td>
-                                    <td>
-                                        <span ng-repeat="genre in video.genres">
-                                            {{ genre.name }}<span class="comma">, </span>
-                                        </span>
-                                    </td>
-                                    <td>Comments</td>
-                                </tr>
 
-                                <tr style="cursor: pointer;" ng-if="video.dtype == 'TvShow'">
-                                    <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
-                                    <td>{{ video.name }}</td>
-                                    <td>Rating</td>
-                                    <td>
-                                        <span ng-repeat="genre in video.genres">
-                                            {{ genre.name }}<span class="comma">, </span>
-                                        </span>
-                                    </td>
-                                    <td>Comments</td>
-                                </tr>
-                            </span>
-                        </span>
+                    <tbody ng-repeat="video in srchCtrl.videos.data | orderBy:srchCtrl.propertyName:srchCtrl.reverse">
+                        <tr style="cursor: pointer;" ng-if="video.dtype == 'Movie'" ng-click="srchCtrl.getMovieDetails(video.id)">
+                            <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
+                            <td>{{ video.name }}</td>
+                            <td>Rating</td>
+                            <td>
+                                <span ng-repeat="genre in video.genres">
+                                    {{ genre.name }}<span class="comma">, </span>
+                                </span>
+                            </td>
+                            <td>Comments</td>
+                        </tr>
+
+                        <tr style="cursor: pointer;" ng-if="video.dtype == 'TvShow'" ng-click="srchCtrl.getTvShowDetails(video.id)">
+                            <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
+                            <td>{{ video.name }}</td>
+                            <td>Rating</td>
+                            <td>
+                                <span ng-repeat="genre in video.genres">
+                                    {{ genre.name }}<span class="comma">, </span>
+                                </span>
+                            </td>
+                            <td>Comments</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

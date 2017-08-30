@@ -9,7 +9,8 @@
         var service = {
             getMovies: getMovies,
             getTvShows: getTvShows,
-            getVideos: getVideos
+            getVideos: getVideos,
+            getVideoByTitle: getVideoByTitle
         };
 
         return service;
@@ -74,6 +75,21 @@
                 });
 
             return def.promise;
+        }
+        
+        function getVideoByTitle(video) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "videos/search/video/" + video
+            }
+            return $http(req)
+	            .success(function (response) {
+	                return videossList = response.data;
+	            })
+	            .error(function () {
+	                return def.reject("Failed to get videos with given criteria");
+	            });
         }
     }
 })();
