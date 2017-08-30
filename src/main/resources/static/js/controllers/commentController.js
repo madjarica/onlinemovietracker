@@ -11,6 +11,7 @@ angular.module('app')
         vm.selectComment = selectComment;
         vm.saveComment = saveComment;
         vm.deleteComment = deleteComment;
+        vm.selectCommentToReport = selectCommentToReport;
         vm.commentForm;
         vm.importError = "";
         vm.commentContent;
@@ -22,6 +23,7 @@ angular.module('app')
         vm.username = AuthenticationService.currentUsername;
         vm.userComment = {};
         vm.selectedComment = {};
+        vm.newMessage = {};
         
         
         init();
@@ -66,6 +68,7 @@ angular.module('app')
 //            			vm.notification.type = "notification_comment"
             			console.log(vm.commentContent);
             			vm.notification.sender = vm.username;
+            			vm.notification.reciver = vm.selectedWatchlist.watchlistUser;
             			vm.notification.read = false;
             			vm.notification.watchlist = vm.selectedWatchlist;
             			vm.notification.type = "notification_comment";
@@ -113,6 +116,14 @@ angular.module('app')
 
             });
             vm.comment = {};
+        }
+
+        function selectCommentToReport(comment) {
+            vm.newMessage.comment = comment;
+            vm.newMessage.watchlist = vm.selectedWatchlist;
+            vm.newMessage.readState = false;
+            vm.newMessage.sentBy = vm.username;
+            console.log(vm.newMessage);
         }
     };
 })();

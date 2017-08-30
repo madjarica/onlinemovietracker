@@ -36,7 +36,6 @@ public class WatchlistController {
         this.loginUserService = loginUserService;
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public List<Watchlist> findAll() {
         return watchlistService.findAll();

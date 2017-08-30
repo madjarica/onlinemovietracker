@@ -13,4 +13,6 @@ public interface AdminMessageRepository extends JpaRepository<AdminMessage, Long
     public AdminMessage save(AdminMessage adminMessage);
 
     public void delete(Long id);
+
+    public List<AdminMessage> findByCommentId(Long id);
 }

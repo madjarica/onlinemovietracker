@@ -14,81 +14,50 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">
-                <!-- Comment -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="panel panel-white post panel-shadow">
-                            <div class="post-heading">
-                                <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                                </div>
-                                <div class="pull-left meta">
-                                    <div class="title h5">
-                                        <b>Ryan Haywood</b>
-                                    </div>
-                                    <h6 class="text-muted time">1 minute ago</h6>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-warning">
-                                        <i class="fa fa-trash icon"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
 
-                                <div class="post-description">
-                                    <textarea name="" id="" rows="5" class="form-control"></textarea>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default" style="float: right; margin-right: 0;">
-                                            <i class="fa fa-reply icon"></i> Reply
+                <div ng-repeat="am in amCtrl.adminMessages">
+                    <!-- Comment -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-white post panel-shadow">
+                                <div class="post-heading">
+                                    <div class="pull-left image">
+                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                    </div>
+                                    <div class="pull-left meta">
+                                        <div class="title h5">
+                                            <b>{{am.sentBy}}</b>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-warning">
+                                            <i class="fa fa-trash icon"></i>
                                         </a>
-                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="post-description">
+                                    {{am.watchlist.id}}<br>
+                                    <b>Comment: </b><br>
+                                    <p>{{am.comment.commentContent}}</p>
+                                    <b>Message: </b><br>
+                                    <p>{{am.message}}</p>
+
+                                    <div class="post-description">
+                                        <textarea name="" id="" ng-model="amCtrl.reply" rows="5" class="form-control"></textarea>
+                                        <div class="stats">
+                                            <a   class="btn btn-default" style="float: right; margin-right: 0;" ng-click="amCtrl.postReply(amCtrl.reply, am)">
+                                                <i class="fa fa-reply icon"></i> Reply
+                                            </a>
+                                            <div class="clearfix"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Comment -->
                 </div>
-                <!-- Comment -->
 
-                <!-- Comment -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="panel panel-white post panel-shadow">
-                            <div class="post-heading">
-                                <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                                </div>
-                                <div class="pull-left meta">
-                                    <div class="title h5">
-                                        <b>Ryan Haywood</b>
-                                    </div>
-                                    <h6 class="text-muted time">1 minute ago</h6>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-warning">
-                                        <i class="fa fa-trash icon"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="post-description">
-                                <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-
-                                <div class="post-description">
-                                    <textarea name="" id="" rows="5" class="form-control"></textarea>
-                                    <div class="stats">
-                                        <a href="#" class="btn btn-default" style="float: right; margin-right: 0;">
-                                            <i class="fa fa-reply icon"></i> Reply
-                                        </a>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Comment -->
             </div>
             <div role="tabpanel" class="tab-pane" id="sent">
                 <!-- Comment -->

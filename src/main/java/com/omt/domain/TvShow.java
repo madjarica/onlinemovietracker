@@ -18,7 +18,6 @@ import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "tvshows")
 public class TvShow extends Video {
 
     public TvShow() {

@@ -13,6 +13,17 @@
 
         vm.getTvShows = getTvShows;
         vm.tvShows = getTvShows();
+        
+        vm.getVideos = getVideos;
+        vm.videos = getVideos();
+        
+        function getVideos() {
+            SearchService.getVideos().then(handleSuccessVideos);
+        }
+        
+        function handleSuccessVideos(data, status) {
+            vm.videos = data;
+        }
 
         function getMovies(){
             SearchService.getMovies().then(handleSuccessMovies);

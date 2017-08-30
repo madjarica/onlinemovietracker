@@ -9,8 +9,9 @@
         var service = {
             getUserNotifications: getUserNotifications,
             saveNotification: saveNotification,
+            deleteNotification: deleteNotification,
             notifications: [],
-            number: {}
+            number: 0
         };
 
         return service;
@@ -39,15 +40,33 @@
             var req = {
                 method: notification.id ? 'PUT' : 'POST',
                 url: "user_notifications",
-                data: notification}
+                data: notification
+            }
             $http(req)
-	            .success(function (data) {
-	                def.resolve(data);
-	            })
+                .success(function (data) {
+                    def.resolve(data);
+                })
                 .error(function () {
                     def.reject("Failed");
                 });
             return def.promise;
+        }
+
+        function deleteNotification(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'DELETE',
+                url: 'user_notifications',
+            }
+            $http(req)
+                .success(function (data) {
+                    def.resolve(data);
+                })
+                .error(function () {
+                    def.reject("Failed");
+                });
+            return def.promise;
+
         }
 
     }

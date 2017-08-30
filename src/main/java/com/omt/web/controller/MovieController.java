@@ -1,6 +1,7 @@
 package com.omt.web.controller;
 
 import com.omt.JsonResults.*;
+import com.omt.config.LoginUserService;
 import com.omt.domain.*;
 import com.omt.domain.Character;
 import com.omt.repository.GenreRepository;
@@ -33,11 +34,7 @@ public class MovieController {
     GenreRepository genreRepository;
     KeywordService keywordService;
     RestOperations restTemplate = new RestTemplate();
-
-    final static String POSTER_PATH = "src/main/resources/static/img/posters/movies/poster";
-    final static String BACKDROP_PATH = "src/main/resources/static/img/backdrops/movies/backdrop";
-    final static String ADDTIONAL_BACKDROPS_PATH = "src/main/resources/static/img/backdrops/movies/additional_backdrops/backdrop";
-    final static String PROFILE_PATH = "src/main/resources/static/img/profiles/profile";
+    LoginUserService loginUserService;
 
     final static String API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}";
     final static String API_GET_MOVIE = "https://api.themoviedb.org/3/movie/{id}?api_key={api_key}&language=en-US";
@@ -51,19 +48,26 @@ public class MovieController {
 
 
     @Autowired
-    public MovieController(MovieService movieService, VideoService videoService, PersonService personService, CharacterService characterService, GenreRepository genreRepository, KeywordService keywordService) {
+    public MovieController(MovieService movieService, VideoService videoService, PersonService personService, CharacterService characterService, GenreRepository genreRepository, KeywordService keywordService, LoginUserService loginUserService) {
         this.movieService = movieService;
         this.videoService = videoService;
         this.personService = personService;
         this.characterService = characterService;
         this.genreRepository = genreRepository;
         this.keywordService = keywordService;
+        this.loginUserService = loginUserService;
     }
-
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Movie> findAll() {
         return movieService.findAll();
+    }
+
+    @RequestMapping(path="get-latest-three", method= RequestMethod.GET)
+    public List<Movie> getLatestThree() {
+        List<Movie> movies = movieService.findAll();
+        List<Movie> latestThree = movies.subList(Math.max(movies.size() - 3, 0), movies.size());
+        return latestThree;
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.GET)
@@ -105,6 +109,10 @@ public class MovieController {
         if (videoService.findOne(movie.getId()).getDtype().equals("TvShow"))
             throw new Exception("You can't use that id");
 
+        if(movie.getAddedBy() == null) {
+			movie.setAddedBy(loginUserService.getCurrentUser().getUsername());
+		}
+
         List<Genre> genresToBeAdded = new ArrayList<>();
         for (Genre genre : movie.getGenres()) {
             genresToBeAdded.add(getGenres(genre.getName()));
@@ -127,7 +135,6 @@ public class MovieController {
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-//        deletePersons(id);
         deleteGenres(id);
         deleteKeywords(id);
         movieService.delete(id);
@@ -148,7 +155,6 @@ public class MovieController {
     @RequestMapping(path = "getMovie/{id}", method = RequestMethod.GET)
     public Movie saveFromTMDB(@PathVariable("id") Long id) throws InterruptedException {
 
-
         Movie checkIfAlreadyExists = movieService.findByTmdbMovieId(id);
         if (checkIfAlreadyExists != null) {
             return checkIfAlreadyExists;
@@ -156,10 +162,11 @@ public class MovieController {
 
         Movie movie = restTemplate.getForObject(API_GET_MOVIE, Movie.class, id, API_KEY);
 
-//        Thread thread1 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-        getCharacters(id);
+        if(loginUserService.getCurrentUser() != null) {
+			movie.setAddedBy(loginUserService.getCurrentUser().getUsername());
+		}
+
+		getCharacters(id);
         getCrew(id);
         movie.setTmdbMovieId(movie.getId());
         movie.setId(null);
@@ -203,27 +210,8 @@ public class MovieController {
         }
         movie.setKeywords(keywordsToBeAdded);
         
-//        System.out.println("Prvi thread");
-////
-////            }
-////        });
-////
-////        thread1.start();
-////        thread1.join();
-////
-////        Thread thread2 = new Thread(new Runnable() {
-////            @Override
-////            public void run() {
         ApiImageResults results = restTemplate.getForObject(API_GET_ALL_BACKDROPS, ApiImageResults.class, id, API_KEY);
         List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
-        String ext = movie.getTmdbMovieId() + ".jpg";
-//                try {
-//////                    saveImage("https://image.tmdb.org/t/p/w500" + movie.getPosterPath(), POSTER_PATH + ext);
-//////                    movie.setPosterPath("/img/posters/movies/poster" + ext);
-////                    System.out.println("Drugi thread.1");
-////                    saveImage("https://image.tmdb.org/t/p/w780" + movie.getBackdropPath(), BACKDROP_PATH + ext);
-////                    movie.setBackdropPath("/img/backdrops/movies/backdrop" + ext);
-
 
         movie.setAdditionalBackdrops(new ArrayList<>());
         System.out.println(backdrops.size());
@@ -233,54 +221,14 @@ public class MovieController {
         } else {
             size = 5;
         }
+
         for (int i = 0; i < size; i++) {
             System.out.println(backdrops.get(i));
-//            ext = movie.getTmdbMovieId() + "_" + i + ".jpg";
-//            saveImage("https://image.tmdb.org/t/p/w500" + backdrops.get(i), ADDTIONAL_BACKDROPS_PATH + ext);
-//                        movie.getAdditionalBackdrops().add("/img/backdrops/movies/additional_backdrops/backdrop" + ext);
             movie.getAdditionalBackdrops().add(backdrops.get(i));
         }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        });
-//
-//        thread2.start();
-//        thread2.join();
 
-
-//        Thread thread3 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
         movieService.save(movie);
-//        System.out.println("Treci thread");
-//            }
-//        });
-//
-//        thread3.start();
-//        thread3.join();
-//
-//        System.out.println("Kraj thread");
-
         return movieService.findOne(movie.getId());
-    }
-
-
-    public static void saveImage(String imageUrl, String destinationFile) throws IOException {
-        URL url = new URL(imageUrl);
-        InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(destinationFile);
-        byte[] b = new byte[819200];
-        int length;
-
-        while ((length = is.read(b)) != -1) {
-            os.write(b, 0, length);
-        }
-
-        is.close();
-        os.close();
     }
 
     public Genre getGenres(String name) {
@@ -357,15 +305,8 @@ public class MovieController {
             person.setId(null);
             ApiImageResults results = restTemplate.getForObject(API_GET_ACTOR_PROFILE, ApiImageResults.class, id, API_KEY);
             if (!results.getProfiles().isEmpty()) {
-//                String ext = id + ".jpg";
                 person.setPicture(results.getProfiles().get(0).getFilePath());
                 System.out.println(person.getPicture());
-//                try {
-//                    saveImage("http://image.tmdb.org/t/p/w185" + person.getPicture(), PROFILE_PATH + ext);
-////                    person.setPicture("/img/profiles/profile" + ext);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
             }
             return personService.save(person);
         }

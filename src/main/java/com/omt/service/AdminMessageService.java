@@ -36,4 +36,12 @@ public class AdminMessageService {
         // TODO Auto-generated method stub
         adminMessageRepository.delete(id);
     }
+
+    public void deleteForComments(Long id){
+        List<AdminMessage> adminMessages = adminMessageRepository.findByCommentId(id);
+        for (int i = 0; i < adminMessages.size(); i++) {
+            adminMessageRepository.delete(adminMessages.get(i));
+        }
+    }
+
 }

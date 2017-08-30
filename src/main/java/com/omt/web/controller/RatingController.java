@@ -17,38 +17,37 @@ import com.omt.service.RatingService;
 @RequestMapping("/ratings")
 public class RatingController {
 
-	 RatingService ratingService;
+	RatingService ratingService;
 
-	    @Autowired
-	    public RatingController(RatingService ratingService) {
-	        this.ratingService = ratingService;
-	    }
+	@Autowired
+	public RatingController(RatingService ratingService) {
+		this.ratingService = ratingService;
+	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Rating> findAll() {
+		return ratingService.findAll();
+	}
 
-	    @RequestMapping(method = RequestMethod.GET)
-	    public List<Rating> findAll() {
-	        return ratingService.findAll();
-	    }
+	@RequestMapping(path = "{id}", method = RequestMethod.GET)
+	public Rating findOne(@PathVariable("id") Long id) {
+		return ratingService.findOne(id);
+	}
 
-	    @RequestMapping(path = "{id}", method = RequestMethod.GET)
-	    public Rating findOne(@PathVariable("id") Long id) {
-	        return ratingService.findOne(id);
-	    }
+	@RequestMapping(method = RequestMethod.POST)
+	public Rating save(@RequestBody Rating rating) {
+		return ratingService.save(rating);
+	}
 
-	    @RequestMapping(method = RequestMethod.POST)
-	    public Rating save(@RequestBody Rating rating) {
-	        return ratingService.save(rating);
-	    }
+	@RequestMapping(method = RequestMethod.PUT)
+	public Rating update(@RequestBody Rating rating) {
+		return ratingService.save(rating);
+	}
 
-	    @RequestMapping(method = RequestMethod.PUT)
-	    public Rating update(@RequestBody Rating rating) {
-	        return ratingService.save(rating);
-	    }
-
-	    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	    public void delete(@PathVariable("id") Long id) {
-	        ratingService.delete(id);
-	    }
+	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("id") Long id) {
+		ratingService.delete(id);
+	}
 
 	
 }

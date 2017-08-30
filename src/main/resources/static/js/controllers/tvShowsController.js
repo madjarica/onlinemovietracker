@@ -69,9 +69,20 @@
                 vm.tvShowObject = response;
             })
         }
+
+        function youtube_parser(url){
+            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            res = (match&&match[7].length==11)? match[7] : false;
+            return res;
+        }
         
         function saveTvShow(tvShow) {
             tvShow.addedBy = "default";
+            var youtube_link = tvShow.trailerLink;
+            var video_id = youtube_parser(youtube_link);
+            var parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;
+            tvShow.trailerLink = parsed_youtube_link;
             TvShowsService.saveTvShow(tvShow).then(function (response) {
                 vm.tvShowDetails = response;
                 TvShowsService.tvShowDetails = response;

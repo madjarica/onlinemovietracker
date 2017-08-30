@@ -3,13 +3,8 @@ package com.omt.domain;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.persistence.JoinColumn;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -65,35 +60,12 @@ public class LoginUser extends BaseEntity {
 	@Column(nullable = true)
 	@DateTimeFormat
 	private Date updatedDate;
-	
+
 	@ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
 	public LoginUser() {}
-
-	public LoginUser(String username, String password, Set<Role> roles) {
-		this.username = username;
-		this.password = password;
-		this.roles = roles;
-	}
-
-	public LoginUser(String username, String password, String passwordTemp, String passwordActivationLink, String codeForActivation, boolean active, boolean status, Date blockedUntil, boolean subscription, String email, String hashed_email, Date createdDate, Date updatedDate, Set<Role> roles) {
-		this.username = username;
-		this.password = password;
-		this.passwordTemp = passwordTemp;
-		this.passwordActivationLink = passwordActivationLink;
-		this.codeForActivation = codeForActivation;
-		this.active = active;
-		this.status = status;
-		this.blockedUntil = blockedUntil;
-		this.subscription = subscription;
-		this.email = email;
-		this.hashed_email = hashed_email;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-		this.roles = roles;
-	}
 
 	public String getUsername() {
 		return username;

@@ -22,7 +22,6 @@ public class TvShowEpisodeController {
 	public TvShowEpisodeController(TvShowEpisodeService tvShowEpisodeService) {
 		this.tvShowEpisodeService = tvShowEpisodeService;
 	}
-	
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<TvShowEpisode> findAll(){

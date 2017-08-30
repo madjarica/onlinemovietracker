@@ -47,12 +47,17 @@
                             title="Mark as favorite!"><i class="fa fa-heart" ng-class="(vm.favourite ? 'red':'gray')"
                                                          ng-click="vm.favTvShow()" aria-hidden="true"></i></button>
                     <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
-                            ng-controller="WatchlistController as watchCtrl" ng-click="watchCtrl.addToWatchlist(vm.tvShowDetails)"
+                            ng-controller="WatchlistController as watchCtrl"
+                            ng-click="watchCtrl.addToWatchlist(vm.tvShowDetails)"
                             title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
-                    <a class="btn btn-sm btn-primary waves-effect waves-light" style="margin-left: 0;" ng-click="vm.fbshareCurrentPage(vm.tvShowDetails.imdb_id)" target="_blank" alt="Share on Facebook">Facebook</a>
-                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world" data-size="large" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
+                    <a class="btn btn-sm btn-primary waves-effect waves-light" style="margin-left: 0;"
+                       ng-click="vm.fbshareCurrentPage(vm.tvShowDetails.imdb_id)" target="_blank"
+                       alt="Share on Facebook">Facebook</a>
+                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world"
+                       data-size="large"
+                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
@@ -79,6 +84,7 @@
         </ul>
 
         <div class="tab-content">
+
             <div id="about" class="tab-pane fade in active">
                 <br>
                 <h5>
@@ -122,7 +128,9 @@
                                     <p class="collapse" id="episode_{{ episode.id }}" aria-expanded="false">
                                         {{ episode.overview }}
                                     </p>
-                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#episode_{{ episode.id }}" aria-expanded="false" aria-controls="collapseExample">
+                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse"
+                                       href="#episode_{{ episode.id }}" aria-expanded="false"
+                                       aria-controls="collapseExample">
                                     </a>
                                 </div>
                             </div>
@@ -183,7 +191,9 @@
                                     <p class="collapse" id="actor_{{ actor.id }}" aria-expanded="false">
                                         {{ actor.person.biography }}
                                     </p>
-                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse" href="#actor_{{ actor.id }}" aria-expanded="false" aria-controls="collapseExample">
+                                    <a role="button" target="_self" class="collapsed" data-toggle="collapse"
+                                       href="#actor_{{ actor.id }}" aria-expanded="false"
+                                       aria-controls="collapseExample">
                                     </a>
                                 </div>
                             </div>
@@ -246,50 +256,97 @@
                                     </div>
                                 </div>
                                 <div class="post-description">
-                                	<form ng-submit="comCtrl.addComment(comCtrl.commentContent)">
-                                	<textarea name="" id="" rows="5" class="form-control" ng-model="comCtrl.commentContent"></textarea>
-                                    <div class="stats">
-                                        <button class="btn btn-default" style="float: right">
-                                            <i class="fa fa-comment-o icon"></i> Comment
-                                        </button>
-                                	</form>
+                                    <form ng-submit="comCtrl.addComment(comCtrl.commentContent)">
+                                        <textarea name="" rows="5" class="form-control"
+                                                  ng-model="comCtrl.commentContent"></textarea>
+                                        <div class="stats">
+                                            <button class="btn btn-default" style="float: right">
+                                                <i class="fa fa-comment-o icon"></i> Comment
+                                            </button>
+                                        </div>
                                         <div class="clearfix"></div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    
-<!-- Comment -->
-<div>
-	<div class="col-sm-10 col-sm-offset-2 col-xs-10" ng-repeat="comment in comCtrl.comments | orderBy: '-id'">
-		<div class="panel panel-white post panel-shadow">
-        	<div class="pull-left image">
-            	<img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-           </div>
-		</div>
-			<div class="col-sm-5">
-				<div class="panel panel-default">	
-					<div class="panel-heading">
-						<strong>{{ comment.commentUser }}</strong> 																	
-						<div class="panel-body">
-							<span style="float: center;" ng-if="comment.commentContent === '' || comment.commentContent === null">
-								<i>No comment</i>
-							</span>
-							<span style="float: center;" ng-if="comment.commentContent !== '' || comment.commentContent !== null">
-								{{ comment.commentContent }}
-							</span>
-						</div>
-						<div class="stats">
-                            <a href="#" class="btn btn-default">
-                                <i class="fa fa-reply icon"></i> Reply
-                            </a>
-                            <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-comment-modal" ng-click="comCtrl.selectComment(comment)">
-                            	<i class="fa fa-pencil icon"></i> Edit
+
+                    <div class="col-sm-8 col-sm-offset-2 col-xs-12"
+                         ng-repeat="comment in comCtrl.comments | orderBy: '-id'">
+                        <!-- Comment -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="panel panel-white post panel-shadow">
+                                    <div class="post-heading">
+                                        <div class="pull-left image">
+                                            <img src="http://bootdey.com/img/Content/user_1.jpg"
+                                                 class="img-circle avatar" alt="user profile image">
+                                        </div>
+                                        <div class="pull-left meta">
+                                            <div class="title h5">
+                                                <b>{{ comment.commentUser }}</b>
+                                            </div>
+                                            <h6 class="text-muted time">{{comment.createdDate |
+                                                date:'dd-MMM-yyyy'}}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="post-description">
+                                        <p>
+                                            <span style="text-align: center;"
+                                                  ng-if="comment.commentContent === '' || comment.commentContent === null">
+                                                <i>No comment</i>
+                                            </span>
+                                            <span style="text-align: center;"
+                                                  ng-if="comment.commentContent !== '' || comment.commentContent !== null">
+                                                {{ comment.commentContent }}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="stats">
+                                        <button href="#" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#edit-comment-modal"
+                                                ng-click="comCtrl.selectComment(comment)">
+                                            <i class="fa fa-pencil icon"></i> Edit
+                                        </button>
+                                        <button href="#" class="btn btn-danger" data-toggle="modal"
+                                                data-target="#delete-comment-modal"
+                                                ng-click="comCtrl.selectComment(comment)">
+                                            <i class="fa fa-trash icon"></i> Delete
+                                        </button>
+                                        <button ng-controller="AdminMessageController as amCtrl" href="#"
+                                                class="btn btn-warning" data-toggle="modal"
+                                                data-target="#report-comment-modal"
+                                                ng-click="comCtrl.selectCommentToReport(comment)">
+                                            <i class="fa fa-flag icon"></i> Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Comment -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <!-- Delete comment -->
+            <div class="modal fade" id="delete-comment-modal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4>Delete comment</h4>
+                        </div>
+                        <div class="model-body">
+                            Do you want to delete this comment?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                    ng-click="comCtrl.deleteComment(comCtrl.selectedComment.id)">OK
                             </button>
-                            <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-comment-modal" ng-click="comCtrl.selectComment(comment)">
-                                <i class="fa fa-trash icon"></i> Delete
+                            <button type="button" class="btn btn-danger" style="margin-bottom: 10px;"
+                                    data-dismiss="modal">Cancel
                             </button>
                         </div>
                         <div class="panel-footer">
@@ -364,43 +421,135 @@
                         <input type="text" ng-model="vm.tvShowEdit.original_name" class="form-control"
                                placeholder="Enter Original Title">
                     </div>
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <tags-input class="form-control" ng-model="vm.tvShowEdit.genres"
-                                    display-property="name" min-length="0" placeholder="Add Genre"></tags-input>
-                        <span class="small">Add genres on enter key</span>
+            <!-- Modal -->
+            <!-- Edit comment -->
+            <div class="modal fade" id="edit-comment-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4>Edit Comment</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="comCtrl.addCommentForm">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Comment:</label>
+                                    <div class="col-md-10">
+                                        <textarea name="" ng-model="comCtrl.selectedComment.commentContent" id=""
+                                                  rows="5" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-primary"
+                                    ng-click="comCtrl.saveComment(comCtrl.selectedComment)">OK
+                            </button>
+                            <button type="button" class="btn btn-danger" style="margin-bottom: 10px;"
+                                    data-dismiss="modal">Cancel
+                            </button>
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <tags-input class="form-control" ng-model="vm.tvShowEdit.keywords"
-                                    display-property="name" min-length="0" placeholder="Add Keywords"></tags-input>
-                        <span class="small">Add keywords on enter key</span>
+            <!-- Modal -->
+            <!-- New report-->
+            <div class="modal fade" id="report-comment-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4>Report comment</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Comment:</label>
+                                <div class="col-md-10">
+                                    <textarea name="" ng-model="comCtrl.newMessage.message" rows="5"
+                                              class="form-control" placeholder="Enter a message"></textarea>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button ng-controller="AdminMessageController as amCtrl" type="button" data-dismiss="modal"
+                                    class="btn btn-primary" ng-click="amCtrl.saveAdminMessage(comCtrl.newMessage)">OK
+                            </button>
+                            <button type="button" class="btn btn-danger" style="margin-bottom: 10px;"
+                                    data-dismiss="modal">Cancel
+                            </button>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="form-group">
-                        <input type="text" ng-model="vm.tvShowEdit.first_air_date" class="form-control"
-                               placeholder="Enter Pilot Date">
-                    </div>
+        <!--<div id="edit" class="tab-pane fade">-->
+            <!--<div class="row">-->
+                <!--<div class="form-group">-->
+                    <!--<input type="text" ng-model="vm.tvShowEdit.name" class="form-control"-->
+                           <!--placeholder="Enter Tv Show Title">-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<input type="text" ng-model="vm.tvShowEdit.original_name" class="form-control"-->
+                           <!--placeholder="Enter Original Title">-->
+                <!--</div>-->
 
-                    <div class="form-group">
-                        <input type="text" ng-model="vm.tvShowEdit.original_language" class="form-control"
-                               placeholder="Enter Language">
-                    </div>
+                <!--<div class="form-group">-->
+                    <!--<tags-input class="form-control" ng-model="vm.tvShowEdit.genres"-->
+                                <!--display-property="name" min-length="0" placeholder="Add Genre"></tags-input>-->
+                    <!--<span class="small">Add genres on enter key</span>-->
+                <!--</div>-->
 
-                    <div class="form-group">
-                        <input type="text" ng-model="vm.tvShowEdit.homepage" class="form-control"
-                               placeholder="Enter Homepage">
-                    </div>
+                <!--<div class="form-group">-->
+                    <!--<tags-input class="form-control" ng-model="vm.tvShowEdit.keywords"-->
+                                <!--display-property="name" min-length="0" placeholder="Add Keywords"></tags-input>-->
+                    <!--<span class="small">Add keywords on enter key</span>-->
+                <!--</div>-->
 
-                    <div class="form-group">
-                        <input type="text" ng-model="vm.tvShowEdit.imdb_id" class="form-control"
-                               placeholder="Enter IMDB Link">
-                    </div>
+                <!--<div class="form-group">-->
+                    <!--<input type="text" ng-model="vm.tvShowEdit.first_air_date" class="form-control"-->
+                           <!--placeholder="Enter Pilot Date">-->
+                <!--</div>-->
 
-                    <div class="form-group">
-                        <input type="text" ng-model="vm.tvShowEdit.trailerLink" class="form-control"
-                               placeholder="Enter YouTube Trailer Link">
-                    </div>
+                <!--<div class="form-group">-->
+                    <!--<input type="text" ng-model="vm.tvShowEdit.original_language" class="form-control"-->
+                           <!--placeholder="Enter Language">-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<input type="text" ng-model="vm.tvShowEdit.homepage" class="form-control"-->
+                           <!--placeholder="Enter Homepage">-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<input type="text" ng-model="vm.tvShowEdit.imdb_id" class="form-control"-->
+                           <!--placeholder="Enter IMDB Link">-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<input type="text" ng-model="vm.tvShowEdit.trailerLink" class="form-control"-->
+                           <!--placeholder="Enter YouTube Trailer Link">-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<textarea rows="11" ng-model="vm.tvShowEdit.overview" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;"></textarea>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-12">-->
+                    <!--<button class="btn btn-default waves-effect waves-light pull-right"-->
+                            <!--ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit Tv Show-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
 
                     <div class="form-group">
                         <textarea rows="11" ng-model="vm.tvShowEdit.overview" class="form-control"
@@ -413,7 +562,7 @@
                         <button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit Tv Show</button>
                     </div>
                 </div>
-            </div> -->
+            </div> 
         </div>
     </div>
 </section>

@@ -34,7 +34,6 @@ public class ScheduleList extends BaseEntity {
     @Column
     private Integer timer;
 
-
     public Date getScheduledDateTime() {
         return scheduledDateTime;
     }

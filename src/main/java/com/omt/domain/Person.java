@@ -49,20 +49,6 @@ public class Person extends BaseEntity {
     @DateTimeFormat
     private Date updatedDate;
 
-    public Person(String role, String name, String biography, String picture, Date birthday, String placeOfBirth,
-                  Long tmdbPersonId, Date createdDate, Date updatedDate) {
-
-        this.role = role;
-        this.name = name;
-        this.biography = biography;
-        this.picture = picture;
-        this.birthday = birthday;
-        this.placeOfBirth = placeOfBirth;
-        this.tmdbPersonId = tmdbPersonId;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-    }
-
     public String getRole() {
         return role;
     }

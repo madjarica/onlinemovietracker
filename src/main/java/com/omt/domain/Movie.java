@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "movies")
 public class Movie extends Video {
 
     public Movie() {
@@ -42,7 +41,6 @@ public class Movie extends Video {
     public boolean isReleased() {
         return released;
     }
-
 
     public void setReleased(boolean released) {
         this.released = released;

@@ -11,9 +11,7 @@ public class Rating extends BaseEntity {
 	@Column
 	private int rateMark;
 
-	public Rating(int rateMark) {
-		super();
-		this.rateMark = rateMark;
+	public Rating() {
 	}
 
 	public int getRateMark() {

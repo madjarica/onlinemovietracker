@@ -1,6 +1,5 @@
 package com.omt.web.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 
@@ -32,7 +31,6 @@ public class ScheduleListController {
         this.userNotificationService = userNotificationService;
         this.userService = userService;
     }
-
 
     @RequestMapping(method = RequestMethod.GET)
     public List<ScheduleList> findAll() {

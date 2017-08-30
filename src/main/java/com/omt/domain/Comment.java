@@ -32,14 +32,6 @@ public class Comment extends BaseEntity {
     @DateTimeFormat
     private Date updatedDate;
 
-	public Comment(String commentUser, String commentContent, Date createdDate, Date updatedDate) {
-		super();
-		this.commentUser = commentUser;
-		this.commentContent = commentContent;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-	}
-
 	public String getCommentContent() {
 		return commentContent;
 	}

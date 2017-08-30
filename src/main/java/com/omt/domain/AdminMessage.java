@@ -2,12 +2,7 @@ package com.omt.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
@@ -19,11 +14,7 @@ public class AdminMessage extends BaseEntity{
     public AdminMessage() {
     }
 
-    @NotNull
-    @Column(nullable = false)
-    private String type;
 
-    @NotNull
     @Column
     @DateTimeFormat
     private Date createdDate;
@@ -32,37 +23,30 @@ public class AdminMessage extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String message;
 
+    @Column
+    @NotNull
+    private String sentBy;
+
     @NotNull
     @Column
-    private boolean read;
+    private Boolean readState;
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "admin_message_id"),
-    inverseJoinColumns = @JoinColumn(name = "watchlist_id"))
-    private Set<Watchlist> watchlist;
-    
-    /*
-    private List<Comment> comments;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "watchlist_id")
     private Watchlist watchlist;
-    */
 
-    
-    public AdminMessage(String type, Date createdDate, String message, boolean read, Set<Watchlist> watchlist) {
-		super();
-		this.type = type;
-		this.createdDate = createdDate;
-		this.message = message;
-		this.read = read;
-		this.watchlist = watchlist;
-	}
+    @NotNull
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
 
-	public String getType() {
-        return type;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-	public void setType(String type) {
-        this.type = type;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getMessage() {
@@ -73,30 +57,35 @@ public class AdminMessage extends BaseEntity{
         this.message = message;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public String getSentBy() {
+        return sentBy;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setSentBy(String sentBy) {
+        this.sentBy = sentBy;
     }
 
-    public boolean isRead() {
-        return read;
+    public Boolean getReadState() {
+        return readState;
     }
 
-    public void setRead(boolean read) {
-        this.read = read;
+    public void setReadState(Boolean readState) {
+        this.readState = readState;
     }
 
+    public Watchlist getWatchlist() {
+        return watchlist;
+    }
 
-	public Set<Watchlist> getWatchlist() {
-		return watchlist;
-	}
+    public void setWatchlist(Watchlist watchlist) {
+        this.watchlist = watchlist;
+    }
 
+    public Comment getComment() {
+        return comment;
+    }
 
-	public void setWatchlist(Set<Watchlist> watchlist) {
-		this.watchlist = watchlist;
-	}
-
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 }

@@ -3,6 +3,7 @@ package com.omt.service;
 import java.util.List;
 
 import com.omt.domain.LoginUser;
+import com.omt.domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,10 @@ public class UserService {
 
     public LoginUser findByPasswordActivationLink(String code) {
         return loginUserRepository.findByPasswordActivationLink(code);
+    }
+
+    public List<LoginUser> findByRoles(Role role){
+        return loginUserRepository.findByRoles(role);
     }
 	
 }

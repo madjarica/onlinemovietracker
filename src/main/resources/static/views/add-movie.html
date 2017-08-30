@@ -58,17 +58,16 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-4">
-
-                        <img ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="poster-image" ng-src="/img/default_poster.jpg" alt="">
-                        <img ng-show="movieCtrl.movieObject.poster_path != 'img/default_poster.jpg'"  class="poster-image" ng-src="http://image.tmdb.org/t/p/w500{{ movieCtrl.movieObject.poster_path }}" alt="">
+                        <img ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="poster-image" src="/img/default_poster.jpg" alt="">
+                        <img ng-show="movieCtrl.movieObject.poster_path != 'img/default_poster.jpg'"  class="poster-image" src="http://image.tmdb.org/t/p/w500/{{ movieCtrl.movieObject.poster_path }}" alt="">
 
                         <div ng-show="movieCtrl.movieObject.poster_path == 'img/default_poster.jpg'" class="form-group">
                             <label>Add Poster</label>
                             <input type="file">
                         </div>
 
-                        <img ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="poster-image" ng-src="/img/default_backdrop.jpg" alt="">
-                        <img ng-show="movieCtrl.movieObject.backdrop_path != 'img/default_backdrop.jpg'" class="poster-image" ng-src="http://image.tmdb.org/t/p/w780{{ movieCtrl.movieObject.backdrop_path }}" alt="">
+                        <img ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="poster-image" src="/img/default_backdrop.jpg" alt="">
+                        <img ng-show="movieCtrl.movieObject.backdrop_path != 'img/default_backdrop.jpg'" class="poster-image" src="http://image.tmdb.org/t/p/w780/{{ movieCtrl.movieObject.backdrop_path }}" alt="">
 
                         <div ng-show="movieCtrl.movieObject.backdrop_path == 'img/default_backdrop.jpg'" class="form-group">
                             <label>Add Backdrop</label>
@@ -76,6 +75,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-xs-12">
                         <button class="btn btn-default waves-effect waves-light pull-right" ng-click="movieCtrl.saveMovie(movieCtrl.movieObject)">Add Movie</button>

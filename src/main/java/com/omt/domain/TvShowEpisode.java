@@ -55,17 +55,6 @@ public class TvShowEpisode extends BaseEntity {
     @DateTimeFormat
     private Date updatedDate;
 
-    public TvShowEpisode(int season, int episode, String overview, Date releasedDate, Date createdDate,
-                         Date updatedDate) {
-
-        this.season = season;
-        this.episode = episode;
-        this.overview = overview;
-        this.releasedDate = releasedDate;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-    }
-
     public int getSeason() {
         return season;
     }
