@@ -1,24 +1,25 @@
 (function() {
 	angular.module("app")
 		.factory('CommentService', CommentService);
-	
+
 	CommentService.$inject = ['$http', '$q'];
-	
+
 	function CommentService($http, $q) {
 
-		
+
 		var service = {
     		saveComment: saveComment,
             deleteComment: deleteComment,
             getComments: getComments,
             getUserComment: getUserComment,
             getCommentByWatchlistId: getCommentByWatchlistId,
+            getCommentsWatchlistCollection: getCommentsWatchlistCollection,
             userComment: [],
             selectedComment: {}
         }
 
         return service;
-		
+
 		  /**
          * Saving comment into database
          */
@@ -37,7 +38,7 @@
                 });
             return def.promise;
         }
-        
+
         /**
          * Deleting comment from database
          */
@@ -56,7 +57,7 @@
                 });
             return def.promise;
         }
-        
+
         /**
          * Getting all comments from database
          */
@@ -75,7 +76,7 @@
                 });
             return def.promise;
         }
-        
+
         /**
          * Getting all comments for single watchlist
          */
@@ -94,7 +95,7 @@
 	            });
             return def.promise;
         }
-        
+
         function getUserComment(username) {
             var def = $q.defer();
             var req = {
@@ -113,6 +114,22 @@
 
         }
 
-        
+        function getCommentsWatchlistCollection(id){
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: '/watchlist-collection/get-comments/' + id
+            }
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+
+
     };
-}());        
+}());

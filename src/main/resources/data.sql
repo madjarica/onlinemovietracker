@@ -1256,10 +1256,15 @@ INSERT INTO onlinemoviedatabase.tv_show_episodes (id, created_date, episode, nam
 INSERT INTO onlinemoviedatabase.tv_show_episodes (id, created_date, episode, name, overview, released_date, season, still, tv_show_id, updated_date) VALUES(133, NULL, 5, 'Travel Writer', 'Fran & Manny become enamored with a dashing travel writer giving a talk at the shop, while Bernard contends with a most unorthodox new landlord.', '2004-04-08 02:00:00.000', 3, NULL, 15, NULL);
 INSERT INTO onlinemoviedatabase.tv_show_episodes (id, created_date, episode, name, overview, released_date, season, still, tv_show_id, updated_date) VALUES(134, NULL, 6, 'Party', 'Manny and Fran drag Bernard along with them to a party, but the drunken aftermath dredges up secrets and bitterness.', '2004-04-15 02:00:00.000', 3, NULL, 15, NULL);
 
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`) VALUES ('zoricab', true, false, 2, NOW());
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`) VALUES ('zoricab', true, false, 1, NOW());
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`) VALUES ('zoki', true, false, 1, NOW());
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`) VALUES ('zoricab', true, false, 4, NOW());
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoricab');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('madjarica');
+
+
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoricab', true, false, 2, NOW(), '1');
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoricab', true, false, 1, NOW(), '1');
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoki', true, false, 1, NOW(), '2');
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoricab', true, false, 4, NOW(), '1');
 
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user`) VALUES ('Strava film', NOW(), NOW(), 1, 'zoki');
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user` ) VALUES ('Ok je', NOW(), NOW(), 2, 'madjarica');
