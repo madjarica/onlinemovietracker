@@ -4,9 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.omt.config.LoginUserService;
-import com.omt.domain.LoginUser;
-import com.omt.domain.ScheduleList;
-import com.omt.domain.UserNotification;
+import com.omt.domain.*;
 import com.omt.service.ScheduleListService;
 import com.omt.service.UserNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.omt.domain.Watchlist;
 import com.omt.service.WatchlistService;
 
 @RestController
