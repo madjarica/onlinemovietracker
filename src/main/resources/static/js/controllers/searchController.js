@@ -12,6 +12,9 @@
         vm.reverse = false;
         vm.sortBy = sortBy;
         vm.getVideoByTitle = getVideoByTitle;
+        vm.goToDetailsPage = goToDetailsPage;
+        vm.selectVideo = {};
+        vm.videos = {};
         function sortBy(propertyName) {
             vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
             vm.propertyName = propertyName;
@@ -84,6 +87,23 @@
 				vm.searchError = error;
 			});
 		}
+        
+        function goToDetailsPage(video) {
+            if (video.dtype === "Movie") {
+                MovieService.movieDetails = video;
+                SearchService.selectedVideo = video;
+                $location.url('movie-details');
+            } else if (video.dtype === "TvShow") {
+                TvShowsService.tvShowDetails = video;
+                SearchService.selectedVideo = video;
+                $location.url('tv-show-details');
+            }
+        }
+        
+        function selectVideo(video) {
+            vm.selectedVideo = video;
+            console.log(vm.selectedVideo);
+        }
     }
 
 })();
