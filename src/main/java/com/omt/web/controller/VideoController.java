@@ -30,7 +30,6 @@ public class VideoController {
 	/*
 	 * Find all visible videos of certain title without logged user	
 	 */
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@RequestMapping(path="search/video/{title}", method = RequestMethod.GET)
 	public List<Video> getPublicVideoByTitle(@PathVariable("title")String title){
 		return videoService.getPublicVideoByTitle(title);
