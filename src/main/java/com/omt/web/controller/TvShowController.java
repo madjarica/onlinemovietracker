@@ -67,6 +67,13 @@ public class TvShowController {
         return tvShowService.findAll();
     }
 
+    @RequestMapping(path="get-latest-three", method= RequestMethod.GET)
+    public List<TvShow> getLatestThree() {
+        List<TvShow> tvShows = tvShowService.findAll();
+        List<TvShow> latestThree = tvShows.subList(Math.max(tvShows.size() - 3, 0), tvShows.size());
+        return latestThree;
+    }
+
     @RequestMapping(path = "{id}", method = RequestMethod.GET)
     public TvShow findOne(@PathVariable("id") Long id) {
         return tvShowService.findOne(id);

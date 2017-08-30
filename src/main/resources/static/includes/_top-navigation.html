@@ -74,9 +74,9 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <ul class="nav nav-tabs">
-                        <li ng-click="authCtrl.clickOnLogin()" class="active"><a data-toggle="tab" href="#login" target="_self">Login</a></li>
-                        <li ng-click="authCtrl.clickOnRegister()" id="#register-form-link"><a data-toggle="tab" href="#registration" target="_self">Registration</a></li>
-                        <li ng-click="authCtrl.clickOnRequire()" id="#request-password-form-link"><a data-toggle="tab" href="#forgot-password" target="_self">Forgotten password?</a></li>
+                        <li ng-click="authCtrl.clearMessages()" class="active"><a data-toggle="tab" href="#login" target="_self">Login</a></li>
+                        <li ng-click="authCtrl.clearMessages()"><a data-toggle="tab" href="#registration" target="_self">Registration</a></li>
+                        <li ng-click="authCtrl.clearMessages()"><a data-toggle="tab" href="#forgot-password" target="_self">Forgotten password?</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="login" class="tab-pane fade in active">
@@ -131,7 +131,7 @@
                         </div>
                         <div id="forgot-password" class="tab-pane fade">
                             <br>
-                            <form name="authCtrl.forgotForm" ng-submit="authCtrl.requestNewPassword(authCtrl.forgotCredentials.email)" novalidate>
+                            <form ng-submit="authCtrl.requestNewPassword(authCtrl.forgotCredentials.email)" name="authCtrl.forgotForm" novalidate>
 
                                 <div class="alert alert-danger" ng-class="{'hidden': authCtrl.requestPasswordMessages.error == ''}">{{ authCtrl.requestPasswordMessages.error }}</div>
                                 <div class="alert alert-success" ng-class="{'hidden': authCtrl.requestPasswordMessages.success == ''}">{{ authCtrl.requestPasswordMessages.success }}</div>
@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default waves-effect waves-light" data-dismiss="modal" ng-click="authCtrl.clearMessages()">Close</button>
                 </div>
             </div>
         </div>

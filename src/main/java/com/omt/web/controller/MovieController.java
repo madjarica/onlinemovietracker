@@ -63,6 +63,13 @@ public class MovieController {
         return movieService.findAll();
     }
 
+    @RequestMapping(path="get-latest-three", method= RequestMethod.GET)
+    public List<Movie> getLatestThree() {
+        List<Movie> movies = movieService.findAll();
+        List<Movie> latestThree = movies.subList(Math.max(movies.size() - 3, 0), movies.size());
+        return latestThree;
+    }
+
     @RequestMapping(path = "{id}", method = RequestMethod.GET)
     public Movie findOne(@PathVariable("id") Long id) {
         return movieService.findOne(id);
