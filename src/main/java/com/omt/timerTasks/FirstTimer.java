@@ -43,6 +43,7 @@ public class FirstTimer extends TimerTask {
         userNotification.setReciver(watchlist.getWatchlistUser());
         userNotification.setWatchlist(watchlist);
         userNotification.setCreatedDate(date);
+        userNotification.setTrashed(false);
         userNotificationService.save(userNotification);
 
         //Email notification

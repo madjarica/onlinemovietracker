@@ -56,7 +56,7 @@
             var def = $q.defer();
             var req = {
                 method: 'DELETE',
-                url: 'user_notifications',
+                url: 'user_notifications/' + id,
             }
             $http(req)
                 .success(function (data) {

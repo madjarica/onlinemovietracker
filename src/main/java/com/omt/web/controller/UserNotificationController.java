@@ -43,6 +43,7 @@ public class UserNotificationController {
         return userNotificationService.save(userNotification);
     }
 
+
     @RequestMapping(path="{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id){
         userNotificationService.delete(id);

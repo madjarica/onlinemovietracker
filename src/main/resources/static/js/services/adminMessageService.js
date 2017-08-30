@@ -8,7 +8,10 @@
 
         var service = {
             getAdminMessages: getAdminMessages,
-            saveAdminMessage : saveAdminMessage
+            saveAdminMessage : saveAdminMessage,
+            deleteAdminMessage: deleteAdminMessage,
+            adminMessages : [],
+            number : 0
         };
 
         function getAdminMessages() {
@@ -41,6 +44,23 @@
                 def.reject(error);
             });
 
+            return def.promise;
+        }
+
+        function deleteAdminMessage(id){
+
+            var def = $q.defer();
+            var req = {
+                method: 'DELETE',
+                url: 'admin-messages/' + id
+            }
+            $http(req)
+                .success(function (data) {
+                    def.resolve(data);
+                })
+                .error(function () {
+                    def.reject("Failed");
+                });
             return def.promise;
         }
 

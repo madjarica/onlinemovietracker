@@ -66,6 +66,7 @@
                 vm.notification.sender = vm.username;
                 vm.notification.reciver = vm.selectedWatchlist.watchlistUser;
                 vm.notification.read = false;
+                vm.notification.trashed = false;
                 vm.notification.watchlist = vm.selectedWatchlist;
                 vm.notification.type = "notification_comment";
                 NotificationService.saveNotification(vm.notification).then(function (response) {
@@ -113,11 +114,12 @@
 
         function selectCommentToReport(comment) {
             vm.newMessage.comment = comment;
+            vm.newMessage.readState = false;
+            vm.newMessage.sentBy = vm.username;
+            vm.newMessage.trashed = false;
             if ($location.path === '/watchlist') {
                 vm.newMessage.watchlist = vm.selectedWatchlist;
             }
-            vm.newMessage.readState = false;
-            vm.newMessage.sentBy = vm.username;
         }
 
         function addCommentWatchlistCollection(commentContent) {
