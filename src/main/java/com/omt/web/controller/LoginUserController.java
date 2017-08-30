@@ -338,6 +338,29 @@ public class LoginUserController {
 			user.setStatus(userData.isStatus());
 			user.setBlockedUntil(userData.getBlockedUntil());
 
+			boolean checkRole = userData.isRole();
+
+			Set<Role> role = new HashSet<Role>();
+			user.setRoles(role);
+
+			if(checkRole) { // admin je
+				Role userRole = new Role();
+				Role adminRole = new Role();
+				userRole.setId((long)1);
+				userRole.setType(Role.RoleType.ROLE_USER);
+				adminRole.setId((long)2);
+				adminRole.setType(Role.RoleType.ROLE_ADMIN);
+				role.add(userRole);
+				role.add(adminRole);
+				user.setRoles(role);
+			} else {
+				Role userRole = new Role();
+				userRole.setId((long)1);
+				userRole.setType(Role.RoleType.ROLE_USER);
+				role.add(userRole);
+				user.setRoles(role);
+			}
+
 			Date current_date = new Date();
 
 			user.setUpdatedDate(current_date);

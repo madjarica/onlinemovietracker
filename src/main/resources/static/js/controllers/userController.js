@@ -22,6 +22,7 @@
         vm.userOptions.active_options = [true, false];
         vm.userOptions.subscription_option = [true, false];
         vm.userOptions.status_option = [true, false];
+        vm.userOptions.role_option = [true, false];
 
         function updateUser(data) {
             UserService.updateUser(data.userId, data).then(function () {
@@ -43,6 +44,13 @@
                 vm.userOptions.subscription = response.subscription;
                 vm.userOptions.status = response.status;
                 vm.userOptions.blockedUntil = response.blockedUntil;
+                var role = response.roles;
+                console.log(role);
+                if(role.length == 2) { // user je admin
+                    vm.userOptions.role = true;
+                } else {
+                    vm.userOptions.role = false;
+                }
             });
         }
         
