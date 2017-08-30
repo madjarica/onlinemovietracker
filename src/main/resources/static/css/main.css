@@ -706,3 +706,10 @@ tags-input .tags.focused {
 .collapse-box a:not(.collapsed):after {
     content: '- Show Less';
 }
+
+.watchlist-poster-image {
+    display: block;
+    height: 100px;
+    width: auto;
+    margin: 0 auto;
+}

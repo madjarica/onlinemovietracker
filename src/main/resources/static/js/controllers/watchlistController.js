@@ -15,13 +15,23 @@
         vm.favWatchlist = favWatchlist;
         vm.goToDetailsPage = goToDetailsPage;
         vm.saveWatchDate = saveWatchDate;
-        getWatchlists = getWatchlists;
-        getWatchlistDetails = getWatchlistDetails;
+        vm.getWatchlists = getWatchlists;
+        vm.getWatchlistDetails = getWatchlistDetails;
+        vm.getUserWatchlist = getUserWatchlist;
         vm.newWatchlist = {};
         vm.selectedWatchlist = {};
         vm.userWatchlist = {};
         vm.watchlists = {};
         vm.watchDate = {};
+        vm.searchData = {};
+
+        vm.propertyName = 'video.name';
+        vm.reverse = false;
+        vm.sortBy = sortBy;
+        function sortBy(propertyName) {
+            vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
+            vm.propertyName = propertyName;
+        }
         
         function saveWatchDate(id, date) {
             WatchlistService.changeWatchDate(id, date).then(function (response) {
@@ -44,6 +54,11 @@
         }
 
         init();
+
+        function init() {
+            // getUserWatchlist(vm.username);
+            // getWatchlists();
+        }
         
         function getWatchlists(){
             WatchlistService.getWatchlists().then(function (response){
@@ -58,7 +73,9 @@
             vm.watchlists = data.data;
         }
         
-        function getUserWatchlist(username) {
+        function getUserWatchlist(searchByUser) {
+            console.log('click');
+            var username = searchByUser.username;
             WatchlistService.getUserWatchlist(username).then(function (response) {
                 vm.userWatchlist = response;
                 WatchlistService.userWatchlist = response;
@@ -130,10 +147,7 @@
             })
         }
 
-        function init() {
-            getUserWatchlist(vm.username);
-        	getWatchlists();
-        }
+
     }
 
 })();
