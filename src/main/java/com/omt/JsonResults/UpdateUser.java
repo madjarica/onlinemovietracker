@@ -22,6 +22,9 @@ public class UpdateUser {
 	@JsonProperty(value = "blockedUntil")
 	private Date blockedUntil;
 
+	@JsonProperty(value = "role")
+	private boolean role;
+
 	public boolean isActive() {
 		return active;
 	}
@@ -52,5 +55,13 @@ public class UpdateUser {
 
 	public void setBlockedUntil(Date blockedUntil) {
 		this.blockedUntil = blockedUntil;
+	}
+
+	public boolean isRole() {
+		return role;
+	}
+
+	public void setRole(boolean role) {
+		this.role = role;
 	}
 }

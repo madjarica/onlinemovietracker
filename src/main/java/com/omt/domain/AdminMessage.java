@@ -31,6 +31,10 @@ public class AdminMessage extends BaseEntity{
     @Column
     private Boolean readState;
 
+    @Column
+    private Boolean trashed;
+
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "watchlist_id")
     private Watchlist watchlist;
@@ -87,5 +91,13 @@ public class AdminMessage extends BaseEntity{
 
     public void setComment(Comment comment) {
         this.comment = comment;
+    }
+
+    public Boolean getTrashed() {
+        return trashed;
+    }
+
+    public void setTrashed(Boolean trashed) {
+        this.trashed = trashed;
     }
 }

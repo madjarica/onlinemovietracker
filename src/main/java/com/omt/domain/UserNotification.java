@@ -31,6 +31,9 @@ public class UserNotification extends BaseEntity{
     @Column
     private String reciver;
 
+    @Column
+    private Boolean trashed;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "watchlist_id")
     private Watchlist watchlist;
@@ -92,5 +95,13 @@ public class UserNotification extends BaseEntity{
 
     public void setReciver(String reciver) {
         this.reciver = reciver;
+    }
+
+    public Boolean getTrashed() {
+        return trashed;
+    }
+
+    public void setTrashed(Boolean trashed) {
+        this.trashed = trashed;
     }
 }

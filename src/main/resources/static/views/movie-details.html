@@ -55,6 +55,7 @@
                             title="Mark as favorite!"><i class="fa fa-heart" ng-class="(vm.favourite ? 'red':'gray')"
                                                          ng-click="vm.favMovie()" aria-hidden="true"></i></button>
                     <button class="btn-floating btn waves-effect waves-light default-color"
+                            ng-if="::(vm.checkIfAdded())"
                             ng-controller="WatchlistController as watchCtrl"
                             ng-click="watchCtrl.addToWatchlist(vm.movieDetails)" data-toggle="tooltip"
                             title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>

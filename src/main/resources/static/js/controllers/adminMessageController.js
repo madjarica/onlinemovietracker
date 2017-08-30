@@ -10,39 +10,81 @@
         // vm.selectCommentToReport = selectCommentToReport;
         vm.saveAdminMessage = saveAdminMessage;
         vm.postReply = postReply;
-        vm.adminMessages = [];
+        vm.markAsRead = markAsRead;
+        vm.deleteAdminMessage = deleteAdminMessage;
+        vm.trash = trash;
         vm.newMessage = {};
+        vm.adminMessages = AdminMessageService.adminMessages;
         vm.username = AuthenticationService.currentUsername;
+        vm.number = AdminMessageService.number;
         vm.reply  = {};
         vm.notification = {};
 
         getAdminMessages();
 
+        setInterval(function () {
+            getAdminMessages();
+        }, 10000);
+
         function getAdminMessages() {
-            AdminMessageService.getAdminMessages().then(function (response) {
-                vm.adminMessages = response;
-                console.log(response);
-            })
+            if (AuthenticationService.currentUsername !== null) {
+                AdminMessageService.getAdminMessages().then(function (response) {
+                    vm.number = AdminMessageService.number;
+                    if (vm.adminMessages.length !== response.length) {
+                        vm.adminMessages = response;
+                        AdminMessageService.adminMessages = vm.adminMessages;
+                        vm.number = 0;
+                        for (var i = 0; i < vm.adminMessages.length; i++) {
+                            if (vm.adminMessages[i].readState === false) {
+                                vm.number++;
+                            }
+                        }
+                        AdminMessageService.number = vm.number;
+                    }
+                });
+            }
+        }
+
+        function markAsRead() {
+            vm.number = 0;
+            AdminMessageService.number = vm.number;
+            for (var i = 0; i < AdminMessageService.adminMessages.length; i++) {
+                if (AdminMessageService.adminMessages[i].readState === false) {
+                    AdminMessageService.adminMessages[i].readState = true;
+                    AdminMessageService.saveAdminMessage(AdminMessageService.adminMessages[i]).then(function (response) {
+                    });
+                }
+            }
         }
 
         
         function saveAdminMessage(adminMessage) {
-            console.log(adminMessage);
             AdminMessageService.saveAdminMessage(adminMessage).then(function (response) {
                 getAdminMessages();
             })
         }
         
-        function postReply(reply, adminMessage) {
+        function postReply(adminMessage) {
 
             vm.notification.type = "notification_admin";
             vm.notification.sender = vm.username;
             vm.notification.reciver = adminMessage.sentBy;
-            vm.notification.message = reply;
+            vm.notification.message = adminMessage.reply;
             vm.notification.read = false;
+            vm.notification.trashed = false;
             NotificationService.saveNotification(vm.notification).then(function (response) {
-                console.log(response);
             })
+        }
+        
+        function deleteAdminMessage(adminMessage) {
+            AdminMessageService.deleteAdminMessage(adminMessage.id).then(function () {
+                getAdminMessages();
+            })
+        }
+        
+        function trash(adminMessage) {
+            adminMessage.trashed = true;
+            AdminMessageService.saveAdminMessage(adminMessage);
         }
     }
 

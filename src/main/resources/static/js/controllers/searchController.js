@@ -20,6 +20,32 @@
             vm.propertyName = propertyName;
         }
 
+        vm.getMovieDetails = getMovieDetails;
+        vm.getTvShowDetails = getTvShowDetails;
+
+        // Show movie details
+        function getMovieDetails(id) {
+            console.log(id);
+            MovieService.getMovieDetails(id).then(function (response) {
+                MovieService.movieDetails = response;
+                var runtime = MovieService.movieDetails.runtime;
+                var hoursAndMinutes = Math.floor(runtime / 60) + 'h ' + Math.floor(runtime % 60) + 'min';
+                MovieService.movieDetails.runtime = hoursAndMinutes;
+            }).then(function () {
+                $location.url("movie-details");
+            })
+        }
+
+        // Show movie details
+        function getTvShowDetails(id) {
+            TvShowsService.getTvShowDetails(id).then(function (response) {
+                TvShowsService.tvShowDetails = response;
+            }).then(function () {
+                $location.url("tv-show-details");
+            })
+        }
+        // End of show movie details
+
         vm.getMovies = getMovies;
         vm.movies = getMovies();
 
@@ -57,7 +83,6 @@
 			SearchService.getVideoByTitle(video).then(function(response) {
 				console.log(response);
 				vm.videos = response;
-				console.log(click);
 			}, function(error) {
 				vm.searchError = error;
 			});

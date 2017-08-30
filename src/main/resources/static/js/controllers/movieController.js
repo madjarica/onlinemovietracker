@@ -69,6 +69,7 @@
 
         // Show movie details
         function getMovieDetails(id) {
+            console.log(id);
             MovieService.getMovieDetails(id).then(function (response) {
                 MovieService.movieDetails = response;
                 var runtime = MovieService.movieDetails.runtime;

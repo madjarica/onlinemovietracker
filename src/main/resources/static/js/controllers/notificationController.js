@@ -8,10 +8,13 @@
 
         var vm = this;
         vm.markAsRead = markAsRead;
-        vm.trash = [];
+        vm.trash = trash;
+        vm.deleteNotification = deleteNotification;
         vm.username = AuthenticationService.currentUsername;
         vm.notifications = NotificationService.notifications;
         vm.number = NotificationService.number;
+
+        getNotifications();
 
 
         setInterval(function () {
@@ -45,10 +48,22 @@
                 if (NotificationService.notifications[i].read === false) {
                     NotificationService.notifications[i].read = true;
                     NotificationService.saveNotification(NotificationService.notifications[i]).then(function (response) {
-                        console.log(response);
                     });
                 }
             }
+        }
+        
+        function trash(notification) {
+            notification.trashed = true;
+            NotificationService.saveNotification(notification).then(function (response) {
+                console.log(response);
+            })
+        }
+
+        function deleteNotification(notification) {
+            NotificationService.deleteNotification(notification.id).then(function () {
+                getNotifications();
+            })
         }
 
     }
