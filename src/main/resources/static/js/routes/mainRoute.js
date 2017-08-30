@@ -44,7 +44,7 @@
             .when('/watchlist', {
                 templateUrl: '/views/watchlist.html',
                 controller: 'WatchlistController',
-                controllerAs: 'watchCtrl'
+                controllerAs: 'vm'
             })
             .when('/schedule-list', {
                 templateUrl: '/views/schedule-list.html',
