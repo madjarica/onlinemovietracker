@@ -1,10 +1,12 @@
 package com.omt.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.omt.config.LoginUserService;
 import com.omt.domain.*;
+import com.omt.service.AdminMessageService;
 import com.omt.service.ScheduleListService;
 import com.omt.service.UserNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,15 @@ public class WatchlistController {
     ScheduleListService scheduleListService;
     UserNotificationService userNotificationService;
     LoginUserService loginUserService;
+    AdminMessageService adminMessageService;
 
     @Autowired
-    public WatchlistController(WatchlistService watchlistService, ScheduleListService scheduleListService, UserNotificationService userNotificationService, LoginUserService loginUserService) {
+    public WatchlistController(WatchlistService watchlistService, ScheduleListService scheduleListService, UserNotificationService userNotificationService, LoginUserService loginUserService, AdminMessageService adminMessageService) {
         this.watchlistService = watchlistService;
         this.scheduleListService = scheduleListService;
         this.userNotificationService = userNotificationService;
         this.loginUserService = loginUserService;
+        this.adminMessageService = adminMessageService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -74,6 +78,11 @@ public class WatchlistController {
         List<UserNotification> userNotifications = userNotificationService.getUserNotificationByWatchlistId(id);
         for (UserNotification userNotification : userNotifications) {
             userNotificationService.delete(userNotification.getId());
+        }
+        List<AdminMessage> adminMessages = new ArrayList<>();
+        adminMessages = adminMessageService.findByWatchlistId(id);
+        for (AdminMessage adminMessage:adminMessages) {
+            adminMessageService.delete(adminMessage.getId());
         }
         watchlistService.delete(id);
     }

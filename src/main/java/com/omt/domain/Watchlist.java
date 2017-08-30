@@ -52,7 +52,7 @@ public class Watchlist extends BaseEntity{
 	@Column(nullable = false)
 	private String watchlistUser;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = true)
 	@JoinColumn(name="watchlist_id")
 	private Set<Comment> comment;
 	

@@ -15,4 +15,6 @@ public interface AdminMessageRepository extends JpaRepository<AdminMessage, Long
     public void delete(Long id);
 
     public List<AdminMessage> findByCommentId(Long id);
+
+    public List<AdminMessage> findByWatchlistId(Long id);
 }

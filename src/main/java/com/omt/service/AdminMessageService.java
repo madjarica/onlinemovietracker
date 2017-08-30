@@ -44,4 +44,8 @@ public class AdminMessageService {
         }
     }
 
+    public List<AdminMessage> findByWatchlistId(Long id){
+        return adminMessageRepository.findByWatchlistId(id);
+    }
+
 }
