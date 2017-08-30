@@ -12,6 +12,7 @@
         vm.saveComment = saveComment;
         vm.deleteComment = deleteComment;
         vm.selectCommentToReport = selectCommentToReport;
+        vm.addCommentWatchlistCollection = addCommentWatchlistCollection;
         vm.commentForm;
         vm.importError = "";
         vm.commentContent;
@@ -19,64 +20,71 @@
         vm.notification = {};
         vm.comments = vm.selectedWatchlist.comment;
         vm.comment = {};
-        console.log(vm.comment);
         vm.username = AuthenticationService.currentUsername;
         vm.userComment = {};
         vm.selectedComment = {};
         vm.newMessage = {};
+        vm.watchlistCollection = {};
 
 
         init();
 
         function init() {
             getComments(vm.selectedWatchlist.id);
-            getUserComment(vm.username)
+            getUserComment(vm.username);
+
+            if ($location.path() === '/watchlist') {
+                WatchlistService.getUserWatchlistCollection(vm.username).then(function (response) {
+                    vm.watchlistCollection = response;
+                }).then(function () {
+                    getCommentsWatchlistCollection(vm.watchlistCollection.id);
+                });
+            }
         }
 
         function getUserComment(username) {
-            console.log(username);
             CommentService.getUserComment(username).then(function (response) {
                 vm.userComment = response;
                 CommentService.userComment = response;
-                console.log(vm.userComment)
             });
         }
 
         function addComment(commentContent) {
-            console.log('click');
-            console.log(vm.comment);
             vm.comment.commentContent = commentContent;
             vm.comment.commentUser = vm.username;
             vm.comment.createdDate = new Date();
+            vm.comments.push(vm.comment);
+            CommentService.saveComment(vm.comment);
 
-            CommentService.saveComment(vm.comment).then(function (response) {
-                vm.watchlistCollection.comments.push(response);
-                WatchlistService.saveWatchlistCollection(vm.watchlistCollection)
-
-            }).then(function () {
+            WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
+                WatchlistService.selectedWatchlist = response;
+                vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+                vm.comments = vm.selectedWatchlist.comment;
                 vm.commentContent = "";
-                console.log(vm.commentContent);
+
+                //Notification for comment
                 vm.notification.sender = vm.username;
                 vm.notification.reciver = vm.selectedWatchlist.watchlistUser;
                 vm.notification.read = false;
                 vm.notification.watchlist = vm.selectedWatchlist;
                 vm.notification.type = "notification_comment";
                 NotificationService.saveNotification(vm.notification).then(function (response) {
-                    console.log(response);
                 });
             });
         }
 
         function selectComment(comment) {
             vm.selectedComment = angular.copy(comment);
-            console.log(vm.selectedComment);
         }
 
         function saveComment(comment) {
             comment.createdDate = new Date();
             CommentService.saveComment(comment).then(function (response) {
                 init();
-            });
+            }, function (error) {
+
+            })
+
         }
 
         function getComments(id) {
@@ -89,19 +97,53 @@
 
         function deleteComment(id) {
             CommentService.deleteComment(id).then(function () {
-                getComments(vm.selectedWatchlist.id);
-            }, function (error) {
-
+                if ($location.path() === '/watchlist') {
+                    WatchlistService.getUserWatchlistCollection(vm.username).then(function (response) {
+                        vm.watchlistCollection = response;
+                    }).then(function () {
+                        getCommentsWatchlistCollection(vm.watchlistCollection.id);
+                        vm.commentContent = "";
+                    });
+                } else {
+                    getComments(vm.selectedWatchlist.id);
+                }
             });
             vm.comment = {};
         }
 
         function selectCommentToReport(comment) {
             vm.newMessage.comment = comment;
-            vm.newMessage.watchlist = vm.selectedWatchlist;
+            if ($location.path === '/watchlist') {
+                vm.newMessage.watchlist = vm.selectedWatchlist;
+            }
             vm.newMessage.readState = false;
             vm.newMessage.sentBy = vm.username;
-            console.log(vm.newMessage);
         }
+
+        function addCommentWatchlistCollection(commentContent) {
+            vm.comment.commentContent = commentContent;
+            vm.comment.commentUser = vm.username;
+            vm.comment.createdDate = new Date();
+            vm.comment.id = null;
+            CommentService.saveComment(vm.comment)
+                .then(function (response) {
+                    console.log(response);
+                    vm.watchlistCollection.comment.push(response);
+                }).then(function () {
+                WatchlistService.saveWatchlistCollection(vm.watchlistCollection).then(function () {
+                        console.log(vm.watchlistCollection);
+                        getCommentsWatchlistCollection(vm.watchlistCollection.id);
+                    }
+                )
+            });
+        }
+
+        function getCommentsWatchlistCollection(id) {
+            CommentService.getCommentsWatchlistCollection(id).then(function (response) {
+                vm.comments = response;
+                console.log(vm.comments);
+            })
+        }
+
     }
 })();

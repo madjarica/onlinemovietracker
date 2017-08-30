@@ -11,6 +11,8 @@ import com.omt.domain.AuthenticatedUser;
 import com.omt.domain.LoginUser;
 import com.omt.domain.Role;
 
+import com.omt.domain.WatchlistCollection;
+import com.omt.service.WatchlistCollectionService;
 import com.omt.startup.OmtScheduleStartup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +38,7 @@ public class LoginUserController {
 
 	UserService userService;
 	private UserNotificationService userNotificationService;
+	private WatchlistCollectionService watchlistCollectionService;
 
 	@Bean
 	public RestTemplate restTemplate() {
@@ -46,9 +49,10 @@ public class LoginUserController {
 	private RestOperations restTemplate;
 
 	@Autowired
-	public LoginUserController(UserService userService, UserNotificationService userNotificationService) {
+	public LoginUserController(UserService userService, UserNotificationService userNotificationService, WatchlistCollectionService watchlistCollectionService) {
 		this.userService = userService;
 		this.userNotificationService = userNotificationService;
+		this.watchlistCollectionService = watchlistCollectionService;
 	}
 
 	// Find single user by ID
@@ -257,6 +261,12 @@ public class LoginUserController {
 			}
 		}
 
+		//Create user watchlist collection
+		WatchlistCollection watchlistCollection = new WatchlistCollection();
+		watchlistCollection.setUsername(user.getUsername());
+		watchlistCollectionService.save(watchlistCollection);
+
+
 		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
@@ -269,7 +279,7 @@ public class LoginUserController {
 
 		user.setCodeForActivation(account_activation_link);
 		user.setActive(false);
-		user.setStatus(true);
+		user.setStatus(false);
 		user.setSubscription(true);
 
 		Set<Role> role = new HashSet<Role>();

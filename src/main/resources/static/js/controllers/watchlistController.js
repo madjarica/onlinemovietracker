@@ -47,7 +47,6 @@
         function getWatchlists(){
             WatchlistService.getWatchlists().then(function (response){
             	vm.watchlists = response;
-            	console.log(vm.watchlists)
             })
         }
 
@@ -125,6 +124,7 @@
         function getUserWatchlist(username) {
             WatchlistService.getUserWatchlistCollection(username).then(function (response) {
                 vm.userWatchlist = response.watchlistElements;
+                WatchlistService.userWatchlist = vm.userWatchlist;
                 console.log(vm.userWatchlist);
                 vm.watchlistCollection = response;
             });

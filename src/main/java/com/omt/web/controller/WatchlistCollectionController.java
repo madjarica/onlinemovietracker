@@ -1,10 +1,12 @@
 package com.omt.web.controller;
 
+import com.omt.domain.Comment;
 import com.omt.domain.WatchlistCollection;
 import com.omt.service.WatchlistCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -46,6 +48,14 @@ public class WatchlistCollectionController {
     @RequestMapping(path = "find-by-user/{username}", method = RequestMethod.GET)
     public WatchlistCollection findByUser(@PathVariable("username") String username){
         return watchlistCollectionService.findByUsername(username);
+    }
+
+    @RequestMapping(path = "/get-comments/{id}", method = RequestMethod.GET)
+    public List<Comment> getComments(@PathVariable("id") Long id){
+        WatchlistCollection watchlistCollection = watchlistCollectionService.findOne(id);
+        List<Comment> comments = new ArrayList<>();
+        comments.addAll(watchlistCollection.getComment());
+        return comments;
     }
     
 }
