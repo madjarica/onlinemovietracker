@@ -81,6 +81,7 @@ public class MovieController {
             if (movieService.findOne(movie.getId()) != null) throw new Exception("You can't do that");
             if (videoService.findOne(movie.getId()) != null) throw new Exception("You can't use that id");
         }
+        movie.setAddedBy(loginUserService.getCurrentUser().getUsername());
         if(!movie.getGenres().isEmpty()) {
             List<Genre> genresToBeAdded = new ArrayList<>();
             for (Genre genre : movie.getGenres()) {
@@ -108,6 +109,10 @@ public class MovieController {
     public Movie update(@RequestBody Movie movie) throws Exception {
         if (videoService.findOne(movie.getId()).getDtype().equals("TvShow"))
             throw new Exception("You can't use that id");
+
+        if(!movie.getAddedBy().equals(loginUserService.getCurrentUser().getUsername())){
+            throw new Exception("You can't edit this Movie");
+        }
 
         if(movie.getAddedBy() == null) {
 			movie.setAddedBy(loginUserService.getCurrentUser().getUsername());

@@ -5,9 +5,9 @@
             $sceProvider.enabled(false);
         });
 
-    TvShowController.$inject = ['$location', '$http', '$route', 'TvShowsService', 'WatchlistService'];
+    TvShowController.$inject = ['$location', '$http', '$route', 'TvShowsService', 'WatchlistService', 'AuthenticationService'];
 
-    function TvShowController($location, $http, $route, TvShowsService, WatchlistService) {
+    function TvShowController($location, $http, $route, TvShowsService, WatchlistService, AuthenticationService) {
 
         var vm = this;
 
@@ -30,6 +30,7 @@
         vm.saveTvShow = saveTvShow;
         vm.getTvShowDetails = getTvShowDetails;
         vm.fbshareCurrentPage = fbshareCurrentPage;
+        vm.username = AuthenticationService.currentUsername;
         vm.tvShowObject = {};
         vm.tvShowDetails = TvShowsService.tvShowDetails;
         vm.tvShowEdit = {};
@@ -78,7 +79,6 @@
         }
         
         function saveTvShow(tvShow) {
-            tvShow.addedBy = "default";
             var youtube_link = tvShow.trailerLink;
             var video_id = youtube_parser(youtube_link);
             var parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;

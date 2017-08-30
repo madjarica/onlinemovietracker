@@ -5,9 +5,9 @@
             $sceProvider.enabled(false);
         });
 
-    MovieController.$inject = ['$location', '$http', '$scope', '$route', 'MovieService', 'WatchlistService', '$window', '$sce'];
+    MovieController.$inject = ['$location', '$http', '$scope', '$route', 'MovieService', 'WatchlistService', 'AuthenticationService','$window', '$sce'];
 
-    function MovieController($location, $http, $scope, $route, MovieService, WatchlistService, $window, $sce) {
+    function MovieController($location, $http, $scope, $route, MovieService, WatchlistService, AuthenticationService, $window, $sce) {
 
         var vm = this;
 
@@ -35,8 +35,10 @@
         vm.getMovieDetails = getMovieDetails;
         vm.saveMovie = saveMovie;
         vm.fbshareCurrentPage = fbshareCurrentPage;
+        vm.username = AuthenticationService.currentUsername;
         vm.movieObject = {};
         vm.movieDetails = MovieService.movieDetails;
+        vm.movieEdit = angular.copy(vm.movieDetails);
         vm.movieObject.poster_path = "img/default_poster.jpg";
         vm.movieObject.backdrop_path = "img/default_backdrop.jpg";
         vm.movieList = [];
@@ -116,6 +118,7 @@
             movie.trailerLink = parsed_youtube_link;
             MovieService.saveMovie(movie).then(function (response) {
                 MovieService.movieDetails = response;
+                vm.movieDetails = response;
             }).then(function () {
                 vm.movieObject = {};
             }).then(function () {

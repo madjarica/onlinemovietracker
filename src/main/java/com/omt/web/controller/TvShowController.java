@@ -85,6 +85,8 @@ public class TvShowController {
             if (tvShowService.findOne(tvShow.getId()) != null) throw new Exception("You can't do that");
             if (videoService.findOne(tvShow.getId()) != null) throw new Exception("You can't use that id");
         }
+
+        tvShow.setAddedBy(loginUserService.getCurrentUser().getUsername());
         List<Genre> genresToBeAdded = new ArrayList<>();
         if(tvShow.getGenres() == null) tvShow.setGenres(genresToBeAdded);
         if (!tvShow.getGenres().isEmpty()) {
@@ -114,6 +116,11 @@ public class TvShowController {
     public TvShow update(@RequestBody TvShow tvShow) throws Exception {
         if (videoService.findOne(tvShow.getId()).getDtype().equals("Movie"))
             throw new Exception("You can't use that id");
+
+        if(!tvShow.getAddedBy().equals(loginUserService.getCurrentUser().getUsername())){
+            throw new Exception("You can't edit this TvShow");
+        }
+
         List<Genre> genresToBeAdded = new ArrayList<>();
         for (Genre genre : tvShow.getGenres()) {
             genresToBeAdded.add(getGenres(genre.getName()));
