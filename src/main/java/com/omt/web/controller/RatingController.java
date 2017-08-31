@@ -36,11 +36,15 @@ public class RatingController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Rating save(@RequestBody Rating rating) {
+//		Rating rate = new Rating();
+//		rate.setRateMark(rating.getRateMark());
 		return ratingService.save(rating);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public Rating update(@RequestBody Rating rating) {
+		Rating rate = new Rating();
+		rate.setRateMark(rating.getRateMark());
 		return ratingService.save(rating);
 	}
 

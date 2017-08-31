@@ -54,6 +54,7 @@
             vm.comment.commentUser = vm.username;
             vm.comment.createdDate = new Date();
             vm.comments.push(vm.comment);
+            console.log(vm.comment);
             CommentService.saveComment(vm.comment)
                 .then(function (response) {
                     vm.selectedWatchlist.comment.push(response);

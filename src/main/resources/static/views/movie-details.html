@@ -28,6 +28,7 @@
                     </p>
                 </div>
                 <div class="row">
+                <div ng-controller="RatingController as rateCtrl">
                     <span>
                         <div class="progress progress-primary">
                             <span class="progress-left">
@@ -36,17 +37,14 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value">90%</div>
+                            <div class="progress-value">{{rateCtrl.averageRate}}</div>
                         </div>
                     </span>
+                <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
+                	on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
+                    titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                <button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="rateCtrl.rating = 0" ng-disabled="rateCtrl.isReadonly">Clear rating</button>
                 </div>
-                <div class="row">
-                    <div ng-controller="RatingController as rateCtrl">
-                        <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.saveRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
-                              on-hover="rateCtrl.hoveringOver(value)" on-leave="overStar = null"
-                              titles="['one','two','three']" aria-labelledby="default-rating"></span>
-                        <button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="rateCtrl.rating = 0" ng-disabled="rateCtrl.isReadonly">Clear rating</button>
-                    </div>
                 </div>
                 <div class="row">
                     <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>

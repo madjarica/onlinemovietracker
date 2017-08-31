@@ -17,7 +17,20 @@
         vm.selectRating = selectRating;
         vm.selectedRating = {};
         vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+        vm.ratings = {};
+        vm.ratings = vm.selectedWatchlist.rating;
+        vm.rateMark;
+        vm.getAverageRate = getAverageRate;
+        vm.operation;
+        vm.averageRate;
+        vm.count;
+        vm.rating;
         vm.rating = {};
+        vm.saveRating = saveRating;
+        vm.addRating = addRating;
+//        vm.deleteRating = deleteRating;
+        vm.getRatings = getRatings;
+        	
 
         // Rating functions
         
@@ -27,14 +40,15 @@
         	getRatings(vm.selectedWatchlist.id);
         }
         
-        function hoveringOver(value) {
-            vm.overStar = value;
-            vm.percent = 100 * (value / vm.max);
+        function hoveringOver(rateMark) {
+            vm.overStar = rateMark;
+            vm.percent = 100 * (rateMark / vm.max);
         }
         
         function getRatings(id) {
             WatchlistService.getWatchlist(id).then(function (response) {
                 vm.selectedWatchlist = response;
+                console.log(vm.selectedWatchlist);
             }).then(function () {
                 vm.ratings = vm.selectedWatchlist.rating;
             })
@@ -45,21 +59,64 @@
         }
         
         function saveRating(rating) {
-        	vm.rating = rating;
+//        	rating = vm.selectedWatchlist.id;
             RatingService.saveRating(rating).then(function (response) {
             	console.log(response);
                 init();
-            }, function (error) {
+            }), function (error) {
 
-            })
-
+            }
         }
         
-        function deleteRating(id) {
-            RatingService.deleteRating(id)
-            vm.rating = {};
+        function getAverageRate(id) {
+        	WatchlistService.getWatchlist(id).then(function(response){
+        		vm.selectedWtchlist = response;
+        	}).then(function(){
+        		vm.ratings = vm.selectedWtchlist.rating;
+        		var count = 0;
+        		var pom = 0;
+        		if(vm.ratings != undefined){
+        		vm.ratings.forEach(function(rating) {
+        			if(rating.rateMark != null) {
+        				pom = pom + rating.rateMark;
+        				count++;
+        				console.log(pom);
+        			}        			
+        		})
+        		console.log(vm.rating.rateMark);
+        		vm.averageRate = Math.round(pom / count);       
+        		vm.count = count;
+        		console.log(vm.averageRate);
+        	}
+        	})
+        }
+         
+        	function addRating(rateMark){
+            	vm.rating = {};
+                vm.rating.rateMark = rateMark;
+                vm.ratings.push(vm.rating);
+                console.log(vm.rating);
+                RatingService.saveRating(vm.rating)
+                    .then(function (response) {
+                        vm.selectedWatchlist.rating.push(response);
+                        console.log(response);
+                    })
+                    .then(function () {
+                    WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
+                    	getAverageRate(vm.selectedWatchlist.id);
+                        WatchlistService.selectedWatchlist = response;
+                        vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+                        vm.ratings = vm.selectedWatchlist.rating;
+//                        vm.rateMark = "";
+                    });
+                });
         }
         
+//        function deleteRating(id) {
+//            RatingService.deleteRating(id)
+//            vm.rating = {};
+//        }
+//        
         // End of Rating functions
 
     }
