@@ -50,7 +50,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse">
+                <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse" ng-click="watchCtrl.goToDetailsPage(watchlist)">
                     <tr style="cursor: pointer;" >
                         <td><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
                         <td>{{ watchlist.video.name }}</td>

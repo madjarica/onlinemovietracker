@@ -41,6 +41,9 @@ public class UserNotification extends BaseEntity{
     @Column
     private String message;
 
+    @Column
+    private Long comment;
+
 	public String getType() {
         return type;
     }
@@ -103,5 +106,13 @@ public class UserNotification extends BaseEntity{
 
     public void setTrashed(Boolean trashed) {
         this.trashed = trashed;
+    }
+
+    public Long getComment() {
+        return comment;
+    }
+
+    public void setComment(Long comment) {
+        this.comment = comment;
     }
 }

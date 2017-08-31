@@ -10,6 +10,7 @@
         vm.markAsRead = markAsRead;
         vm.trash = trash;
         vm.deleteNotification = deleteNotification;
+        vm.goToComment = goToComment;
         vm.username = AuthenticationService.currentUsername;
         vm.notifications = NotificationService.notifications;
         vm.number = NotificationService.number;
@@ -64,6 +65,11 @@
             NotificationService.deleteNotification(notification.id).then(function () {
                 getNotifications();
             })
+        }
+        
+        function goToComment(notify) {
+            WatchlistService.selectedWatchlist = notify.watchlist;
+            $location.url('/watchlist');
         }
 
     }

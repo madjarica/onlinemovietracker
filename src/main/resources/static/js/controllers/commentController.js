@@ -54,22 +54,26 @@
             vm.comment.commentUser = vm.username;
             vm.comment.createdDate = new Date();
             vm.comments.push(vm.comment);
-            CommentService.saveComment(vm.comment);
+            CommentService.saveComment(vm.comment)
+                .then(function (response) {
+                    vm.selectedWatchlist.comment.push(response);
+                })
+                .then(function () {
+                WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
+                    WatchlistService.selectedWatchlist = response;
+                    vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+                    vm.comments = vm.selectedWatchlist.comment;
+                    vm.commentContent = "";
 
-            WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
-                WatchlistService.selectedWatchlist = response;
-                vm.selectedWatchlist = WatchlistService.selectedWatchlist;
-                vm.comments = vm.selectedWatchlist.comment;
-                vm.commentContent = "";
-
-                //Notification for comment
-                vm.notification.sender = vm.username;
-                vm.notification.reciver = vm.selectedWatchlist.watchlistUser;
-                vm.notification.read = false;
-                vm.notification.trashed = false;
-                vm.notification.watchlist = vm.selectedWatchlist;
-                vm.notification.type = "notification_comment";
-                NotificationService.saveNotification(vm.notification).then(function (response) {
+                    //Notification for comment
+                    vm.notification.sender = vm.username;
+                    vm.notification.reciver = vm.selectedWatchlist.watchlistUser;
+                    vm.notification.read = false;
+                    vm.notification.trashed = false;
+                    vm.notification.watchlist = vm.selectedWatchlist;
+                    vm.notification.type = "notification_comment";
+                    NotificationService.saveNotification(vm.notification).then(function (response) {
+                    });
                 });
             });
         }
