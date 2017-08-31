@@ -1,13 +1,3 @@
-<!-- Load Facebook SDK for JavaScript -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1951619005120869";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 <section class="background-image" back-img="http://image.tmdb.org/t/p/w780/{{ vm.movieDetails.backdrop_path }}">
     <div class="row no-padding no-margin" style="background-color: rgba(0,0,0,.6);">
         <div class="container">
@@ -61,8 +51,44 @@
                             title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
-                    <a class="btn btn-sm btn-primary waves-effect waves-light" style="margin-left: 0;" ng-click="vm.fbshareCurrentPage(vm.movieDetails.imdb_id)" target="_blank" alt="Share on Facebook">Facebook</a>
-                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=I%27m+currently+watching+Amelie+at+http%3A%2F%2Fimdb.com+using+OnlineMovieTracker" data-size="large" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
+                    <a target="_self"
+                       class="btn btn-sm primary-color waves-effect waves-light"
+                       style="color: white; margin-left: 0px;"
+                       socialshare
+                       socialshare-provider="twitter"
+                       socialshare-text="I'm currently watching {{ vm.movieDetails.name }}"
+                       socialshare-hashtags="OnlineMovieTracker"
+                       socialshare-url="{{ vm.movieDetails.imdb_id }}">
+                        Twitter
+                    </a>
+                    <a target="_self"
+                       class="btn btn-sm primary-color-dark waves-effect waves-light"
+                       style="color: white;"
+                       socialshare
+                       socialshare-provider="facebook"
+                       socialshare-via="1951619005120869"
+                       socialshare-type="share"
+                       socialshare-quote="I'm currently watching"
+                       socialshare-url="{{ vm.movieDetails.imdb_id }}">
+                       Facebook
+                    </a>
+                    <a target="_self"
+                       class="btn btn-sm deep-orange darken-1 waves-effect waves-light"
+                       style="color: white"
+                       socialshare
+                       socialshare-provider="google"
+                       socialshare-url="{{ vm.movieDetails.imdb_id }}">
+                       Google
+                    </a>
+                    <a target="_self"
+                       class="btn btn-sm blue-grey lighten-5 waves-effect waves-light"
+                       style="color: black"
+                       socialshare
+                       socialshare-provider="reddit"
+                       socialshare-text="I'm currently watching {{ vm.movieDetails.name }}"
+                       socialshare-url="{{ vm.movieDetails.imdb_id }}">
+                       Reddit
+                    </a>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
@@ -95,25 +121,28 @@
                         <small>Original Title:</small>
                         {{ vm.movieDetails.title }}
                     </h5>
-                    <h5>
-                        <small>Released:</small>
-                        Yes
-                    </h5>
-                    <h5>
+                    <h5 ng-if="vm.movieDetails.release_date != null">
                         <small>Date of Release:</small>
                         {{ vm.movieDetails.release_date | date:'dd-MMM-yyyy' }}
                     </h5>
-                    <h5>
+                    <h5 ng-if="vm.movieDetails.original_language != null">
                         <small>Original Language:</small>
                         {{ vm.movieDetails.original_language }}
                     </h5>
-                    <h5>
+                    <h5 ng-if="vm.movieDetails.runtime != null">
                         <small>Runtime:</small>
                         {{ vm.movieDetails.runtime }}
                     </h5>
-                    <h5>
+                    <h5 ng-if="vm.movieDetails.homepage != ''">
                         <small>Homepage:</small>
-                        <a target="_blank" href="{{ vm.movieDetails.homepage }}">{{ vm.movieDetails.homepage }}</a></h5>
+                        <a target="_blank" href="{{ vm.movieDetails.homepage }}">{{ vm.movieDetails.homepage }}</a>
+                    </h5>
+                    <h5 ng-if="vm.movieDetails.keywords.length > 0">
+                        <small>Keywords:</small>
+                        <span ng-repeat="keyword in vm.movieDetails.keywords track by $index">
+                            <span class="label default-color">{{ keyword.name }}</span>
+                        </span>
+                    </h5>
                 </div>
                 <div id="trailer" class="tab-pane fade">
                     <br>
@@ -332,7 +361,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveMovie(vm.movieEdit)">Add Movie</button>
+                                <button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveMovie(vm.movieEdit)">Edit Movie</button>
                             </div>
                         </div>
                     </div>

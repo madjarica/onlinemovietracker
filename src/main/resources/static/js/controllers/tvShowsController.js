@@ -79,10 +79,18 @@
         }
         
         function saveTvShow(tvShow) {
-            var youtube_link = tvShow.trailerLink;
-            var video_id = youtube_parser(youtube_link);
-            var parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;
-            tvShow.trailerLink = parsed_youtube_link;
+            console.log(tvShow);
+            if(tvShow.trailerLink != null) {
+                var youtube_link = tvShow.trailerLink;
+                var video_id = youtube_parser(youtube_link);
+                var parsed_youtube_link = null;
+                if(video_id) {
+                    parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;
+                }
+                tvShow.trailerLink = parsed_youtube_link;
+            } else {
+                tvShow.trailerLink = null;
+            }
             TvShowsService.saveTvShow(tvShow).then(function (response) {
                 vm.tvShowDetails = response;
                 TvShowsService.tvShowDetails = response;

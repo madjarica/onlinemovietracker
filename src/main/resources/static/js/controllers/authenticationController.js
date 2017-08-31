@@ -36,6 +36,8 @@
         self.loginForm = {};
         self.forgotForm = {};
 
+        self.captchaIsSolved = false;
+
         // Navigation
         self.isActive = isActive;
 
@@ -66,6 +68,7 @@
         function init() {
             $('#auth-modal').modal('hide');
             if (self.user) {
+                self.captchaIsSolved = false;
                 self.registerForm.$setPristine();
                 self.loginForm.$setPristine();
                 self.forgotForm.$setPristine();
@@ -144,37 +147,57 @@
             if(vcRecaptchaService.getResponse() === "") {
                 self.registerMessages.error = "You need to solve captcha first.";
             } else {
-                var data = {
-                    'g-recaptcha-response': vcRecaptchaService.getResponse()  //send g-captcah-reponse to our server
-                };
-                self.registerMessages.error = "";
-                AuthenticationService.sendCaptcha(data).then(function (response) {
-                   if(response.data.success) {
-                       AuthenticationService.saveUser(user).then(function() {
-                           init();
-                           self.requestPasswordMessages.success = '';
-                           self.requestPasswordMessages.error = '';
-                           self.loginMessages.success = '';
-                           self.loginMessages.error = '';
-                           self.registerMessages.success = 'You have been successfully registered';
-                           self.registerMessages.error = '';
-                       }, function(error) {
-                           self.requestPasswordMessages.success = '';
-                           self.requestPasswordMessages.error = '';
-                           self.loginMessages.success = '';
-                           self.loginMessages.error = '';
-                           self.registerMessages.success = '';
-                           self.registerMessages.error = 'There was an error with your registration. Please try again.';
-                       });
-                   }
-                }, function (error) {
-                    self.requestPasswordMessages.success = '';
-                    self.requestPasswordMessages.error = '';
-                    self.loginMessages.success = '';
-                    self.loginMessages.error = '';
-                    self.registerMessages.success = '';
-                    self.registerMessages.error = 'There was an error with your registration. Please try again.';
-                });
+                if(self.captchaIsSolved) { // captcha je resena
+                    AuthenticationService.saveUser(user).then(function() {
+                        init();
+                        self.requestPasswordMessages.success = '';
+                        self.requestPasswordMessages.error = '';
+                        self.loginMessages.success = '';
+                        self.loginMessages.error = '';
+                        self.registerMessages.success = 'You have been successfully registered';
+                        self.registerMessages.error = '';
+                    }, function(error) {
+                        self.requestPasswordMessages.success = '';
+                        self.requestPasswordMessages.error = '';
+                        self.loginMessages.success = '';
+                        self.loginMessages.error = '';
+                        self.registerMessages.success = '';
+                        self.registerMessages.error = error.message;
+                    });
+                } else { // captcha nije resena
+                    var data = {
+                        'g-recaptcha-response': vcRecaptchaService.getResponse()  //send g-captcah-reponse to our server
+                    };
+                    self.registerMessages.error = "";
+                    AuthenticationService.sendCaptcha(data).then(function (response) {
+                        if(response.data.success) {
+                            self.captchaIsSolved = true;
+                            AuthenticationService.saveUser(user).then(function() {
+                                init();
+                                self.requestPasswordMessages.success = '';
+                                self.requestPasswordMessages.error = '';
+                                self.loginMessages.success = '';
+                                self.loginMessages.error = '';
+                                self.registerMessages.success = 'You have been successfully registered';
+                                self.registerMessages.error = '';
+                            }, function(error) {
+                                self.requestPasswordMessages.success = '';
+                                self.requestPasswordMessages.error = '';
+                                self.loginMessages.success = '';
+                                self.loginMessages.error = '';
+                                self.registerMessages.success = '';
+                                self.registerMessages.error = error.message;
+                            });
+                        }
+                    }, function (error) {
+                        self.requestPasswordMessages.success = '';
+                        self.requestPasswordMessages.error = '';
+                        self.loginMessages.success = '';
+                        self.loginMessages.error = '';
+                        self.registerMessages.success = '';
+                        self.registerMessages.error = 'There was an error with your registration. Please try again.';
+                    });
+                }
             }
         }
 

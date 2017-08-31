@@ -53,12 +53,44 @@
                             title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
                 </div>
                 <div class="row">
-                    <a class="btn btn-sm btn-primary waves-effect waves-light" style="margin-left: 0;"
-                       ng-click="vm.fbshareCurrentPage(vm.tvShowDetails.imdb_id)" target="_blank"
-                       alt="Share on Facebook">Facebook</a>
-                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world"
-                       data-size="large"
-                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet</a>
+                    <a target="_self"
+                       class="btn btn-sm primary-color waves-effect waves-light"
+                       style="color: white; margin-left: 0;"
+                       socialshare
+                       socialshare-provider="twitter"
+                       socialshare-text="I'm currently watching {{ vm.tvShowDetails.name }}"
+                       socialshare-hashtags="OnlineMovieTracker"
+                       socialshare-url="{{ vm.tvShowDetails.imdb_id }}">
+                        Twitter
+                    </a>
+                    <a target="_self"
+                       class="btn btn-sm primary-color-dark waves-effect waves-light"
+                       style="color: white;"
+                       socialshare
+                       socialshare-provider="facebook"
+                       socialshare-via="1951619005120869"
+                       socialshare-type="share"
+                       socialshare-quote="I'm currently watching"
+                       socialshare-url="{{ vm.tvShowDetails.imdb_id }}">
+                        Facebook
+                    </a>
+                    <a target="_self"
+                       class="btn btn-sm deep-orange darken-1 waves-effect waves-light"
+                       style="color: white"
+                       socialshare
+                       socialshare-provider="google"
+                       socialshare-url="{{ vm.tvShowDetails.imdb_id }}">
+                        Google
+                    </a>
+                    <a target="_self"
+                       class="btn btn-sm blue-grey lighten-5 waves-effect waves-light"
+                       style="color: black"
+                       socialshare
+                       socialshare-provider="reddit"
+                       socialshare-text="I'm currently watching {{ vm.movieDetails.name }}"
+                       socialshare-url="{{ vm.tvShowDetails.imdb_id }}">
+                        Reddit
+                    </a>
                 </div>
                 <div class="row">
                     <h5 class="white-text">Overview</h5>
@@ -92,17 +124,24 @@
                     <small>Original Title:</small>
                     {{ vm.tvShowDetails.name }}
                 </h5>
-                <h5>
+                <h5 ng-if="vm.tvShowDetails.first_air_date != null">
                     <small>Pilot Date:</small>
                     {{ vm.tvShowDetails.first_air_date | date:'dd-MM-yyyy' }}
                 </h5>
-                <h5>
+                <h5 ng-if="vm.tvShowDetails.original_language != null">
                     <small>Original Language:</small>
                     {{ vm.tvShowDetails.original_language }}
                 </h5>
-                <h5>
+                <h5 ng-if="vm.tvShowDetails.homepage != ''">
                     <small>Homepage:</small>
-                    <a target="_blank" href="{{ vm.tvShowDetails.homepage }}">{{ vm.tvShowDetails.homepage }}</a></h5>
+                    <a target="_blank" href="{{ vm.tvShowDetails.homepage }}">{{ vm.tvShowDetails.homepage }}</a>
+                </h5>
+                <h5 ng-if="vm.tvShowDetails.keywords.length > 0">
+                    <small>Keywords:</small>
+                    <span ng-repeat="keyword in vm.tvShowDetails.keywords track by $index">
+                        <span class="label default-color">{{ keyword.name }}</span>
+                    </span>
+                </h5>
             </div>
 
             <div id="episodes" class="tab-pane fade">
@@ -338,8 +377,7 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Comment:</label>
                                             <div class="col-md-10">
-                                    <textarea name="" ng-model="comCtrl.newMessage.message" rows="5"
-                                              class="form-control" placeholder="Enter a message"></textarea>
+                                                <textarea name="" ng-model="comCtrl.newMessage.message" rows="5" class="form-control" placeholder="Enter a message"></textarea>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -404,7 +442,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveTvShow(vm.tvShowEdit)">Add TV Show</button>
+                            <button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit TV Show</button>
                         </div>
                     </div>
                 </div>
@@ -440,9 +478,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-
 
     <!-- Modal -->
     <!-- Edit comment -->
@@ -458,10 +493,8 @@
                         <form name="comCtrl.addCommentForm">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Comment:</label>
-                                {{BkmdCtrl.nah}}
                                 <div class="col-md-10">
-                                    <textarea name="" ng-model="comCtrl.selectedComment.commentContent" id="" rows="5"
-                                              class="form-control" required></textarea>
+                                    <textarea name="" ng-model="comCtrl.selectedComment.commentContent" id="" rows="5" class="form-control" required></textarea>
                                 </div>
                             </div>
                         </form>
@@ -476,113 +509,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <!--<div id="edit" class="tab-pane fade">-->
-    <!--<div class="row">-->
-    <!--<div class="form-group">-->
-    <!--<input type="text" ng-model="vm.tvShowEdit.name" class="form-control"-->
-    <!--placeholder="Enter Tv Show Title">-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-    <!--<input type="text" ng-model="vm.tvShowEdit.original_name" class="form-control"-->
-    <!--placeholder="Enter Original Title">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<tags-input class="form-control" ng-model="vm.tvShowEdit.genres"-->
-    <!--display-property="name" min-length="0" placeholder="Add Genre"></tags-input>-->
-    <!--<span class="small">Add genres on enter key</span>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<tags-input class="form-control" ng-model="vm.tvShowEdit.keywords"-->
-    <!--display-property="name" min-length="0" placeholder="Add Keywords"></tags-input>-->
-    <!--<span class="small">Add keywords on enter key</span>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<input type="text" ng-model="vm.tvShowEdit.first_air_date" class="form-control"-->
-    <!--placeholder="Enter Pilot Date">-->
-    <!--</div>-->
-
-                <!--<div class="form-group">-->
-                    <!--<textarea rows="11" ng-model="vm.tvShowEdit.overview" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;"></textarea>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12">-->
-                    <!--<button class="btn btn-default waves-effect waves-light pull-right"-->
-                            <!--ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit Tv Show-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-<!-- 
-
-                    <div class="form-group">
-                        <textarea rows="11" ng-model="vm.tvShowEdit.overview" class="form-control"
-                                  placeholder="Enter Overview"
-                                  style="border-radius: 0; border-color: #9e9e9e;"></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit Tv Show</button>
-                    </div>
-                </div>
-            </div> 
-        </div>
-    </div> -->
-    
-    <!--<div class="form-group">-->
-    <!--<input type="text" ng-model="vm.tvShowEdit.original_language" class="form-control"-->
-    <!--placeholder="Enter Language">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<input type="text" ng-model="vm.tvShowEdit.homepage" class="form-control"-->
-    <!--placeholder="Enter Homepage">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<input type="text" ng-model="vm.tvShowEdit.imdb_id" class="form-control"-->
-    <!--placeholder="Enter IMDB Link">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<input type="text" ng-model="vm.tvShowEdit.trailerLink" class="form-control"-->
-    <!--placeholder="Enter YouTube Trailer Link">-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-    <!--<textarea rows="11" ng-model="vm.tvShowEdit.overview" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;"></textarea>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-    <!--<div class="col-xs-12">-->
-    <!--<button class="btn btn-default waves-effect waves-light pull-right"-->
-    <!--ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit Tv Show-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-
-    <!--<div class="form-group">-->
-    <!--<textarea rows="11" ng-model="vm.tvShowEdit.overview" class="form-control"-->
-    <!--placeholder="Enter Overview"-->
-    <!--style="border-radius: 0; border-color: #9e9e9e;"></textarea>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-    <!--<div class="col-xs-12">-->
-    <!--<button class="btn btn-default waves-effect waves-light pull-right" ng-click="vm.saveTvShow(vm.tvShowEdit)">Edit Tv Show</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div> -->
-    <!--</div>-->
-    <!--</div>-->
 </section>

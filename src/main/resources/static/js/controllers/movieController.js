@@ -110,12 +110,17 @@
 
         function saveMovie(movie) {
             vm.movieObject = movie;
-            var youtube_link = movie.trailerLink;
-            console.log(youtube_link);
-            var video_id = youtube_parser(youtube_link);
-            console.log(video_id);
-            var parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;
-            movie.trailerLink = parsed_youtube_link;
+            console.log(movie);
+            if(movie.trailerLink != null) {
+                var youtube_link = movie.trailerLink;
+                console.log(youtube_link);
+                var video_id = youtube_parser(youtube_link);
+                console.log(video_id);
+                var parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;
+                movie.trailerLink = parsed_youtube_link;
+            } else {
+                movie.trailerLink = null;
+            }
             MovieService.saveMovie(movie).then(function (response) {
                 MovieService.movieDetails = response;
                 vm.movieDetails = response;
