@@ -57,6 +57,7 @@
 
         init();
 
+
         function init() {
             if ($location.path() === '/watchlist') {
                 getUserWatchlist(vm.username);

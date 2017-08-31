@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('NotificationController', NotificationController);
 
-    NotificationController.$inject = ['$location', '$http', '$route', 'NotificationService', 'AuthenticationService'];
+    NotificationController.$inject = ['$location', '$http', '$route', 'NotificationService', 'AuthenticationService', 'WatchlistService', 'MovieService'];
 
-    function NotificationController($location, $http, $route, NotificationService, AuthenticationService) {
+    function NotificationController($location, $http, $route, NotificationService, AuthenticationService, WatchlistService, MovieService) {
 
         var vm = this;
         vm.markAsRead = markAsRead;
@@ -53,7 +53,7 @@
                 }
             }
         }
-        
+
         function trash(notification) {
             notification.trashed = true;
             NotificationService.saveNotification(notification).then(function (response) {
@@ -66,10 +66,28 @@
                 getNotifications();
             })
         }
-        
+
         function goToComment(notify) {
             WatchlistService.selectedWatchlist = notify.watchlist;
-            $location.url('/watchlist');
+            MovieService.movieDetails = notify.watchlist.video;
+            $location.url('/movie-details');
+            // $location.hash('comment' +
+            if ($location.path() === '/movie-details') {
+                setTimeout(function () {
+                    console.log(document.getElementById('comment' + notify.comment) );
+                    document.getElementById('about-tab').classList.remove('active');
+                    document.getElementById('about').setAttribute('aria-expanded', 'false');
+                    document.getElementById('about').classList.remove('active');
+                    document.getElementById('comments-tab').classList.add('active');
+                    document.getElementById('comments').setAttribute('aria-expanded', 'true');
+                    document.getElementById('comments').classList.add('active');
+                    document.getElementById('comments').classList.add('in');
+                    document.getElementById('comment' + notify.comment).setAttribute('style', 'background-color: #BFEFFF; transition: background-color 1s linear;')
+                    document.getElementById('comment' + notify.comment).scrollIntoView();
+                }, 250)
+            }
+
+
         }
 
     }
