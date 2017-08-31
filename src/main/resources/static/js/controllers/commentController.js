@@ -53,9 +53,11 @@
             vm.comment.commentContent = commentContent;
             vm.comment.commentUser = vm.username;
             vm.comment.createdDate = new Date();
-            vm.comments.push(vm.comment);
+            vm.comment.id = null;
+            // vm.comments.push(vm.comment);
             CommentService.saveComment(vm.comment)
                 .then(function (response) {
+                    vm.comment = response;
                     vm.selectedWatchlist.comment.push(response);
                 })
                 .then(function () {
@@ -72,6 +74,8 @@
                     vm.notification.trashed = false;
                     vm.notification.watchlist = vm.selectedWatchlist;
                     vm.notification.type = "notification_comment";
+                    console.log(vm.comment.id);
+                    vm.notification.comment = vm.comment.id;
                     NotificationService.saveNotification(vm.notification).then(function (response) {
                     });
                 });
@@ -141,6 +145,16 @@
                         getCommentsWatchlistCollection(vm.watchlistCollection.id);
                     }
                 )
+            }).then(function () {
+                vm.notification.sender = vm.username;
+                vm.notification.reciver = vm.watchlistCollection.username;
+                vm.notification.read = false;
+                vm.notification.trashed = false;
+                vm.notification.type = "notification_list_comment";
+                console.log(vm.comment.id);
+                vm.notification.comment = vm.comment.id;
+                NotificationService.saveNotification(vm.notification).then(function (response) {
+                });
             });
         }
 

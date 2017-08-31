@@ -70,19 +70,56 @@
                                                 </div>
                                             </div>
                                             <div class="pull-right">
-                                                <a  class="btn btn-default" ng-click="notifyController.goToComment(notify)">
-                                                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                                                <a class="btn btn-warning" ng-click="notifyController.trash(notify)">
+                                                    <i class="fa fa-trash icon"></i>
                                                 </a>
                                             </div>
                                             <div class="pull-right">
-                                                <a  class="btn btn-warning" ng-click="notifyController.trash(notify)">
-                                                    <i class="fa fa-trash icon"></i>
+                                                <a class="btn btn-default"
+                                                   ng-click="notifyController.goToComment(notify)">
+                                                    <i class="fa fa-id-card" aria-hidden="true"></i>
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="post-description">
-                                            <p>You wanted to watch {{notify.watchlist.video.name}} today at
-                                                {{notify.createdDate | date: "dd-MMM-yyyy, H:mm"}}</p>
+                                            <p>{{notify.sender}} commented on your watchlist
+                                                {{notify.watchlist.video.name}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div ng-if="notify.type === 'notification_list_comment'">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel panel-white post panel-shadow">
+                                        <div class="post-heading">
+                                            <div class="pull-left image">
+                                                <img src="http://bootdey.com/img/Content/user_1.jpg"
+                                                     class="img-circle avatar"
+                                                     alt="user profile image">
+                                            </div>
+                                            <div class="pull-left meta">
+                                                <div class="title h5">
+                                                    <b>{{notify.sender}}</b>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn btn-warning" ng-click="notifyController.trash(notify)">
+                                                    <i class="fa fa-trash icon"></i>
+                                                </a>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn btn-default"
+                                                   ng-click="">
+                                                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="post-description">
+                                            <p>{{notify.sender}} commented on your watchlistCollection</p>
                                         </div>
                                     </div>
                                 </div>
@@ -107,13 +144,15 @@
                                                 </div>
                                             </div>
                                             <div class="pull-right">
-                                                <a  class="btn btn-warning" ng-click="notifyController.trash(notify)">
+                                                <a class="btn btn-warning" ng-click="notifyController.trash(notify)">
                                                     <i class="fa fa-trash icon"></i>
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="post-description">
-                                            <p>{{notify.message}}</p>
+                                            <p>A admin said in reply to your complaint:
+                                            <i class="pull-right">{{notify.message}}</i>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +185,8 @@
                                                 </div>
                                             </div>
                                             <div class="pull-right">
-                                                <a  class="btn btn-danger" ng-click="notifyController.deleteNotification(notify)">
+                                                <a class="btn btn-danger"
+                                                   ng-click="notifyController.deleteNotification(notify)">
                                                     <i class="fa fa-trash icon"></i> Delete From Database
                                                 </a>
                                             </div>
@@ -178,7 +218,8 @@
                                                 </div>
                                             </div>
                                             <div class="pull-right">
-                                                <a class="btn btn-danger" ng-click="notifyController.deleteNotification(notify)">
+                                                <a class="btn btn-danger"
+                                                   ng-click="notifyController.deleteNotification(notify)">
                                                     <i class="fa fa-trash icon"></i> Delete From Database
                                                 </a>
                                             </div>
@@ -210,7 +251,8 @@
                                                 </div>
                                             </div>
                                             <div class="pull-right">
-                                                <a class="btn btn-danger" ng-click="notifyController.deleteNotification(notify)">
+                                                <a class="btn btn-danger"
+                                                   ng-click="notifyController.deleteNotification(notify)">
                                                     <i class="fa fa-trash icon"></i> Delete From Database
                                                 </a>
                                             </div>
