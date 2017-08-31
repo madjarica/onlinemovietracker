@@ -50,18 +50,18 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse" ng-click="watchCtrl.goToDetailsPage(watchlist)">
-                    <tr style="cursor: pointer;" >
-                        <td><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
-                        <td>{{ watchlist.video.name }}</td>
-                        <td>Rating</td>
-                        <td>
+                <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse">
+                    <tr style="cursor: pointer;">
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.video.name }}</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">Rating</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">
                             <span ng-repeat="genre in watchlist.video.genres">
                                 {{ genre.name }}<span class="comma">, </span>
                             </span>
                         </td>
-                        <td>Comments</td>
-                        <td class="text-center">{{ watchlist.watchDate | date:'dd-MMM-yyyy' }}</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">Comments</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)" class="text-center">{{ watchlist.watchDate | date:'dd-MMM-yyyy' }}</td>
                         <td>
                             <button class="btn-floating btn waves-effect waves-light default-color pull-right"
                                     data-toggle="tooltip" title="Delete" ng-click="watchCtrl.deleteWatchlist(watchlist.id)">
