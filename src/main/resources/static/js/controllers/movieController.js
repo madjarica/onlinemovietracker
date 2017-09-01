@@ -11,11 +11,6 @@
 
         var vm = this;
 
-    // <script>
-    //     var encoded_name = encodeURIComponent(vm.movieDetails.name);
-    //     var encoded_url = encodeURIComponent(vm.movieDetails.imdb_id);
-    // </script>
-
         // Gallery
         vm.myInterval = 3000;
         vm.noWrapSlides = false;
@@ -52,26 +47,16 @@
         vm.userWatchlist = WatchlistService.userWatchlist;
         checkFav();
 
-        // youtube_parser("http://www.youtube.com/watch?v=0zM3nApSvMg&feature=feedrec_grec_index");
-        // youtube_parser("http://www.youtube.com/user/IngridMichaelsonVEVO#p/a/u/1/QdK8U-VIH_o");
-        // youtube_parser("http://www.youtube.com/v/0zM3nApSvMg?fs=1&amp;hl=en_US&amp;rel=0");
-        // youtube_parser("http://www.youtube.com/watch?v=0zM3nApSvMg#t=0m10s");
-        // youtube_parser("http://www.youtube.com/embed/0zM3nApSvMg?rel=0");
-        // youtube_parser("http://www.youtube.com/watch?v=0zM3nApSvMg");
-        // youtube_parser("http://youtu.be/0zM3nApSvMg");
-
         // On List of Movies
         function getMovieByTitle(title) {
             MovieService.getMovieByTitle(title).then(function (response) {
                 vm.movieList = response.results.slice(0, 5);
             });
         }
-
         // End of List of Movies Functions
 
         // Show movie details
         function getMovieDetails(id) {
-            console.log(id);
             MovieService.getMovieDetails(id).then(function (response) {
                 MovieService.movieDetails = response;
                 var runtime = MovieService.movieDetails.runtime;
@@ -93,7 +78,6 @@
         function fillMovieData(id) {
             $('#loading-spinner').removeClass('hidden');
             MovieService.getMovieByIdBackend(id).then(function (response) {
-                console.log(response);
                 $('#loading-spinner').addClass('hidden');
                 vm.movieObject = response;
             }).then(MovieService.getMovieTrailer(id).then(function (videos) {
@@ -110,12 +94,17 @@
 
         function saveMovie(movie) {
             vm.movieObject = movie;
-            console.log(movie);
+            var time = movie.runtime;
+            if(time.includes("min") || time.includes("h")) {
+                var hours = time.substr(0, time.indexOf('h'));
+                var minutes = time.substring(time.lastIndexOf(" ")+1, time.lastIndexOf("m"));
+                var intTime = (parseInt(hours) * 60) + parseInt(minutes);
+                movie.runtime = intTime;
+            }
+
             if(movie.trailerLink != null) {
                 var youtube_link = movie.trailerLink;
-                console.log(youtube_link);
                 var video_id = youtube_parser(youtube_link);
-                console.log(video_id);
                 var parsed_youtube_link = "https://www.youtube.com/embed/" + video_id;
                 movie.trailerLink = parsed_youtube_link;
             } else {
@@ -178,7 +167,6 @@
                             vm.userWatchlist[i].favourite = true;
                         }
                         WatchlistService.saveWatchlist(vm.userWatchlist[i]).then(function (response) {
-                            console.log(response);
                         })
                     }
                 }

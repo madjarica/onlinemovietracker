@@ -266,7 +266,6 @@ public class LoginUserController {
 		watchlistCollection.setUsername(user.getUsername());
 		watchlistCollectionService.save(watchlistCollection);
 
-
 		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
