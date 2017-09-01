@@ -34,4 +34,9 @@ public class VideoController {
 	public List<Video> getPublicVideoByTitle(@PathVariable("title")String title){
 		return videoService.getPublicVideoByTitle(title);
 	}
+
+	@RequestMapping(path = "{id}", method = RequestMethod.GET)
+	public Video getVideoById(@PathVariable("id") Long id) {
+		return videoService.findOne((long) id);
+	}
 }

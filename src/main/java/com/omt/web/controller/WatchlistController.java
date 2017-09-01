@@ -101,4 +101,6 @@ public class WatchlistController {
     public Watchlist checkForDuplicate(String username, Long id){
         return watchlistService.checkForDuplicate(username, id);
     }
+
+//    @RequestMapping(path = "get-by-")
 }

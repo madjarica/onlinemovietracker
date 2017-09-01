@@ -15,11 +15,28 @@
             changeWatchDate: changeWatchDate,
             getUserWatchlistCollection: getUserWatchlistCollection,
             saveWatchlistCollection: saveWatchlistCollection,
+            getVideoById: getVideoById,
             userWatchlist: [],
             selectedWatchlist: {}
         };
 
         return service;
+
+        function getVideoById(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "videos/" + id
+            };
+            $http(req)
+                .success(function (data) {
+                    def.resolve(data);
+                })
+                .error(function (error) {
+                    def.reject(error.message);
+                });
+            return def.promise;
+        }
 
         function changeWatchDate(id, date) {
             var def = $q.defer();
