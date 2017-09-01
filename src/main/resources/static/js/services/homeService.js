@@ -15,7 +15,7 @@
         };
 
         return service;
-        
+
         function getLatestThreeMovies() {
             var def = $q.defer();
             var req = {

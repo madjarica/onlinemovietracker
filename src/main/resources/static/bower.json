@@ -22,7 +22,8 @@
     "angular-datatables": "~0.5.0",
     "MDBootstrap": "*",
     "angular-recaptcha": "^4.1.0",
-    "angularjs-socialshare": "*"
+    "angularjs-socialshare": "*",
+    "angular-web-notification": "*"
   },
   "resolutions": {
     "angular-ui-router": "^0.3.1"
