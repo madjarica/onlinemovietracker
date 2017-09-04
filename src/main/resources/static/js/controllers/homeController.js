@@ -64,7 +64,6 @@
         // On TV Today Functions
         function getLatestThreeTvShows(){
             HomeService.getLatestThreeTvShows().then(function (response) {
-                console.log(response);
                 vm.latestThreeTvShows = response;
             });
         }
@@ -73,7 +72,6 @@
         // On TV Today Functions
         function getLatestThreeMovies(){
             HomeService.getLatestThreeMovies().then(function (response) {
-                console.log(response);
                 vm.latestThreeMovies = response;
             });
         }

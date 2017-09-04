@@ -96,7 +96,7 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
-        	.when('/watchlists-preview', {
+        	.when('/search-watchlists', {
             	templateUrl: '/views/watchlists-preview.html',
             	controller: 'WatchlistController',
             	controllerAs: 'wCtrl'
