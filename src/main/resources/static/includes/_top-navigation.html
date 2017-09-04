@@ -42,7 +42,7 @@
                         <li class="nav-item" ng-show="authCtrl.user" ng-controller="NotificationController as notifyCtrl" >
                             <a class="nav-link waves-effect waves-light" href="#/user/view-notifications" ng-click="notifyCtrl.markAsRead()"> {{notifyCtrl.number}} <i class="fa fa-bell"></i></a>
                         </li>
-                        <li class="nav-item" ng-show="authCtrl.user" ng-controller="AdminMessageController as amCtrl">
+                        <li class="nav-item" ng-if="authCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" ng-show="authCtrl.user" ng-controller="AdminMessageController as amCtrl">
                             <a class="nav-link waves-effect waves-light" href="#/admin/view-messages" ng-click="amCtrl.markAsRead()"> {{amCtrl.number}} <i class="fa fa-envelope"></i></a>
                         </li>
                         <li class="nav-item" ng-show="!authCtrl.user">
@@ -53,8 +53,8 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#/user/change-password" target="_self">Change Password</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#/admin/view-users" target="_self">View Users</a></li>
-                                <li role="separator" class="divider"></li>
+                                <li ng-if="authCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1"><a href="#/admin/view-users" target="_self">View Users</a></li>
+                                <li ng-if="authCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" role="separator" class="divider"></li>
                                 <li><a href="#" ng-click="authCtrl.logout()" target="_self">Logout</a></li>
                             </ul>
                         </li>
@@ -112,9 +112,9 @@
                                     <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['authCtrl.registerCredentials.username'].$error.required">Username is required.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="authCtrl.registerCredentials.password" ng-model="authCtrl.registerCredentials.password" class="form-control" placeholder="Password" required>
-                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$invalid">Password must have minimal 6 characters.</div>
-                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['mainCtrl.registerCredentials.password'].$error.required">Password is required.</div>
+                                    <input type="password" name="authCtrl.registerCredentials.password" ng-model="authCtrl.registerCredentials.password" class="form-control" placeholder="Password" required ng-minlength="6">
+                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['authCtrl.registerCredentials.password'].$invalid">Password must have minimal 6 characters.</div>
+                                    <div style="margin-top: 5px;" class="alert alert-danger" ng-show="authCtrl.registerForm.$submitted && authCtrl.registerForm['authCtrl.registerCredentials.password'].$error.required">Password is required.</div>
                                 </div>
                                 <div class="col-xs-12" style="text-align: center;">
                                     <div vc-recaptcha key="authCtrl.publicKey" size="normal" style="display:inline-block"></div>

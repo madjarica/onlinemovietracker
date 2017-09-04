@@ -10,6 +10,7 @@
     function MovieController($location, $http, $scope, $route, MovieService, WatchlistService, AuthenticationService, $window, $sce) {
 
         var vm = this;
+        vm.username = AuthenticationService.currentUsername;
 
         // Gallery
         vm.myInterval = 3000;
@@ -30,12 +31,11 @@
         vm.getMovieDetails = getMovieDetails;
         vm.saveMovie = saveMovie;
         vm.fbshareCurrentPage = fbshareCurrentPage;
-        vm.username = AuthenticationService.currentUsername;
         vm.movieObject = {};
         vm.movieDetails = MovieService.movieDetails;
         vm.movieEdit = angular.copy(vm.movieDetails);
-        vm.movieObject.poster_path = "img/default_poster.jpg";
-        vm.movieObject.backdrop_path = "img/default_backdrop.jpg";
+        vm.movieObject.poster_path = '';
+        vm.movieObject.backdrop_path = '';
         vm.movieList = [];
         vm.shareFacebook = "";
 

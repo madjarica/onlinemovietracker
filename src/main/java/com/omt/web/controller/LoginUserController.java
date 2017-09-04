@@ -2,6 +2,7 @@ package com.omt.web.controller;
 
 import java.net.URI;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.omt.JsonResults.HashedEmail;
@@ -157,7 +158,7 @@ public class LoginUserController {
 		if(loginUser != null) {
 			if(!loginUser.isActive()) { // User is not active
 				// exception da nalog nije aktiviran
-				throw new Exception("Your account is not active.");
+				throw new Exception("Your account is not active. Check your email or contact admin on admin@onlinemovietracker.com");
 			}
 
 			if(loginUser.isStatus()) { // User is blocked
@@ -170,7 +171,11 @@ public class LoginUserController {
 			if(loginUser.getBlockedUntil() != null) {
 				if(loginUser.getBlockedUntil().after(current_date)) { // User is blocked until
 					// exception da je user blokiran do tad i tad
-					throw new Exception("Your account is blocked until " + loginUser.getBlockedUntil());
+					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+					Date blockedUntil = loginUser.getBlockedUntil();
+					String formatedDate = formatter.format(blockedUntil);
+
+					throw new Exception("Your account is blocked until " + formatedDate);
 				}
 			}
 		}
@@ -240,6 +245,13 @@ public class LoginUserController {
 	// Function for user registration
 	@RequestMapping(method = RequestMethod.POST)
 	public LoginUser save(@RequestBody LoginUser user) throws Exception {
+
+		// exception for used username and password
+		LoginUser userCheckUsername1 = userService.findByUsername(user.getUsername());
+		LoginUser userCheckEmail1 = userService.findByEmail(user.getEmail());
+		if(userCheckUsername1 != null && userCheckEmail1 != null) {
+			throw new Exception("Username and email are already taken");
+		}
 
 		// exception for used username
 		LoginUser userCheckUsername = userService.findByUsername(user.getUsername());

@@ -15,6 +15,8 @@
         self.requestNewPassword = requestNewPassword;
         self.getHashedEmail = getHashedEmail;
         self.changePassword = changePassword;
+        self.isActive = isActive;
+        self.clearMessages = clearMessages;
 
         self.registerCredentials = {};
         self.loginCredentials = {};
@@ -32,16 +34,11 @@
         self.registerMessages.success = '';
         self.registerMessages.error = '';
 
-        self.registerForm = {};
-        self.loginForm = {};
-        self.forgotForm = {};
+        self.changePasswordMessages = {};
+        self.changePasswordMessages.success = '';
+        self.changePasswordMessages.error = '';
 
         self.captchaIsSolved = false;
-
-        // Navigation
-        self.isActive = isActive;
-
-        self.clearMessages = clearMessages;
 
         function clearMessages() {
             self.requestPasswordMessages.success = '';
@@ -50,9 +47,11 @@
             self.loginMessages.error = '';
             self.registerMessages.success = '';
             self.registerMessages.error = '';
-            self.registerForm.$setPristine();
-            self.loginForm.$setPristine();
-            self.forgotForm.$setPristine();
+            self.loginCredentials = '';
+            self.registerCredentials = '';
+            self.forgotCredentials = '';
+            self.changePasswordMessages.success = '';
+            self.changePasswordMessages.error = '';
         }
 
         function isActive(viewLocation) {
@@ -69,13 +68,19 @@
             $('#auth-modal').modal('hide');
             if (self.user) {
                 self.captchaIsSolved = false;
-                self.registerForm.$setPristine();
-                self.loginForm.$setPristine();
-                self.forgotForm.$setPristine();
+                clearMessages();
                 $route.reload();
             }
         }
-        
+
+        function init2() {
+            if (self.user) {
+                self.captchaIsSolved = false;
+                clearMessages();
+                $route.reload();
+            }
+        }
+
         function getHashedEmail(username) {
             AuthenticationService.requestHashedEmail(username).then(function (response) {
                 self.hashedEmail = "https://www.gravatar.com/avatar/" + response;
@@ -134,13 +139,15 @@
             $http.defaults.headers.common['Authorization'] = null;
             delete self.user;
             AuthenticationService.currentUsername = null;
-            self.requestPasswordMessages.success = '';
-            self.requestPasswordMessages.error = '';
-            self.loginMessages.success = '';
-            self.loginMessages.error = '';
-            self.registerMessages.success = '';
-            self.registerMessages.error = '';
+            clearMessages();
             $location.url("/");
+        }
+
+        function logout2() {
+            $http.defaults.headers.common['Authorization'] = null;
+            delete self.user;
+            AuthenticationService.currentUsername = null;
+            clearMessages();
         }
 
         function register(user) {
@@ -149,20 +156,20 @@
             } else {
                 if(self.captchaIsSolved) { // captcha je resena
                     AuthenticationService.saveUser(user).then(function() {
-                        init();
                         self.requestPasswordMessages.success = '';
                         self.requestPasswordMessages.error = '';
                         self.loginMessages.success = '';
                         self.loginMessages.error = '';
-                        self.registerMessages.success = 'You have been successfully registered';
+                        self.registerMessages.success = 'You have been successfully registered. Check your email.';
                         self.registerMessages.error = '';
+                        init2();
                     }, function(error) {
                         self.requestPasswordMessages.success = '';
                         self.requestPasswordMessages.error = '';
                         self.loginMessages.success = '';
                         self.loginMessages.error = '';
                         self.registerMessages.success = '';
-                        self.registerMessages.error = error.message;
+                        self.registerMessages.error = error;
                     });
                 } else { // captcha nije resena
                     var data = {
@@ -173,20 +180,20 @@
                         if(response.data.success) {
                             self.captchaIsSolved = true;
                             AuthenticationService.saveUser(user).then(function() {
-                                init();
                                 self.requestPasswordMessages.success = '';
                                 self.requestPasswordMessages.error = '';
                                 self.loginMessages.success = '';
                                 self.loginMessages.error = '';
-                                self.registerMessages.success = 'You have been successfully registered';
+                                self.registerMessages.success = 'You have been successfully registered. Check your email.';
                                 self.registerMessages.error = '';
+                                init2();
                             }, function(error) {
                                 self.requestPasswordMessages.success = '';
                                 self.requestPasswordMessages.error = '';
                                 self.loginMessages.success = '';
                                 self.loginMessages.error = '';
                                 self.registerMessages.success = '';
-                                self.registerMessages.error = error.message;
+                                self.registerMessages.error = error;
                             });
                         }
                     }, function (error) {
@@ -203,9 +210,11 @@
 
         function changePassword(username, password) {
             AuthenticationService.changePassword(username, password).then(function (response) {
-                console.log("changed");
+                logout2();
+                $location.url("/messages/success-password-change");
+                self.changePasswordMessages.success = 'Password successfully changed';
             }, function (error) {
-                console.log("error");
+                self.changePasswordMessages.error = 'Bad password';
             })
         }
 

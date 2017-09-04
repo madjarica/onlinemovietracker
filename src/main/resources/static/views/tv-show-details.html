@@ -19,38 +19,46 @@
                     </p>
                 </div>
                <div class="row">
-                <div ng-controller="RatingController as rateCtrl">
-                    <span>
-                        <div class="progress progress-primary">
-                            <span class="progress-left">
-                                <span class="progress-bar"></span>
-                            </span>
-                            <span class="progress-right">
-                                <span class="progress-bar"></span>
-                            </span>
-                            <div class="progress-value">{{rateCtrl.averageRate}}</div>
-                        </div>
-                    </span>
-                <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
-                	on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
-                    titles="['one','two','three']" aria-labelledby="default-rating"></span>
-                <button style="margin-top: 0;" type="button" class="btn btn-sm default-color" ng-click="rateCtrl.rating = 0" ng-disabled="rateCtrl.isReadonly">Clear rating</button>
-                </div>
+                   <div ng-controller="RatingController as rateCtrl">
+                        <span>
+                            <div class="progress progress-primary">
+                                <span class="progress-left">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <span class="progress-right">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <div class="progress-value">{{rateCtrl.averageRate}}</div>
+                            </div>
+                        </span>
+                        <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
+                            on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
+                            titles="['one','two','three']" aria-labelledby="default-rating">
+                        </span>
+                    </div>
                 </div>
                 <div class="row">
-                    <a href="{{ vm.tvShowDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png"
-                                                                                  class="imdb-logo"></a>
-                    <button ng-hide="::(vm.checkIfAdded())"
+                    <a href="{{ vm.tvShowDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
+
+                    <span ng-show="vm.username != null">
+                        <button ng-hide="::(vm.checkIfAdded())"
                             class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
                             title="Mark as favorite!"><i class="fa fa-heart" ng-class="(vm.favourite ? 'red':'gray')"
-                                                         ng-click="vm.favTvShow()" aria-hidden="true"></i></button>
-                    <button class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
+                            ng-click="vm.favTvShow()" aria-hidden="true"></i>
+                        </button>
+                    </span>
+
+                    <span ng-show="vm.username != null">
+                        <button class="btn-floating btn waves-effect waves-light default-color"
                             ng-if="::(vm.checkIfAdded())"
                             ng-controller="WatchlistController as watchCtrl"
-                            ng-click="watchCtrl.addToWatchlist(vm.tvShowDetails)"
-                            title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i></button>
+                            ng-click="watchCtrl.addToWatchlist(vm.tvShowDetails)" data-toggle="tooltip"
+                            title="Add to watchlist!"><i class="fa fa-bookmark orange" aria-hidden="true"></i>
+                        </button>
+                    </span>
                 </div>
                 <div class="row">
+                    <h5 class="white-text">Share</h5>
                     <a target="_self"
                        class="btn btn-sm primary-color waves-effect waves-light"
                        style="color: white; margin-left: 0;"
@@ -68,7 +76,6 @@
                        socialshare-provider="facebook"
                        socialshare-via="1951619005120869"
                        socialshare-type="share"
-                       socialshare-quote="I'm currently watching"
                        socialshare-url="{{ vm.tvShowDetails.imdb_id }}">
                         Facebook
                     </a>
@@ -106,12 +113,12 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#about" target="_self">About</a></li>
             <li><a data-toggle="tab" href="#episodes" target="_self">Episodes</a></li>
-            <li><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
+            <li ng-show="vm.tvShowDetails.trailerLink != null"><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
             <li><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
             <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
             <li><a data-toggle="tab" href="#creators" target="_self">Creators</a></li>
-            <li><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
-            <li><a ng-if="vm.username === vm.tvShowDetails.addedBy" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
+            <li ng-if="vm.username != null"><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
+            <li ng-if="vm.username != null"><span ng-if="vm.username === vm.tvShowDetails.addedBy"><a data-toggle="tab" href="#edit" target="_self">Edit</a></span></li>
         </ul>
 
         <div class="tab-content">
@@ -136,8 +143,8 @@
                 </h5>
                 <h5 ng-if="vm.tvShowDetails.keywords.length > 0">
                     <small>Keywords:</small>
-                    <span ng-repeat="keyword in vm.tvShowDetails.keywords track by $index">
-                        <span class="label default-color">{{ keyword.name }}</span>
+                    <span ng-repeat="keyword in vm.tvShowDetails.keywords track by $index" style="text-transform: capitalize;">
+                        {{ keyword.name }}<span class="comma">, </span>
                     </span>
                 </h5>
             </div>

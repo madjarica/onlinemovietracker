@@ -35,8 +35,8 @@
         vm.tvShowDetails = TvShowsService.tvShowDetails;
         vm.tvShowEdit = {};
         vm.tvShowEdit = angular.copy(vm.tvShowDetails);
-        vm.tvShowObject.poster_path = "img/default_poster.jpg";
-        vm.tvShowObject.backdrop_path = "img/default_backdrop.jpg";
+        vm.tvShowObject.poster_path = '';
+        vm.tvShowObject.backdrop_path = '';
         vm.tvShowsList = [];
 
         //Watchlist

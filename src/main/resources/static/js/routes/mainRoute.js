@@ -61,6 +61,11 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
+            .when('/messages/success-password-change', {
+                templateUrl: '/messages/success-password-change.html',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
             .when('/messages/success-account-activation', {
                 templateUrl: '/messages/success-account-activation.html',
                 controller: 'HomeController',
