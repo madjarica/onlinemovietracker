@@ -119,9 +119,8 @@
                     	console.log(vm.selectedWatchlist);
                     	 vm.ratings = vm.selectedWatchlist.rating;
                     	 //vm.selectedWatchlist.averageRate = vm.averageRate;
-                         console.log(vm.selectedWatchlist.averageRate);
+                        console.log(vm.selectedWatchlist.averageRate);
                     	console.log(vm.selectedWatchlist);
-                    	console.log(vm.selectedWatchlist.averageRate);
 //                        vm.rateMark = "";
                     });
                 });

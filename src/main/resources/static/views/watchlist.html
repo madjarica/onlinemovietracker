@@ -10,8 +10,8 @@
                             <span style="cursor: pointer;">
                                 <span>Poster</span>
                             </span>
-	                    </th>
-	                    <th>
+                        </th>
+                        <th>
                             <span ng-click="watchCtrl.sortBy('video.name')" style="cursor: pointer;">
                                 <span>Title</span>
                                 <span class="sortorder" ng-show="watchCtrl.propertyName === 'video.name'"
@@ -39,29 +39,28 @@
                                       ng-class="{reverse: watchCtrl.reverse}"></span>
                                 </span>
                         </th>
-	                    <th class="text-center" ng-click="watchCtrl.sortBy('watchDate')" style="cursor: pointer;">
-	                        <span>Watch Date</span>
-	                        <span class="sortorder" ng-show="watchCtrl.propertyName === 'watchDate'"
-	                              ng-class="{reverse: watchCtrl.reverse}"></span>
-	                        </span>
-	                    </th>
-
-	                    <th class="text-center">
-	                        <span>Actions</span>
-	                    </th>
-                </tr>
-                </thead>
-                <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse" ng-controller="RatingController as rateCtrl">
-                	{{ watchlist }}
+                        <th class="text-center" ng-click="watchCtrl.sortBy('watchDate')" style="cursor: pointer;">
+                            <span>Watch Date</span>
+                            <span class="sortorder" ng-show="watchCtrl.propertyName === 'watchDate'"
+                                  ng-class="{reverse: watchCtrl.reverse}"></span>
+                            </span>
+                        </th>
+                        <th class="text-center">
+                            <span>Actions</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse">
                     <tr style="cursor: pointer;">
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.video.name }}</td>
-                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.averageRate}}</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.averageRate }}</td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">
                             <span ng-repeat="genre in watchlist.video.genres">
                                 {{ genre.name }}<span class="comma">, </span>
+                            </span>
                         </td>
-                        <td>Comments</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">Comments</td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)" class="text-center">{{ watchlist.watchDate | date:'dd-MMM-yyyy' }}</td>
                         <td>
                             <button class="btn-floating btn waves-effect waves-light default-color pull-right"
@@ -80,8 +79,7 @@
                             <button class="btn-floating btn waves-effect waves-light default-color pull-right" title="Schedule!" data-toggle="modal" data-target="#SaveScheduleModal" ng-click="schListCtrl.createNewSchedule(watchlist)">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                             </button>
-                        </td>  
-
+                        </td>
                     </tr>
                     </tbody>
                 </table>

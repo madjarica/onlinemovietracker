@@ -12,8 +12,9 @@
 			getRatings: getRatings,	
 			deleteRating: deleteRating,
     		saveRating: saveRating,
+            getRatings: getRatings,
             selectedRating: {}
-        }
+        };
 
         return service;
 		

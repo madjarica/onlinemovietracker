@@ -56,11 +56,11 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody ng-repeat="video in srchCtrl.videos.data | orderBy:srchCtrl.propertyName:srchCtrl.reverse">
+                    <tbody ng-repeat="video in srchCtrl.videos.data | orderBy:srchCtrl.propertyName:srchCtrl.reverse" ng-controller="RatingController as rateCtrl">
                         <tr style="cursor: pointer;" ng-if="video.dtype == 'Movie'" ng-click="srchCtrl.getMovieDetails(video.id)">
                             <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
                             <td>{{ video.name }}</td>
-                            <td>Rating</td>
+                            <td>{{rateCtrl.watchlist.averageRate}}</td>
                             <td>
                                 <span ng-repeat="genre in video.genres">
                                     {{ genre.name }}<span class="comma">, </span>
@@ -71,7 +71,7 @@
                         <tr style="cursor: pointer;" ng-if="video.dtype == 'TvShow'" ng-click="srchCtrl.getTvShowDetails(video.id)">
                             <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
                             <td>{{ video.name }}</td>
-                            <td>Rating</td>
+                            <td>{{rateCtrl.watchlist.averageRate}}</td>
                             <td>
                                 <span ng-repeat="genre in video.genres">
                                     {{ genre.name }}<span class="comma">, </span>
