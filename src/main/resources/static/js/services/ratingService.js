@@ -12,9 +12,9 @@
 			getRatings: getRatings,	
 			deleteRating: deleteRating,
     		saveRating: saveRating,
-    		getWatchlistRating: getWatchlistRating,
+            getRatings: getRatings,
             selectedRating: {}
-        }
+        };
 
         return service;
 		

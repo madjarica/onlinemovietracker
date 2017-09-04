@@ -1258,8 +1258,13 @@ INSERT INTO onlinemoviedatabase.tv_show_episodes (id, created_date, episode, nam
 
 INSERT INTO `watchlist_collection`(`username`)VALUE ('zoricab');
 INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki');
-INSERT INTO `watchlist_collection`(`username`)VALUE ('madjarica');
-
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki1');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki2');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki3');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki4');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki5');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki6');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki7');
 
 INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`, `average_rate`) VALUES ('zoricab', true, false, 2, NOW(), '1', 7);
 INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`, `average_rate`) VALUES ('zoricab', true, false, 1, NOW(), '1', 6);
