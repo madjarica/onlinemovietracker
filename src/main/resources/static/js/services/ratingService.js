@@ -12,6 +12,7 @@
 			getRatings: getRatings,	
 			deleteRating: deleteRating,
     		saveRating: saveRating,
+    		getWatchlistRating: getWatchlistRating,
             selectedRating: {}
         }
 

@@ -20,9 +20,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "watchlists")
 public class Watchlist extends BaseEntity{
 
-	public Watchlist() {
-	}
-
 	@Column(nullable = false)
 	private Date watchDate;
 	
@@ -43,6 +40,9 @@ public class Watchlist extends BaseEntity{
 	@Column
 	@DateTimeFormat
 	private Date updatedDate;
+	
+	@Column
+	private float averageRate;
 	
 	@ManyToOne
 	@JoinColumn(name = "video_id", nullable = false)
@@ -138,6 +138,17 @@ public class Watchlist extends BaseEntity{
 
 	public void setRating(Set<Rating> rating) {
 		this.rating = rating;
+	}
+	
+	public float getAverageRate() {
+		return averageRate;
+	}
+
+	public void setAverageRate(float averageRate) {
+		this.averageRate = averageRate;
+	}
+
+	public Watchlist() {
 	}
 }
 

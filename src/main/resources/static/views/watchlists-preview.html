@@ -1,4 +1,4 @@
-<section>
+<section ng-controller="WatchlistController as watchCtrl">
     <div class="container">
         <section>
             <div class="row no-padding no-margin">
@@ -56,17 +56,17 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody ng-repeat="watchlist in wCtrl.userWatchlist | orderBy:wCtrl.propertyName:wCtrl.reverse">
+                    <tbody ng-repeat="watchlist in wCtrl.userWatchlist | orderBy:wCtrl.propertyName:wCtrl.reverse" ng-controller="RatingController as rateCtrl">
                         <tr style="cursor: pointer;">
-                            <td><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
-                            <td>{{ watchlist.video.name }}</td>
-                            <td>Rating</td>
-                            <td>
+                            <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
+                            <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.video.name }}</td>
+                            <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.averageRate}}</td>
+                            <td ng-click="watchCtrl.goToDetailsPage(watchlist)">
                                 <span ng-repeat="genre in watchlist.video.genres">
                                     {{ genre.name }}<span class="comma">, </span>
                                 </span>
                             </td>
-                            <td>Comments</td>
+                            <td ng-click="watchCtrl.goToDetailsPage(watchlist)">Comments</td>
                         </tr>
                     </tbody>
                 </table>

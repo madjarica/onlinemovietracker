@@ -1261,10 +1261,10 @@ INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki');
 INSERT INTO `watchlist_collection`(`username`)VALUE ('madjarica');
 
 
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoricab', true, false, 2, NOW(), '1');
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoricab', true, false, 1, NOW(), '1');
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoki', true, false, 1, NOW(), '2');
-INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`) VALUES ('zoricab', true, false, 4, NOW(), '1');
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`, `average_rate`) VALUES ('zoricab', true, false, 2, NOW(), '1', 7);
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`, `average_rate`) VALUES ('zoricab', true, false, 1, NOW(), '1', 6);
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`, `average_rate`) VALUES ('zoki', true, false, 1, NOW(), '2', 10);
+INSERT INTO `watchlists`(`watchlist_user`, `visible_to_others`, `favourite`, `video_id`, `watch_date`, `watchlist_collection_id`, `average_rate`) VALUES ('zoricab', true, false, 4, NOW(), '1', 0);
 
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user`) VALUES ('Strava film', NOW(), NOW(), 1, 'zoki');
 INSERT INTO `comments`(`comment_content`, `created_date`, `updated_date`, `watchlist_id`, `comment_user` ) VALUES ('Ok je', NOW(), NOW(), 2, 'madjarica');

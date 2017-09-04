@@ -47,6 +47,10 @@
         
         function getRatings(id) {
             WatchlistService.getWatchlist(id).then(function (response) {
+                //getAverageRate(vm.selectedWatchlist.id);
+                //console.log(vm.selectedWatchlist);
+                 //vm.averageRate = vm.selectedWatchlist.averageRate;
+                 //console.log(vm.averageRate);
                 vm.selectedWatchlist = response;
                 console.log(vm.selectedWatchlist);
             }).then(function () {
@@ -71,6 +75,7 @@
         function getAverageRate(id) {
         	WatchlistService.getWatchlist(id).then(function(response){
         		vm.selectedWtchlist = response;
+        		console.log(vm.selectedWatchlist);
         	}).then(function(){
         		vm.ratings = vm.selectedWtchlist.rating;
         		var count = 0;
@@ -84,9 +89,13 @@
         			}        			
         		})
         		console.log(vm.rating.rateMark);
-        		vm.averageRate = Math.round(pom / count);       
-        		vm.count = count;
+        		vm.averageRate = Math.round(pom / count);
         		console.log(vm.averageRate);
+        		vm.count = count;
+        		console.log(pom);
+        		console.log(vm.count);
+        		vm.selectedWatchlist.averageRate = vm.averageRate;
+        		console.log(vm.selectedWatchlist.averageRate);
         	}
         	})
         }
@@ -94,8 +103,8 @@
         	function addRating(rateMark){
             	vm.rating = {};
                 vm.rating.rateMark = rateMark;
-                vm.ratings.push(vm.rating);
                 console.log(vm.rating);
+                getAverageRate(vm.selectedWatchlist.id);
                 RatingService.saveRating(vm.rating)
                     .then(function (response) {
                         vm.selectedWatchlist.rating.push(response);
@@ -103,10 +112,16 @@
                     })
                     .then(function () {
                     WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
-                    	getAverageRate(vm.selectedWatchlist.id);
-                        WatchlistService.selectedWatchlist = response;
-                        vm.selectedWatchlist = WatchlistService.selectedWatchlist;
-                        vm.ratings = vm.selectedWatchlist.rating;
+                    	//getAverageRate(vm.selectedWatchlist.id);
+                    	//WatchlistService.selectedWatchlist = response;
+                    	//vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+                    	//getAverageRate(vm.selectedWatchlist.id);
+                    	console.log(vm.selectedWatchlist);
+                    	 vm.ratings = vm.selectedWatchlist.rating;
+                    	 //vm.selectedWatchlist.averageRate = vm.averageRate;
+                         console.log(vm.selectedWatchlist.averageRate);
+                    	console.log(vm.selectedWatchlist);
+                    	console.log(vm.selectedWatchlist.averageRate);
 //                        vm.rateMark = "";
                     });
                 });

@@ -50,11 +50,11 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse">
+                <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse" ng-controller="RatingController as rateCtrl">
                     <tr style="cursor: pointer;">
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.video.name }}</td>
-                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">Rating</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.averageRate}}</td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">
                             <span ng-repeat="genre in watchlist.video.genres">
                                 {{ genre.name }}<span class="comma">, </span>
