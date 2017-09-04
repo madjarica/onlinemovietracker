@@ -53,10 +53,8 @@
             vm.comment.commentContent = commentContent;
             vm.comment.commentUser = vm.username;
             vm.comment.createdDate = new Date();
-            vm.comments.push(vm.comment);
             console.log(vm.comment);
             vm.comment.id = null;
-            // vm.comments.push(vm.comment);
             CommentService.saveComment(vm.comment)
                 .then(function (response) {
                     vm.comment = response;
