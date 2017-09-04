@@ -315,20 +315,12 @@
                                 <button style="margin-left: 0;" type="button" class="btn btn-sm btn-primary" ng-click="schListCtrl.openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
                         </div>
-                        <div>
-                            <div class="row">
-                                <div class="col-xs-3 col-xs-offset-3">
-                                    <div class="form-group">
-                                        <input type="number" ng-model="schListCtrl.hours" class="form-control" placeholder="Hours">
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <input type="number" ng-model="schListCtrl.minutes" class="form-control" placeholder="Minutes">
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class=" col-xs-6 col-xs-offset-3">
+                                <div uib-timepicker ng-model="schListCtrl.mytime" hour-step="1" minute-step="1" show-meridian="false"></div>
                             </div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

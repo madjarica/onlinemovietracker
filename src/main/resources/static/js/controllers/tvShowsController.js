@@ -57,7 +57,7 @@
         // On List of Movies
         function getTvShowByTitle(title){
             TvShowsService.getTVShowByTitle(title).then(function (response) {
-                vm.tvShowsList = response.results.slice(0,5);
+                vm.tvShowsList = response.results.slice(0,8);
             });
         }
         // End of List of Movies Functions

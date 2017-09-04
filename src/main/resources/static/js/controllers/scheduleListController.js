@@ -16,14 +16,13 @@
         vm.username = AuthenticationService.currentUsername;
         vm.selectedSchedule = {};
         vm.newSchedule = {};
-        vm.newSchedule.scheduledDateTime = new Date(vm.newSchedule.scheduledDateTime);
+        vm.newSchedule.scheduledDateTime = new Date();
         vm.scheduleList = [];
         vm.userWatchlist = [];
-        vm.hours;
-        vm.minutes;
         vm.propertyName = 'watchlist.video.title';
         vm.reverse = false;
         vm.sortBy = sortBy;
+        vm.mytime = new Date();
 
         getUserScheduleList();
         getUserWatchlist();
@@ -53,13 +52,8 @@
         }
 
         function updateSchedule(schedule) {
-            console.log(schedule);
-            schedule.scheduledDateTime.setHours(vm.hours);
-            schedule.scheduledDateTime.setMinutes(vm.minutes);
             ScheduleListService.saveSchedule(schedule).then(function (response) {
                 getUserScheduleList();
-                vm.hours = null;
-                vm.minutes = null;
             }).then(function () {
                 $location.url("schedule-list");
             });
@@ -67,14 +61,13 @@
         }
 
         function saveSchedule(schedule){
-            console.log(schedule);
-            schedule.scheduledDateTime.setHours(vm.hours);
-            schedule.scheduledDateTime.setMinutes(vm.minutes);
+            var hours = vm.mytime.getHours();
+            var minutes = vm.mytime.getMinutes();
+            schedule.scheduledDateTime.setHours(hours);
+            schedule.scheduledDateTime.setMinutes(minutes);
             schedule.watchlistId = vm.newSchedule.watchlist.id;
             ScheduleListService.saveSchedule(schedule).then(function (response) {
                 getUserScheduleList();
-                vm.hours = null;
-                vm.minutes = null;
             }).then(function () {
                 $location.url("schedule-list");
             });
@@ -89,8 +82,6 @@
         function selectSchedule(schedule) {
             vm.selectedSchedule = angular.copy(schedule);
             vm.selectedSchedule.scheduledDateTime = new Date(vm.selectedSchedule.scheduledDateTime);
-            vm.hours = vm.selectedSchedule.scheduledDateTime.getHours();
-            vm.minutes = vm.selectedSchedule.scheduledDateTime.getMinutes();
         }
 
         function getUserWatchlist(){

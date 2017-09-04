@@ -50,7 +50,7 @@
         // On List of Movies
         function getMovieByTitle(title) {
             MovieService.getMovieByTitle(title).then(function (response) {
-                vm.movieList = response.results.slice(0, 5);
+                vm.movieList = response.results.slice(0, 8);
             });
         }
         // End of List of Movies Functions
