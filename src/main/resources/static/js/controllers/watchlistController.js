@@ -18,7 +18,8 @@
         vm.getWatchlists = getWatchlists;
         vm.getWatchlistDetails = getWatchlistDetails;
         vm.getUserWatchlist = getUserWatchlist;
-        vm.watchlistCollection = [];
+        vm.goToWatchlistCollection = goToWatchlistCollection;
+        vm.watchlistCollection = WatchlistService.selectedCollection;
         vm.newWatchlist = {};
         vm.selectedWatchlist = {};
         vm.userWatchlist = {};
@@ -56,13 +57,14 @@
         }
 
         init();
+        getUserWatchlist(vm.username);
+
 
 
         function init() {
-            if ($location.path() === '/watchlist') {
+            if ($location.path() !== '/search-watchlists') {
                 getUserWatchlist(vm.username);
             }
-            // getWatchlists();
         }
 
         function getWatchlists() {
@@ -158,7 +160,14 @@
                 WatchlistService.userWatchlist = vm.userWatchlist;
                 console.log(vm.userWatchlist);
                 vm.watchlistCollection = response;
+                WatchlistService.selectedCollection = vm.watchlistCollection;
             });
+        }
+        function goToWatchlistCollection(username) {
+            vm.username = username;
+            console.log(username);
+            getUserWatchlist(vm.username);
+            $location.url("watchlist");
         }
 
     }

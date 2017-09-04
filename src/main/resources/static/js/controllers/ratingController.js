@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('RatingController', RatingController);
 
-    RatingController.$inject = ['$location', '$http', '$route', 'RatingService', 'WatchlistService'];
+    RatingController.$inject = ['$location', '$http', '$route', 'RatingService', 'WatchlistService', 'AuthenticationService'];
 
-    function RatingController($location, $http, $route, RatingService, WatchlistService) {
+    function RatingController($location, $http, $route, RatingService, WatchlistService, AuthenticationService) {
 
         var vm = this;
 
@@ -17,13 +17,13 @@
         vm.selectRating = selectRating;
         vm.selectedRating = {};
         vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+        vm.watchlistCollection = WatchlistService.selectedCollection;
         vm.ratings = {};
         vm.ratings = vm.selectedWatchlist.rating;
         vm.rateMark;
         vm.getAverageRate = getAverageRate;
         vm.operation;
         vm.count;
-        vm.rating;
         vm.rating = {};
         vm.saveRating = saveRating;
         vm.addRating = addRating;
@@ -36,7 +36,7 @@
         init();
         
         function init(){
-        	getRatings(vm.selectedWatchlist.id);
+            getRatings(vm.selectedWatchlist.id)
         }
         
         function hoveringOver(rateMark) {
@@ -52,6 +52,7 @@
                 vm.ratings = vm.selectedWatchlist.rating;
             })
         }
+
         
         function selectRating(rating) {
             vm.selectedRating = angular.copy(rating);

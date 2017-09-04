@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('SearchController', SearchController);
 
-    SearchController.$inject = ['$location', '$http', '$route', 'SearchService', 'MovieService', 'TvShowsService'];
+    SearchController.$inject = ['$location', '$http', '$route', 'SearchService', 'MovieService', 'TvShowsService', 'WatchlistService'];
 
-    function SearchController($location, $http, $route, SearchService, MovieService, TvShowsService) {
+    function SearchController($location, $http, $route, SearchService, MovieService, TvShowsService, WatchlistService) {
 
         var vm = this;
 
@@ -13,6 +13,7 @@
         vm.sortBy = sortBy;
         vm.getVideoByTitle = getVideoByTitle;
         vm.goToDetailsPage = goToDetailsPage;
+        vm.getAverageRatings = getAverageRatings;
         vm.selectVideo = {};
         vm.videos = {};
         function sortBy(propertyName) {
@@ -103,6 +104,13 @@
         function selectVideo(video) {
             vm.selectedVideo = video;
             console.log(vm.selectedVideo);
+        }
+
+        function getAverageRatings(video) {
+            console.log("oi im heere")
+            WatchlistService.getAverageRating(video.id).then(function (response) {
+                video.averageRate = response;
+            })
         }
     }
 

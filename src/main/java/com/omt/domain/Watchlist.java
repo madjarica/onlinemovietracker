@@ -148,6 +148,7 @@ public class Watchlist extends BaseEntity{
 		this.averageRate = averageRate;
 	}
 
+
 	public Watchlist() {
 	}
 }

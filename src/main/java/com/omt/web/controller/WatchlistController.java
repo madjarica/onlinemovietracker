@@ -102,5 +102,8 @@ public class WatchlistController {
         return watchlistService.checkForDuplicate(username, id);
     }
 
-//    @RequestMapping(path = "get-by-")
+    @RequestMapping(path = "get-ratings/{id}", method = RequestMethod.GET)
+    public Integer getAverageRating(@PathVariable("id") Long id){
+        return watchlistService.averageRating(id);
+    }
 }

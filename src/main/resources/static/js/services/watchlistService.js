@@ -16,8 +16,10 @@
             getUserWatchlistCollection: getUserWatchlistCollection,
             saveWatchlistCollection: saveWatchlistCollection,
             getVideoById: getVideoById,
+            getAverageRating: getAverageRating,
             userWatchlist: [],
-            selectedWatchlist: {}
+            selectedWatchlist: {},
+            selectedCollection: {}
         };
 
         return service;
@@ -162,6 +164,22 @@
                 url: "/watchlist-collection/",
                 data: watchlistCollection
             };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+        
+        function getAverageRating(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: '/watchlists/get-ratings/' + id
+            }
 
             $http(req).success(function (response) {
                 def.resolve(response);

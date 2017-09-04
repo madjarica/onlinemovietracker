@@ -2,6 +2,7 @@ package com.omt.service;
 
 import java.util.List;
 
+import com.omt.domain.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,4 +50,21 @@ public class WatchlistService {
     public List<Watchlist> findByTitle(String search, String username){
         return watchlistRepository.findByVideoTitleContainsAndWatchlistUser(search, username);
     }
+
+    public Integer averageRating(Long id){
+        List<Watchlist> watchlists = watchlistRepository.findByVideoId(id);
+        int number = 0;
+        int sum = 0;
+        for (Watchlist watchlist: watchlists) {
+            for(Rating rating: watchlist.getRating()){
+                number++;
+                sum += rating.getRateMark();
+            }
+        }
+        if(number != 0) {
+            return sum / number;
+        }
+        return 0;
+    }
+
 }
