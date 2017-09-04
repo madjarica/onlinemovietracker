@@ -28,7 +28,7 @@
                                 <span class="progress-right">
                                     <span class="progress-bar"></span>
                                 </span>
-                                <div class="progress-value">{{rateCtrl.averageRate}}</div>
+                                <div class="progress-value">{{rateCtrl.selectedWatchlist.averageRate}}</div>
                             </div>
                         </span>
                         <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
