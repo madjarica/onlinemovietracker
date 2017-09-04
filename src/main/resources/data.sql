@@ -1258,6 +1258,7 @@ INSERT INTO onlinemoviedatabase.tv_show_episodes (id, created_date, episode, nam
 
 INSERT INTO `watchlist_collection`(`username`)VALUE ('zoricab');
 INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki');
+INSERT INTO `watchlist_collection`(`username`)VALUE ('madjarica');
 INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki1');
 INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki2');
 INSERT INTO `watchlist_collection`(`username`)VALUE ('zoki3');
