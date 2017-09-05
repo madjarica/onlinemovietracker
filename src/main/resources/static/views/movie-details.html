@@ -288,6 +288,7 @@
                                             <div class="pull-left meta">
                                                 <div class="title h5">
                                                     <b>{{ comment.commentUser }}</b>
+                                                    {{ comment.user }}
                                                 </div>
                                                 <h6 class="text-muted time">{{comment.createdDate | date:'dd-MMM-yyyy'}}</h6>
                                             </div>
@@ -301,16 +302,17 @@
                                                     {{ comment.commentContent }}
                                                 </span>
                                             </p>
-                                        </div>
-                                        <div class="stats" ng-if="((comCtrl.user.username == comment.loginUser.username) || comCtrl.ADMIN)">
+                                        </div ng-controller="AuthenticationController as authCtrl">
+
+                                        <div class="stats" ng-if="((comment.commentUser == comCtrl.username) || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1)" >
                                             <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-comment-modal" ng-click="comCtrl.selectComment(comment)">
                                                 <i class="fa fa-pencil icon"></i> Edit
                                             </button>
                                             <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-comment-modal" ng-click="comCtrl.selectComment(comment)">
                                                 <i class="fa fa-trash icon"></i> Delete
                                             </button>
-                                            </div>
-                                            <div>
+                                   		</div>
+                                        <div ng-hide ="comment.commentUser == comCtrl.username">
                                             <button ng-controller="AdminMessageController as amCtrl" href="#" class="btn btn-warning" data-toggle="modal" data-target="#report-comment-modal" ng-click="comCtrl.selectCommentToReport(comment)">
                                                 <i class="fa fa-flag icon"></i> Report
                                             </button>
@@ -384,11 +386,11 @@
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
-					<div class="modal-header" ng-if="(comCtrl.user.username == comCtrl.selectedComment.loginUser.username) || comCtrl.ADMIN">
+					<div class="modal-header" ng-if="(comCtrl.selectedComment.commentUser == comCtrl.username) || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4>Delete comment</h4>
 					</div>
-					<div class="modal-body" ng-if="(comCtrl.user.username != comCtrl.selectedComment.loginUser.username) && !(comCtrl.ADMIN)">
+					<div class="modal-body" ng-if="(comCtrl.selectedComment.commentUser != comCtrl.username) && !(comCtrl.roles.indexOf('ROLE_ADMIN') !== -1)">
 						<fieldset>
 							<legend>Delete comment</legend>
 							<p>You can't delete this comment!</p>
@@ -398,7 +400,7 @@
                         Do you want to delete this comment?
                     </div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="comCtrl.deleteComment(comCtrl.selectedComment.id)" ng-if="(comCtrl.user.username == comCtrl.selectedComment.loginUser.username) || (comCtrl.ADMIN)" ng-click="comCtrl.deleteComment(comCtrl.selectedComment.id)">OK</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="(comCtrl.selectedComment.commentUser == comCtrl.username) || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1" ng-click="comCtrl.deleteComment(comCtrl.selectedComment.id)">OK</button>
 						<button type="button" class="btn btn-danger" style="margin-bottom: 10px;" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
@@ -415,7 +417,7 @@
                         <h4>Edit Comment</h4>
                     </div>
 					<div class="modal-body">
-                        <form name="comCtrl.addCommentForm" ng-if="(comCtrl.user.username == comCtrl.selectedComment.loginUser.username) || comCtrl.ADMIN">
+                        <form name="comCtrl.addCommentForm" ng-if="(comCtrl.selectedComment.commentUser == comCtrl.username) || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1">
 							<div class="form-group">
 								<label class="col-md-2 control-label">Comment:</label>
 								<div class="col-md-10">
@@ -423,7 +425,7 @@
 								</div>
 							</div>
 						</form>
-                        <div class="clearfix" ng-if="(comCtrl.user.username != comCtrl.selectedComment.loginUser.username) && !(comCtrl.ADMIN)"> You can't do that!</div>
+                        <div class="clearfix" ng-if="(comCtrl.selectedComment.commentUser != comCtrl.username) && !(comCtrl.roles.indexOf('ROLE_ADMIN') !== -1)"> You can't do that!</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="comCtrl.saveComment(comCtrl.selectedComment)">OK</button>

@@ -52,7 +52,7 @@ public class CommentController {
 	        return commentService.save(comment);
 	    }
 	    
-	    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	    public void delete(@PathVariable("id") Long id) {
 			adminMessageService.deleteForComments(id);

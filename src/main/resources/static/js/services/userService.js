@@ -10,7 +10,8 @@
             getUsers: getUsers,
             getUserById: getUserById,
             updateUser: updateUser,
-            deleteUserById: deleteUserById
+            deleteUserById: deleteUserById,
+            getUserByUsername: getUserByUsername
         };
 
         return service;
@@ -70,6 +71,22 @@
             var req = {
                 method: 'GET',
                 url: "/users/"
+            };
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+        
+        function getUserByUsername(username){
+        	var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: "/users/username/" + username
             };
 
             $http(req).success(function (response) {

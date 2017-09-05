@@ -2,7 +2,7 @@
     angular.module('app')
         .controller('CommentController', CommentController);
 
-    CommentController.$inject = ['$location', 'CommentService', '$filter', '$rootScope', 'WatchlistService', 'AuthenticationService', 'NotificationService'];
+    CommentController.$inject = ['$location', 'CommentService', '$filter', '$rootScope', 'WatchlistService', 'AuthenticationService', 'NotificationService', ];
 
     function CommentController($location, CommentService, $filter, $rootScope, WatchlistService, AuthenticationService, NotificationService) {
 
@@ -21,7 +21,10 @@
         vm.comments = vm.selectedWatchlist.comment;
         vm.comment = {};
         vm.username = AuthenticationService.currentUsername;
-        vm.userComment = {};
+        vm.roles = {};
+        vm.roles = AuthenticationService.curentUserRoles;
+        console.log(vm.roles);
+        vm.commentUser = {};
         vm.selectedComment = {};
         vm.newMessage = {};
         vm.watchlistCollection = {};
@@ -51,7 +54,7 @@
 
         function addComment(commentContent) {
             vm.comment.commentContent = commentContent;
-            vm.comment.commentUser = vm.username;
+            vm.comment.commentUser= vm.username;
             vm.comment.createdDate = new Date();
             console.log(vm.comment);
             vm.comment.id = null;
@@ -163,6 +166,9 @@
                 vm.comments = response;
                 console.log(vm.comments);
             })
+        }
+        
+        function checkAuth(comment){
         }
 
     }

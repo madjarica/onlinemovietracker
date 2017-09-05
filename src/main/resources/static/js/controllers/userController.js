@@ -97,6 +97,7 @@
         function getUsers() {
             UserService.getUsers().then(function (response) {
                 vm.usersData = response;
+                console.log(vm.usersData);
                 // vm.filteredTables = makeTables(response);
                 // console.log(vm.filteredTables);
             });
