@@ -62,6 +62,8 @@
 
         self.user;
         self.username = AuthenticationService.currentUsername;
+        self.roles = {};
+        self.roles = AuthenticationService.curentUserRoles;
         self.hashedEmail = "https://www.gravatar.com/avatar/?d=identicon";
         
         function init() {
@@ -112,8 +114,10 @@
                 // setting the same header value for all request calling from this app
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 self.user = res;
+                
                 AuthenticationService.currentUsername = self.user.username;
-
+                AuthenticationService.curentUserRoles = self.user.roles;
+                console.log(AuthenticationService.curentUserRoles);
                 AuthenticationService.requestHashedEmail(self.user.username).then(function (response) {
                     self.hashedEmail = "https://www.gravatar.com/avatar/" + response.hashedEmail;
                 }).then(function () {
@@ -139,6 +143,7 @@
             $http.defaults.headers.common['Authorization'] = null;
             delete self.user;
             AuthenticationService.currentUsername = null;
+            AuthenticationService.curentUserRoles = null;
             clearMessages();
             $location.url("/");
         }
@@ -147,6 +152,7 @@
             $http.defaults.headers.common['Authorization'] = null;
             delete self.user;
             AuthenticationService.currentUsername = null;
+            AuthenticationService.curentUserRoles = null;
             clearMessages();
         }
 

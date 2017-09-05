@@ -12,7 +12,8 @@
             requestHashedEmail: requestHashedEmail,
             changePassword: changePassword,
             sendCaptcha: sendCaptcha,
-            currentUsername: null
+            currentUsername: null,
+            currentUserRoles: null
         };
 
         return service;
