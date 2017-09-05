@@ -53,6 +53,7 @@ public class WebSecurityConfig<MovieUserService> extends WebSecurityConfigurerAd
 			.antMatchers(HttpMethod.POST,"/users/request-new-password/**").permitAll()
 			.antMatchers(HttpMethod.GET,"/users/activate-new-password/**").permitAll()
 			.antMatchers(HttpMethod.POST,"/users").permitAll()
+			.antMatchers(HttpMethod.GET,"/watchlists/get-ratings/{id}").permitAll()
 			.anyRequest().fullyAuthenticated().and()
 			.httpBasic().and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

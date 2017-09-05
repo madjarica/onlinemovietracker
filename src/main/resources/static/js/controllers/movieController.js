@@ -47,6 +47,7 @@
         vm.userWatchlist = WatchlistService.userWatchlist;
         checkFav();
 
+
         // On List of Movies
         function getMovieByTitle(title) {
             MovieService.getMovieByTitle(title).then(function (response) {
@@ -57,13 +58,18 @@
 
         // Show movie details
         function getMovieDetails(id) {
+            console.log(id);
             MovieService.getMovieDetails(id).then(function (response) {
                 MovieService.movieDetails = response;
                 var runtime = MovieService.movieDetails.runtime;
                 var hoursAndMinutes = Math.floor(runtime / 60) + 'h ' + Math.floor(runtime % 60) + 'min';
                 MovieService.movieDetails.runtime = hoursAndMinutes;
             }).then(function () {
-                $location.url("movie-details");
+                WatchlistService.getAverageRating(id).then(function (rate) {
+                    MovieService.movieDetails.averageRate = rate;
+                }).then(function () {
+                    $location.url("movie-details");
+                })
             })
         }
 

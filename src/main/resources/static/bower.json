@@ -23,7 +23,8 @@
     "MDBootstrap": "*",
     "angular-recaptcha": "^4.1.0",
     "angularjs-socialshare": "*",
-    "angular-web-notification": "*"
+    "angular-web-notification": "*",
+    "angular-youtube-mb": "*"
   },
   "resolutions": {
     "angular-ui-router": "^0.3.1"
