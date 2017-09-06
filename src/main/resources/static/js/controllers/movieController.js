@@ -44,9 +44,12 @@
         vm.checkIfAdded = checkIfAdded;
         vm.favMovie = favMovie;
         vm.favourite = false;
-        vm.userWatchlist = WatchlistService.userWatchlist;
+        vm.userWatchlist = WatchlistService.currentUserWatchlist;
         vm.watchlistId = {};
-        checkFav();
+        if($location.path() !== '/'){
+            checkFav();
+        }
+
 
 
         // On List of Movies
