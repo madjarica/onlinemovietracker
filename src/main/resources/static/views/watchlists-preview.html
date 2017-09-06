@@ -66,7 +66,7 @@
                                     {{ genre.name }}<span class="comma">, </span>
                                 </span>
                             </td>
-                            <td ng-click="watchCtrl.goToDetailsPage(watchlist)">Comments</td>
+                            <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.numberOfComments}}</td>
                             <td ng-click="watchCtrl.goToWatchlistCollection(watchlist.watchlistUser)">{{watchlist.watchlistUser}}</td>
                         </tr>
                     </tbody>

@@ -61,7 +61,7 @@
                                 {{ genre.name }}<span class="comma">, </span>
                             </span>
                         </td>
-                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">Comments</td>
+                        <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.numberOfComments}}</td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)" class="text-center">{{ watchlist.watchDate | date:'dd-MMM-yyyy' }}</td>
                         <td>
                             <button class="btn-floating btn waves-effect waves-light default-color pull-right"

@@ -44,6 +44,9 @@ public class Watchlist extends BaseEntity{
 	@Column
 	private float averageRate;
 	
+	@Column
+	private int numberOfComments;
+	
 	@ManyToOne
 	@JoinColumn(name = "video_id", nullable = false)
 	private Video video;
@@ -148,6 +151,13 @@ public class Watchlist extends BaseEntity{
 		this.averageRate = averageRate;
 	}
 
+	public int getNumberOfComments() {
+		return numberOfComments;
+	}
+
+	public void setNumberOfComments(int numberOfComments) {
+		this.numberOfComments = numberOfComments;
+	}
 
 	public Watchlist() {
 	}

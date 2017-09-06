@@ -17,6 +17,8 @@
         vm.importError = "";
         vm.commentContent;
         vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+        vm.numberOfComments = WatchlistService.selectedWatchlist.numberOfComments;
+        console.log(vm.numberOfComments);
         vm.notification = {};
         vm.comments = vm.selectedWatchlist.comment;
         vm.comment = {};
@@ -82,7 +84,11 @@
                     NotificationService.saveNotification(vm.notification).then(function (response) {
                     });
                 });
-            });
+                vm.numberOfComments++;
+                console.log(vm.numberOfComments);
+                vm.selectedWatchlist.numberOfComments = vm.numberOfComments;
+                console.log(vm.selectedWatchlist.numberOfComments);
+            });      
         }
 
         function selectComment(comment) {
@@ -108,8 +114,17 @@
         }
 
         function deleteComment(id) {
-            CommentService.deleteComment(id).then(function () {
-                if ($location.path() === '/watchlist') {
+            	WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
+                    WatchlistService.selectedWatchlist = response;
+                    vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+                    console.log(vm.selectedWatchlist);
+                    	});
+                    vm.numberOfComments--;
+                    console.log(vm.numberOfComments);
+                    vm.selectedWatchlist.numberOfComments = vm.numberOfComments;
+                    console.log(vm.selectedWatchlist.numberOfComments);
+                    CommentService.deleteComment(id).then(function () {
+            	if ($location.path() === '/watchlist') {
                     WatchlistService.getUserWatchlistCollection(vm.username).then(function (response) {
                         vm.watchlistCollection = response;
                     }).then(function () {
@@ -119,7 +134,7 @@
                 } else {
                     getComments(vm.selectedWatchlist.id);
                 }
-            });
+                    });
             vm.comment = {};
         }
 
