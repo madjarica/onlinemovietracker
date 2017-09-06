@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('RatingController', RatingController);
 
-    RatingController.$inject = ['$location', '$http', '$route', 'RatingService', 'WatchlistService', 'AuthenticationService', 'MovieService'];
+    RatingController.$inject = ['$location', '$http', '$route', 'RatingService', 'WatchlistService', 'AuthenticationService', 'MovieService', 'TvShowsService'];
 
-    function RatingController($location, $http, $route, RatingService, WatchlistService, AuthenticationService, MovieService) {
+    function RatingController($location, $http, $route, RatingService, WatchlistService, AuthenticationService, MovieService, TvShowsService) {
 
         var vm = this;
 
@@ -27,18 +27,27 @@
         vm.rating = {};
         vm.saveRating = saveRating;
         vm.addRating = addRating;
+        vm.addRatingTvShow = addRatingTvShow;
         vm.deleteRating = deleteRating;
         vm.getRatings = getRatings;
+        vm.getRatingByWatchListId = getRatingByWatchListId;
 
         // Rating functions
 
-        init();
+        init();        
 
         function init() {
             if ($location.path() === "/movie-details") {
                 vm.selectedWatchlist = WatchlistService.selectedWatchlist;
             }
             getRatings(vm.selectedWatchlist.id);
+        }
+        
+        function getRatingByWatchListId(id) {
+        	RatingService.getRatingByWatchListId(id).then(function(response) {
+        		vm.rating = response.rateMark;
+        		console.log(response);        		
+        	});
         }
 
         function hoveringOver(rateMark) {
@@ -101,22 +110,53 @@
                 WatchlistService.selectedWatchlist = resposne;
                 vm.selectedWatchlist = WatchlistService.selectedWatchlist;
             }).then(function () {
-                RatingService.saveRating(vm.rating)
-                    .then(function (response) {
-                        vm.selectedWatchlist.rating.push(response);
-                        console.log(vm.selectedWatchlist.rating);
-                    }).then(function () {
-                    WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
-                        vm.selectedWatchlist = response;
-                        vm.ratings = vm.selectedWatchlist.rating;
-                        console.log(vm.selectedWatchlist.rating);
-                    }).then(function () {
-                        // getAverageRate(vm.selectedWatchlist.id);
-                        WatchlistService.getAverageRating(vm.selectedWatchlist.video.id).then(function (response) {
-                            MovieService.movieDetails.averageRate = response.toFixed(2);
-                        })
+                RatingService.deleteRatingByWatchlistId(vm.selectedWatchlist.id).then(function () {
+                	
+                }).then(function () {
+	                RatingService.saveRating(vm.rating)
+	                    .then(function (response) {
+	                    	vm.selectedWatchlist.rating = [];
+	                    	vm.selectedWatchlist.rating.push(response);
+	                    }).then(function () {
+	                    WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
+	                        vm.selectedWatchlist = response;
+	                        vm.ratings = vm.selectedWatchlist.rating;
+	                    }).then(function () {
+	                        // getAverageRate(vm.selectedWatchlist.id);
+	                        WatchlistService.getAverageRating(vm.selectedWatchlist.video.id).then(function (response) {
+	                            MovieService.movieDetails.averageRate = response.toFixed(2);
+	                        })
+	                    });
+	                });
+	            })
+	        })
+	    }
+
+        function addRatingTvShow(rateMark) {
+            vm.rating = {};
+            vm.rating.rateMark = rateMark;
+            WatchlistService.setWatchlistForRedirect(TvShowsService.tvShowDetails.id).then(function (response) {
+                WatchlistService.selectedWatchlist = response;
+                vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+            }).then(function () {
+                RatingService.deleteRatingByWatchlistId(vm.selectedWatchlist.id).then(function () {
+                	
+                }).then(function () {                	
+                    RatingService.saveRating(vm.rating)
+                        .then(function (response) {
+                        	vm.selectedWatchlist.rating = [];
+                            vm.selectedWatchlist.rating.push(response);  
+                        }).then(function () {
+                        WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
+                            vm.selectedWatchlist = response;
+                            vm.ratings = vm.selectedWatchlist.rating;
+                        }).then(function () {
+                            WatchlistService.getAverageRating(vm.selectedWatchlist.video.id).then(function (response) {
+                                TvShowsService.tvShowDetails.averageRate = response.toFixed(2);
+                            })
+                        });
                     });
-                });
+                })
             })
         }
 

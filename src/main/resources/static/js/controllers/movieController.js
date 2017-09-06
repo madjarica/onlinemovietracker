@@ -45,6 +45,7 @@
         vm.favMovie = favMovie;
         vm.favourite = false;
         vm.userWatchlist = WatchlistService.userWatchlist;
+        vm.watchlistId = {};
         checkFav();
 
 
@@ -141,9 +142,9 @@
 
         //Watchlist favourite checking
         function checkFav() {
-            if (vm.userWatchlist.length > 0) {
+            if (vm.userWatchlist.length > 0) {            	
                 for (var i = 0; i < vm.userWatchlist.length; i++) {
-                    if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {
+                    if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {                    	
                         vm.favourite = vm.userWatchlist[i].favourite;
                     }
                 }
@@ -151,9 +152,10 @@
         }
 
         function checkIfAdded() {
-            if (vm.userWatchlist.length > 0) {
+            if (vm.userWatchlist.length > 0) {            	
                 for (var i = 0; i < vm.userWatchlist.length; i++) {
                     if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {
+                    	vm.watchlistId = vm.userWatchlist[i].id;
                         return false;
                     }
                 }

@@ -7,12 +7,13 @@
 	function RatingService($http, $q) {
 
 		
-		var service = {
-			
+		var service = {			
 			getRatings: getRatings,	
 			deleteRating: deleteRating,
+            deleteRatingByWatchlistId: deleteRatingByWatchlistId,
     		saveRating: saveRating,
             getRatings: getRatings,
+            getRatingByWatchListId: getRatingByWatchListId,
             selectedRating: {}
         };
 
@@ -23,7 +24,7 @@
             var req = {
                 method: 'DELETE',
                 url: "ratings/" + id
-            }
+            };
             $http(req)
 	            .success(function (data) {
 	                def.resolve(data);
@@ -33,13 +34,30 @@
                 });
             return def.promise;
         }
-		
+
+        function deleteRatingByWatchlistId(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'DELETE',
+                url: "ratings/remove-by-watchlist-id/" + id
+            };
+            $http(req)
+	            .success(function (data) {
+	                def.resolve(data);
+	            })
+                .error(function () {
+                    def.reject("Failed");
+                });
+            return def.promise;
+        }
+
         function saveRating(rating) {
             var def = $q.defer();
             var req = {
                 method: rating.id ? 'PUT' : 'POST',
                 url: "ratings",
-                data: rating}
+                data: rating
+            };
             $http(req)
 	            .success(function (data) {
 	                def.resolve(data);
@@ -64,7 +82,25 @@
                     def.reject("Failed to get ratings");
                 });
             return def.promise;
-        }
+        }        
+
+        
+        function getRatingByWatchListId(watchlist_id) {
+        	var def = $q.defer();
+        	var req = {
+    			method: 'GET',
+    			url: "ratings/find-rating-by-watchlist-id/" + watchlist_id
+        	}
+        	$http(req)
+	        	.success(function (data) {
+	        		console.log(data);
+	        		def.resolve(data);
+	        	})
+	        	.error(function () {
+	        		def.reject("Failed to get ratings");
+	        	});
+        	return def.promise;
+        }        
         
     };
 }());

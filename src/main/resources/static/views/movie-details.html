@@ -20,29 +20,37 @@
                 <div class="row" ng-controller="SearchController as srchCtrl">
                     <span ng-init="srchCtrl.getAverageRatings(vm.movieDetails)">
                         <div ng-controller="RatingController as rateCtrl">
-                            <span>
-                                <div class="progress progress-primary">
-                                    <span class="progress-left">
-                                        <span class="progress-bar"></span>
-                                    </span>
-                                    <span class="progress-right">
-                                        <span class="progress-bar"></span>
-                                    </span>
-                                    <!--<div class="progress-value">{{ rateCtrl.selectedWatchlist.averageRate }}</div>-->
-                                    <div class="progress-value">{{ vm.movieDetails.averageRate }}</div>
-                                </div>
-                            </span>
-                            <span ng-show="vm.username != null">
-                                <span ng-hide="::(vm.checkIfAdded())">
-                                    <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
-                                          on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
-                                          titles="['one','two','three']" aria-labelledby="default-rating">
-                                    </span>
+                            <div class="row" style="padding-left: 14px;">
+                                <span ng-show="vm.movieDetails.averageRate != 0.00">
+                                    <div class="progress progress-primary">
+                                        <span class="progress-left">
+                                            <span class="progress-bar"></span>
+                                        </span>
+                                        <span class="progress-right">
+                                            <span class="progress-bar"></span>
+                                        </span>
+                                        <div class="progress-value">{{ vm.movieDetails.averageRate }}</div>
+                                    </div>
                                 </span>
+                            </div>
+                            <div class="row" style="padding-left: 14px;">
+                                <span ng-show="vm.movieDetails.averageRate == 0.00">
+                                    <h5 class="white-text">Not Yet Rated</h5>
+                                </span>
+                            </div>
+                            <span ng-show="vm.username != null"> 
+	                            <span ng-hide="::(vm.checkIfAdded())">
+	                            	<span ng-init="rateCtrl.getRatingByWatchListId(vm.watchlistId)" class="white-text">{{ vm.watchlistId }}</span>
+	                                <div class="row" style="padding-left: 14px;">		                                                                  	
+                                    	<span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
+                                              on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
+                                              titles="['one','two','three']" aria-labelledby="default-rating">
+                                        </span>	                                   		                                
+	                            	</div>                            
+	                            </span>
                             </span>
                         </div>
                     </span>
-
                 </div>
                 <div class="row">
                     <a href="{{ vm.movieDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
@@ -126,7 +134,7 @@
                 <li id="actor-tab"><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
                 <li id="creator-tab"><a data-toggle="tab" href="#creators" target="_self">Director</a></li>
                 <li ng-if="vm.username != null" id="comments-tab"><a data-toggle="tab" href="#comments"  target="_self">Comments</a></li>
-                <li ng-if="vm.username != null"><span ng-if="vm.username === vm.tvShowDetails.addedBy"><a data-toggle="tab" href="#edit" target="_self">Edit</a></span></li>
+                <li ng-if="vm.username != null"><a ng-if="vm.username === vm.movieDetails.addedBy" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
             </ul>
 
             <div class="tab-content">
