@@ -44,8 +44,12 @@
         vm.checkIfAdded = checkIfAdded;
         vm.favMovie = favMovie;
         vm.favourite = false;
-        vm.userWatchlist = WatchlistService.userWatchlist;
-        checkFav();
+        vm.userWatchlist = WatchlistService.currentUserWatchlist;
+        vm.watchlistId = {};
+        if($location.path() !== '/'){
+            checkFav();
+        }
+
 
 
         // On List of Movies
@@ -106,6 +110,8 @@
                 var minutes = time.substring(time.lastIndexOf(" ")+1, time.lastIndexOf("m"));
                 var intTime = (parseInt(hours) * 60) + parseInt(minutes);
                 movie.runtime = intTime;
+            } else {
+//            	console.log(time);
             }
 
             if(movie.trailerLink != null) {
@@ -141,9 +147,9 @@
 
         //Watchlist favourite checking
         function checkFav() {
-            if (vm.userWatchlist.length > 0) {
+            if (vm.userWatchlist.length > 0) {            	
                 for (var i = 0; i < vm.userWatchlist.length; i++) {
-                    if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {
+                    if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {                    	
                         vm.favourite = vm.userWatchlist[i].favourite;
                     }
                 }
@@ -151,9 +157,10 @@
         }
 
         function checkIfAdded() {
-            if (vm.userWatchlist.length > 0) {
+            if (vm.userWatchlist.length > 0) {            	
                 for (var i = 0; i < vm.userWatchlist.length; i++) {
                     if (vm.userWatchlist[i].video.id === vm.movieDetails.id) {
+                    	vm.watchlistId = vm.userWatchlist[i].id;
                         return false;
                     }
                 }

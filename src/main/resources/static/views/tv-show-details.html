@@ -18,29 +18,42 @@
                         </span>
                     </p>
                 </div>
-               <div class="row" ng-hide="::(vm.checkIfAdded())">
-                   <div ng-controller="RatingController as rateCtrl">
-                        <span>
-                            <div class="progress progress-primary">
-                                <span class="progress-left">
-                                    <span class="progress-bar"></span>
+
+                <div class="row" ng-controller="SearchController as srchCtrl">
+                    <span ng-init="srchCtrl.getAverageRatings(vm.tvShowDetails)">
+                        <div ng-controller="RatingController as rateCtrl">
+                            <div class="row" style="padding-left: 14px;">
+                                <span ng-show="vm.tvShowDetails.averageRate != 0.00">
+                                    <div class="progress progress-primary">
+                                        <span class="progress-left">
+                                            <span class="progress-bar"></span>
+                                        </span>
+                                        <span class="progress-right">
+                                            <span class="progress-bar"></span>
+                                        </span>
+                                        <div class="progress-value">{{ vm.tvShowDetails.averageRate }}</div>
+                                    </div>
                                 </span>
-                                <span class="progress-right">
-                                    <span class="progress-bar"></span>
-                                </span>
-                                <div class="progress-value">{{rateCtrl.selectedWatchlist.averageRate}}</div>
                             </div>
-                        </span>
-                       <span ng-show="vm.username != null">
-                            <span ng-hide="::(vm.checkIfAdded())">
-                                <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
-                                      on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
-                                      titles="['one','two','three']" aria-labelledby="default-rating">
+                            <div class="row" style="padding-left: 14px;">
+                                <span ng-show="vm.tvShowDetails.averageRate == 0.00">
+                                    <h5 class="white-text">Not Yet Rated</h5>
                                 </span>
-                            </span>
-                        </span>
-                    </div>
+                            </div>
+                            <div class="row" style="padding-left: 14px;">
+                                <span ng-show="vm.username != null">
+                                    <span ng-hide="::(vm.checkIfAdded())">
+                                        <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRatingTvShow(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
+                                              on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
+                                              titles="['one','two','three']" aria-labelledby="default-rating">
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </span>
                 </div>
+
                 <div class="row">
                     <a href="{{ vm.tvShowDetails.imdb_id }}" target="_blank"><img src="img/imdb_logo.png" class="imdb-logo"></a>
 
@@ -122,7 +135,7 @@
             <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
             <li><a data-toggle="tab" href="#creators" target="_self">Creators</a></li>
             <li ng-if="vm.username != null"><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
-            <li ng-if="vm.username != null"><span ng-if="vm.username === vm.tvShowDetails.addedBy"><a data-toggle="tab" href="#edit" target="_self">Edit</a></span></li>
+            <li ng-if="vm.username != null"><a ng-if="vm.username === vm.tvShowDetails.addedBy" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
         </ul>
 
         <div class="tab-content">

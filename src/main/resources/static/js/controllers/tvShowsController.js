@@ -44,8 +44,10 @@
         vm.checkIfAdded = checkIfAdded;
         vm.favTvShow = favTvShow;
         vm.favourite = false;
-        vm.userWatchlist = WatchlistService.userWatchlist;
-        checkFav();
+        vm.userWatchlist = WatchlistService.currentUserWatchlist;
+        if($location.path() !== '/'){
+            checkFav();
+        }
 
         function fbshareCurrentPage(imdb_link) {
             window.open("https://www.facebook.com/sharer/sharer.php?u="+escape(imdb_link)+"&t="+document.title, '',

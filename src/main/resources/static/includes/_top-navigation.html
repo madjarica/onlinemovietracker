@@ -31,7 +31,7 @@
                         <li ng-show="authCtrl.user" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self">Lists <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/watchlist') }"><a class="nav-link waves-effect waves-light" href="#/watchlist">Watchlist</a></li>
+                                <li ng-show="authCtrl.user" ng-class="{ 'active': vm.isActive('/watchlist') }"><a ng-controller="HomeController as homeCtrl" ng-click="homeCtrl.goToWatchlistCollection(authCtrl.user.username)" class="nav-link waves-effect waves-light" href="#/watchlist">Watchlist</a></li>
                                 <li ng-show="authCtrl.user" ng-class="{ 'active': authCtrl.isActive('/search-watchlists') }"><a class="nav-link waves-effect waves-light" href="#/search-watchlists">Search Watchlists</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li ng-show="authCtrl.user" ng-class="{ 'active': authCtrl.isActive('/schedule-list') }"><a class="nav-link waves-effect waves-light" href="#/schedule-list">Scheduled List</a></li>

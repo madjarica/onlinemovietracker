@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('AuthenticationController', AuthenticationController);
 
-    AuthenticationController.$inject = ['$location', '$http', '$route', '$routeParams', 'AuthenticationService', 'vcRecaptchaService'];
+    AuthenticationController.$inject = ['$location', '$http', '$route', '$routeParams', 'AuthenticationService', 'vcRecaptchaService', 'WatchlistService'];
 
-    function AuthenticationController($location, $http, $route, $routeParams, AuthenticationService, vcRecaptchaService) {
+    function AuthenticationController($location, $http, $route, $routeParams, AuthenticationService, vcRecaptchaService, WatchlistService) {
 
         var self = this;
 
@@ -65,13 +65,18 @@
         self.roles = {};
         self.roles = AuthenticationService.curentUserRoles;
         self.hashedEmail = "https://www.gravatar.com/avatar/?d=identicon";
-        
+
         function init() {
             $('#auth-modal').modal('hide');
             if (self.user) {
                 self.captchaIsSolved = false;
                 clearMessages();
                 $route.reload();
+                WatchlistService.getUserWatchlist(self.user.username).then(function (response) {
+                    WatchlistService.currentUserWatchlist = response;
+                    console.log(response);
+                    console.log(self.user.username);
+                })
             }
         }
 
@@ -114,16 +119,15 @@
                 // setting the same header value for all request calling from this app
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + base64Credential;
                 self.user = res;
-                
+
                 AuthenticationService.currentUsername = self.user.username;
                 AuthenticationService.curentUserRoles = self.user.roles;
                 console.log(AuthenticationService.curentUserRoles);
                 AuthenticationService.requestHashedEmail(self.user.username).then(function (response) {
                     self.hashedEmail = "https://www.gravatar.com/avatar/" + response.hashedEmail;
                 }).then(function () {
-                    init();
-                });
-
+                        init();
+                    });
             }).error(function (error) {
                 console.log(error.message);
                 if(!error.message) {

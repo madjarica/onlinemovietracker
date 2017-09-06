@@ -29,7 +29,7 @@
         vm.commentUser = {};
         vm.selectedComment = {};
         vm.newMessage = {};
-        vm.watchlistCollection = {};
+        vm.watchlistCollection = WatchlistService.selectedCollection;
 
 
         init();
@@ -39,7 +39,7 @@
             getUserComment(vm.username);
 
             if ($location.path() === '/watchlist') {
-                WatchlistService.getUserWatchlistCollection(vm.username).then(function (response) {
+                WatchlistService.getUserWatchlistCollection(WatchlistService.userOfCollection).then(function (response) {
                     vm.watchlistCollection = response;
                 }).then(function () {
                     getCommentsWatchlistCollection(vm.watchlistCollection.id);
@@ -181,9 +181,6 @@
                 vm.comments = response;
                 console.log(vm.comments);
             })
-        }
-        
-        function checkAuth(comment){
         }
 
     }

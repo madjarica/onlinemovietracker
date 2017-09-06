@@ -112,4 +112,11 @@ public class WatchlistController {
         return watchlistService.averageRating(id);
     }
 
+    @RequestMapping(path="get-latest-three", method= RequestMethod.GET)
+    public List<Watchlist> getLatestThree() {
+        List<Watchlist> watchlists = watchlistService.findAll();
+        List<Watchlist> latestThree = watchlists.subList(Math.max(watchlists.size() - 3, 0), watchlists.size());
+        return latestThree;
+    }
+
 }
