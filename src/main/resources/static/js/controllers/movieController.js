@@ -107,6 +107,8 @@
                 var minutes = time.substring(time.lastIndexOf(" ")+1, time.lastIndexOf("m"));
                 var intTime = (parseInt(hours) * 60) + parseInt(minutes);
                 movie.runtime = intTime;
+            } else {
+//            	console.log(time);
             }
 
             if(movie.trailerLink != null) {

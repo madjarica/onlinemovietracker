@@ -48,12 +48,6 @@
                                       ng-class="{reverse: srchCtrl.reverse}"></span>
                             </span>
                         </th>
-                        <th>
-                            <span ng-click="srchCtrl.sortBy('comments')" style="cursor: pointer;">
-                                <span>Comments</span>
-                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'comments'" ng-class="{reverse: srchCtrl.reverse}"></span>
-                            </span>
-                        </th>
                     </tr>
                     </thead>
                     <tbody ng-repeat="video in srchCtrl.videos.data | orderBy:srchCtrl.propertyName:srchCtrl.reverse" ng-init="srchCtrl.getAverageRatings(video)">
@@ -79,8 +73,7 @@
                                 <span ng-repeat="genre in video.genres">
                                     {{ genre.name }}<span class="comma">, </span>
                                 </span>
-                            </td>
-                            <td>Comments</td>
+                            </td>                           
                         </tr>
                     </tbody>
                 </table>
