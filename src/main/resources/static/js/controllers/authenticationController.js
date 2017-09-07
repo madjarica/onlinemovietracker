@@ -74,8 +74,6 @@
                 $route.reload();
                 WatchlistService.getUserWatchlist(self.user.username).then(function (response) {
                     WatchlistService.currentUserWatchlist = response;
-                    console.log(response);
-                    console.log(self.user.username);
                 })
             }
         }
@@ -121,8 +119,7 @@
                 self.user = res;
 
                 AuthenticationService.currentUsername = self.user.username;
-                AuthenticationService.curentUserRoles = self.user.roles;
-                console.log(AuthenticationService.curentUserRoles);
+                AuthenticationService.curentUserRoles = self.user.roles;                
                 AuthenticationService.requestHashedEmail(self.user.username).then(function (response) {
                     self.hashedEmail = "https://www.gravatar.com/avatar/" + response.hashedEmail;
                 }).then(function () {

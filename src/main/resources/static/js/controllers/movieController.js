@@ -13,8 +13,6 @@
         vm.username = AuthenticationService.currentUsername;
         vm.roles = [];
         vm.roles = AuthenticationService.curentUserRoles;
-        
-        console.log(vm.roles2);
 
         // Gallery
         vm.myInterval = 3000;
@@ -24,6 +22,8 @@
         vm.movie_images = MovieService.movieDetails.additionalBackdrops;
         var currIndex = 0;
         vm.addSlides = addSlides;
+        
+        vm.disabled = false;
 
         if (vm.movie_images) {
             addSlides(vm.movie_images);
@@ -66,7 +66,6 @@
 
         // Show movie details
         function getMovieDetails(id) {
-            console.log(id);
             MovieService.getMovieDetails(id).then(function (response) {
                 MovieService.movieDetails = response;
                 var runtime = MovieService.movieDetails.runtime;
@@ -92,8 +91,9 @@
         function fillMovieData(id) {
             $('#loading-spinner').removeClass('hidden');
             MovieService.getMovieByIdBackend(id).then(function (response) {
+            	vm.disabled = true;
                 $('#loading-spinner').addClass('hidden');
-                vm.movieObject = response;
+                vm.movieObject = response;                
             }).then(MovieService.getMovieTrailer(id).then(function (videos) {
                 vm.movieObject.youtube = vm.movieObject.trailerLink;
             }));
@@ -108,7 +108,7 @@
 
         function saveMovie(movie) {
             vm.movieObject = movie;
-            var time = movie.runtime;
+            var time = movie.runtime;            
             if(time.includes("min") || time.includes("h")) {
                 var hours = time.substr(0, time.indexOf('h'));
                 var minutes = time.substring(time.lastIndexOf(" ")+1, time.lastIndexOf("m"));

@@ -135,7 +135,7 @@
             <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
             <li><a data-toggle="tab" href="#creators" target="_self">Creators</a></li>
             <li ng-if="vm.username != null"><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
-            <li ng-if="vm.username != null"><a ng-if="vm.username === vm.tvShowDetails.addedBy" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
+            <li ng-if="vm.username != null"><a ng-if="vm.roles.indexOf('ROLE_ADMIN') !== -1" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
         </ul>
 
         <div class="tab-content">
@@ -202,10 +202,9 @@
                 </div>
             </div>
 
-            <div id="trailer" class="tab-pane fade">
+            <div id="trailer" class="tab-pane fade" ng-if="vm.tvShowDetails.trailerLink != null">
                 <br>
                 <div class="videoWrapper">
-                    {{ vm.tvShowDetails.trailerLink }}
                     <youtube-video video-url="vm.tvShowDetails.trailerLink"></youtube-video>
                 </div>
             </div>

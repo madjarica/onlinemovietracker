@@ -14,41 +14,41 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="tvShowCtrl.tvShowObject.original_name" class="form-control" placeholder="Enter Original Title">
+                            <input type="text" ng-model="tvShowCtrl.tvShowObject.original_name" class="form-control" placeholder="Enter Original Title" ng-disabled="tvShowCtrl.disabled">
                         </div>
 
                         <div class="form-group">
-                            <tags-input class="form-control" ng-model="tvShowCtrl.tvShowObject.genres" display-property="name" min-length="0" placeholder="Add Genre"></tags-input>
+                            <tags-input class="form-control" ng-model="tvShowCtrl.tvShowObject.genres" display-property="name" min-length="0" placeholder="Add Genre" ng-disabled="tvShowCtrl.disabled"></tags-input>
                             <span class="small">Add genres on enter key</span>
                         </div>
 
                         <div class="form-group">
-                            <tags-input class="form-control" ng-model="tvShowCtrl.tvShowObject.keywords" display-property="name" min-length="0" placeholder="Add Keywords"></tags-input>
+                            <tags-input class="form-control" ng-model="tvShowCtrl.tvShowObject.keywords" display-property="name" min-length="0" placeholder="Add Keywords" ng-disabled="tvShowCtrl.disabled"></tags-input>
                             <span class="small">Add keywords on enter key</span>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="tvShowCtrl.tvShowObject.first_air_date" class="form-control" placeholder="Enter Pilot Date">
+                            <input type="text" ng-model="tvShowCtrl.tvShowObject.first_air_date" class="form-control" placeholder="Enter Pilot Date" ng-disabled="tvShowCtrl.disabled">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="tvShowCtrl.tvShowObject.original_language" class="form-control" placeholder="Enter Language">
+                            <input type="text" ng-model="tvShowCtrl.tvShowObject.original_language" class="form-control" placeholder="Enter Language" ng-disabled="tvShowCtrl.disabled">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="tvShowCtrl.tvShowObject.homepage" class="form-control" placeholder="Enter Homepage">
+                            <input type="text" ng-model="tvShowCtrl.tvShowObject.homepage" class="form-control" placeholder="Enter Homepage" ng-disabled="tvShowCtrl.disabled">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="tvShowCtrl.tvShowObject.imdb_id" class="form-control" placeholder="Enter IMDB Link">
+                            <input type="text" ng-model="tvShowCtrl.tvShowObject.imdb_id" class="form-control" placeholder="Enter IMDB Link" ng-disabled="tvShowCtrl.disabled">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" ng-model="tvShowCtrl.tvShowObject.trailerLink" class="form-control" placeholder="Enter YouTube Trailer Link">
+                            <input type="text" ng-model="tvShowCtrl.tvShowObject.trailerLink" class="form-control" placeholder="Enter YouTube Trailer Link" ng-disabled="tvShowCtrl.disabled">
                         </div>
 
                         <div class="form-group">
-                            <textarea rows="11" ng-model="tvShowCtrl.tvShowObject.overview" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;"></textarea>
+                            <textarea rows="11" ng-model="tvShowCtrl.tvShowObject.overview" class="form-control" placeholder="Enter Overview" style="border-radius: 0; border-color: #9e9e9e;" ng-disabled="tvShowCtrl.disabled"></textarea>
                         </div>
 
                     </div>

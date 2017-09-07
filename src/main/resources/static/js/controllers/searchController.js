@@ -8,7 +8,7 @@
 
         var vm = this;
 
-        vm.propertyName = 'title';
+        vm.propertyName = 'name';
         vm.reverse = false;
         vm.sortBy = sortBy;
         vm.getVideoByTitle = getVideoByTitle;
@@ -70,7 +70,7 @@
         }
 
         function handleSuccessVideos(data, status) {
-            vm.videos = data;
+        	vm.videos = data;
         }
 
         function getMovies(){

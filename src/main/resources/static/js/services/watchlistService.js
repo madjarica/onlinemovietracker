@@ -133,8 +133,7 @@
                 url: '/watchlists/get-user-watchlist/' + username
             }
 
-            $http(req).success(function (response) {
-                console.log(username);
+            $http(req).success(function (response) {                
                 def.resolve(response);
             }).error(function (error) {
                 def.reject(error);

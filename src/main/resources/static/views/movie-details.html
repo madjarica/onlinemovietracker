@@ -130,12 +130,12 @@
         <div>
             <ul class="nav nav-tabs">
                 <li id="about-tab" class="active"><a data-toggle="tab" href="#about" target="_self">About</a></li>
-                <li id="trailer-tab"><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
+                <li ng-show="vm.movieDetails.trailerLink != null" id="trailer-tab"><a data-toggle="tab" href="#trailer" target="_self">Trailer</a></li>
                 <li id="gallery-tab"><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
                 <li id="actor-tab"><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
                 <li id="creator-tab"><a data-toggle="tab" href="#creators" target="_self">Director</a></li>
                 <li ng-if="vm.username != null" id="comments-tab"><a data-toggle="tab" href="#comments"  target="_self">Comments</a></li>
-                <li ng-if="vm.username != null"><a ng-if="vm.username === vm.movieDetails.addedBy" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
+                <li ng-if="vm.username != null"><a ng-if="vm.roles.indexOf('ROLE_ADMIN') !== -1" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
             </ul>
 
             <div class="tab-content">
@@ -168,7 +168,7 @@
                         </span>
                     </h5>
                 </div>
-                <div id="trailer" class="tab-pane fade">
+                <div id="trailer" class="tab-pane fade" ng-if="vm.movieDetails.trailerLink != null">
                     <br>
                     <div class="videoWrapper">
                         <youtube-video video-url="vm.movieDetails.trailerLink"></youtube-video>
@@ -319,7 +319,7 @@
                                                     {{ comment.commentContent }}
                                                 </span>
                                             </p>
-                                        </div ng-controller="AuthenticationController as authCtrl">
+                                        </div>
 
                                         <div class="stats" ng-if="((comment.commentUser == comCtrl.username) || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1)" >
                                             <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-comment-modal" ng-click="comCtrl.selectComment(comment)">

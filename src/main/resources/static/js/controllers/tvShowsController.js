@@ -10,6 +10,9 @@
     function TvShowController($location, $http, $route, TvShowsService, WatchlistService, AuthenticationService) {
 
         var vm = this;
+        vm.username = AuthenticationService.currentUsername;
+        vm.roles = [];
+        vm.roles = AuthenticationService.curentUserRoles;
 
         // Gallery
         vm.myInterval = 3000;
@@ -19,6 +22,8 @@
         vm.tv_show_images = TvShowsService.tvShowDetails.additionalBackdrops;
         var currIndex = 0;
         vm.addSlides = addSlides;
+        
+        vm.disabled = false;
 
         if(vm.tv_show_images) {
             addSlides(vm.tv_show_images);
@@ -30,7 +35,6 @@
         vm.saveTvShow = saveTvShow;
         vm.getTvShowDetails = getTvShowDetails;
         vm.fbshareCurrentPage = fbshareCurrentPage;
-        vm.username = AuthenticationService.currentUsername;
         vm.tvShowObject = {};
         vm.tvShowDetails = TvShowsService.tvShowDetails;
         vm.tvShowEdit = {};
@@ -67,6 +71,7 @@
         function fillTvShowData(id) {
             $('#loading-spinner').removeClass('hidden');
             TvShowsService.getTvShowByIdBackend(id).then(function (response) {
+            	vm.disabled = true;
                 $('#loading-spinner').addClass('hidden');
                 console.log(response);
                 vm.tvShowObject = response;

@@ -18,14 +18,12 @@
         vm.commentContent;
         vm.selectedWatchlist = WatchlistService.selectedWatchlist;
         vm.numberOfComments = WatchlistService.selectedWatchlist.numberOfComments;
-        console.log(vm.numberOfComments);
         vm.notification = {};
         vm.comments = vm.selectedWatchlist.comment;
         vm.comment = {};
         vm.username = AuthenticationService.currentUsername;
         vm.roles = {};
         vm.roles = AuthenticationService.curentUserRoles;
-        console.log(vm.roles);
         vm.commentUser = {};
         vm.selectedComment = {};
         vm.newMessage = {};
