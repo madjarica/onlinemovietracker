@@ -11,6 +11,10 @@
 
         var vm = this;
         vm.username = AuthenticationService.currentUsername;
+        vm.roles = [];
+        vm.roles = AuthenticationService.curentUserRoles;
+        
+        console.log(vm.roles2);
 
         // Gallery
         vm.myInterval = 3000;

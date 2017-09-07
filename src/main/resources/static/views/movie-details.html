@@ -40,7 +40,7 @@
                             </div>
                             <span ng-show="vm.username != null"> 
 	                            <span ng-hide="::(vm.checkIfAdded())">
-	                            	<span ng-init="rateCtrl.rating = rateCtrl.getRatingByWatchListId(vm.watchlistId)" class="white-text"></span>
+	                            	<span ng-init="rateCtrl.getRatingByWatchListId(vm.watchlistId)" class="white-text">{{ vm.watchlistId }}</span>
 	                            	<span class="white-text">{{ rateCtrl.rating.rateMark }}</span>	                            	                           		
 	                            		<div class="row" style="padding-left: 14px;">		                                                                  	
 	                                    	<span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
@@ -125,7 +125,7 @@
     </div>
 </section>
 
-<section>
+<section>	
     <div class="container" class="row" ng-controller="CommentController as comCtrl">
         <div>
             <ul class="nav nav-tabs">
@@ -140,7 +140,7 @@
 
             <div class="tab-content">
                 <div id="about" class="tab-pane fade in active">
-                    <br>
+                    <br>                                      
                     <h5>
                         <small>Original Title:</small>
                         {{ vm.movieDetails.title }}

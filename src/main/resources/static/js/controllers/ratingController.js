@@ -45,7 +45,7 @@
         
         function getRatingByWatchListId(id) {
         	RatingService.getRatingByWatchListId(id).then(function(response) {
-        		return response.rateMark;   		
+        		vm.rating = response.rateMark;   		
         	});
         }
 

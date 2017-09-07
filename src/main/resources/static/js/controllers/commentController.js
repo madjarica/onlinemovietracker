@@ -66,6 +66,7 @@
                     vm.selectedWatchlist.comment.push(response);
                 })
                 .then(function () {
+                	console.log(vm.selectedWatchlist);
                 WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
                     WatchlistService.selectedWatchlist = response;
                     vm.selectedWatchlist = WatchlistService.selectedWatchlist;
