@@ -28,6 +28,7 @@
         vm.selectedComment = {};
         vm.newMessage = {};
         vm.watchlistCollection = {};
+        vm.count;
 
 
         init();
@@ -57,7 +58,7 @@
             vm.comment.commentUser= vm.username;
             vm.comment.createdDate = new Date();
             console.log(vm.comment);
-            vm.comment.id = null;
+            //vm.comment.id = null;
             CommentService.saveComment(vm.comment)
                 .then(function (response) {
                     vm.comment = response;
@@ -142,6 +143,9 @@
                 .then(function (response) {
                     console.log(response);
                     vm.watchlistCollection.comment.push(response);
+                    count++;
+                    vm.count = count;
+                    console.log(vm.count);
                 }).then(function () {
                 WatchlistService.saveWatchlistCollection(vm.watchlistCollection).then(function () {
                         console.log(vm.watchlistCollection);
