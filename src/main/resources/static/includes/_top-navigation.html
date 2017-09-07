@@ -40,10 +40,10 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item" ng-show="authCtrl.user" ng-controller="NotificationController as notifyCtrl" >
-                            <a class="nav-link waves-effect waves-light" href="#/user/view-notifications" ng-click="notifyCtrl.markAsRead()"> {{notifyCtrl.number}} <i class="fa fa-bell"></i></a>
+                            <a class="nav-link waves-effect waves-light" href="#/user/view-notifications" ng-click="notifyCtrl.markAsRead()"><i class="fa fa-bell"></i><span ng-show="notifyCtrl.number > 0" class="notification-header">{{notifyCtrl.number}}</span></a>
                         </li>
                         <li class="nav-item" ng-if="authCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" ng-show="authCtrl.user" ng-controller="AdminMessageController as amCtrl">
-                            <a class="nav-link waves-effect waves-light" href="#/admin/view-messages" ng-click="amCtrl.markAsRead()"> {{amCtrl.number}} <i class="fa fa-envelope"></i></a>
+                            <a class="nav-link waves-effect waves-light" href="#/admin/view-messages" ng-click="amCtrl.markAsRead()"><i class="fa fa-envelope"></i><span ng-show="amCtrl.number > 0" class="notification-header">{{amCtrl.number}}</span></a>
                         </li>
                         <li class="nav-item" ng-show="!authCtrl.user">
                             <button type="button" class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#auth-modal">Register/Login</button>
@@ -51,8 +51,8 @@
                         <li class="dropdown" ng-show="authCtrl.user">
                             <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" target="_self" style="padding-top: 12px; padding-bottom: 0;"><img ng-src="{{ authCtrl.hashedEmail }}" class="img-responsive img-circle"></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#/user/change-password" target="_self">Change Password</a></li>
-                                <li role="separator" class="divider"></li>
+<!--                                 <li><a href="#/user/change-password" target="_self">Change Password</a></li> -->
+<!--                                 <li role="separator" class="divider"></li> -->
                                 <li ng-if="authCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1"><a href="#/admin/view-users" target="_self">View Users</a></li>
                                 <li ng-if="authCtrl.user.roles.indexOf('ROLE_ADMIN') !== -1" role="separator" class="divider"></li>
                                 <li><a href="#" ng-click="authCtrl.logout()" target="_self">Logout</a></li>
