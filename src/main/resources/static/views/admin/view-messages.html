@@ -15,6 +15,10 @@
                 </ul>
             </div>
         </nav>
+        
+          <div ng-if="amCtrl.adminResponseMessage !== '' ">
+          {{amCtrl.adminResponseMessage}}
+          </div>
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">

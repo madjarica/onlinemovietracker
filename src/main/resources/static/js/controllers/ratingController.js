@@ -44,7 +44,7 @@
         }
         
         function getRating(id) {
-        	RatingService.getWatchlist(id).then(function(response) {
+        	WatchlistService.getWatchlist(id).then(function(response) {
         		vm.selectedWatchlist = response;
         	}).then (function(){
         		vm.rating.rateMark = vm.selectedWatchlist.rating.rateMark;

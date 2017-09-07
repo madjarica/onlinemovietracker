@@ -43,7 +43,8 @@
                             <div class="row" style="padding-left: 14px;">
                                 <span ng-show="vm.username != null">
                                     <span ng-hide="::(vm.checkIfAdded())">
-                                        <span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRatingTvShow(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
+                                    <span ng-init="rateCtrl.getRating(rateCtrl.rating.rateMark)" class="white-text"></span>
+                                        <span uib-rating ng-model="rateCtrl.rating.rateMark" ng-click=rateCtrl.addRatingTvShow(rateCtrl.rating.rateMark) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
                                               on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
                                               titles="['one','two','three']" aria-labelledby="default-rating">
                                         </span>
