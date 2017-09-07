@@ -13,6 +13,7 @@
         vm.username = AuthenticationService.currentUsername;
         vm.roles = [];
         vm.roles = AuthenticationService.curentUserRoles;
+        vm.successEditMessage = '';
 
         // Gallery
         vm.myInterval = 3000;
@@ -129,6 +130,7 @@
             MovieService.saveMovie(movie).then(function (response) {
                 MovieService.movieDetails = response;
                 vm.movieDetails = response;
+                vm.successEditMessage = 'You successfully edited movie.'
             }).then(function () {
                 vm.movieObject = {};
             }).then(function () {
