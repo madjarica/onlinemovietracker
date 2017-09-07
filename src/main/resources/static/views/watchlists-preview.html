@@ -34,23 +34,23 @@
                             </span>
                         </th>
                         <th>
-                            <span ng-click="wCtrl.sortBy('video.rating')" style="cursor: pointer;">
+                            <span ng-click="wCtrl.sortBy('video.averageRate')" style="cursor: pointer;">
                                 <span>Rating</span>
-                                <span class="sortorder" ng-show="wCtrl.propertyName === 'video.rating'"
+                                <span class="sortorder" ng-show="wCtrl.propertyName === 'video.averageRate'"
                                       ng-class="{reverse: wCtrl.reverse}"></span>
                             </span>
                         </th>
                         <th>
-                            <span ng-click="wCtrl.sortBy('video.genres.name')" style="cursor: pointer;">
+                            <span ng-click="wCtrl.sortBy('video.genres[0].name')" style="cursor: pointer;">
                                 <span>Genres</span>
-                                <span class="sortorder" ng-show="wCtrl.propertyName === 'video.genres.name'"
+                                <span class="sortorder" ng-show="wCtrl.propertyName === 'video.genres[0].name'"
                                       ng-class="{reverse: wCtrl.reverse}"></span>
                             </span>
                         </th>
                         <th>
-                            <span ng-click="wCtrl.sortBy('video.comments')" style="cursor: pointer;">
+                            <span ng-click="wCtrl.sortBy('numberOfComments')" style="cursor: pointer;">
                                 <span>Comments</span>
-                                <span class="sortorder" ng-show="wCtrl.propertyName === 'video.comments'"
+                                <span class="sortorder" ng-show="wCtrl.propertyName === 'numberOfComments'"
                                       ng-class="{reverse: wCtrl.reverse}"></span>
                             </span>
                         </th>
@@ -63,12 +63,15 @@
                             <!--<td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.averageRate}}</td>-->
                             <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><span ng-controller="SearchController as srchCtrl"><span ng-init="srchCtrl.getAverageRatings(watchlist.video)">{{ watchlist.video.averageRate }}</span></span></td>
                             <td ng-click="watchCtrl.goToDetailsPage(watchlist)">
-                                <span ng-repeat="genre in watchlist.video.genres">
-                                    {{ genre.name }}<span class="comma">, </span>
-                                </span>
+                                <span>
+                           			{{ watchlist.video.genres[0].name }}
+                           		</span>
+<!--                                 <span ng-repeat="genre in watchlist.video.genres"> -->
+<!--                                     {{ genre.name }}<span class="comma">, </span> -->
+<!--                                 </span> -->
                             </td>
                             <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.numberOfComments}}</td>
-                            <td ng-click="watchCtrl.goToWatchlistCollection(watchlist.watchlistUser)">{{watchlist.watchlistUser}}</td>
+<!--                             <td ng-click="watchCtrl.goToWatchlistCollection(watchlist.watchlistUser)">{{watchlist.watchlistUser}}</td> -->
                         </tr>
                     </tbody>
                 </table>

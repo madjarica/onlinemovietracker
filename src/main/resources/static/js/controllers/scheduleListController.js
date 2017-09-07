@@ -63,8 +63,10 @@
         function saveSchedule(schedule){
             var hours = vm.mytime.getHours();
             var minutes = vm.mytime.getMinutes();
+            var seconds = 0;
             schedule.scheduledDateTime.setHours(hours);
             schedule.scheduledDateTime.setMinutes(minutes);
+            schedule.scheduledDateTime.setSeconds(seconds);
             schedule.watchlistId = vm.newSchedule.watchlist.id;
             ScheduleListService.saveSchedule(schedule).then(function (response) {
                 getUserScheduleList();

@@ -30,7 +30,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="schedule in schListCtrl.scheduleList">
+                    <tbody ng-repeat="schedule in schListCtrl.scheduleList | orderBy : '-scheduledDateTime'">
                         <tr>
                             <td>
                                 <img ng-show="schedule.watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ schedule.watchlist.video.poster_path }}" alt="">
