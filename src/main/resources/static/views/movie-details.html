@@ -40,10 +40,9 @@
                             </div>
                             <span ng-show="vm.username != null"> 
 	                            <span ng-hide="::(vm.checkIfAdded())">
-	                            	<span ng-init="rateCtrl.getRatingByWatchListId(vm.watchlistId)" class="white-text">{{ vm.watchlistId }}</span>
-	                            	<span class="white-text">{{ rateCtrl.rating.rateMark }}</span>	                            	                           		
+	                            	<span ng-init="rateCtrl.getRating(rateCtrl.rating.rateMark)" class="white-text">{{rateCtrl.rating.rateMark}}</span>                            	                           		
 	                            		<div class="row" style="padding-left: 14px;">		                                                                  	
-	                                    	<span uib-rating ng-model="rateCtrl.rating" ng-click=rateCtrl.addRating(rateCtrl.rating) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
+	                                    	<span uib-rating ng-model="rateCtrl.rating.rateMark" ng-click=rateCtrl.addRating(rateCtrl.rating.rateMark) max="rateCtrl.max" read-only="rateCtrl.isReadonly"
 	                                              on-hover="rateCtrl.hoveringOver(rateMark)" on-leave="overStar = null"
 	                                              titles="['one','two','three']" aria-labelledby="default-rating">
 	                                        </span>	                                   		                                
@@ -134,7 +133,8 @@
                 <li id="gallery-tab"><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
                 <li id="actor-tab"><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
                 <li id="creator-tab"><a data-toggle="tab" href="#creators" target="_self">Director</a></li>
-                <li ng-if="vm.username != null" id="comments-tab"><a data-toggle="tab" href="#comments"  target="_self">Comments</a></li>
+
+                <li ng-hide="::(vm.checkIfAdded())" id="comments-tab"><a data-toggle="tab" href="#comments"  target="_self">Comments</a></li>
                 <li ng-if="vm.username != null"><a ng-if="vm.roles.indexOf('ROLE_ADMIN') !== -1" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
             </ul>
 
