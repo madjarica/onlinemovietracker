@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$location', 'HomeService', 'WatchlistService'];
+    HomeController.$inject = ['$location', 'HomeService', 'WatchlistService', 'AuthenticationService'];
 
-    function HomeController($location, HomeService, WatchlistService) {
+    function HomeController($location, HomeService, WatchlistService, AuthenticationService) {
 
         var vm = this;
 
@@ -31,6 +31,8 @@
         vm.latestThreeWatchlists = [];
 
         vm.goToWatchlistCollection = goToWatchlistCollection;
+        
+        vm.username = AuthenticationService.currentUsername;
 
         init();
 
@@ -40,7 +42,9 @@
             getOnTvToday();
             getLatestThreeTvShows();
             getLatestThreeMovies();
-            getLatestThreeWatchlist();
+            if(vm.username != null) {
+            	getLatestThreeWatchlist();
+            }            
         }
 
         // On TV Functions

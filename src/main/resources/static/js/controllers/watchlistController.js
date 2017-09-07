@@ -161,8 +161,8 @@
             })
         }
 
-        function getUserWatchlist(username) {
-            WatchlistService.getUserWatchlistCollection(username).then(function (response) {
+        function getUserWatchlist(username) {        	
+            WatchlistService.getUserWatchlistCollection(username).then(function (response) {            	
                 console.log(vm.userOfCollection);
                 vm.userWatchlist = response.watchlistElements;
                 WatchlistService.userWatchlist = vm.userWatchlist;

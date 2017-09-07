@@ -19,23 +19,23 @@
                             </span>
                         </th>
                         <th>
-                            <span ng-click="watchCtrl.sortBy('video.rating')" style="cursor: pointer;">
+                            <span ng-click="watchCtrl.sortBy('video.averageRate')" style="cursor: pointer;">
                                 <span>Rating</span>
-                                <span class="sortorder" ng-show="watchCtrl.propertyName === 'video.rating'"
+                                <span class="sortorder" ng-show="watchCtrl.propertyName === 'video.averageRate'"
                                       ng-class="{reverse: watchCtrl.reverse}"></span>
                             </span>
                         </th>
                         <th>
-                            <span ng-click="watchCtrl.sortBy('video.genres.name')" style="cursor: pointer;">
+                            <span ng-click="watchCtrl.sortBy('video.genres[0].name')" style="cursor: pointer;">
                                 <span>Genres</span>
-                                <span class="sortorder" ng-show="watchCtrl.propertyName === 'video.genres.name'"
+                                <span class="sortorder" ng-show="watchCtrl.propertyName === 'video.genres[0].name'"
                                       ng-class="{reverse: watchCtrl.reverse}"></span>
                             </span>
                         </th>
                         <th>
-                            <span ng-click="watchCtrl.sortBy('video.comments')" style="cursor: pointer;">
+                            <span ng-click="watchCtrl.sortBy('numberOfComments')" style="cursor: pointer;">
                                 <span>Comments</span>
-                                <span class="sortorder" ng-show="watchCtrl.propertyName === 'video.comments'"
+                                <span class="sortorder" ng-show="watchCtrl.propertyName === 'numberOfComments'"
                                       ng-class="{reverse: watchCtrl.reverse}"></span>
                                 </span>
                         </th>
@@ -54,12 +54,11 @@
                     <tr style="cursor: pointer;" ng-if= "watchlist.watchlistUser === watchCtrl.username || watchlist.favourite === false || watchlist.favourite === null")>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.video.name }}</td>
-                        <!--<td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.averageRate }}</td>-->
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><span ng-controller="SearchController as srchCtrl"><span ng-init="srchCtrl.getAverageRatings(watchlist.video)">{{ watchlist.video.averageRate }}</span></span></td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">
-                            <span ng-repeat="genre in watchlist.video.genres">
-                                {{ genre.name }}<span class="comma">, </span>
-                            </span>
+                           	<span>
+                           		{{ watchlist.video.genres[0].name }}
+                           	</span>
                         </td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.numberOfComments}}</td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)" class="text-center">{{ watchlist.watchDate | date:'dd-MMM-yyyy' }}</td>

@@ -28,23 +28,23 @@
                             </span>
                         </th>
                         <th>
-                            <span ng-click="srchCtrl.sortBy('title')" style="cursor: pointer;">
+                            <span ng-click="srchCtrl.sortBy('name')" style="cursor: pointer;">
                                 <span>Title</span>
-                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'title'"
+                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'name'"
                                       ng-class="{reverse: srchCtrl.reverse}"></span>
                             </span>
                         </th>
                         <th>
-                            <span ng-click="srchCtrl.sortBy('rating')" style="cursor: pointer;">
+                            <span ng-click="srchCtrl.sortBy('averageRate')" style="cursor: pointer;">
                                 <span>Rating</span>
-                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'rating'"
+                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'averageRate'"
                                       ng-class="{reverse: srchCtrl.reverse}"></span>
                             </span>
                         </th>
                         <th>
-                            <span ng-click="srchCtrl.sortBy('genres.name')" style="cursor: pointer;">
+                            <span ng-click="srchCtrl.sortBy('genres[0].name')" style="cursor: pointer;">
                                 <span>Genres</span>
-                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'genres.name'"
+                                <span class="sortorder" ng-show="srchCtrl.propertyName === 'genres[0].name'"
                                       ng-class="{reverse: srchCtrl.reverse}"></span>
                             </span>
                         </th>
@@ -58,11 +58,13 @@
                             <td ng-if="!(video.averageRate == 0.00)">{{ video.averageRate }}</td>
                             <td ng-if="video.averageRate == 0.00">Not yet rated</td>
                             <td>
-                                <span ng-repeat="genre in video.genres">
-                                    {{ genre.name }}<span class="comma">, </span>
-                                </span>
+                            	<span>
+                            		{{ video.genres[0].name }}
+                            	</span>
+<!--                                 <span ng-repeat="genre in video.genres"> -->
+<!--                                     {{ genre.name }}<span class="comma">, </span> -->
+<!--                                 </span> -->
                             </td>
-                            <td>Comments</td>
                         </tr>
                         <tr style="cursor: pointer;" ng-if="video.dtype == 'TvShow'" ng-click="srchCtrl.getTvShowDetails(video.id)" ng-init="srchCtrl.getAverageRatings(video)">
                             <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
@@ -70,9 +72,12 @@
                             <td ng-if="!(video.averageRate == 0.00)">{{video.averageRate}}</td>
                             <td ng-if="video.averageRate == 0.00">Not yet rated</td>
                             <td>
-                                <span ng-repeat="genre in video.genres">
-                                    {{ genre.name }}<span class="comma">, </span>
-                                </span>
+                                <span>
+                            		{{ video.genres[0].name }}
+                            	</span>
+<!--                                 <span ng-repeat="genre in video.genres"> -->
+<!--                                     {{ genre.name }}<span class="comma">, </span> -->
+<!--                                 </span> -->
                             </td>                           
                         </tr>
                     </tbody>
