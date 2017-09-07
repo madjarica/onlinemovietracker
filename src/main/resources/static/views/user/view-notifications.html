@@ -19,8 +19,8 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">
 
-                <div ng-repeat="notify in notifyController.notifications">
-                    <div ng-if="notify.trashed === false && notify.sender !== notify.username">
+                <div ng-repeat="notify in notifyController.notifications | orderBy:'-createdDate' ">
+                    <div ng-if="notify.trashed === false && notify.sender !== notifyController.username">
 
                         <div ng-if="notify.type === 'reminder'">
                             <div class="row">
@@ -165,10 +165,10 @@
 
             <div role="tabpanel" class="tab-pane" id="trash">
                 <!-- Comment -->
-                <div ng-repeat="notify in notifyController.notifications">
+                <div ng-repeat="notify in notifyController.notifications | orderBy:'-createdDate'">
 
-
-                    <div ng-if="notify.trashed === true && notify.sender !== notify.username" >
+				<div ng-if="notify.sender !== notifyController.username">
+                    <div ng-if="notify.trashed === true">
                         <div ng-if="notify.type === 'reminder'">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -225,8 +225,8 @@
                                             </div>
                                         </div>
                                         <div class="post-description">
-                                            <p>You wanted to watch {{notify.watchlist.video.name}} today at
-                                                {{notify.createdDate | date: "dd-MMM-yyyy, H:mm"}}</p>
+                                            <p>{{notify.sender}} commented on your watchlist
+                                                {{notify.watchlist.video.name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -258,12 +258,15 @@
                                             </div>
                                         </div>
                                         <div class="post-description">
-                                            <p>{{notify.message}}</p>
+                                             <p>A admin said in reply to your complaint:
+                                            <i class="pull-right">{{notify.message}}</i>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <br>
+                        </div>
                         </div>
                     </div>
                 </div>

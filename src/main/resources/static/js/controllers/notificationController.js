@@ -33,7 +33,11 @@
                         vm.number = 0;
                         for (var i = 0; i < vm.notifications.length; i++) {
                             if (vm.notifications[i].read === false) {
-                                vm.number++;
+                            	if(vm.notifications[i].sender !== AuthenticationService.currentUsername){
+                            		console.log(AuthenticationService.currentUsername);
+                            		console.log(vm.notifications[i].sender);
+                            		vm.number++;
+                            	}
                             }
                         }
                         NotificationService.number = vm.number;

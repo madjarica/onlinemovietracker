@@ -1,5 +1,6 @@
 package com.omt.web.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 
@@ -52,6 +53,8 @@ public class ScheduleListController {
 
         Timer timer = new Timer();
         OmtScheduleStartup.timers.add(timer);
+        long Time = firstTimer.getDate().getTime() - 10*60*1000;
+        firstTimer.setDate(new Date(Time));
         OmtScheduleStartup.timers.get(scheduleList.getTimer()).schedule(firstTimer, firstTimer.getDate());
 
         return scheduleListService.save(scheduleList);

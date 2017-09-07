@@ -62,7 +62,7 @@
                         </td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.numberOfComments}}</td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)" class="text-center">{{ watchlist.watchDate | date:'dd-MMM-yyyy' }}</td>
-                        <td>
+                        <td ng-if="watchlist.watchlistUser === watchCtrl.username">
                             <button class="btn-floating btn waves-effect waves-light default-color pull-right"
                                     data-toggle="tooltip" title="Delete" ng-click="watchCtrl.deleteWatchlist(watchlist.id)">
                                 <i class="fa fa-trash-o blue" aria-hidden="true"></i>
@@ -72,8 +72,8 @@
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>
 
-                            <button class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="tooltip" title="Mark as favorite!" ng-click="watchCtrl.favWatchlist(watchlist)">
-                                <i class="fa fa-heart" ng-class="watchlist.favourite ? 'red':'gray'" aria-hidden="true"></i>
+                            <button class="btn-floating btn waves-effect waves-light default-color pull-right" data-toggle="tooltip" title="Hide/Show" ng-click="watchCtrl.favWatchlist(watchlist)">
+                                <i class="fa fa-globe" ng-class="watchlist.favourite ? 'gray':'red'" aria-hidden="true"></i>
                             </button>
 
                             <button class="btn-floating btn waves-effect waves-light default-color pull-right" title="Schedule!" data-toggle="modal" data-target="#SaveScheduleModal" ng-click="schListCtrl.createNewSchedule(watchlist)">
