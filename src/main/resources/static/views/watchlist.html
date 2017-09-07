@@ -51,7 +51,7 @@
                     </tr>
                     </thead>
                     <tbody ng-repeat="watchlist in watchCtrl.userWatchlist | orderBy:watchCtrl.propertyName:watchCtrl.reverse">
-                    <tr style="cursor: pointer;">
+                    <tr style="cursor: pointer;" ng-if= "watchlist.watchlistUser === watchCtrl.username || watchlist.favourite === false || watchlist.favourite === null")>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><img ng-show="watchlist.video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ watchlist.video.poster_path }}" alt=""></td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{ watchlist.video.name }}</td>
                         <td ng-click="watchCtrl.goToDetailsPage(watchlist)"><span ng-controller="SearchController as srchCtrl"><span ng-init="srchCtrl.getAverageRatings(watchlist.video)">{{ watchlist.video.averageRate }}</span></span></td>

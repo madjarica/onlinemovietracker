@@ -91,6 +91,7 @@
             vm.newWatchlist.watchlistUser = vm.username;
             vm.newWatchlist.visibleToOthers = true;
             vm.newWatchlist.watchDate = new Date();
+            vm.newWatchlist.favourite = false;
             console.log(vm.username);
             vm.userOfCollection = angular.copy(vm.username);
             WatchlistService.userOfCollection = vm.userOfCollection;
