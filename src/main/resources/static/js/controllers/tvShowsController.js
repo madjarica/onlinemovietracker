@@ -13,6 +13,7 @@
         vm.username = AuthenticationService.currentUsername;
         vm.roles = [];
         vm.roles = AuthenticationService.curentUserRoles;
+        vm.successEditMessage = '';
 
         // Gallery
         vm.myInterval = 3000;
@@ -101,6 +102,7 @@
             TvShowsService.saveTvShow(tvShow).then(function (response) {
                 vm.tvShowDetails = response;
                 TvShowsService.tvShowDetails = response;
+                vm.successEditMessage = 'You successfully edited tv show.'
             }).then(function(){
                 vm.tvShowObject = {};
             }).then(function () {
