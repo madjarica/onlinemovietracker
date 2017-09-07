@@ -20,6 +20,11 @@
         vm.reply  = {};
         vm.notification = {};
         vm.adminResponseMessage = '';
+        vm.clearMessages = clearMessages;
+        
+        function clearMessages() {
+        	vm.adminResponseMessage = '';
+        }
 
         getAdminMessages();
 
@@ -66,7 +71,6 @@
         }
         
         function postReply(adminMessage) {
-
             vm.notification.type = "notification_admin";
             vm.notification.sender = vm.username;
             vm.notification.reciver = adminMessage.sentBy;
@@ -86,8 +90,10 @@
         }
         
         function trash(adminMessage) {
+        	vm.adminResponseMessage == '';
             adminMessage.trashed = true;
             AdminMessageService.saveAdminMessage(adminMessage);
+            getAdminMessages();
         }
     }
 

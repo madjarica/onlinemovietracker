@@ -5,20 +5,13 @@
         <nav class="navbar navbar-dark default-color">
             <div class="container-fluid">
                 <ul class="nav navbar-nav" role="tablist">
-                    <li role="presentation" class="active"><a href="#inbox" aria-controls="inbox" role="tab"
-                                                              data-toggle="tab" target="_self"><i class="fa fa-envelope"
-                                                                                                  aria-hidden="true"></i>
-                        Inbox</a></li>
-                    <li role="presentation"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab"
-                                               target="_self"><i class="fa fa-trash" aria-hidden="true"></i> Trash</a>
-                    </li>
+                    <li role="presentation" class="active" ng-click="amCtrl.clearMessages();"><a href="#inbox" aria-controls="inbox" role="tab" data-toggle="tab" target="_self"><i class="fa fa-envelope" aria-hidden="true"></i>Inbox</a></li>
+                    <li role="presentation" ng-click="amCtrl.clearMessages();"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab" target="_self"><i class="fa fa-trash" aria-hidden="true"></i> Trash</a></li>
                 </ul>
             </div>
-        </nav>
-        
-          <div ng-if="amCtrl.adminResponseMessage !== '' ">
-          {{amCtrl.adminResponseMessage}}
-          </div>
+        </nav>        
+		
+		<div class="alert alert-success" ng-class="{'hidden': amCtrl.adminResponseMessage == ''}">{{ amCtrl.adminResponseMessage }}</div>		
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">
@@ -29,8 +22,7 @@
                             <div class="panel panel-white post panel-shadow">
                                 <div class="post-heading">
                                     <div class="pull-left image">
-                                        <img src="/img/avatar.jpg" class="img-circle avatar"
-                                             alt="user profile image">
+                                        <img src="/img/avatar.jpg" class="img-circle avatar" alt="user profile image">
                                     </div>
                                     <div class="pull-left meta">
                                         <div class="title h5">

@@ -110,9 +110,9 @@ public class MovieController {
         if (videoService.findOne(movie.getId()).getDtype().equals("TvShow"))
             throw new Exception("You can't use that id");
 
-        if(!movie.getAddedBy().equals(loginUserService.getCurrentUser().getUsername())){
-            throw new Exception("You can't edit this Movie");
-        }
+//        if(!movie.getAddedBy().equals(loginUserService.getCurrentUser().getUsername())){
+//            throw new Exception("You can't edit this Movie");
+//        }
 
         if(movie.getAddedBy() == null) {
 			movie.setAddedBy(loginUserService.getCurrentUser().getUsername());
