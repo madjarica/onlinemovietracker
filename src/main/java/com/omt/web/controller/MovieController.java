@@ -96,7 +96,6 @@ public class MovieController {
     if (!movie.getKeywords().isEmpty()) {
         for (Keyword keyword : movie.getKeywords()) {
             keywordsToBeAdded.add(getKeywords(keyword.getName()));
-            System.out.println(keyword.getName());
         }
         movie.getKeywords().clear();
         movie.setKeywords(keywordsToBeAdded);
@@ -128,12 +127,9 @@ public class MovieController {
         List<Keyword> keywordsToBeAdded = new ArrayList<>();
         for (Keyword keyword : movie.getKeywords()) {
             keywordsToBeAdded.add(getKeywords(keyword.getName()));
-            System.out.println(keyword.getName());
         }
         movie.getKeywords().clear();
         movie.setKeywords(keywordsToBeAdded);
-
-        System.out.print(movie.getName());
 
         return movieService.save(movie);
     }
@@ -219,7 +215,6 @@ public class MovieController {
         List<String> backdrops = results.returnApiImagePaths(results.getBackdrops());
 
         movie.setAdditionalBackdrops(new ArrayList<>());
-        System.out.println(backdrops.size());
         int size;
         if (backdrops.size() < 5) {
             size = backdrops.size();
@@ -228,7 +223,6 @@ public class MovieController {
         }
 
         for (int i = 0; i < size; i++) {
-            System.out.println(backdrops.get(i));
             movie.getAdditionalBackdrops().add(backdrops.get(i));
         }
 
@@ -311,7 +305,6 @@ public class MovieController {
             ApiImageResults results = restTemplate.getForObject(API_GET_ACTOR_PROFILE, ApiImageResults.class, id, API_KEY);
             if (!results.getProfiles().isEmpty()) {
                 person.setPicture(results.getProfiles().get(0).getFilePath());
-                System.out.println(person.getPicture());
             }
             return personService.save(person);
         }
@@ -325,14 +318,11 @@ public class MovieController {
 
         String moviesString = restTemplate.getForObject(API_SEARCH,
                 String.class, API_KEY, query);
-        System.out.println(moviesString);
         List<Movie> movies = queryResults.getMovies();
         for (int i = 0; i < movies.size(); i++) {
             Long id = movies.get(i).getId();
-            String trailers = restTemplate.getForObject("http://api.themoviedb.org/3/movies/{id}/videos?api_key={api_key}", String.class, id, API_KEY);
-            System.out.println(trailers);
-        }
-        System.out.println(queryResults.getTrailers());
+            String trailers = restTemplate.getForObject("http://api.themoviedb.org/3/movies/{id}/videos?api_key={api_key}", String.class, id, API_KEY);            
+        }        
         return movies;
     }
 

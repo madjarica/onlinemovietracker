@@ -93,7 +93,6 @@ public class AdminMessageController {
         helper.setText(emailContent, true);
 
         javaMailSender.send(message);
-        System.out.println("AdminEmail - Did it");
     }
 
 }

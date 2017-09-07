@@ -90,7 +90,7 @@
         }
         
         function trash(adminMessage) {
-        	vm.adminResponseMessage == '';
+        	vm.adminResponseMessage = '';
             adminMessage.trashed = true;
             AdminMessageService.saveAdminMessage(adminMessage);
             getAdminMessages();

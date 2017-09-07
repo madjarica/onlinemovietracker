@@ -92,7 +92,6 @@ public class TvShowController {
         if (!tvShow.getGenres().isEmpty()) {
             for (Genre genre : tvShow.getGenres()) {
                 genresToBeAdded.add(getGenres(genre.getName()));
-                System.out.println(genre.getName());
             }
             tvShow.getGenres().clear();
             tvShow.setGenres(genresToBeAdded);
@@ -103,7 +102,6 @@ public class TvShowController {
         if (!tvShow.getKeywords().isEmpty()) {
             for (Keyword keyword : tvShow.getKeywords()) {
                 keywordsToBeAdded.add(getKeywords(keyword.getName()));
-                System.out.println(keyword.getName());
             }
             tvShow.getKeywords().clear();
             tvShow.setKeywords(keywordsToBeAdded);
@@ -132,12 +130,10 @@ public class TvShowController {
         List<Keyword> keywordsToBeAdded = new ArrayList<>();
         for (Keyword keyword : tvShow.getKeywords()) {
             keywordsToBeAdded.add(getKeywords(keyword.getName()));
-            System.out.println(keyword.getName());
         }
         tvShow.getKeywords().clear();
         tvShow.setKeywords(keywordsToBeAdded);
 
-        System.out.print(tvShow.getName());
 
         return tvShowService.save(tvShow);
     }
@@ -213,7 +209,6 @@ public class TvShowController {
         ApiImageResults imageResults = restTemplate.getForObject(API_GET_ALL_TV_SHOW_BACKDROPS, ApiImageResults.class, id, API_KEY);
         List<String> backdrops = imageResults.returnApiImagePaths(imageResults.getBackdrops());
         tvShow.setAdditionalBackdrops(new ArrayList<>());
-        System.out.println(backdrops.size());
         int size;
         if (backdrops.size() < 5) {
             size = backdrops.size();
@@ -221,7 +216,6 @@ public class TvShowController {
             size = 5;
         }
         for (int i = 0; i < size; i++) {
-            System.out.println(backdrops.get(i));
             tvShow.getAdditionalBackdrops().add(backdrops.get(i));
         }
 
@@ -317,7 +311,6 @@ public class TvShowController {
             ApiImageResults results = restTemplate.getForObject(API_GET_ACTOR_PROFILE, ApiImageResults.class, id, API_KEY);
             if (!results.getProfiles().isEmpty()) {
                 person.setPicture(results.getProfiles().get(0).getFilePath());
-                System.out.println(person.getPicture());
             }
             return personService.save(person);
         }
@@ -355,7 +348,6 @@ public class TvShowController {
 
         String tvShowsString = restTemplate.getForObject("https://api.themoviedb.org/3/search/tv?api_key={api_key}&query={search}",
                 String.class, "550e1867817e4bf3266023c5274d8858", query);
-        System.out.println(tvShowsString);
         List<TvShow> tvShows = queryResultsTv.getTvShows();
         return tvShows;
     }

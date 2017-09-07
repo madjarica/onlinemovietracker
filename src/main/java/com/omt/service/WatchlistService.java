@@ -64,7 +64,6 @@ public class WatchlistService {
                 number++;
                 sum += rating.getRateMark();
             }
-            System.out.println(sum);
         }
         if(number != 0f) {
             return sum / number;

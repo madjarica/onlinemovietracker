@@ -94,7 +94,6 @@ public class WatchlistController {
 
     @RequestMapping(path = "get-by-title/{search}")
     public List<Watchlist> findByTitle(@PathVariable("search") String search){
-        System.out.println(loginUserService.getCurrentUser().getUsername());
         return watchlistService.findByTitle(search, loginUserService.getCurrentUser().getUsername());
     }
 
