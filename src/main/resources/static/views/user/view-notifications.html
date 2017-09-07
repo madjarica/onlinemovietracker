@@ -20,7 +20,7 @@
             <div role="tabpanel" class="tab-pane active" id="inbox">
 
                 <div ng-repeat="notify in notifyController.notifications">
-                    <div ng-if="notify.trashed === false">
+                    <div ng-if="notify.trashed === false && notify.sender !== notify.username">
 
                         <div ng-if="notify.type === 'reminder'">
                             <div class="row">
@@ -168,7 +168,7 @@
                 <div ng-repeat="notify in notifyController.notifications">
 
 
-                    <div ng-if="notify.trashed === true">
+                    <div ng-if="notify.trashed === true && notify.sender !== notify.username" >
                         <div ng-if="notify.type === 'reminder'">
                             <div class="row">
                                 <div class="col-xs-12">
