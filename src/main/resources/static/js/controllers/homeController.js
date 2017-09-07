@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$location', 'HomeService'];
+    HomeController.$inject = ['$location', 'HomeService', 'WatchlistService'];
 
-    function HomeController($location, HomeService) {
+    function HomeController($location, HomeService, WatchlistService) {
 
         var vm = this;
 
@@ -27,6 +27,11 @@
         vm.getLatestThreeMovies = getLatestThreeMovies;
         vm.latestThreeMovies = [];
 
+        vm.getLatestThreeWatchlist = getLatestThreeWatchlist;
+        vm.latestThreeWatchlists = [];
+
+        vm.goToWatchlistCollection = goToWatchlistCollection;
+
         init();
 
         function init() {
@@ -35,6 +40,7 @@
             getOnTvToday();
             getLatestThreeTvShows();
             getLatestThreeMovies();
+            getLatestThreeWatchlist();
         }
 
         // On TV Functions
@@ -75,7 +81,18 @@
                 vm.latestThreeMovies = response;
             });
         }
+        function getLatestThreeWatchlist() {
+            WatchlistService.getLatestThree().then(function (resposne) {
+                vm.latestThreeWatchlists = resposne;
+            })
+        }
         // End of On TV Today Functions
+
+        function goToWatchlistCollection(username) {
+            console.log(username);
+            WatchlistService.userOfCollection = username;
+            $location.url("watchlist");
+        }
 
     }
 })();

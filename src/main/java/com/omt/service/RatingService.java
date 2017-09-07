@@ -39,6 +39,13 @@ public class RatingService {
         // TODO Auto-generated method stub
         ratingRepository.delete(id);
     }
-	
-	
+
+    public List<Rating> findByWatchlistId(Long id) {
+        return ratingRepository.findByWatchListId(id);
+    }
+    
+    public Rating findRatingByWatchListId(Long id) {
+    	return ratingRepository.findRatingByWatchListId(id);
+    }
+    
 }

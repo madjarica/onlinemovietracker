@@ -4,15 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -44,6 +36,9 @@ public class Watchlist extends BaseEntity{
 	@Column
 	private float averageRate;
 	
+	@Column
+	private int numberOfComments;
+	
 	@ManyToOne
 	@JoinColumn(name = "video_id", nullable = false)
 	private Video video;
@@ -55,7 +50,7 @@ public class Watchlist extends BaseEntity{
 	@OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = true)
 	@JoinColumn(name="watchlist_id")
 	private Set<Comment> comment;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="watchlist_id")
 	private Set<Rating> rating;
@@ -148,6 +143,13 @@ public class Watchlist extends BaseEntity{
 		this.averageRate = averageRate;
 	}
 
+	public int getNumberOfComments() {
+		return numberOfComments;
+	}
+
+	public void setNumberOfComments(int numberOfComments) {
+		this.numberOfComments = numberOfComments;
+	}
 
 	public Watchlist() {
 	}

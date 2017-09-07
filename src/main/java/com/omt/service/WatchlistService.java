@@ -51,20 +51,25 @@ public class WatchlistService {
         return watchlistRepository.findByVideoTitleContainsAndWatchlistUser(search, username);
     }
 
-    public Integer averageRating(Long id){
+	public Watchlist findByIdAndUsername(Long id, String username){
+		return  watchlistRepository.findByVideoIdAndWatchlistUser(id, username);
+	}
+
+    public Float averageRating(Long id){
         List<Watchlist> watchlists = watchlistRepository.findByVideoId(id);
         int number = 0;
-        int sum = 0;
+        float sum = 0;
         for (Watchlist watchlist: watchlists) {
             for(Rating rating: watchlist.getRating()){
                 number++;
                 sum += rating.getRateMark();
             }
+            System.out.println(sum);
         }
-        if(number != 0) {
+        if(number != 0f) {
             return sum / number;
         }
-        return 0;
+        return 0f;
     }
 
 }

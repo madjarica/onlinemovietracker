@@ -2,7 +2,7 @@
     angular.module('app')
         .controller('ScheduleListController', ScheduleListController);
 
-    ScheduleListController.$inject = [ 'ScheduleListService', 'AuthenticationService', 'WatchlistService', '$location'];
+    ScheduleListController.$inject = ['ScheduleListService', 'AuthenticationService', 'WatchlistService', '$location'];
 
     function ScheduleListController(ScheduleListService, AuthenticationService, WatchlistService, $location) {
 

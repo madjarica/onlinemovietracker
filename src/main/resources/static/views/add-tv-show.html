@@ -72,7 +72,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-default waves-effect waves-light pull-right" ng-click="tvShowCtrl.saveTvShow(tvShowCtrl.tvShowObject)">Add TV Show</button>
+                        <button class="btn btn-default waves-effect waves-light pull-right" ng-controller="WatchlistController as wCtrl" ng-click="wCtrl.addToWatchlist(tvShowCtrl.tvShowObject)">Add To Watchlist</button>
                     </div>
                 </div>
             </form>

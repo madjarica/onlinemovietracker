@@ -94,4 +94,15 @@
             </ul>
         </div>
     </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="text-center">Recently added to watchlist</h4>
+            <ul class="list-group">
+                <li class="list-group-item" style="cursor: pointer;">{{ vm.latestThreeWatchlists[0].video.name }}<span class="badge" ng-click="vm.goToWatchlistCollection(vm.latestThreeWatchlists[0].watchlistUser)">{{ vm.latestThreeWatchlists[0].watchlistUser}}</span></li>
+                <li class="list-group-item" style="cursor: pointer;">{{ vm.latestThreeWatchlists[1].video.name }}<span class="badge" ng-click="vm.goToWatchlistCollection(vm.latestThreeWatchlists[1].watchlistUser)">{{ vm.latestThreeWatchlists[1].watchlistUser}}</span></li>
+                <li class="list-group-item" style="cursor: pointer;">{{ vm.latestThreeWatchlists[2].video.name }}<span class="badge" ng-click="vm.goToWatchlistCollection(vm.latestThreeWatchlists[2].watchlistUser)">{{ vm.latestThreeWatchlists[2].watchlistUser}}</span></li>
+            </ul>
+        </div>    	
+    </div>
 </div>

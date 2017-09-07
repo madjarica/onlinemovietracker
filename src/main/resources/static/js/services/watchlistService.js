@@ -17,9 +17,13 @@
             saveWatchlistCollection: saveWatchlistCollection,
             getVideoById: getVideoById,
             getAverageRating: getAverageRating,
+            setWatchlistForRedirect: setWatchlistForRedirect,
+            getLatestThree: getLatestThree,
+            currentUserWatchlist:[],
             userWatchlist: [],
             selectedWatchlist: {},
-            selectedCollection: {}
+            selectedCollection: {},
+            userOfCollection : ""
         };
 
         return service;
@@ -189,6 +193,39 @@
 
             return def.promise;
         }
+
+        function setWatchlistForRedirect(id) {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: '/watchlists/get-for-redirect/' + id
+            }
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+
+        function getLatestThree() {
+            var def = $q.defer();
+            var req = {
+                method: 'GET',
+                url: '/watchlists/get-latest-three/'
+            }
+
+            $http(req).success(function (response) {
+                def.resolve(response);
+            }).error(function (error) {
+                def.reject(error);
+            });
+
+            return def.promise;
+        }
+
 
     }
 })();

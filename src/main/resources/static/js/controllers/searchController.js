@@ -14,6 +14,7 @@
         vm.getVideoByTitle = getVideoByTitle;
         vm.goToDetailsPage = goToDetailsPage;
         vm.getAverageRatings = getAverageRatings;
+        vm.userWatchlist = WatchlistService.userWatchlist;
         vm.selectVideo = {};
         vm.videos = {};
         function sortBy(propertyName) {
@@ -26,23 +27,31 @@
 
         // Show movie details
         function getMovieDetails(id) {
-            console.log(id);
             MovieService.getMovieDetails(id).then(function (response) {
                 MovieService.movieDetails = response;
                 var runtime = MovieService.movieDetails.runtime;
                 var hoursAndMinutes = Math.floor(runtime / 60) + 'h ' + Math.floor(runtime % 60) + 'min';
                 MovieService.movieDetails.runtime = hoursAndMinutes;
             }).then(function () {
-                $location.url("movie-details");
+                WatchlistService.getAverageRating(id).then(function (rate) {
+                    MovieService.movieDetails.averageRate = rate;
+                }).then(function () {
+                    $location.url("movie-details");
+                })
             })
         }
+
 
         // Show movie details
         function getTvShowDetails(id) {
             TvShowsService.getTvShowDetails(id).then(function (response) {
                 TvShowsService.tvShowDetails = response;
             }).then(function () {
-                $location.url("tv-show-details");
+                WatchlistService.getAverageRating(id).then(function (rate) {
+                    TvShowsService.tvShowDetails.averageRate = rate;
+                }).then(function () {
+                    $location.url("tv-show-details");
+                })
             })
         }
         // End of show movie details
@@ -52,14 +61,14 @@
 
         vm.getTvShows = getTvShows;
         vm.tvShows = getTvShows();
-        
+
         vm.getVideos = getVideos;
         vm.videos = getVideos();
-        
+
         function getVideos() {
             SearchService.getVideos().then(handleSuccessVideos);
         }
-        
+
         function handleSuccessVideos(data, status) {
             vm.videos = data;
         }
@@ -88,7 +97,7 @@
 				vm.searchError = error;
 			});
 		}
-        
+
         function goToDetailsPage(video) {
             if (video.dtype === "Movie") {
                 MovieService.movieDetails = video;
@@ -100,16 +109,15 @@
                 $location.url('tv-show-details');
             }
         }
-        
+
         function selectVideo(video) {
             vm.selectedVideo = video;
             console.log(vm.selectedVideo);
         }
 
         function getAverageRatings(video) {
-            console.log("oi im heere")
             WatchlistService.getAverageRating(video.id).then(function (response) {
-                video.averageRate = response;
+                video.averageRate = response.toFixed(2);
             })
         }
     }

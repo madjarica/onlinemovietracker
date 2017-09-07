@@ -102,8 +102,21 @@ public class WatchlistController {
         return watchlistService.checkForDuplicate(username, id);
     }
 
+    @RequestMapping(path = "get-for-redirect/{id}")
+    public Watchlist findByIdAndUsername(@PathVariable("id") Long id){
+    	return watchlistService.findByIdAndUsername(id, loginUserService.getCurrentUser().getUsername());
+	}
+
     @RequestMapping(path = "get-ratings/{id}", method = RequestMethod.GET)
-    public Integer getAverageRating(@PathVariable("id") Long id){
+    public Float getAverageRating(@PathVariable("id") Long id){
         return watchlistService.averageRating(id);
     }
+
+    @RequestMapping(path="get-latest-three", method= RequestMethod.GET)
+    public List<Watchlist> getLatestThree() {
+        List<Watchlist> watchlists = watchlistService.findAll();
+        List<Watchlist> latestThree = watchlists.subList(Math.max(watchlists.size() - 3, 0), watchlists.size());
+        return latestThree;
+    }
+
 }

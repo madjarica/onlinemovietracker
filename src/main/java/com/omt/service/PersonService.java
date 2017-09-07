@@ -14,7 +14,6 @@ public class PersonService{
 	
 	PersonRepository personRepository;
 	
-	
 	@Autowired
 	public PersonService(PersonRepository personRepository) {
 		this.personRepository = personRepository;
