@@ -33,6 +33,9 @@ public class FirstTimer extends TimerTask {
 
     @Override
     public void run() {
+    	
+    	long Time = date.getTime() + 10*60*1000;
+        date = new Date(Time);
 
         //Notification
         UserNotification userNotification= new UserNotification();
@@ -44,6 +47,7 @@ public class FirstTimer extends TimerTask {
         userNotification.setWatchlist(watchlist);
         userNotification.setCreatedDate(date);
         userNotification.setTrashed(false);
+        userNotification.setCreatedDate(new Date());
         userNotificationService.save(userNotification);
 
         //Email notification
