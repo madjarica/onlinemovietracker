@@ -13,7 +13,6 @@
             deleteRatingByWatchlistId: deleteRatingByWatchlistId,
     		saveRating: saveRating,
             getRatings: getRatings,
-            getRatingByWatchListId: getRatingByWatchListId,
             selectedRating: {}
         };
 
@@ -82,25 +81,7 @@
                     def.reject("Failed to get ratings");
                 });
             return def.promise;
-        }        
-
-        
-        function getRatingByWatchListId(watchlist_id) {
-        	var def = $q.defer();
-        	var req = {
-    			method: 'GET',
-    			url: "ratings/find-rating-by-watchlist-id/" + watchlist_id
-        	}
-        	$http(req)
-	        	.success(function (data) {
-	        		console.log(data);
-	        		def.resolve(data);
-	        	})
-	        	.error(function () {
-	        		def.reject("Failed to get ratings");
-	        	});
-        	return def.promise;
-        }        
+        }               
         
     };
 }());

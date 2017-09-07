@@ -30,7 +30,7 @@
         vm.addRatingTvShow = addRatingTvShow;
         vm.deleteRating = deleteRating;
         vm.getRatings = getRatings;
-        vm.getRatingByWatchListId = getRatingByWatchListId;
+        vm.getRating = getRating;
 
         // Rating functions
 
@@ -43,9 +43,12 @@
             getRatings(vm.selectedWatchlist.id);
         }
         
-        function getRatingByWatchListId(id) {
-        	RatingService.getRatingByWatchListId(id).then(function(response) {
-        		vm.rating = response.rateMark;   		
+        function getRating(id) {
+        	RatingService.getWatchlist(id).then(function(response) {
+        		vm.selectedWatchlist = response;
+        	}).then (function(){
+        		vm.rating.rateMark = vm.selectedWatchlist.rating.rateMark;
+        		console.log(vm.rating.rateMark);
         	});
         }
 
