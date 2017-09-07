@@ -19,6 +19,7 @@
         vm.number = AdminMessageService.number;
         vm.reply  = {};
         vm.notification = {};
+        vm.adminResponseMessage = '';
 
         getAdminMessages();
 
@@ -72,6 +73,8 @@
             vm.notification.message = adminMessage.reply;
             vm.notification.read = false;
             vm.notification.trashed = false;
+            vm.adminResponseMessage = 'Your message is sent.';
+            console.log(vm.adminResponseMessage);
             NotificationService.saveNotification(vm.notification).then(function (response) {
             })
         }

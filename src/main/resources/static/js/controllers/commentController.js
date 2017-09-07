@@ -36,7 +36,6 @@
 
         function init() {
             getComments(vm.selectedWatchlist.id);
-            getUserComment(vm.username);
 
             if ($location.path() === '/watchlist') {
                 WatchlistService.getUserWatchlistCollection(WatchlistService.userOfCollection).then(function (response) {
@@ -59,7 +58,7 @@
             vm.comment.commentUser= vm.username;
             vm.comment.createdDate = new Date();
             console.log(vm.comment);
-            //vm.comment.id = null;
+            vm.comment.id = null;
             CommentService.saveComment(vm.comment)
                 .then(function (response) {
                     vm.comment = response;
@@ -118,6 +117,12 @@
             	WatchlistService.saveWatchlist(vm.selectedWatchlist).then(function (response) {
                     WatchlistService.selectedWatchlist = response;
                     vm.selectedWatchlist = WatchlistService.selectedWatchlist;
+                    console.log(id);
+                    for(var i = 0; i<vm.selectedWatchlist.comment.length; i++){
+                    	if(vm.selectedWatchlist.comment[i].id === id){
+                            vm.selectedWatchlist.comment.splice(i, 1);
+                    	}
+                    }
                     console.log(vm.selectedWatchlist);
                     	});
                     vm.numberOfComments--;
@@ -134,6 +139,7 @@
                     });
                 } else {
                     getComments(vm.selectedWatchlist.id);
+                    console.log(vm.selectedWatchlist.id);
                 }
                     });
             vm.comment = {};
