@@ -158,9 +158,6 @@
                 .then(function (response) {
                     console.log(response);
                     vm.watchlistCollection.comment.push(response);
-                    count++;
-                    vm.count = count;
-                    console.log(vm.count);
                 }).then(function () {
                 WatchlistService.saveWatchlistCollection(vm.watchlistCollection).then(function () {
                         console.log(vm.watchlistCollection);

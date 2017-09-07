@@ -1,16 +1,20 @@
 package com.omt.service;
 
-import com.omt.domain.UserNotification;
-import com.omt.repository.UserNotificationRepository;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.List;
+import com.omt.domain.UserNotification;
+import com.omt.repository.UserNotificationRepository;
 
 @Service
 public class UserNotificationService {
@@ -86,7 +90,9 @@ public class UserNotificationService {
 	public void sendScheduledReminder(String email, String username, String mediaToWatch, Date dateToWatch) throws MessagingException {
     	MimeMessage message = javaMailSender.createMimeMessage();
     	MimeMessageHelper helper;
-    	String emailContent = username + ", you wanted to watch " + mediaToWatch + " today at " + dateToWatch;
+    	DateFormat df = new SimpleDateFormat("HH:mm:ss");
+    	String dateString = df.format(dateToWatch);
+    	String emailContent = username + ", you wanted to watch " + mediaToWatch + " today at " + dateString;
 
     	helper = new MimeMessageHelper(message, true);
     	helper.setFrom("notification@onlinemovietracker.com");

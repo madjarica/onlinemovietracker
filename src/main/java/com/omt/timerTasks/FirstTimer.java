@@ -33,6 +33,9 @@ public class FirstTimer extends TimerTask {
 
     @Override
     public void run() {
+    	
+    	long Time = date.getTime() + 10*60*1000;
+        date = new Date(Time);
 
         //Notification
         UserNotification userNotification= new UserNotification();
