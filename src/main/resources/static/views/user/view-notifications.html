@@ -19,7 +19,7 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">
 
-                <div ng-repeat="notify in notifyController.notifications">
+                <div ng-repeat="notify in notifyController.notifications | orderBy:'-createdDate' ">
                     <div ng-if="notify.trashed === false && notify.sender !== notifyController.username">
 
                         <div ng-if="notify.type === 'reminder'">
@@ -165,7 +165,7 @@
 
             <div role="tabpanel" class="tab-pane" id="trash">
                 <!-- Comment -->
-                <div ng-repeat="notify in notifyController.notifications">
+                <div ng-repeat="notify in notifyController.notifications | orderBy:'-createdDate'">
 
 				<div ng-if="notify.sender !== notifyController.username">
                     <div ng-if="notify.trashed === true">

@@ -79,6 +79,7 @@
                     vm.notification.read = false;
                     vm.notification.trashed = false;
                     vm.notification.watchlist = vm.selectedWatchlist;
+                    vm.notification.createdDate = new Date();
                     vm.notification.type = "notification_comment";
                     console.log(vm.comment.id);
                     vm.notification.comment = vm.comment.id;
@@ -172,6 +173,7 @@
                 vm.notification.type = "notification_list_comment";
                 console.log(vm.comment.id);
                 vm.notification.comment = vm.comment.id;
+                vm.notification.createdDate = new Date();
                 NotificationService.saveNotification(vm.notification).then(function (response) {
                 });
             });

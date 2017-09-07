@@ -60,7 +60,7 @@
                     <span ng-show="vm.username != null">
                         <button ng-hide="::(vm.checkIfAdded())"
                             class="btn-floating btn waves-effect waves-light default-color" data-toggle="tooltip"
-                            title="Mark as favorite!"><i class="fa fa-heart" ng-class="(vm.favourite ? 'red':'gray')"
+                            title="Hide/Show"><i class="fa fa-globe" ng-class="(vm.favourite ? 'gray':'red')"
                             ng-click="vm.favTvShow()" aria-hidden="true"></i>
                         </button>
                     </span>
@@ -134,7 +134,7 @@
             <li><a data-toggle="tab" href="#gallery" target="_self">Gallery</a></li>
             <li><a data-toggle="tab" href="#actors" target="_self">Actors</a></li>
             <li><a data-toggle="tab" href="#creators" target="_self">Creators</a></li>
-            <li ng-if="vm.username != null"><a data-toggle="tab" href="#comments" target="_self">Comments</a></li>
+            <li ng-if="::!(vm.checkIfAdded()) || comCtrl.selectedWatchlist.video.name === vm.tvShowDetails.name" id="comments-tab"><a data-toggle="tab" href="#comments"  target="_self">Comments</a></li>
             <li ng-if="vm.username != null"><a ng-if="vm.roles.indexOf('ROLE_ADMIN') !== -1" data-toggle="tab" href="#edit" target="_self">Edit</a></li>
         </ul>
 
