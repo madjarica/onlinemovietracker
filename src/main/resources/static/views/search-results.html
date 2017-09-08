@@ -56,7 +56,7 @@
                             <td>{{ video.name }}</td>
                             <!--<td ng-if="::(srchCtrl.getAverageRatings(video.id) != null)">bla</td>-->
                             <td ng-if="!(video.averageRate == 0.00)">{{ video.averageRate }}</td>
-                            <td ng-if="video.averageRate == 0.00">Not yet rated</td>
+                            <td ng-if="video.averageRate == 0.00">0.00</td>
                             <td>
                             	<span>
                             		{{ video.genres[0].name }}
@@ -70,7 +70,7 @@
                             <td><img ng-show="video.poster_path" class="watchlist-poster-image" ng-src="http://image.tmdb.org/t/p/w92/{{ video.poster_path }}" alt=""></td>
                             <td>{{ video.name }}</td>
                             <td ng-if="!(video.averageRate == 0.00)">{{video.averageRate}}</td>
-                            <td ng-if="video.averageRate == 0.00">Not yet rated</td>
+                            <td ng-if="video.averageRate == 0.00">0.00</td>
                             <td>
                                 <span>
                             		{{ video.genres[0].name }}

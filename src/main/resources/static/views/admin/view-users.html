@@ -34,12 +34,12 @@
                             <span class="sortorder" ng-show="userCtrl.propertyName === 'active'" ng-class="{reverse: userCtrl.reverse}"></span>
                         </span>
                     </th>
-                    <th class="text-center">
-                        <span ng-click="userCtrl.sortBy('subscribed')" style="cursor: pointer;">
-                            <span>Subscribed</span>
-                            <span class="sortorder" ng-show="userCtrl.propertyName === 'subscribed'" ng-class="{reverse: userCtrl.reverse}"></span>
-                        </span>
-                    </th>
+<!--                     <th class="text-center"> -->
+<!--                         <span ng-click="userCtrl.sortBy('subscribed')" style="cursor: pointer;"> -->
+<!--                             <span>Subscribed</span> -->
+<!--                             <span class="sortorder" ng-show="userCtrl.propertyName === 'subscribed'" ng-class="{reverse: userCtrl.reverse}"></span> -->
+<!--                         </span> -->
+<!--                     </th> -->
                     <th class="text-center">
                         <span ng-click="userCtrl.sortBy('status')" style="cursor: pointer;">
                             <span>Blocked</span>
@@ -79,13 +79,13 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td><span ng-if="user.active == true"><i class="fa fa-check" aria-hidden="true"></i></span><span ng-if="user.active == false"><i class="fa fa-ban" aria-hidden="true"></i></span></td>
-                    <td><span ng-if="user.subscription == true"><i class="fa fa-check" aria-hidden="true"></i></span><span ng-if="user.subscription == false"><i class="fa fa-ban" aria-hidden="true"></i></span></td>
+<!--                     <td><span ng-if="user.subscription == true"><i class="fa fa-check" aria-hidden="true"></i></span><span ng-if="user.subscription == false"><i class="fa fa-ban" aria-hidden="true"></i></span></td> -->
                     <td><span ng-if="user.status == false"><i class="fa fa-ban" aria-hidden="true"></i></span><span ng-if="user.status == true"><i class="fa fa-check" aria-hidden="true"></i></span></td>
                     <td>{{ user.blockedUntil | date:'dd-MMM-yyyy' }}</td>
                     <td>{{ user.createdDate | date:'dd-MMM-yyyy' }}</td>
                     <td>{{ user.updatedDate | date:'dd-MMM-yyyy' }}</td>
-                    <td><button class="btn btn-warning btn-block" data-toggle="modal" data-target="#EditUserModal" ng-click="userCtrl.editUser(user.id)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
-                    <td><button class="btn btn-danger btn-block" data-toggle="modal" data-target="#DeleteUserModal" ng-click="userCtrl.selectUser(user.id)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                    <td><button ng-if="user.username != userCtrl.username" class="btn btn-warning btn-block" data-toggle="modal" data-target="#EditUserModal" ng-click="userCtrl.editUser(user.id)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                    <td><button ng-if="user.username != userCtrl.username" class="btn btn-danger btn-block" data-toggle="modal" data-target="#DeleteUserModal" ng-click="userCtrl.selectUser(user.id)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                 </tr>
             </tbody>
         </table>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <div class="row" style="display: none;">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Subscribed</label>
                                 <div class="col-md-10">

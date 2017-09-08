@@ -2,9 +2,9 @@
     angular.module('app')
         .controller('UserController', UserController);
 
-    UserController.$inject = ['$scope', '$filter', 'UserService', '$q'];
+    UserController.$inject = ['$scope', '$filter', 'UserService', '$q', 'AuthenticationService'];
 
-    function UserController($scope, $filter, UserService, $q) {
+    function UserController($scope, $filter, UserService, $q, AuthenticationService) {
 
         var vm = this;
         vm.getNumber = getNumber;
@@ -12,6 +12,7 @@
         vm.updateUser = updateUser;
         vm.selectUser = selectUser;
         vm.deleteUser = deleteUser;
+        vm.username = AuthenticationService.currentUsername;
 
         vm.active;
         vm.subscription;
