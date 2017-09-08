@@ -329,7 +329,7 @@
                                                 <i class="fa fa-trash icon"></i> Delete
                                             </button>
                                    		</div>
-                                        <div ng-hide ="comment.commentUser == comCtrl.username">
+                                        <div ng-hide ="comment.commentUser == comCtrl.username || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1">
                                             <button ng-controller="AdminMessageController as amCtrl" href="#" class="btn btn-warning" data-toggle="modal" data-target="#report-comment-modal" ng-click="comCtrl.selectCommentToReport(comment)">
                                                 <i class="fa fa-flag icon"></i> Report
                                             </button>

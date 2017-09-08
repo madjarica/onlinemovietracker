@@ -105,14 +105,23 @@
                     WatchlistService.currentUserWatchlist = angular.copy(vm.watchlistCollection.watchlistElements);
                 })
             }).then(function () {
-                $location.url('watchlist')
+                $location.url('watchlist');
             })
 
         }
 
         function deleteWatchlist(id) {
             WatchlistService.deleteWatchlist(id).then(function () {
-                getUserWatchlist(vm.username);
+            	WatchlistService.getUserWatchlistCollection(vm.username).then(function (response) {            	
+                    console.log(vm.username);
+                    vm.userWatchlist = response.watchlistElements;
+                    WatchlistService.userWatchlist = vm.userWatchlist;
+                    console.log(vm.userWatchlist);
+                    vm.watchlistCollection = response;
+                    WatchlistService.selectedCollection = vm.watchlistCollection;
+                    WatchlistService.currentUserWatchlist = angular.copy(vm.watchlistCollection.watchlistElements);
+                    console.log(vm.watchlistCollection.watchlistElements);
+            })
             })
         }
 

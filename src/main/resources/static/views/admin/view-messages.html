@@ -15,7 +15,7 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="inbox">
-                <div ng-repeat="am in amCtrl.adminMessages">
+                <div ng-repeat="am in amCtrl.adminMessages | orderBy:'-createdDate'">
                     <!-- Comment -->
                     <div class="row" ng-if="!am.trashed">
                         <div class="col-xs-12">
@@ -62,7 +62,7 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="trash">
                 <!-- Comment -->
-                <div ng-repeat="am in amCtrl.adminMessages">
+                <div ng-repeat="am in amCtrl.adminMessages | orderBy:'-createdDate'">
                     <!-- Comment -->
                     <div class="row" ng-if="am.trashed">
                         <div class="col-xs-12">

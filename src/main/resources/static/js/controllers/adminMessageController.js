@@ -65,6 +65,7 @@
 
         
         function saveAdminMessage(adminMessage) {
+        	console.log(adminMessage);
             AdminMessageService.saveAdminMessage(adminMessage).then(function (response) {
                 getAdminMessages();
             })
@@ -79,6 +80,7 @@
             vm.notification.trashed = false;
             vm.adminResponseMessage = 'Your message is sent.';
             console.log(vm.adminResponseMessage);
+            adminMessage.reply  = '';
             NotificationService.saveNotification(vm.notification).then(function (response) {
             })
         }

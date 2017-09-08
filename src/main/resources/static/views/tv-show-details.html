@@ -365,24 +365,19 @@
                                             </span>
                                         </p>
                                     </div>
-                                    <div class="stats">
-                                        <button href="#" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#edit-comment-modal"
-                                                ng-click="comCtrl.selectComment(comment)">
-                                            <i class="fa fa-pencil icon"></i> Edit
-                                        </button>
-                                        <button href="#" class="btn btn-danger" data-toggle="modal"
-                                                data-target="#delete-comment-modal"
-                                                ng-click="comCtrl.selectComment(comment)">
-                                            <i class="fa fa-trash icon"></i> Delete
-                                        </button>
-                                        <button ng-controller="AdminMessageController as amCtrl" href="#"
-                                                class="btn btn-warning" data-toggle="modal"
-                                                data-target="#report-comment-modal"
-                                                ng-click="comCtrl.selectCommentToReport(comment)">
-                                            <i class="fa fa-flag icon"></i> Report
-                                        </button>
-                                    </div>
+                                    <div class="stats" ng-if="((comment.commentUser == comCtrl.username) || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1)" >
+                                            <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-comment-modal" ng-click="comCtrl.selectComment(comment)">
+                                                <i class="fa fa-pencil icon"></i> Edit
+                                            </button>
+                                            <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-comment-modal" ng-click="comCtrl.selectComment(comment)">
+                                                <i class="fa fa-trash icon"></i> Delete
+                                            </button>
+                                   		</div>
+                                        <div ng-hide ="comment.commentUser == comCtrl.username || comCtrl.roles.indexOf('ROLE_ADMIN') !== -1">
+                                            <button ng-controller="AdminMessageController as amCtrl" href="#" class="btn btn-warning" data-toggle="modal" data-target="#report-comment-modal" ng-click="comCtrl.selectCommentToReport(comment)">
+                                                <i class="fa fa-flag icon"></i> Report
+                                            </button>
+                                        </div>
                                 </div>
                             </div>
                         </div>

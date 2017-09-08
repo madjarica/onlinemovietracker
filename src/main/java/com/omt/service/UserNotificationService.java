@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.omt.domain.AdminMessage;
 import com.omt.domain.UserNotification;
 import com.omt.repository.UserNotificationRepository;
 
@@ -56,6 +57,13 @@ public class UserNotificationService {
     	return userNotificationRepository.getUserNotificationByWatchlistId(id);
 	}
 
+	public void deleteForComments(Long id){
+        List<UserNotification> userNotifications = userNotificationRepository.findByComment(id);
+        for (int i = 0; i < userNotifications.size(); i++) {
+            userNotificationRepository.delete(userNotifications.get(i));
+        }
+    }
+	
     public void sendNewPassword(String email, String password, String password_activation_link) throws MessagingException {
 
 		MimeMessage message = javaMailSender.createMimeMessage();

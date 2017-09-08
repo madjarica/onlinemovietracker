@@ -151,6 +151,7 @@
             vm.newMessage.readState = false;
             vm.newMessage.sentBy = vm.username;
             vm.newMessage.trashed = false;
+            vm.newMessage.createdDate = new Date();
             if ($location.path === '/watchlist') {
                 vm.newMessage.watchlist = vm.selectedWatchlist;
             }
@@ -165,6 +166,7 @@
                 .then(function (response) {
                     console.log(response);
                     vm.watchlistCollection.comment.push(response);
+                    vm.commentContent = "";
                 }).then(function () {
                 WatchlistService.saveWatchlistCollection(vm.watchlistCollection).then(function () {
                         console.log(vm.watchlistCollection);

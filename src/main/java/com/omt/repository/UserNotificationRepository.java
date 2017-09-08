@@ -18,4 +18,6 @@ public interface UserNotificationRepository extends JpaRepository<UserNotificati
     public List<UserNotification> findByReciver(String name);
 
     public List<UserNotification> getUserNotificationByWatchlistId(Long id);
+    
+    public List<UserNotification> findByComment(Long id);
 }

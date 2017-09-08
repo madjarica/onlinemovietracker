@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="post-description">
                                             <p>You wanted to watch {{notify.watchlist.video.name}} today at
-                                                {{notify.createdDate | date: "dd-MMM-yyyy, H:mm"}}</p>
+                                                {{notify.createdDate | date: "H:mm"}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -111,12 +111,12 @@
                                                     <i class="fa fa-trash icon"></i>
                                                 </a>
                                             </div>
-                                            <div class="pull-right">
+                                           <!--  <div class="pull-right">
                                                 <a class="btn btn-default"
                                                    ng-click="">
                                                     <i class="fa fa-id-card" aria-hidden="true"></i>
                                                 </a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="post-description">
                                             <p>{{notify.sender}} commented on your watchlistCollection</p>
@@ -193,7 +193,7 @@
                                         </div>
                                         <div class="post-description">
                                             <p>You wanted to watch {{notify.watchlist.video.name}} today at
-                                                {{notify.createdDate | date: "dd-MMM-yyyy, H:mm"}}</p>
+                                                {{notify.createdDate | date: "H:mm"}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +233,42 @@
                             </div>
                             <br>
                         </div>
-
+                        
+                          <div ng-if="notify.type === 'notification_list_comment'">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel panel-white post panel-shadow">
+                                        <div class="post-heading">
+                                            <div class="pull-left image">
+                                                <img src="/img/avatar.jpg"
+                                                     class="img-circle avatar"
+                                                     alt="user profile image">
+                                            </div>
+                                            <div class="pull-left meta">
+                                                <div class="title h5">
+                                                    <b>{{notify.sender}}</b>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn btn-warning" ng-click="notifyController.deleteNotification(notify)">
+                                                    <i class="fa fa-trash icon"></i>
+                                                </a>
+                                            </div>
+                                           <!--  <div class="pull-right">
+                                                <a class="btn btn-default"
+                                                   ng-click="">
+                                                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                                                </a>
+                                            </div> -->
+                                        </div>
+                                        <div class="post-description">
+                                            <p>{{notify.sender}} commented on your watchlistCollection</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
 
                         <div ng-if="notify.type === 'notification_admin'">
                             <div class="row">
