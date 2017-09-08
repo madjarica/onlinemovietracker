@@ -76,6 +76,7 @@
             vm.notification.sender = vm.username;
             vm.notification.reciver = adminMessage.sentBy;
             vm.notification.message = adminMessage.reply;
+            vm.notification.createdDate = new Date();
             vm.notification.read = false;
             vm.notification.trashed = false;
             vm.adminResponseMessage = 'Your message is sent.';
