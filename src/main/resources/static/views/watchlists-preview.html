@@ -54,6 +54,11 @@
                                       ng-class="{reverse: wCtrl.reverse}"></span>
                             </span>
                         </th>
+                        <th>
+                            <span style="cursor: pointer;">
+                                <span>Watchlist user</span>
+                            </span>
+                        </th>
                     </tr>
                     </thead>
                     <tbody ng-repeat="watchlist in wCtrl.userWatchlist | orderBy:wCtrl.propertyName:wCtrl.reverse" ng-controller="RatingController as rateCtrl">
@@ -71,7 +76,7 @@
 <!--                                 </span> -->
                             </td>
                             <td ng-click="watchCtrl.goToDetailsPage(watchlist)">{{watchlist.numberOfComments}}</td>
-<!--                             <td ng-click="watchCtrl.goToWatchlistCollection(watchlist.watchlistUser)">{{watchlist.watchlistUser}}</td> -->
+                             <td ng-controller="HomeController as homeCtrl" ng-click="homeCtrl.goToWatchlistCollection(watchlist.watchlistUser)">{{watchlist.watchlistUser}}</td>
                         </tr>
                     </tbody>
                 </table>
